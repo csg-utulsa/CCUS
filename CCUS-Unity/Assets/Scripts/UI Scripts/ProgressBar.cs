@@ -10,6 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ProgressBar : MonoBehaviour
 {
@@ -20,6 +21,10 @@ public class ProgressBar : MonoBehaviour
 
     public Image mask;
     public Image fill;
+
+    public TextMeshProUGUI barText;
+    public string baseText;
+    public string units;
 
     private void Start()
     {
@@ -39,7 +44,10 @@ public class ProgressBar : MonoBehaviour
             fill.GetComponent<Image>().color = new Color(fillAmount, 1 - fillAmount, 0.2f);
             Debug.Log(fill.color);
         }
-        
+
+        // Set text
+        string newText = baseText + "\t" + currentBarValue + " " + units + " / " + maxBarValue + " " + units;
+        barText.text = newText;
     }
 
     // Sets the value of the bar directly
