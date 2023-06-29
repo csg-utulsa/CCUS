@@ -22,12 +22,14 @@ public class ProgressBar : MonoBehaviour
     public Image mask;
     public Image fill;
 
+    public bool doText = true;
     public TextMeshProUGUI barText;
     public string baseText;
     public string units;
 
     private void Start()
     {
+        if(!doText) { barText.gameObject.SetActive(false); }
         SetBarFill();
     }
 
@@ -46,8 +48,12 @@ public class ProgressBar : MonoBehaviour
         }
 
         // Set text
-        string newText = baseText + "\t" + currentBarValue + " " + units + " / " + maxBarValue + " " + units;
-        barText.text = newText;
+        if(doText)
+        {
+            string newText = baseText + "\t" + currentBarValue + " " + units + " / " + maxBarValue + " " + units;
+            barText.text = newText;
+        }
+       
     }
 
     // Sets the value of the bar directly
