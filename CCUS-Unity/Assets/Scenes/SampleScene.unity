@@ -213,14 +213,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 90333635}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0.0028049601, z: 0, w: 0.99999607}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -0.321, z: 0}
 --- !u!1 &506658617
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,7 +282,7 @@ MonoBehaviour:
   gridLayout: {fileID: 506658618}
   MainTilemap: {fileID: 1851640392}
   whiteTile: {fileID: 11400000, guid: 77a92711b3ccb9f4c9c14c9b63abfbea, type: 2}
-  prefab1: {fileID: 1217798942280457934, guid: 7baa3c8bffacabc4f814bccd4a4278a7, type: 3}
+  prefab1: {fileID: 630268559774367282, guid: 67e5ae2c7e1151548b33ac2fef43ccba, type: 3}
   prefab2: {fileID: 1217798942280457934, guid: 1cbd69a220720d04185262e341e06d1e, type: 3}
 --- !u!1 &705507993
 GameObject:
@@ -1025,8 +1025,8 @@ Tilemap:
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Origin: {x: -6, y: -6, z: 0}
-  m_Size: {x: 12, y: 12, z: 1}
+  m_Origin: {x: -8, y: -8, z: 0}
+  m_Size: {x: 14, y: 14, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 1
   m_TileOrientationMatrix:

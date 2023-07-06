@@ -64,6 +64,7 @@ public class BuildingSystem : MonoBehaviour
 
     #region Utils
 
+    // Raycast to get world position of mouse hover input
     public static Vector3 GetMouseWorldPosition() 
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -77,6 +78,7 @@ public class BuildingSystem : MonoBehaviour
         }
     }
 
+    //gets cell center's world position
     public Vector3 SnapCoordinateToGrid(Vector3 position) 
     {
         Vector3Int cellPos = gridLayout.WorldToCell(position);
