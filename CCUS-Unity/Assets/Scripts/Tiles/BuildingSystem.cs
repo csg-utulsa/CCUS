@@ -109,7 +109,7 @@ public class BuildingSystem : MonoBehaviour
 
         GameObject obj = Instantiate(prefab, position, Quaternion.identity);
         objectToPlace = obj.GetComponent<PlaceableObject>();
-        obj.AddComponent<ObjectDrag>();
+        //obj.AddComponent<ObjectDrag>();
     }
 
     public bool CanBePlaced(PlaceableObject placeableObject)
