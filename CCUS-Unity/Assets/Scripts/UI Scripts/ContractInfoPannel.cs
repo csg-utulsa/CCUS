@@ -1,7 +1,5 @@
 /*
- * Script to handle activating and deactivating the info pannel for contracts in the UI 
- * 
- * Info referenced from: https://discussions.unity.com/t/onmouseover-ui-button-c/166886/2
+ * Script to handle editing the information in the shared contract information panel
  */
 
 using System.Collections;
@@ -11,23 +9,29 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class ContractInfoPannel : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class ContractInfoPannel : MonoBehaviour
 {
-    public GameObject infoPannel;
-    
+    public TextMeshProUGUI contractNameText;
+    public TextMeshProUGUI contractDescriptionText;
+    public TextMeshProUGUI contractRewardText;
 
     void Start()
     {
-        infoPannel.SetActive(false);
+        this.gameObject.SetActive(false);
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    public void SetContractName(string contractName)
     {
-        infoPannel.SetActive(true);
+        contractNameText.text = contractName;
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    public void SetContractDescription(string contractDescription)
     {
-        infoPannel.SetActive(false);
+        contractDescriptionText.text = contractDescription;
+    }
+
+    public void SetContractReward(string contractReward)
+    {
+        contractRewardText.text = contractReward;
     }
 }

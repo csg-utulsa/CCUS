@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5f3003a421569f4cac5a635248143ff, type: 3}
+  m_Name: ContractDataTest
+  m_EditorClassIdentifier: 
+  title: Top secret contract
+  fullDescription: Super secret contract for only me, the super secret developer
+    who wrote the super secret contract
+  goalResource: 0
+  goalAmount: 500
+  goalDescription: Defeat 500 tons of carbon in battle for $5
+  goalUnits: T
+  rewardResource: 1
+  reward: 5

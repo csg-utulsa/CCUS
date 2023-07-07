@@ -6,16 +6,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu]
 public class ContractData : ScriptableObject
 {
     public string title;
     public string fullDescription;
 
-    public string goalResource;
+    public enum resourceOption { CARBON, MONEY }
+    [Space(10)]
+    public resourceOption goalResource;
     public float goalAmount;
     public string goalDescription;
     public string goalUnits;
 
+    [Space(10)]
+    public resourceOption rewardResource;
     public float reward;
 
     // TODO: Add field for sprite and name of person who gave the contract
