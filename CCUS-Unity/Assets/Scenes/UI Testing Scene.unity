@@ -1702,6 +1702,7 @@ MonoBehaviour:
   doColorTransition: 1
   mask: {fileID: 57399509}
   fill: {fileID: 1545205755}
+  doText: 1
   barText: {fileID: 1644162058}
   baseText: 'CO2 Level:'
   units: T
