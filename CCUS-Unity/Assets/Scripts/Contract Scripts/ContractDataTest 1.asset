@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e5f3003a421569f4cac5a635248143ff, type: 3}
-  m_Name: ContractDataTest
+  m_Name: ContractDataTest 1
   m_EditorClassIdentifier: 
   title: Top secret contract
   fullDescription: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do

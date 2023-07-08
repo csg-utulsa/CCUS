@@ -45,6 +45,7 @@ public class ContractUIElement : MonoBehaviour, IPointerEnterHandler, IPointerEx
             infoPannel.gameObject.SetActive(true);
             infoPannel.SetContractName(contractData.title);
             infoPannel.SetContractDescription(contractData.fullDescription);
+            infoPannel.SetContractGoalDescription(contractData.goalDescription);
             infoPannel.SetContractReward("Reward: " + contractData.reward.ToString());
         }
     }

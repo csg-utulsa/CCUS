@@ -14,6 +14,7 @@ public class ContractInfoPannel : MonoBehaviour
     public TextMeshProUGUI contractNameText;
     public TextMeshProUGUI contractDescriptionText;
     public TextMeshProUGUI contractRewardText;
+    public TextMeshProUGUI contractGoalDescriptionText;
 
     void Start()
     {
@@ -33,5 +34,10 @@ public class ContractInfoPannel : MonoBehaviour
     public void SetContractReward(string contractReward)
     {
         contractRewardText.text = contractReward;
+    }
+
+    public void SetContractGoalDescription(string contractGoalDescription)
+    {
+        contractGoalDescriptionText.text = contractGoalDescription;
     }
 }
