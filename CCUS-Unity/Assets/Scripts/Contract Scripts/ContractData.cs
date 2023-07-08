@@ -10,6 +10,7 @@ using UnityEngine;
 public class ContractData : ScriptableObject
 {
     public string title;
+    [TextArea(6,6)]
     public string fullDescription;
 
     public enum resourceOption { CARBON, MONEY }

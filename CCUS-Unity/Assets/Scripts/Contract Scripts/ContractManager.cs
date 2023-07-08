@@ -8,25 +8,16 @@ using UnityEngine;
 
 public class ContractManager : MonoBehaviour
 {
-    
-    public List<Contract> availableContracts; // List of all contracts available in the level, set in inspector
+    [SerializeField]
+    private List<ContractData> availableContracts; // List of all contracts available in the level, set in inspector
     
     [SerializeField]
     private List<ContractData> activeContracts; // List containing every contract currently active, set at runtime
 
+    [SerializeField]
+    private List<ContractUIElement> contractUIElements; // List of all the contract UI elements, set in inspector
+
     public int maxActiveContracts = 3;
-
-    // Adds a contract to the contract UI panel
-    private void AddContractToUI(ContractData contract)
-    {
-        // TODO: AddContractToUI
-    }
-
-    // Removes a contract from the contract UI panel
-    private void RemoveContractFromUI(ContractData contract)
-    {
-        // TODO: RemoveContractFromUI
-    }
 
      // Overload to grab a contract from the available contracts list at a given index
     public void MakeContractActive(int index)
@@ -37,9 +28,9 @@ public class ContractManager : MonoBehaviour
     // Takes a ContractData object and adds it to the contract UI if there's space
     public void MakeContractActive(ContractData contract)
     {
-        if(maxActiveContracts < activeContracts.Count)
+        if(maxActiveContracts > activeContracts.Count)
         {
-            AddContractToUI(contract);
+            contractUIElements[activeContracts.Count].AddContract(contract);
             activeContracts.Add(contract);
         }
         
@@ -50,7 +41,7 @@ public class ContractManager : MonoBehaviour
     {
         if (index < availableContracts.Count)
         {
-            RemoveContractFromUI(activeContracts[index]);
+            contractUIElements[index].RemoveContract();
             activeContracts.RemoveAt(index);
         }
     }
@@ -60,10 +51,10 @@ public class ContractManager : MonoBehaviour
     {
         if(activeContracts.Contains(contract))
         {
-            RemoveContractFromUI(contract);
+            contractUIElements[activeContracts.IndexOf(contract)].RemoveContract();
             activeContracts.Remove(contract);
         }
     }
     
-    // TODO: Add functionality to check if contracts are complete when receiving resource updates
+    // TODO: Add functionality to pass resource updates to contract UI and check if contracts are completed
 }
