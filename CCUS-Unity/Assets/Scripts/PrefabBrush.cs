@@ -34,7 +34,7 @@ public class PrefabBrush : GameObjectBrush
             Transform child = parent.GetChild(i);
             if (bounds.Contains(child.position))
             {
-                if (child != GameObject.Find("Tilemap"))
+                if (child != parent.Find("Tilemap"))
                 {
                     return child;
                 }
