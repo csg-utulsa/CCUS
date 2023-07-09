@@ -1,3 +1,9 @@
+/** TODO: 
+*   - Add method that spawns object under mouse when GUI is clicked 
+*   - Have object follow mouse outside of world border
+        -- Change click-to-drag to always follow w/ click to place
+*   - Prevent multiple buildings to follow mouse (true/false)
+**/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
