@@ -48,8 +48,8 @@ public class PlaceableObject : MonoBehaviour
 
     public virtual void Place()
     {
-        ObjectDrag drag = gameObject.GetComponent<ObjectDrag>();
-        Destroy(drag);
+        //ObjectDrag drag = gameObject.GetComponent<ObjectDrag>();
+        //Destroy(drag);
 
         Placed = true;
 
