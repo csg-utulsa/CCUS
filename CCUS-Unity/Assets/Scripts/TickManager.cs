@@ -19,14 +19,17 @@ public class TickManager : MonoBehaviour
     }
     #endregion
 
-    public UnityEvent tick { get; private set; }
+    /// <summary>
+    /// UnityEvent that is called every time a year is incremented in the simulation.
+    /// </summary>
+    public UnityEvent Tick { get; private set; }
     float timer;
     float secBetweenYears = 4;
 
     private void Awake()
     {
         LoadManager();
-        tick = new UnityEvent();
+        Tick = new UnityEvent();
     }
 
     private void Update()
@@ -35,7 +38,8 @@ public class TickManager : MonoBehaviour
         if (timer > secBetweenYears)
         {
             timer = 0;
-            tick.Invoke();
+            Tick.Invoke();
+            DataManager.DM.IncrementYear();
         }
     }
 }

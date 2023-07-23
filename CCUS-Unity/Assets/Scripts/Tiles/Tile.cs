@@ -55,7 +55,7 @@ public class Tile : MonoBehaviour
 
     private void Awake()
     {
-        TickManager.TM.tick.AddListener(OnTick);
+        TickManager.TM.Tick.AddListener(OnTick);
     }
 
     private void Update()
