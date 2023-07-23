@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a5987a142a40cc4fa0c05b204dd415a, type: 3}
-  m_Name: Oak Tree
+  m_Name: Pine Tree
   m_EditorClassIdentifier: 
-  Name: Oak Tree
-  BuildCost: 10
-  AnnualCost: 10
+  Name: Pine Tree
+  BuildCost: 15
+  AnnualCost: 20
   AnnualCarbonRemoved: 15
   AnnualCarbonAdded: 0
   AnnualCarbonStored: 0

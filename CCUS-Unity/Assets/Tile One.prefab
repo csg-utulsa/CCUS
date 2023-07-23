@@ -113,8 +113,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileType: 0
-  tileScriptableObject: {fileID: 11400000, guid: 4bd5c2b14a661f048a21cce36aa396d6, type: 2}
+  tileScriptableObject: {fileID: 11400000, guid: a54fa51cf27e90549be15d1bc33ef758, type: 2}
   po: {fileID: -1735793647893794114}
+  state: 0
 --- !u!114 &-1735793647893794114
 MonoBehaviour:
   m_ObjectHideFlags: 0
