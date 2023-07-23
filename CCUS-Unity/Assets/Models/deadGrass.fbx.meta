@@ -3,12 +3,32 @@ guid: 9ba8e1c74957f25448def78067af0b4a
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.018
+    second: {fileID: 2100000, guid: 4f5f324a0cf8c5649b89710868898313, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.019
+    second: {fileID: 2100000, guid: 0439472d3649d3d4cbdb0d0bc468fc41, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: cf2111c2acdc9b075f176c922438b30a
+    second: {fileID: 2800000, guid: 19c4309ca2843684db6e545ae8260030, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: seamless-texture-dry-grass-background-yellow-bushes-for-wallpaper-game-ui-vector
+    second: {fileID: 2800000, guid: 14dcc1f89ad40b748b05668f4800e113, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
     materialSearch: 1
-    materialLocation: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0

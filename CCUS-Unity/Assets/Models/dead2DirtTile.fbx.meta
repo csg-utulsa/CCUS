@@ -18,17 +18,17 @@ ModelImporter:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: cf2111c2acdc9b075f176c922438b30a
-    second: {fileID: 2800000, guid: 53b9d5f078a9820408db934bc0aa80d8, type: 3}
+    second: {fileID: 2800000, guid: 4ce766f7f74d27e409961334a3aae985, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: grassDEADgoing
-    second: {fileID: 2800000, guid: 52dfa3f00205f954ab7f9d5b0779d65c, type: 3}
+    second: {fileID: 2800000, guid: 57c014b01561e804b95634a0ed88e54f, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
     materialSearch: 1
-    materialLocation: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
