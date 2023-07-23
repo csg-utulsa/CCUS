@@ -3,12 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(ObjectDrag))]
 public class PlaceableObject : MonoBehaviour
 {
     public bool Placed { get; private set; }
     public Vector3Int Size { get; private set; }
 
     private Vector3[] Vertices;
+
+    [SerializeField] Tile tile;
+
+    ObjectDrag drag;
+
+    private void Awake()
+    {
+        drag = GetComponent<ObjectDrag>();
+    }
 
     private void GetColliderVertexPositionsLocal()
     {
@@ -48,12 +58,21 @@ public class PlaceableObject : MonoBehaviour
 
     public virtual void Place()
     {
-        //ObjectDrag drag = gameObject.GetComponent<ObjectDrag>();
-        //Destroy(drag);
-
+        drag.Place();
         Placed = true;
 
         //invoke events of placement
+        tile.SetTileState(TileState.Static);
+    }
+
+    public virtual void Pickup()
+    {
+
+        drag.Pickup();
+
+        Placed = false;
+
+        tile.SetTileState(TileState.Moveable);
     }
 
 }

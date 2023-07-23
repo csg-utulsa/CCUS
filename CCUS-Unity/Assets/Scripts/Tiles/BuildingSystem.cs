@@ -5,16 +5,19 @@ using UnityEngine.Tilemaps;
 
 public class BuildingSystem : MonoBehaviour
 {
-    public static BuildingSystem current;
+    public static BuildingSystem current { get; private set; }
 
     public GridLayout gridLayout;
     private Grid grid;
     [SerializeField] private Tilemap MainTilemap;
     [SerializeField] private TileBase whiteTile;
 
-    public GameObject prefab1;
-    public GameObject prefab2;
+    [SerializeField] GameObject[] prefabs;
 
+    /*public GameObject prefab1;
+    public GameObject prefab2;*/
+
+    private GameObject activeObject;
     private PlaceableObject objectToPlace;
 
     #region Unity methods
@@ -27,16 +30,34 @@ public class BuildingSystem : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        //THIS IS DUMB. DONT LEAVE AFTER THIS BUILD. new input system? UI instead? ~Coleton
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            InitializeWithObject(prefab1);
+            if (1 <= prefabs.Length)
+                InitializeWithObject(prefabs[0]);
         }
-        else if (Input.GetKeyDown(KeyCode.B))
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            InitializeWithObject(prefab2);
+            if (2 <= prefabs.Length)
+                InitializeWithObject(prefabs[1]);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            if (3 <= prefabs.Length)
+                InitializeWithObject(prefabs[2]);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            if (4 <= prefabs.Length)
+                InitializeWithObject(prefabs[3]);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            if (5 <= prefabs.Length)
+                InitializeWithObject(prefabs[4]);
         }
 
-        if(!objectToPlace)
+        if (!activeObject)
         {
             return;
         }
@@ -48,15 +69,17 @@ public class BuildingSystem : MonoBehaviour
                 objectToPlace.Place();
                 Vector3Int start = gridLayout.WorldToCell(objectToPlace.GetStartPosition());
                 TakeArea(start, objectToPlace.Size);
+                activeObject = null;
+                objectToPlace = null;
             }
             else
             {
-                Destroy(objectToPlace.gameObject);
+                Destroy(activeObject);
             }
         }
         else if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Destroy(objectToPlace.gameObject);
+            Destroy(activeObject);
         }
     }
 
@@ -79,6 +102,7 @@ public class BuildingSystem : MonoBehaviour
 
     public Vector3 SnapCoordinateToGrid(Vector3 position) 
     {
+        position = position + GetMouseWorldPosition();
         Vector3Int cellPos = gridLayout.WorldToCell(position);
         position = grid.GetCellCenterWorld(cellPos);
         return position;
@@ -105,11 +129,20 @@ public class BuildingSystem : MonoBehaviour
 
     public void InitializeWithObject(GameObject prefab)
     {
+        if (objectToPlace != null) return;
         Vector3 position = SnapCoordinateToGrid(Vector3.zero);
 
         GameObject obj = Instantiate(prefab, position, Quaternion.identity);
+        activeObject = obj;
         objectToPlace = obj.GetComponent<PlaceableObject>();
-        //obj.AddComponent<ObjectDrag>();
+    }
+
+    public bool MoveObject(GameObject obj)
+    {
+        if (activeObject != null) return false;
+        activeObject = obj;
+        objectToPlace = activeObject.GetComponent<PlaceableObject>();
+        return true;
     }
 
     public bool CanBePlaced(PlaceableObject placeableObject)

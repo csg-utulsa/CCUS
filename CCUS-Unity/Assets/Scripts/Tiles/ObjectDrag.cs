@@ -4,14 +4,7 @@ using UnityEngine;
 
 public class ObjectDrag : MonoBehaviour
 {
-    //private Vector3 offset;
-    bool dragging = false;
-
-    public void Drag()
-    {
-        dragging = true;
-        //offset = transform.position - BuildingSystem.GetMouseWorldPosition();
-    }
+    bool dragging = true;
 
     public void Update()
     {
@@ -25,8 +18,8 @@ public class ObjectDrag : MonoBehaviour
         dragging = false;
     }
 
-    public bool isDragging()
+    public void Pickup()
     {
-        return dragging;
+        dragging = true;
     }
 }
