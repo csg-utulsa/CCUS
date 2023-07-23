@@ -20,11 +20,11 @@ public class DataManager : MonoBehaviour
     [SerializeField] int startingMoney;
     [SerializeField] int startingCarbon;
     [SerializeField] int startingYear;
-    int money;
-    int carbon;
-    int year;
-    int storageCapacity;
-    int stored;
+    [SerializeField] int money;
+    [SerializeField] int carbon;
+    [SerializeField] int year;
+    [SerializeField] int storageCapacity;
+    [SerializeField] int stored;
 
     private void Awake()
     {

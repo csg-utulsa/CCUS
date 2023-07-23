@@ -15,7 +15,8 @@ public class BuildingSystem : MonoBehaviour
 
     public GridLayout gridLayout;
     private Grid grid;
-    [SerializeField] private Tilemap MainTilemap;
+    [SerializeField] private Tilemap TerrainTilemap;
+    [SerializeField] private Tilemap PlaceablesTilemap;
     [SerializeField] private TileBase whiteTile;
 
     [SerializeField] GameObject[] prefabs;
@@ -25,6 +26,7 @@ public class BuildingSystem : MonoBehaviour
 
     private GameObject activeObject;
     private PlaceableObject objectToPlace;
+    private Tile activeTile;
 
     #region Unity methods
 
@@ -75,8 +77,11 @@ public class BuildingSystem : MonoBehaviour
                 objectToPlace.Place();
                 Vector3Int start = gridLayout.WorldToCell(objectToPlace.GetStartPosition());
                 TakeArea(start, objectToPlace.Size);
+                int cost = activeTile.tileScriptableObject.BuildCost;
+                DataManager.DM.AdjustMoney(-1 * cost);
                 activeObject = null;
                 objectToPlace = null;
+                activeTile = null;
             }
             else
             {
@@ -143,6 +148,7 @@ public class BuildingSystem : MonoBehaviour
         GameObject obj = Instantiate(prefab, position, Quaternion.identity);
         activeObject = obj;
         objectToPlace = obj.GetComponent<PlaceableObject>();
+        activeTile = obj.GetComponent<Tile>();
     }
 
     public bool MoveObject(GameObject obj)
@@ -159,11 +165,20 @@ public class BuildingSystem : MonoBehaviour
         area.position = gridLayout.WorldToCell(objectToPlace.GetStartPosition());
         area.size = new Vector3Int(area.size.x + 1, area.size.y + 1, area.size.z);
 
-        TileBase[] baseArray = GetTilesBlock(area, MainTilemap);
+        TileBase[] baseArray = GetTilesBlock(area, TerrainTilemap);
 
         foreach (var b in baseArray)
         {
             if (b == whiteTile)
+            {
+                return false;
+            }
+        }
+
+        int cost = activeTile.tileScriptableObject.BuildCost;
+        if (cost != 0 && activeTile.state == TileState.Uninitialized)
+        {
+            if (DataManager.DM.GetMoney() < cost)
             {
                 return false;
             }
@@ -174,8 +189,17 @@ public class BuildingSystem : MonoBehaviour
 
     public void TakeArea(Vector3Int start, Vector3Int size)
     {
-        MainTilemap.BoxFill(start, whiteTile, start.x, start.y,
+        switch (activeObject.GetComponent<Tile>().GetTileType())
+        {
+            case TileType.Terrain:
+                TerrainTilemap.BoxFill(start, whiteTile, start.x, start.y,
                             start.x + size.x, start.y + size.y);
+                break;
+            case TileType.Placeable:
+                PlaceablesTilemap.BoxFill(start, whiteTile, start.x, start.y,
+                            start.x + size.x, start.y + size.y);
+                break;
+        }
     }
 
     #endregion

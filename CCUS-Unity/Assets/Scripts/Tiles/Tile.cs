@@ -4,17 +4,20 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
+    [SerializeField] TileType tileType;
+    public TileScriptableObject tileScriptableObject;
     [SerializeField] PlaceableObject po;
-    TileState state = TileState.Uninitialized;
+
+    public TileState state = TileState.Uninitialized;
     bool menuOpen = false;
 
 
     // Decorator system is a work in progress ~Coleton
-    TileDecorator td;
+    /*TileDecorator td;
     public void SetTileDecorator(TileDecorator td)
     {
         this.td = td;
-    }
+    }*/
 
     // This method is pretty bad but I needed to have it to test features. Can be reworked at a later date. ~Coleton
     private void CheckForInput()
@@ -48,7 +51,16 @@ public class Tile : MonoBehaviour
     void OnTick()
     {
         if (state != TileState.Static) return;
-        Debug.Log(gameObject.name + ": Tick received");
+        if (tileScriptableObject.AnnualIncome != 0)
+            DataManager.DM.AdjustMoney(tileScriptableObject.AnnualIncome);
+        if (tileScriptableObject.AnnualCost != 0)
+            DataManager.DM.AdjustMoney(-1 * tileScriptableObject.AnnualCost);
+        if (tileScriptableObject.AnnualCarbonStored != 0)
+            DataManager.DM.AdjustStored(tileScriptableObject.AnnualCarbonStored);
+        if (tileScriptableObject.AnnualCarbonRemoved != 0)
+            DataManager.DM.AdjustCarbon(-1 * tileScriptableObject.AnnualCarbonRemoved);
+        if (tileScriptableObject.AnnualCarbonAdded != 0)
+            DataManager.DM.AdjustCarbon(tileScriptableObject.AnnualCarbonAdded);
     }
 
     #region Unity Methods
@@ -99,9 +111,19 @@ public class Tile : MonoBehaviour
     }
 
     #endregion
+
+    public TileType GetTileType()
+    {
+        return tileType;
+    }
 }
 
 public enum TileState
 {
     Uninitialized, Static, Moveable
+}
+
+public enum TileType
+{
+    Terrain, Placeable
 }

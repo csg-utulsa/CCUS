@@ -112,6 +112,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c00ae30ee8fe0a4eb3563927540d9bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileType: 0
+  tileScriptableObject: {fileID: 11400000, guid: 4bd5c2b14a661f048a21cce36aa396d6, type: 2}
   po: {fileID: -1735793647893794114}
 --- !u!114 &-1735793647893794114
 MonoBehaviour:
