@@ -375,7 +375,7 @@ MonoBehaviour:
   whiteTile: {fileID: 11400000, guid: 77a92711b3ccb9f4c9c14c9b63abfbea, type: 2}
   prefabs:
   - {fileID: 1719808744136052665, guid: 3a2d3674235ebdd44a83ebc40be41410, type: 3}
-  - {fileID: 1217798942280457934, guid: 7baa3c8bffacabc4f814bccd4a4278a7, type: 3}
+  - {fileID: 1719808744136052665, guid: ce5cb31811b17cb4a915c6e9225eaee8, type: 3}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
