@@ -1802,7 +1802,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   yearText: {fileID: 4448094397857290784}
   moneyText: {fileID: 3554003824691911782}
-  storageCapacity: {fileID: 2610996022567274356}
+  storageText: {fileID: 2610996022567274356}
+  carbonBar: {fileID: 374369395337713220}
 --- !u!1 &374369395843201717
 GameObject:
   m_ObjectHideFlags: 0

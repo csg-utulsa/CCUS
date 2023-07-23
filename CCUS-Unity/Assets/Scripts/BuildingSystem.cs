@@ -88,7 +88,7 @@ public class BuildingSystem : MonoBehaviour
                 Destroy(activeObject);
             }
         }
-        else if (Input.GetKeyDown(KeyCode.Escape))
+        else if (Input.GetKeyDown(KeyCode.Q))
         {
             Destroy(activeObject);
         }
