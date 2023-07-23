@@ -62,7 +62,7 @@ public class PlaceableObject : MonoBehaviour
         Placed = true;
 
         //invoke events of placement
-        tile.SetTileState(TileState.Static);
+        //tile.SetTileState(TileState.Static);
     }
 
     public virtual void Pickup()
