@@ -117,8 +117,8 @@
             "userAdded": false,
             "type": "UnityEditor.SceneAsset",
             "ignore": false,
-            "defaultInstantiationMode": 1,
-            "supportsModification": true
+            "defaultInstantiationMode": 0,
+            "supportsModification": false
         },
         {
             "userAdded": false,
