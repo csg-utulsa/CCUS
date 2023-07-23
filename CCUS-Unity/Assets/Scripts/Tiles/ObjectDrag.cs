@@ -5,6 +5,7 @@ using UnityEngine;
 public class ObjectDrag : MonoBehaviour
 {
     bool dragging = true;
+    //public Boolean terrain;
 
     public void Update()
     {

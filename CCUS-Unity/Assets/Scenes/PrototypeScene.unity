@@ -374,7 +374,7 @@ MonoBehaviour:
   MainTilemap: {fileID: 1851640392}
   whiteTile: {fileID: 11400000, guid: 77a92711b3ccb9f4c9c14c9b63abfbea, type: 2}
   prefabs:
-  - {fileID: 1217798942280457934, guid: 1cbd69a220720d04185262e341e06d1e, type: 3}
+  - {fileID: 1719808744136052665, guid: 3a2d3674235ebdd44a83ebc40be41410, type: 3}
   - {fileID: 1217798942280457934, guid: 7baa3c8bffacabc4f814bccd4a4278a7, type: 3}
 --- !u!1 &705507993
 GameObject:
@@ -546,14 +546,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.34930328, y: 0.35427746, z: -0.14468615, w: 0.8553015}
-  m_LocalPosition: {x: -5.6, y: 6.07, z: -5.36}
+  m_LocalRotation: {x: 0.38613212, y: 0.34765705, z: -0.15994115, w: 0.83931845}
+  m_LocalPosition: {x: -3.72, y: 6.07, z: -3.76}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 44.43, y: 45, z: 0}
+  m_LocalEulerAnglesHint: {x: 49.41, y: 45, z: 0}
 --- !u!1 &1851640389
 GameObject:
   m_ObjectHideFlags: 0

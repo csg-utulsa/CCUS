@@ -110,11 +110,24 @@ public class BuildingSystem : MonoBehaviour
     //gets cell center's world position
     public Vector3 SnapCoordinateToGrid(Vector3 position) 
     {
-        position = position + GetMouseWorldPosition();
+        //position = position + GetMouseWorldPosition();
         Vector3Int cellPos = gridLayout.WorldToCell(position);
         position = grid.GetCellCenterWorld(cellPos);
         return position;
     }
+
+    /**
+    // NOTE: Could work for objects that placed on top of terrain tiles
+    public Vector3 SnapCoordinateToGrid(Vector3 position, Boolean terrain) 
+    {
+        //position = position + GetMouseWorldPosition();
+        Vector3Int cellPos = gridLayout.WorldToCell(position);
+        position = grid.GetCellCenterWorld(cellPos);
+        if (!terrain) position.y + 1;
+        return position;
+    }
+    **/
+    
 
     private static TileBase[] GetTilesBlock(BoundsInt area, Tilemap tilemap)
     {
