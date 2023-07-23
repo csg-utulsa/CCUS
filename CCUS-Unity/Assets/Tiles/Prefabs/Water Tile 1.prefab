@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2298589593407176300}
   - component: {fileID: 1227736575421710050}
   - component: {fileID: 6266792831951909367}
+  - component: {fileID: -3776157113568291108}
   m_Layer: 0
   m_Name: Water Tile 1
   m_TagString: Untagged
@@ -48,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileType: 0
-  tileScriptableObject: {fileID: 0}
+  tileScriptableObject: {fileID: 11400000, guid: 7faef4e8df289aa419a88087b7c717f2, type: 2}
   po: {fileID: 6266792831951909367}
   state: 0
 --- !u!114 &1227736575421710050
@@ -76,6 +77,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tile: {fileID: 2298589593407176300}
+--- !u!65 &-3776157113568291108
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6059187683314456009}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &3083044895939398463
 PrefabInstance:
   m_ObjectHideFlags: 0

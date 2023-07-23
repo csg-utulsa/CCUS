@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5695464236500218839}
   - component: {fileID: 4748388760939082585}
   - component: {fileID: 438115123275365452}
+  - component: {fileID: -1689354558572396692}
   m_Layer: 0
   m_Name: Base Tile
   m_TagString: Untagged
@@ -48,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileType: 0
-  tileScriptableObject: {fileID: 0}
+  tileScriptableObject: {fileID: 11400000, guid: c10281c8203477047a1c4972170cde44, type: 2}
   po: {fileID: 438115123275365452}
   state: 0
 --- !u!114 &4748388760939082585
@@ -76,6 +77,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tile: {fileID: 5695464236500218839}
+--- !u!65 &-1689354558572396692
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 358861468803373170}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2682783168275991629
 GameObject:
   m_ObjectHideFlags: 0

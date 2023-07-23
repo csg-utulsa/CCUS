@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 339401229245237457}
   - component: {fileID: 745974080129992799}
   - component: {fileID: 5596829129350235978}
+  - component: {fileID: 7717605810638029467}
   m_Layer: 0
   m_Name: Dead Pine Tree Tile
   m_TagString: Untagged
@@ -76,6 +77,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tile: {fileID: 339401229245237457}
+--- !u!65 &7717605810638029467
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5712111926586024820}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &3852026869429738820
 PrefabInstance:
   m_ObjectHideFlags: 0

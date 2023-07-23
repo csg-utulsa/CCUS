@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4852466777583182095}
   - component: {fileID: 5600397886782742913}
   - component: {fileID: 741204140293516948}
+  - component: {fileID: -367203716088323362}
   m_Layer: 0
   m_Name: Carbon Sucker
   m_TagString: Untagged
@@ -48,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileType: 1
-  tileScriptableObject: {fileID: 0}
+  tileScriptableObject: {fileID: 11400000, guid: 1fe459ad150ce2147b1baf5b32d60ba9, type: 2}
   po: {fileID: 741204140293516948}
   state: 0
 --- !u!114 &5600397886782742913
@@ -76,6 +77,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tile: {fileID: 4852466777583182095}
+--- !u!65 &-367203716088323362
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623705418164210346}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8572337895594598869
 GameObject:
   m_ObjectHideFlags: 0

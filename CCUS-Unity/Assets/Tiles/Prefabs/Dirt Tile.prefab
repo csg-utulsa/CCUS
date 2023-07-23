@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 446075440972255698}
   - component: {fileID: 639290865103081820}
   - component: {fileID: 5705747015819451977}
+  - component: {fileID: -2146032136407161962}
   m_Layer: 0
   m_Name: Dirt Tile
   m_TagString: Untagged
@@ -48,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileType: 0
-  tileScriptableObject: {fileID: 0}
+  tileScriptableObject: {fileID: 11400000, guid: a738415f26d337649bfe218c67038b6b, type: 2}
   po: {fileID: 5705747015819451977}
   state: 0
 --- !u!114 &639290865103081820
@@ -76,6 +77,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tile: {fileID: 446075440972255698}
+--- !u!65 &-2146032136407161962
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5602604753381866103}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &3801053463334335041
 PrefabInstance:
   m_ObjectHideFlags: 0

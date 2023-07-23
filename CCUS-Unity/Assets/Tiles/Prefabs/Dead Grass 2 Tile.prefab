@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7003906338948986442}
   - component: {fileID: 8060650943430751940}
   - component: {fileID: 2894963928422267345}
+  - component: {fileID: 4113886196774045610}
   m_Layer: 0
   m_Name: Dead Grass 2 Tile
   m_TagString: Untagged
@@ -76,6 +77,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tile: {fileID: 7003906338948986442}
+--- !u!65 &4113886196774045610
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3081143439295372783}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &4513472802975209038
 PrefabInstance:
   m_ObjectHideFlags: 0

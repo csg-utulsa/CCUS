@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1767346016178596324}
   - component: {fileID: 1614873829177600362}
   - component: {fileID: 5879724434968962687}
+  - component: {fileID: 1622470735618406720}
   m_Layer: 0
   m_Name: Dirt Grass Tile
   m_TagString: Untagged
@@ -76,6 +77,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tile: {fileID: 1767346016178596324}
+--- !u!65 &1622470735618406720
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6014112826213663297}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1963121293390664851
 PrefabInstance:
   m_ObjectHideFlags: 0

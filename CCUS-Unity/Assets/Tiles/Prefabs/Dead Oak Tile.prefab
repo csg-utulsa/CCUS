@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3700799750909179942}
   - component: {fileID: 4446197576717957288}
   - component: {fileID: 8810663931691349949}
+  - component: {fileID: 9211023932889271885}
   m_Layer: 0
   m_Name: Dead Oak Tile
   m_TagString: Untagged
@@ -76,6 +77,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tile: {fileID: 3700799750909179942}
+--- !u!65 &9211023932889271885
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8695137869722506115}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &6822427793006592928
 PrefabInstance:
   m_ObjectHideFlags: 0

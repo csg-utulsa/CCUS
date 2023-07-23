@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1506823324683553113}
   - component: {fileID: 1875396521142979031}
   - component: {fileID: 6770997365287274178}
+  - component: {fileID: -4227826439348112494}
   m_Layer: 0
   m_Name: Concrete Tile
   m_TagString: Untagged
@@ -48,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileType: 0
-  tileScriptableObject: {fileID: 0}
+  tileScriptableObject: {fileID: 11400000, guid: aac7660d66a34ae43985b576d5b1cf9f, type: 2}
   po: {fileID: 6770997365287274178}
   state: 0
 --- !u!114 &1875396521142979031
@@ -76,6 +77,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tile: {fileID: 1506823324683553113}
+--- !u!65 &-4227826439348112494
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6852785120191554300}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &8272807987837273517
 PrefabInstance:
   m_ObjectHideFlags: 0

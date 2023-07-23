@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2748865118574618484}
   - component: {fileID: 2939195402721191930}
   - component: {fileID: 8015223904955967727}
+  - component: {fileID: 5008715791044546260}
   m_Layer: 0
   m_Name: Dead Dirt Tile
   m_TagString: Untagged
@@ -76,6 +77,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tile: {fileID: 2748865118574618484}
+--- !u!65 &5008715791044546260
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7914331237870390481}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &7086278396648211171
 PrefabInstance:
   m_ObjectHideFlags: 0

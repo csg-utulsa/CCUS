@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2154673011187031006}
   - component: {fileID: 1371662022690659152}
   - component: {fileID: 6122866199507768389}
+  - component: {fileID: 7179006374254638101}
   m_Layer: 0
   m_Name: Grass Tile
   m_TagString: Untagged
@@ -48,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileType: 0
-  tileScriptableObject: {fileID: 0}
+  tileScriptableObject: {fileID: 11400000, guid: a54fa51cf27e90549be15d1bc33ef758, type: 2}
   po: {fileID: 6122866199507768389}
   state: 0
 --- !u!114 &1371662022690659152
@@ -76,6 +77,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tile: {fileID: 2154673011187031006}
+--- !u!65 &7179006374254638101
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6203246308946112635}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &4825812138096812357
 PrefabInstance:
   m_ObjectHideFlags: 0
