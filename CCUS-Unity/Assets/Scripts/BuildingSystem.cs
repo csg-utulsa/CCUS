@@ -38,32 +38,7 @@ public class BuildingSystem : MonoBehaviour
 
     private void Update()
     {
-        //THIS IS DUMB. DONT LEAVE AFTER THIS BUILD. new input system? UI instead? ~Coleton
-        // if (Input.GetKeyDown(KeyCode.Alpha1))
-        // {
-        //     if (1 <= prefabs.Length)
-        //         InitializeWithObject(prefabs[0]);
-        // }
-        // else if (Input.GetKeyDown(KeyCode.Alpha2))
-        // {
-        //     if (2 <= prefabs.Length)
-        //         InitializeWithObject(prefabs[1]);
-        // }
-        // else if (Input.GetKeyDown(KeyCode.Alpha3))
-        // {
-        //     if (3 <= prefabs.Length)
-        //         InitializeWithObject(prefabs[2]);
-        // }
-        // else if (Input.GetKeyDown(KeyCode.Alpha4))
-        // {
-        //     if (4 <= prefabs.Length)
-        //         InitializeWithObject(prefabs[3]);
-        // }
-        // else if (Input.GetKeyDown(KeyCode.Alpha5))
-        // {
-        //     if (5 <= prefabs.Length)
-        //         InitializeWithObject(prefabs[4]);
-        // }
+
 
         if (!activeObject)
         {

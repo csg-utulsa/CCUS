@@ -18,10 +18,12 @@ public class ObjectDrag : MonoBehaviour
     public void Place()
     {
         dragging = false;
+        Debug.Log("ObjectDrag.Place()");
     }
 
     public void Pickup()
     {
         dragging = true;
+        Debug.Log("ObjectDrag.Pickup()");
     }
 }
