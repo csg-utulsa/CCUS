@@ -123,7 +123,4 @@ public enum TileState
     Uninitialized, Static, Moveable
 }
 
-public enum TileType
-{
-    Terrain, Placeable
-}
+
