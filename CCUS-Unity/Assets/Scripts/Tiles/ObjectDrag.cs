@@ -6,8 +6,8 @@ public class ObjectDrag : MonoBehaviour
 {
     bool dragging = true;
     //public bool terrain; // for if we're displacing non-terrain, but a 2nd grid would be better
-    public bool override;
-    privat GameObject replacement;
+    public bool overRide;
+    private GameObject replacement;
 
     public void Update()
     {
@@ -20,7 +20,7 @@ public class ObjectDrag : MonoBehaviour
     public void Place()
     {
         dragging = false;
-        if (override){
+        if (overRide){
         Destroy(replacement);
         }
     }
@@ -30,20 +30,21 @@ public class ObjectDrag : MonoBehaviour
         dragging = true;
     }
 
-    public OnCollisionEnter(Collider other)
-    {
-        if (other.GameObject.tag == this.GameObject.tag)
+    public void OnCollisionEnter(Collision other)
+    {   
+        Debug.Log(this.gameObject.name+"hit"+other.gameObject.name);
+        if (other.gameObject.tag == this.gameObject.tag)
         {
-            override = true;
-            replacement=other.GameObject;
+            overRide = true;
+            replacement=other.gameObject;
         }
     }
 
-    public OnCollisionExit(Collider other)
+    public void OnCollisionExit(Collision other)
     {
-    if (other.GameObject.tag == this.GameObject.tag)
+    if (other.gameObject.tag == this.gameObject.tag)
     {
-            override = false;
+            overRide = false;
             replacement = null;
     }
 }

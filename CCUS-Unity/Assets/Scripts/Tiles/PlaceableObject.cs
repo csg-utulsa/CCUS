@@ -75,6 +75,6 @@ public class PlaceableObject : MonoBehaviour
         tile.SetTileState(TileState.Moveable);
     }
 
-    public OnCollisionEnter(c)
+
 
 }
