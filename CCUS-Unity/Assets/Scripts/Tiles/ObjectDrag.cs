@@ -30,7 +30,7 @@ public class ObjectDrag : MonoBehaviour
         dragging = true;
     }
 
-    public void OnCollisionEnter(Collision other)
+    public void OnTriggerEnter(Collider other)
     {   
         Debug.Log(this.gameObject.name+"hit"+other.gameObject.name);
         if (other.gameObject.tag == this.gameObject.tag)
@@ -40,7 +40,7 @@ public class ObjectDrag : MonoBehaviour
         }
     }
 
-    public void OnCollisionExit(Collision other)
+    public void OnTriggerExit(Collider other)
     {
     if (other.gameObject.tag == this.gameObject.tag)
     {
