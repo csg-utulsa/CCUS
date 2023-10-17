@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    [SerializeField] TileType tileType;
+   [SerializeField] TileType tileType;
     public TileScriptableObject tileScriptableObject;
     [SerializeField] PlaceableObject po;
 
@@ -112,10 +112,15 @@ public class Tile : MonoBehaviour
 
     #endregion
 
-    public TileType GetTileType()
+public TileType GetTileType()
     {
         return tileType;
     }
+}
+
+public enum TileType
+{
+    Terrain, Placeable
 }
 
 public enum TileState
@@ -123,7 +128,4 @@ public enum TileState
     Uninitialized, Static, Moveable
 }
 
-public enum TileType
-{
-    Terrain, Placeable
-}
+
