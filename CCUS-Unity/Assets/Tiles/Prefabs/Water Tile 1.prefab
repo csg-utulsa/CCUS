@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c00ae30ee8fe0a4eb3563927540d9bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileType: 0
+  tileType: 1
   tileScriptableObject: {fileID: 11400000, guid: 7faef4e8df289aa419a88087b7c717f2, type: 2}
   po: {fileID: 6266792831951909367}
   state: 0
