@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ContractStars : MonoBehaviour
+public class ContractComplete : MonoBehaviour
 {
     public Sprite incomplete;
     public Sprite complete;
@@ -11,12 +11,6 @@ public class ContractStars : MonoBehaviour
     void Start()
     {
         GetComponent<Image>().sprite = incomplete;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        Invoke("StarUpdate", 5);
     }
 
     public void StarUpdate() //Transitions the star when its associated task is complete
