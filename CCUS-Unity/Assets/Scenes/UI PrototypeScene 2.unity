@@ -947,6 +947,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 506658619}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &183835229 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1883222661810982771, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
+  m_PrefabInstance: {fileID: 1700002087}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &183835232 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1883222661810982774, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
+  m_PrefabInstance: {fileID: 1700002087}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 183835229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f566ce5a07305846a055620569ecd68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &253217405 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1883222661589581327, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
@@ -998,7 +1014,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingMoney: 1000
-  startingCarbon: -5
+  startingCarbon: 20
   startingYear: 2023
   money: 0
   carbon: 0
@@ -1785,6 +1801,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &938780306 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1883222661399396434, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
+  m_PrefabInstance: {fileID: 1700002087}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &938780312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938780306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49fe743722b854841b9bdf7caf683eed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goal: 500
+  checkBox: {fileID: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -2150,6 +2185,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1025839029}
   m_CullTransparentMesh: 1
+--- !u!1 &1068543227 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1883222660871333986, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
+  m_PrefabInstance: {fileID: 1700002087}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1068543233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1068543227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49fe743722b854841b9bdf7caf683eed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goal: 5
+  checkBox: {fileID: 183835232}
 --- !u!1 &1091681705
 GameObject:
   m_ObjectHideFlags: 0
@@ -3154,6 +3208,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1883222659816087552, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
+      propertyPath: m_text
+      value: Spend 500 dollars
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883222659955080088, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -241
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883222660348813784, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
+      propertyPath: m_text
+      value: Reduce Carbon to 10% or lower
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883222661028454617, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883222661283680757, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883222661283680757, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883222661314859935, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
+      propertyPath: m_text
+      value: Place 10 Pavement Tiles
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883222661575918882, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1883222661589581327, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
       propertyPath: m_Name
       value: Level_UI
@@ -3242,21 +3328,63 @@ PrefabInstance:
       propertyPath: pointer
       value: 
       objectReference: {fileID: 2094838017}
+    - target: {fileID: 1883222661810982773, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883222661810982773, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883222661810982774, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
+      propertyPath: changed
+      value: 
+      objectReference: {fileID: 183835229}
+    - target: {fileID: 8409141333014110280, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 180.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 8409141333014110280, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -175.4
+      objectReference: {fileID: 0}
     - target: {fileID: 8409141333014110282, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
       propertyPath: m_Interactable
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8409141333014110282, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8409141333643555089, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8409141333643555091, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 180.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 8409141333643555091, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -213.8
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 1883222660871333993, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
+    - {fileID: 1883222661575918880, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
+    - {fileID: 1883222661399396436, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
+    - {fileID: 1883222661810982773, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1883222661589581327, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 253217410}
+    - targetCorrespondingSourceObject: {fileID: 1883222660871333986, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1068543233}
+    - targetCorrespondingSourceObject: {fileID: 1883222661399396434, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 938780312}
   m_SourcePrefab: {fileID: 100100000, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
 --- !u!114 &1721696744 stripped
 MonoBehaviour:

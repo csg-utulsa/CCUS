@@ -62,7 +62,7 @@ public class DataManager : MonoBehaviour
     public void AdjustCarbon(int value)
     {
         print("Carbon Update Called");
-        carbon += value; //Might be redundant with new system, will need a test -Kit
+        carbon += value;
     }
 
     /// <summary>

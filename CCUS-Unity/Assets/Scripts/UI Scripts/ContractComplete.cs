@@ -5,16 +5,12 @@ using UnityEngine.UI;
 
 public class ContractComplete : MonoBehaviour
 {
-    public Sprite incomplete;
     public Sprite complete;
-    // Start is called before the first frame update
-    void Start()
-    {
-        GetComponent<Image>().sprite = incomplete;
-    }
 
     public void StarUpdate() //Transitions the star when its associated task is complete
     {
+        print("called");
         GetComponent<Image>().sprite = complete;
+        print(GetComponent<Image>().sprite);
     }
 }
