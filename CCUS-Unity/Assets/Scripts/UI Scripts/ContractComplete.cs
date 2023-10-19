@@ -9,8 +9,8 @@ public class ContractComplete : MonoBehaviour
 
     public void StarUpdate() //Transitions the star when its associated task is complete
     {
-        print("called");
+        //print("called");
         GetComponent<Image>().sprite = complete;
-        print(GetComponent<Image>().sprite);
+        //print(GetComponent<Image>().sprite);
     }
 }

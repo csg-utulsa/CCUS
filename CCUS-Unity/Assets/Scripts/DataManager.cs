@@ -21,6 +21,7 @@ public class DataManager : MonoBehaviour
     [SerializeField] int startingCarbon;
     [SerializeField] int startingYear;
     [SerializeField] int money;
+    [SerializeField] int yearlyCarbon;
     [SerializeField] int carbon;
     [SerializeField] int year;
     [SerializeField] int storageCapacity;
@@ -63,6 +64,18 @@ public class DataManager : MonoBehaviour
     {
         print("Carbon Update Called");
         carbon += value;
+        if (carbon < 0) carbon = 0;
+    }
+
+    /// <summary>
+    /// Increase or decrease the current simulation yearly carbon change. 
+    /// Positive value adds, negative value subtracts.
+    /// </summary>
+    /// <param name="value"></param>
+    public void AdjustYearlyCarbon(int value)
+    {
+        print("Carbon Yearly Update Called");
+        yearlyCarbon += value;
     }
 
     /// <summary>
@@ -98,6 +111,8 @@ public class DataManager : MonoBehaviour
             AdjustCarbon(value);
         }
         stored += value;
+
+        if(stored <0) stored = 0;
     }
 
     /// <summary>
@@ -105,7 +120,13 @@ public class DataManager : MonoBehaviour
     /// </summary>
     public void IncrementYear()
     {
+        Debug.Log("Carbon Added:" + yearlyCarbon + "\n");
         year++;
+        AdjustCarbon(yearlyCarbon);
+        AdjustStored(yearlyCarbon);
+
+        Debug.Log("CurrentCarbon:" + carbon);
+        Debug.Log("\nCurrentCarbonStored:" + stored);
     }
 
     #region Getters and Setters

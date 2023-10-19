@@ -8,6 +8,7 @@ public class ObjectDrag : MonoBehaviour
     //public bool terrain; // for if we're displacing non-terrain, but a 2nd grid would be better
     public bool overRide;
     private GameObject replacement;
+    DataManager dm = DataManager.DM;
 
     public void Update()
     {
@@ -20,8 +21,14 @@ public class ObjectDrag : MonoBehaviour
     public void Place()
     {
         dragging = false;
+        TileScriptableObject tileData = this.gameObject.GetComponent<Tile>().tileScriptableObject;
+        DataManager.DM.AdjustYearlyCarbon(tileData.AnnualCarbonAdded - tileData.AnnualCarbonRemoved);
+        DataManager.DM.AdjustStorageSize(tileData.AnnualCarbonStored);
         if (overRide){
-        Destroy(replacement);
+            TileScriptableObject tileData2 = replacement.GetComponent<Tile>().tileScriptableObject;
+            DataManager.DM.AdjustYearlyCarbon(-(tileData2.AnnualCarbonAdded - tileData2.AnnualCarbonRemoved));
+            DataManager.DM.AdjustStorageSize(-tileData2.AnnualCarbonStored);
+            Destroy(replacement);
         }
     }
 

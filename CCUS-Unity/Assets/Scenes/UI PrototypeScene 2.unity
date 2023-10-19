@@ -1017,6 +1017,7 @@ MonoBehaviour:
   startingCarbon: 20
   startingYear: 2023
   money: 0
+  yearlyCarbon: 0
   carbon: 0
   year: 0
   storageCapacity: 0
@@ -1099,7 +1100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49fe743722b854841b9bdf7caf683eed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goal: 2024
+  goal: 2050
   type: Year
   checkBox: {fileID: 1154754617}
 --- !u!1 &485928140
