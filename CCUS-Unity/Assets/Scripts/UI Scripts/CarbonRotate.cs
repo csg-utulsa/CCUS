@@ -9,7 +9,6 @@ public class CarbonRotate : MonoBehaviour
 
     public void UpdateCarbon(float carbon) 
     {
-        print(carbon);
         float x = Convert(carbon);
         DifferenceCheck(x);
         

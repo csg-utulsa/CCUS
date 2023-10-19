@@ -1082,6 +1082,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &413659117 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1883222661575918942, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
+  m_PrefabInstance: {fileID: 1700002087}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &413659123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 413659117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49fe743722b854841b9bdf7caf683eed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goal: 2024
+  type: Year
+  checkBox: {fileID: 1154754617}
 --- !u!1 &485928140
 GameObject:
   m_ObjectHideFlags: 0
@@ -1819,7 +1839,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goal: 500
-  checkBox: {fileID: 0}
+  type: Money
+  checkBox: {fileID: 1264393102}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -2203,6 +2224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goal: 5
+  type: Carbon
   checkBox: {fileID: 183835232}
 --- !u!1 &1091681705
 GameObject:
@@ -2338,6 +2360,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1091681705}
   m_CullTransparentMesh: 1
+--- !u!114 &1154754617 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1883222661283680758, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
+  m_PrefabInstance: {fileID: 1700002087}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f566ce5a07305846a055620569ecd68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1203749101
 GameObject:
   m_ObjectHideFlags: 0
@@ -2472,6 +2505,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1203749101}
   m_CullTransparentMesh: 1
+--- !u!114 &1264393102 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1883222661028454618, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
+  m_PrefabInstance: {fileID: 1700002087}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f566ce5a07305846a055620569ecd68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1475565894
 GameObject:
   m_ObjectHideFlags: 0
@@ -3221,7 +3265,15 @@ PrefabInstance:
       value: Reduce Carbon to 10% or lower
       objectReference: {fileID: 0}
     - target: {fileID: 1883222661028454617, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883222661028454617, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
       propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883222661283680757, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1883222661283680757, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
@@ -3234,7 +3286,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1883222661314859935, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
       propertyPath: m_text
-      value: Place 10 Pavement Tiles
+      value: Reach Year 2050
       objectReference: {fileID: 0}
     - target: {fileID: 1883222661575918882, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
       propertyPath: m_Enabled
@@ -3382,6 +3434,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1883222660871333986, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1068543233}
+    - targetCorrespondingSourceObject: {fileID: 1883222661575918942, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 413659123}
     - targetCorrespondingSourceObject: {fileID: 1883222661399396434, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 938780312}
