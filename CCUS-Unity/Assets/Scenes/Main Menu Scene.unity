@@ -1150,6 +1150,8 @@ GameObject:
   - component: {fileID: 2057663316}
   - component: {fileID: 2057663315}
   - component: {fileID: 2057663314}
+  - component: {fileID: 2057663318}
+  - component: {fileID: 2057663317}
   m_Layer: 5
   m_Name: Start Game Button
   m_TagString: Untagged
@@ -1221,9 +1223,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1896903884}
-        m_TargetAssemblyTypeName: SceneTransitionManager, Assembly-CSharp
-        m_MethodName: GoToGameScene
+      - m_Target: {fileID: 2057663317}
+        m_TargetAssemblyTypeName: LevelSelectButton, Assembly-CSharp
+        m_MethodName: changeScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1271,6 +1273,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2057663312}
   m_CullTransparentMesh: 1
+--- !u!114 &2057663317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2057663312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f2127854765bd74484868e0862669e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lvlName: LevelSelect
+--- !u!114 &2057663318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2057663312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3d3087ecbda55148aa9481704e2e027, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -21,6 +21,7 @@ public class DataManager : MonoBehaviour
     [SerializeField] int startingCarbon;
     [SerializeField] int startingYear;
     [SerializeField] int money;
+    [SerializeField] int yearlyMoney;
     [SerializeField] int yearlyCarbon;
     [SerializeField] int carbon;
     [SerializeField] int year;
@@ -55,6 +56,10 @@ public class DataManager : MonoBehaviour
         money += value;
     }
 
+    public void AdjustYearlyIncome(int moneyChange)
+    {
+        yearlyMoney += moneyChange;
+    }
     /// <summary>
     /// Increase or decrease the current simulation carbon presence. 
     /// Positive value adds, negative value subtracts.
@@ -124,7 +129,7 @@ public class DataManager : MonoBehaviour
         year++;
         AdjustCarbon(yearlyCarbon);
         AdjustStored(yearlyCarbon);
-
+        AdjustMoney(yearlyMoney);
         Debug.Log("CurrentCarbon:" + carbon);
         Debug.Log("\nCurrentCarbonStored:" + stored);
     }

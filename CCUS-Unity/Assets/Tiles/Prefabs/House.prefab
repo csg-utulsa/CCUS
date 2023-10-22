@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8935935631449693007}
   m_Layer: 0
   m_Name: House
-  m_TagString: Ground
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -78,6 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 445f4295ac6be4d4dabf7acaa5ef0524, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  placed: 0
   tile: {fileID: 6460394100644508268}
 --- !u!65 &2169967218846739974
 BoxCollider:

@@ -24,10 +24,12 @@ public class ObjectDrag : MonoBehaviour
         TileScriptableObject tileData = this.gameObject.GetComponent<Tile>().tileScriptableObject;
         DataManager.DM.AdjustYearlyCarbon(tileData.AnnualCarbonAdded - tileData.AnnualCarbonRemoved);
         DataManager.DM.AdjustStorageSize(tileData.AnnualCarbonStored);
+        DataManager.DM.AdjustYearlyIncome(tileData.AnnualIncome-tileData.AnnualCost);
         if (overRide){
             TileScriptableObject tileData2 = replacement.GetComponent<Tile>().tileScriptableObject;
             DataManager.DM.AdjustYearlyCarbon(-(tileData2.AnnualCarbonAdded - tileData2.AnnualCarbonRemoved));
             DataManager.DM.AdjustStorageSize(-tileData2.AnnualCarbonStored);
+            DataManager.DM.AdjustYearlyIncome(-tileData2.AnnualIncome + tileData2.AnnualCost);
             Destroy(replacement);
         }
     }
