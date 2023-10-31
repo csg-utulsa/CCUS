@@ -140,7 +140,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Make a X long road
+  m_text: Spend 500 dollars
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -235,7 +235,7 @@ Transform:
   m_GameObject: {fileID: 1883222659955080087}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -224.8, z: 0}
+  m_LocalPosition: {x: 0, y: -241, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -257,6 +257,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentAngle: 90
   pointer: {fileID: 1883222661671346833}
+  targetAngle: 0
 --- !u!1 &1883222660348813782
 GameObject:
   m_ObjectHideFlags: 0
@@ -322,9 +323,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Keep Carbon
-
-    Below X'
+  m_text: Reduce Carbon to 10% or lower
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -405,7 +404,7 @@ GameObject:
   - component: {fileID: 1883222660871333991}
   - component: {fileID: 1883222660871333990}
   - component: {fileID: 1883222660871333989}
-  - component: {fileID: 1883222660871333993}
+  - component: {fileID: 2944190563672552699}
   m_Layer: 5
   m_Name: Contract UI Button 1
   m_TagString: Untagged
@@ -516,7 +515,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1883222660871333993
+--- !u!114 &2944190563672552699
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -525,12 +524,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1883222660871333986}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c649184c23d15d5448c7154867a7dd1c, type: 3}
+  m_Script: {fileID: 11500000, guid: 49fe743722b854841b9bdf7caf683eed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  contractComplete: {fileID: 1883222661810982774}
-  contractText: {fileID: 0}
-  contractExample: {fileID: 0}
+  goal: 5
+  type: Carbon
+  checkBox: {fileID: 1883222661810982774}
 --- !u!1 &1883222661028454615
 GameObject:
   m_ObjectHideFlags: 0
@@ -620,7 +619,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f566ce5a07305846a055620569ecd68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  incomplete: {fileID: 21300000, guid: 4b85a713ca19a3d44b918acd6eb3e79d, type: 3}
   complete: {fileID: 21300000, guid: 9e1b9673e25f4dd4383d66856f18d000, type: 3}
 --- !u!114 &1883222661028454617
 MonoBehaviour:
@@ -629,7 +627,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1883222661028454615}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -661,7 +659,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1883222661028454619}
   m_OnClick:
     m_PersistentCalls:
@@ -834,7 +832,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f566ce5a07305846a055620569ecd68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  incomplete: {fileID: 21300000, guid: 4b85a713ca19a3d44b918acd6eb3e79d, type: 3}
   complete: {fileID: 21300000, guid: 9e1b9673e25f4dd4383d66856f18d000, type: 3}
 --- !u!114 &1883222661283680757
 MonoBehaviour:
@@ -843,7 +840,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1883222661283680755}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -875,23 +872,11 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1883222661283680759}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11500000, guid: 4f566ce5a07305846a055620569ecd68, type: 3}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1883222661314859933
 GameObject:
   m_ObjectHideFlags: 0
@@ -957,7 +942,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Place X trees
+  m_text: Reach Year 2050
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1038,7 +1023,7 @@ GameObject:
   - component: {fileID: 1883222661399396440}
   - component: {fileID: 1883222661399396439}
   - component: {fileID: 1883222661399396438}
-  - component: {fileID: 1883222661399396436}
+  - component: {fileID: 5147530345983472169}
   m_Layer: 5
   m_Name: Contract UI Button 3
   m_TagString: Untagged
@@ -1149,7 +1134,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1883222661399396436
+--- !u!114 &5147530345983472169
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1158,12 +1143,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1883222661399396434}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c649184c23d15d5448c7154867a7dd1c, type: 3}
+  m_Script: {fileID: 11500000, guid: 49fe743722b854841b9bdf7caf683eed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  contractComplete: {fileID: 1883222661028454618}
-  contractText: {fileID: 0}
-  contractExample: {fileID: 0}
+  goal: 500
+  type: Money
+  checkBox: {fileID: 1883222661028454618}
 --- !u!1 &1883222661575918942
 GameObject:
   m_ObjectHideFlags: 0
@@ -1176,7 +1161,7 @@ GameObject:
   - component: {fileID: 1883222661575918884}
   - component: {fileID: 1883222661575918883}
   - component: {fileID: 1883222661575918882}
-  - component: {fileID: 1883222661575918880}
+  - component: {fileID: 4583238329137358436}
   m_Layer: 5
   m_Name: Contract UI Button 2
   m_TagString: Untagged
@@ -1287,7 +1272,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1883222661575918880
+--- !u!114 &4583238329137358436
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1296,12 +1281,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1883222661575918942}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c649184c23d15d5448c7154867a7dd1c, type: 3}
+  m_Script: {fileID: 11500000, guid: 49fe743722b854841b9bdf7caf683eed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  contractComplete: {fileID: 1883222661283680758}
-  contractText: {fileID: 0}
-  contractExample: {fileID: 0}
+  goal: 2050
+  type: Year
+  checkBox: {fileID: 1883222661283680758}
 --- !u!1 &1883222661589581327
 GameObject:
   m_ObjectHideFlags: 0
@@ -1314,6 +1299,7 @@ GameObject:
   - component: {fileID: 1883222661589581330}
   - component: {fileID: 1883222661589581329}
   - component: {fileID: 1883222661589581328}
+  - component: {fileID: 4404256835798662361}
   m_Layer: 5
   m_Name: Level_UI
   m_TagString: UI
@@ -1407,6 +1393,22 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &4404256835798662361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1883222661589581327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7bb43c5479fd6d4db5851104bbbc696, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  yearText: {fileID: 8409141332731762901}
+  moneyText: {fileID: 8409141334521448846}
+  storageText: {fileID: 0}
+  carbonDial: {fileID: 8787639060688159225}
 --- !u!1 &1883222661671346833
 GameObject:
   m_ObjectHideFlags: 0
@@ -1494,7 +1496,6 @@ GameObject:
   - component: {fileID: 1883222661810982776}
   - component: {fileID: 1883222661810982775}
   - component: {fileID: 1883222661810982774}
-  - component: {fileID: 1883222661810982773}
   m_Layer: 5
   m_Name: Check
   m_TagString: Untagged
@@ -1571,64 +1572,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f566ce5a07305846a055620569ecd68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  incomplete: {fileID: 21300000, guid: 4b85a713ca19a3d44b918acd6eb3e79d, type: 3}
   complete: {fileID: 21300000, guid: 9e1b9673e25f4dd4383d66856f18d000, type: 3}
---- !u!114 &1883222661810982773
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1883222661810982771}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 1883222661810982775}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11500000, guid: 4f566ce5a07305846a055620569ecd68, type: 3}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1001 &1883222660244382033
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1715,11 +1659,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7967369620707950873, guid: aa5c7827d01640b499f55ba608e8cbd8, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -119
+      value: 180.28
       objectReference: {fileID: 0}
     - target: {fileID: 7967369620707950873, guid: aa5c7827d01640b499f55ba608e8cbd8, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -121.9
+      value: -175.4
       objectReference: {fileID: 0}
     - target: {fileID: 7967369620707950873, guid: aa5c7827d01640b499f55ba608e8cbd8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1731,6 +1675,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7967369620707950873, guid: aa5c7827d01640b499f55ba608e8cbd8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7967369620707950875, guid: aa5c7827d01640b499f55ba608e8cbd8, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7967369620707950875, guid: aa5c7827d01640b499f55ba608e8cbd8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7967369620707950875, guid: aa5c7827d01640b499f55ba608e8cbd8, type: 3}
@@ -1751,6 +1703,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa5c7827d01640b499f55ba608e8cbd8, type: 3}
+--- !u!114 &8409141332731762901 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7967369621493594500, guid: aa5c7827d01640b499f55ba608e8cbd8, type: 3}
+  m_PrefabInstance: {fileID: 1883222660244382033}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &8409141333014110280 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7967369620707950873, guid: aa5c7827d01640b499f55ba608e8cbd8, type: 3}
@@ -1842,11 +1805,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7967369620707950873, guid: aa5c7827d01640b499f55ba608e8cbd8, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 120.9
+      value: 180.28
       objectReference: {fileID: 0}
     - target: {fileID: 7967369620707950873, guid: aa5c7827d01640b499f55ba608e8cbd8, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -121.9
+      value: -213.8
       objectReference: {fileID: 0}
     - target: {fileID: 7967369620707950873, guid: aa5c7827d01640b499f55ba608e8cbd8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1858,6 +1821,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7967369620707950873, guid: aa5c7827d01640b499f55ba608e8cbd8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7967369620707950875, guid: aa5c7827d01640b499f55ba608e8cbd8, type: 3}
+      propertyPath: m_Interactable
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7967369620707950875, guid: aa5c7827d01640b499f55ba608e8cbd8, type: 3}
@@ -1883,6 +1850,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7967369620707950873, guid: aa5c7827d01640b499f55ba608e8cbd8, type: 3}
   m_PrefabInstance: {fileID: 1883222660992315402}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8409141334521448846 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7967369621493594500, guid: aa5c7827d01640b499f55ba608e8cbd8, type: 3}
+  m_PrefabInstance: {fileID: 1883222660992315402}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8409141332722591757
 PrefabInstance:
   m_ObjectHideFlags: 0
