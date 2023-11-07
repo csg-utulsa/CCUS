@@ -69,7 +69,6 @@ public class PlaceableObject : MonoBehaviour
 
     public virtual void Pickup()
     {
-
         drag.Pickup();
 
         placed = false;

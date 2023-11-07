@@ -11,6 +11,8 @@ public class Tile : MonoBehaviour
     public TileState state = TileState.Uninitialized;
     bool menuOpen = false;
 
+    DataManager dm = DataManager.DM;
+
 
     // Decorator system is a work in progress ~Coleton
     /*TileDecorator td;
@@ -63,6 +65,10 @@ public class Tile : MonoBehaviour
             DataManager.DM.AdjustCarbon(tileScriptableObject.AnnualCarbonAdded);
     }
 
+public void ActivateTile()
+{
+
+}
     #region Unity Methods
 
     private void Awake()
@@ -118,14 +124,16 @@ public TileType GetTileType()
     }
 }
 
+
 public enum TileType
 {
-    Terrain, Placeable
+    Terrain, Placeable, Static
 }
 
 public enum TileState
 {
     Uninitialized, Static, Moveable
 }
+
 
 

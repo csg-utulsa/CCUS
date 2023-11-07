@@ -8,7 +8,7 @@ public class ObjectDrag : MonoBehaviour
     //public bool terrain; // for if we're displacing non-terrain, but a 2nd grid would be better
     public bool overRide;
     private GameObject replacement;
-    DataManager dm = DataManager.DM;
+
 
     public void Update()
     {
