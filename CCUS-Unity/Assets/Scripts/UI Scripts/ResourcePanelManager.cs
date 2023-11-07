@@ -23,7 +23,7 @@ public class ResourcePanelManager : MonoBehaviour
     {
         if(yearText != null)
         {
-            yearText.text = "Year: " + dm.GetYear().ToString();
+            yearText.text = dm.GetYear().ToString();
         }
 
         if(moneyText != null)

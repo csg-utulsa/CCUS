@@ -14,13 +14,13 @@ public class PanelOpener : MonoBehaviour
             //Using written coords, will later implement way to make based on the contract buttons position
             if (isActive) //If the panel is currently up it'll turn off the pannel and shift the button down
             {                
-                panel.transform.position -= new Vector3(0,195,0);
+                panel.transform.position -= new Vector3(0,180,0);
                 print(isActive);
                 isActive = false;
             }
             else //If the pannel is off it'll move the button up and bring back the pannel
             {
-                panel.transform.position += new Vector3(0,195,0);
+                panel.transform.position += new Vector3(0,180,0);
                 isActive = true;
             }
             
