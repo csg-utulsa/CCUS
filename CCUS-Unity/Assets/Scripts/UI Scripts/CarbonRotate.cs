@@ -26,8 +26,8 @@ public class CarbonRotate : MonoBehaviour
     }
 
     public void DifferenceCheck(float angle)
-    {   Debug.Log(targetAngle+" Target angle");
-        Debug.Log(currentAngle + "Current angle");
+    {   //Debug.Log(targetAngle+" Target angle");
+        //Debug.Log(currentAngle + "Current angle");
         angle = Mathf.Round(angle);//rounds angle to nearest whole number
 
         //moves dial towards inteded angle

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 741204140293516948}
   - component: {fileID: -367203716088323362}
   - component: {fileID: 742472509941230585}
+  - component: {fileID: -7912279359557440198}
   m_Layer: 0
   m_Name: Carbon Sucker
   m_TagString: Object
@@ -66,6 +67,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   overRide: 0
+  overlapObject: {fileID: 0}
+  overlapTerrain: {fileID: 0}
 --- !u!114 &741204140293516948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78,6 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 445f4295ac6be4d4dabf7acaa5ef0524, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  placed: 0
   tile: {fileID: 4852466777583182095}
 --- !u!65 &-367203716088323362
 BoxCollider:
@@ -127,6 +131,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-7912279359557440198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623705418164210346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bce17a9110adcc439bb188c35b4ff50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8572337895594598869
 GameObject:
   m_ObjectHideFlags: 0

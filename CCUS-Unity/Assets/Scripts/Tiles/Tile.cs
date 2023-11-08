@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.WSA;
 
 public class Tile : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class Tile : MonoBehaviour
     bool menuOpen = false;
 
     DataManager dm = DataManager.DM;
+    private TileMaterialHandler tileMatHandler;
 
 
     // Decorator system is a work in progress ~Coleton
@@ -52,28 +54,35 @@ public class Tile : MonoBehaviour
 
     void OnTick()
     {
+        Debug.Log(this.name);
         if (state != TileState.Static) return;
         if (tileScriptableObject.AnnualIncome != 0)
-            DataManager.DM.AdjustMoney(tileScriptableObject.AnnualIncome);
+            dm.AdjustMoney(tileScriptableObject.AnnualIncome);
         if (tileScriptableObject.AnnualCost != 0)
-            DataManager.DM.AdjustMoney(-1 * tileScriptableObject.AnnualCost);
+            dm.AdjustMoney(-1 * tileScriptableObject.AnnualCost);
         if (tileScriptableObject.AnnualCarbonStored != 0)
-            DataManager.DM.AdjustStored(tileScriptableObject.AnnualCarbonStored);
+            dm.AdjustStored(tileScriptableObject.AnnualCarbonStored);
         if (tileScriptableObject.AnnualCarbonRemoved != 0)
-            DataManager.DM.AdjustCarbon(-1 * tileScriptableObject.AnnualCarbonRemoved);
+            dm.AdjustCarbon(-1 * tileScriptableObject.AnnualCarbonRemoved);
         if (tileScriptableObject.AnnualCarbonAdded != 0)
-            DataManager.DM.AdjustCarbon(tileScriptableObject.AnnualCarbonAdded);
+            dm.AdjustCarbon(tileScriptableObject.AnnualCarbonAdded);
     }
 
-public void ActivateTile()
-{
 
-}
+
+//public void ActivateTile()
+//{
+//        dm.AdjustYearlyCarbon(tileScriptableObject.AnnualCarbonAdded - tileScriptableObject.AnnualCarbonRemoved);
+//        dm.AdjustStorageSize(tileScriptableObject.AnnualCarbonStored);
+//        dm.AdjustYearlyIncome(tileScriptableObject.AnnualIncome - tileScriptableObject.AnnualCost);
+//        state = TileState.Uninitialized;
+//    }
     #region Unity Methods
 
     private void Awake()
     {
         TickManager.TM.Tick.AddListener(OnTick);
+        tileMatHandler = gameObject.GetComponent<TileMaterialHandler>();
     }
 
     private void Update()
@@ -92,6 +101,12 @@ public void ActivateTile()
 
     #endregion
 
+//public void DeactivateTile()
+//{
+//        dm.AdjustYearlyCarbon(-tileScriptableObject.AnnualCarbonAdded + tileScriptableObject.AnnualCarbonRemoved);
+//        dm.AdjustStorageSize(-tileScriptableObject.AnnualCarbonStored);
+//        dm.AdjustYearlyIncome(-tileScriptableObject.AnnualIncome + tileScriptableObject.AnnualCost);
+//}
     #region Menu Methods
 
     private void OpenMenu()

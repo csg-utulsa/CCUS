@@ -60,7 +60,7 @@ public class BuildingSystem : MonoBehaviour
             }
             else
             {
-                Destroy(activeObject);
+                //Destroy(activeObject);
             }
         }
         else if (Input.GetKeyDown(KeyCode.Mouse1))
@@ -173,6 +173,8 @@ public class BuildingSystem : MonoBehaviour
                 return false;
             }
         }
+
+        if (!activeTile.gameObject.GetComponent<ObjectDrag>().IsValidOverlap()) { return false; }//makes sure tile is not placed with invalid tiles
 
         return true;
     }

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1880242570799918519}
   - component: {fileID: -5332720671724872162}
   - component: {fileID: -8914127212303811446}
+  - component: {fileID: -1436466636774375137}
   m_Layer: 0
   m_Name: Water Tile
   m_TagString: Ground
@@ -66,6 +67,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   overRide: 0
+  overlapObject: {fileID: 0}
+  overlapTerrain: {fileID: 0}
 --- !u!114 &1880242570799918519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78,6 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 445f4295ac6be4d4dabf7acaa5ef0524, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  placed: 0
   tile: {fileID: 5983545893882438188}
 --- !u!65 &-5332720671724872162
 BoxCollider:
@@ -127,6 +131,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-1436466636774375137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1799583184267823497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bce17a9110adcc439bb188c35b4ff50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1702864794120038022
 PrefabInstance:
   m_ObjectHideFlags: 0

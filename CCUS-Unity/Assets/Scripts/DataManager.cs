@@ -125,13 +125,13 @@ public class DataManager : MonoBehaviour
     /// </summary>
     public void IncrementYear()
     {
-        Debug.Log("Carbon Added:" + yearlyCarbon + "\n");
-        year++;
-        AdjustCarbon(yearlyCarbon);
-        AdjustStored(yearlyCarbon);
-        AdjustMoney(yearlyMoney);
-        Debug.Log("CurrentCarbon:" + carbon);
-        Debug.Log("\nCurrentCarbonStored:" + stored);
+        //Debug.Log("Carbon Added:" + yearlyCarbon + "\n");
+        //year++;
+        //AdjustCarbon(yearlyCarbon);
+        //AdjustStored(yearlyCarbon);
+        //AdjustMoney(yearlyMoney);
+        //Debug.Log("CurrentCarbon:" + carbon);
+        //Debug.Log("\nCurrentCarbonStored:" + stored);
     }
 
     #region Getters and Setters

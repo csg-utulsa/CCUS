@@ -1,14 +1,25 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using UnityEngine.UIElements;
 
 public class ObjectDrag : MonoBehaviour
 {
     bool dragging = true;
-    //public bool terrain; // for if we're displacing non-terrain, but a 2nd grid would be better
     public bool overRide;
-    private GameObject replacement;
+    [SerializeField] GameObject overlapObject;
+    [SerializeField] GameObject overlapTerrain;
+    private string GOTag;//tag of the tile
+    private TileMaterialHandler tileMaterialHandler;
+    
 
+    public void Awake()
+    {
+        GOTag = gameObject.tag;
+        tileMaterialHandler = GetComponent<TileMaterialHandler>();
+    }
 
     public void Update()
     {
@@ -21,16 +32,14 @@ public class ObjectDrag : MonoBehaviour
     public void Place()
     {
         dragging = false;
-        TileScriptableObject tileData = this.gameObject.GetComponent<Tile>().tileScriptableObject;
-        DataManager.DM.AdjustYearlyCarbon(tileData.AnnualCarbonAdded - tileData.AnnualCarbonRemoved);
-        DataManager.DM.AdjustStorageSize(tileData.AnnualCarbonStored);
-        DataManager.DM.AdjustYearlyIncome(tileData.AnnualIncome-tileData.AnnualCost);
-        if (overRide){
-            TileScriptableObject tileData2 = replacement.GetComponent<Tile>().tileScriptableObject;
-            DataManager.DM.AdjustYearlyCarbon(-(tileData2.AnnualCarbonAdded - tileData2.AnnualCarbonRemoved));
-            DataManager.DM.AdjustStorageSize(-tileData2.AnnualCarbonStored);
-            DataManager.DM.AdjustYearlyIncome(-tileData2.AnnualIncome + tileData2.AnnualCost);
-            Destroy(replacement);
+        this.GetComponent<Tile>().SetTileState(TileState.Static);
+        tileMaterialHandler.MaterialSet("placed");
+        if (overRide)
+        {
+            if (GOTag == "Ground")
+                Destroy(overlapTerrain);//terrain is only destroyed when placing terrain
+
+            Destroy(overlapObject);//the overlapping object is always destroyed
         }
     }
 
@@ -41,20 +50,67 @@ public class ObjectDrag : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {   
-        Debug.Log(this.gameObject.name+"hit"+other.gameObject.name);
-        if (other.gameObject.tag == this.gameObject.tag)
+        Debug.Log(this.gameObject.name+"hit"+other.gameObject.name);//Collison Debug (DO NOT FORGET RIGIDBODIES -AP
+
+
+        if (dragging)
         {
-            overRide = true;
-            replacement=other.gameObject;
+            string otherTag = other.gameObject.tag;
+
+            if (otherTag.Equals("Ground")) { overlapTerrain = other.gameObject; }//checks if a Terrain tile is already where this is
+            if (otherTag.Equals("Object")) { overlapObject = other.gameObject; }//checks if a Object tile is already where this is
+            if (other.gameObject.tag == this.gameObject.tag) { overRide = true; }//checks if this tile will replace a tile that already exists
+
+            if (IsValidOverlap())
+            {
+                tileMaterialHandler.MaterialSet("hovering");
+            }
+            else
+            {
+                tileMaterialHandler.MaterialSet("invalid");
+            }
         }
+            
     }
 
     public void OnTriggerExit(Collider other)
     {
-    if (other.gameObject.tag == this.gameObject.tag)
-    {
-            overRide = false;
-            replacement = null;
+            overRide = false; 
+            overlapTerrain = null; 
+            overlapObject = null; 
     }
-}
+    
+    /*
+     * 
+     */
+    public bool IsValidOverlap(GameObject otherTile)
+    {
+        if (otherTile == null) return true;//if nothing to overlap, why botherchecking?
+        if (GOTag == "Ground" || otherTile.tag =="Object") { return true; }//dont care FOR NOW if this is a terrain tile, or otherTile is a object, the object above gets deleted anyways
+        else
+        {
+            TileScriptableObject thisTSO = this.gameObject.GetComponent<Tile>().tileScriptableObject;
+            TileScriptableObject otherTSO = otherTile.GetComponent<Tile>().tileScriptableObject;
+
+            if (otherTSO.OverlapWhiteList.Length > 0 && Array.IndexOf(otherTSO.OverlapWhiteList, otherTSO.name) >= 0) { return true; }//if this has a whitelist and the overlap is on said whitelist, return true
+
+            if (Array.IndexOf(thisTSO.OverlapBlackList, otherTSO.name) >= 0)
+            { //if the tile is in the blacklist, not valid
+                return false;
+            }
+            else { return true; }//if otherTile is not in the blacklist, return true
+        }
+    }
+
+    public bool IsValidOverlap()
+    {
+        if (IsValidOverlap(overlapTerrain) && IsValidOverlap(overlapObject))//if BOTH terrain and object is valid, its valid
+        {
+            Debug.Log("Valid placement for " + this.gameObject.name);
+            return true;
+        }
+        Debug.Log("Invalid placement for " + this.gameObject.name);
+        return false;
+ 
+    }
 }
