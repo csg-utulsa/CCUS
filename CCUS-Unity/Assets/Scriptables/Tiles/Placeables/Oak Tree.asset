@@ -19,3 +19,8 @@ MonoBehaviour:
   AnnualCarbonAdded: 0
   AnnualCarbonStored: 0
   AnnualIncome: 0
+  OverlapBlackList:
+  - Concrete
+  - Road
+  - Water
+  OverlapWhiteList: []
