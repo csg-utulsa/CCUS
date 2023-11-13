@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: Dirt
   m_EditorClassIdentifier: 
   Name: Dirt
-  BuildCost: 0
+  BuildCost: 5
   AnnualCost: 0
-  AnnualCarbonRemoved: 0
+  AnnualCarbonRemoved: 5
   AnnualCarbonAdded: 0
   AnnualCarbonStored: 0
   AnnualIncome: 0
+  OverlapBlackList: []
+  OverlapWhiteList: []

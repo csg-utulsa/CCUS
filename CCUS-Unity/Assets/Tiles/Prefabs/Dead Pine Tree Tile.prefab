@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7717605810638029467}
   - component: {fileID: -9223013531930817842}
   - component: {fileID: 4935517029331068500}
+  - component: {fileID: -6334270236187139630}
   m_Layer: 0
   m_Name: Dead Pine Tree Tile
   m_TagString: Object
@@ -143,6 +144,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bce17a9110adcc439bb188c35b4ff50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-6334270236187139630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5712111926586024820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72d8cb75f4ebf5c47958539f888fac70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  modelObjectTransform: {fileID: 0}
+  rotationLocked: 0
+  scaleLocked: 0
+  squareRotation: 0
+  scaleMin: 0.75
+  scaleMax: 1.25
 --- !u!1001 &3852026869429738820
 PrefabInstance:
   m_ObjectHideFlags: 0

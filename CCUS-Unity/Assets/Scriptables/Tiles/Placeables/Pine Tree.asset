@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Pine Tree
   BuildCost: 15
-  AnnualCost: 20
+  AnnualCost: 5
   AnnualCarbonRemoved: 15
   AnnualCarbonAdded: 0
   AnnualCarbonStored: 0

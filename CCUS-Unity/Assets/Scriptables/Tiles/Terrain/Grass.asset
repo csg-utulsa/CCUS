@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Grass
   BuildCost: 5
-  AnnualCost: 0
-  AnnualCarbonRemoved: 5
+  AnnualCost: 5
+  AnnualCarbonRemoved: 10
   AnnualCarbonAdded: 0
   AnnualCarbonStored: 0
   AnnualIncome: 0
+  OverlapBlackList: []
+  OverlapWhiteList: []
