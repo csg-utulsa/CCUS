@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3566317316941334756}
   - component: {fileID: 5484643323090204880}
   m_Layer: 0
-  m_Name: Pavement Tile
+  m_Name: Road Tile
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -35,7 +35,7 @@ Transform:
   m_LocalScale: {x: 0.30769232, y: 0.3076923, z: 0.30769232}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1165152469483143533}
+  - {fileID: 1777846023577378889}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5983545893882438188
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bce17a9110adcc439bb188c35b4ff50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &1702864794120038022
+--- !u!1001 &2244645242166232994
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -151,10 +151,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1799583184267823496}
     m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 55810182e2cc28340b976f380b86e484, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 55810182e2cc28340b976f380b86e484, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -197,15 +193,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 55810182e2cc28340b976f380b86e484, type: 3}
       propertyPath: m_Name
-      value: water
+      value: water (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55810182e2cc28340b976f380b86e484, type: 3}
---- !u!4 &1165152469483143533 stripped
+--- !u!4 &1777846023577378889 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 55810182e2cc28340b976f380b86e484, type: 3}
-  m_PrefabInstance: {fileID: 1702864794120038022}
+  m_PrefabInstance: {fileID: 2244645242166232994}
   m_PrefabAsset: {fileID: 0}

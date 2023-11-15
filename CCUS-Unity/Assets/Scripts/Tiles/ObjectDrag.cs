@@ -34,13 +34,10 @@ public class ObjectDrag : MonoBehaviour
         dragging = false;
         this.GetComponent<Tile>().SetTileState(TileState.Static);
         tileMaterialHandler.MaterialSet("placed");
-        if (overRide)
-        {
-            if (GOTag == "Ground")
-                Destroy(overlapTerrain);//terrain is only destroyed when placing terrain
 
-            Destroy(overlapObject);//the overlapping object is always destroyed
-        }
+        if(overlapObject != null) {Destroy(overlapObject);}//the overlapping object is always destroyed
+        if (GOTag == "Ground")
+                Destroy(overlapTerrain);//terrain is only destroyed when placing terrain
     }
 
     public void Pickup()
@@ -50,7 +47,7 @@ public class ObjectDrag : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {   
-        Debug.Log(this.gameObject.name+"hit"+other.gameObject.name);//Collison Debug (DO NOT FORGET RIGIDBODIES -AP
+        //Debug.Log(this.gameObject.name+"hit"+other.gameObject.name);//Collison Debug (DO NOT FORGET RIGIDBODIES -AP
 
 
         if (dragging)
@@ -61,7 +58,7 @@ public class ObjectDrag : MonoBehaviour
             if (otherTag.Equals("Object")) { overlapObject = other.gameObject; }//checks if a Object tile is already where this is
             if (other.gameObject.tag == this.gameObject.tag) { overRide = true; }//checks if this tile will replace a tile that already exists
 
-            if (IsValidOverlap())
+            if (IsValidOverlap())//changes material based on if tile is overlapping a tile it can or not
             {
                 tileMaterialHandler.MaterialSet("hovering");
             }
@@ -77,7 +74,11 @@ public class ObjectDrag : MonoBehaviour
     {
             overRide = false; 
             overlapTerrain = null; 
-            overlapObject = null; 
+            overlapObject = null;
+        if (dragging)
+        {
+            tileMaterialHandler.MaterialSet("hovering");
+        }
     }
     
     /*
