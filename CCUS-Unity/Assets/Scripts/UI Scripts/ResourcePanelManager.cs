@@ -8,7 +8,7 @@ public class ResourcePanelManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI yearText;
     [SerializeField] TextMeshProUGUI moneyText;
     [SerializeField] TextMeshProUGUI storageText;
-    [SerializeField] ProgressBar carbonBar;
+    [SerializeField] CarbonRotate carbonDial;
 
     DataManager dm;
 
@@ -23,12 +23,12 @@ public class ResourcePanelManager : MonoBehaviour
     {
         if(yearText != null)
         {
-            yearText.text = "Year: " + dm.GetYear().ToString();
+            yearText.text = dm.GetYear().ToString();
         }
 
         if(moneyText != null)
         {
-            moneyText.text = "Current funds: $" + dm.GetMoney().ToString();
+            moneyText.text = "Funds: $" + dm.GetMoney().ToString();
         }
 
         if(storageText != null)
@@ -36,9 +36,9 @@ public class ResourcePanelManager : MonoBehaviour
             storageText.text = "Carbon Storage: " + dm.GetStored();
         }
 
-        if(carbonBar != null)
+        if(carbonDial != null)
         {
-            carbonBar.SetBarValue(dm.GetCarbon());
+            carbonDial.UpdateCarbon(dm.GetCarbon());
         }
     }
 }

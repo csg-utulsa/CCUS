@@ -9,6 +9,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Main Menu Scene.unity
     guid: 8cad6fd7663d3b54ab7122010f0e36e1
   - enabled: 1
+    path: Assets/Scenes/LevelSelect.unity
+    guid: 509da17598ccb154a8c7ae7e9369dfe7
+  - enabled: 0
     path: Assets/Scenes/PrototypeScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/LevelOneWOW.unity
+    guid: 18d5058e9810ae1469fd3b07a6d5df0f
   m_configObjects: {}

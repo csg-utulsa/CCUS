@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Road
   BuildCost: 25
-  AnnualCost: 30
+  AnnualCost: 0
   AnnualCarbonRemoved: 0
-  AnnualCarbonAdded: 125
+  AnnualCarbonAdded: 25
   AnnualCarbonStored: 0
-  AnnualIncome: 75
+  AnnualIncome: 5

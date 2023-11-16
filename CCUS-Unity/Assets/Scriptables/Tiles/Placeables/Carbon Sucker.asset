@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Carbon Sucker
   BuildCost: 75
-  AnnualCost: 25
+  AnnualCost: 50
   AnnualCarbonRemoved: 75
   AnnualCarbonAdded: 0
   AnnualCarbonStored: 25

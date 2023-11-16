@@ -12,5 +12,11 @@ public class TileScriptableObject : ScriptableObject
     public int AnnualCarbonAdded;
     public int AnnualCarbonStored;
     public int AnnualIncome;
+    public enum TileClass
+    {
+        Grass, Dirt, Pavement, Tree, Water, Machine, Building
+    }
 
+    public string[] OverlapBlackList;
+    public string[] OverlapWhiteList;
 }

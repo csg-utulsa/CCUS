@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(ObjectDrag))]
 public class PlaceableObject : MonoBehaviour
 {
-    public bool Placed { get; private set; }
+    public bool placed;
     public Vector3Int Size { get; private set; }
 
     public Vector3[] Vertices;
@@ -18,6 +18,8 @@ public class PlaceableObject : MonoBehaviour
     private void Awake()
     {
         drag = GetComponent<ObjectDrag>();
+
+        if (placed) { drag.Place(); }//For Tiles that start out placed, activates them
     }
 
     private void GetColliderVertexPositionsLocal()
@@ -59,7 +61,7 @@ public class PlaceableObject : MonoBehaviour
     public virtual void Place()
     {
         drag.Place();
-        Placed = true;
+        placed = true;
 
         //invoke events of placement
         //tile.SetTileState(TileState.Static);
@@ -67,12 +69,13 @@ public class PlaceableObject : MonoBehaviour
 
     public virtual void Pickup()
     {
-
         drag.Pickup();
 
-        Placed = false;
+        placed = false;
 
         tile.SetTileState(TileState.Moveable);
     }
+
+
 
 }

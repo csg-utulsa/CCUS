@@ -45,7 +45,7 @@ public class BuildingSystem : MonoBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0))//Object placing
         {
             if (CanBePlaced(objectToPlace))
             {
@@ -60,10 +60,10 @@ public class BuildingSystem : MonoBehaviour
             }
             else
             {
-                Destroy(activeObject);
+                //Destroy(activeObject);
             }
         }
-        else if (Input.GetKeyDown(KeyCode.Q))
+        else if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             Destroy(activeObject);
         }
@@ -173,6 +173,8 @@ public class BuildingSystem : MonoBehaviour
                 return false;
             }
         }
+
+        if (!activeTile.gameObject.GetComponent<ObjectDrag>().IsValidOverlap()) { return false; }//makes sure tile is not placed with invalid tiles
 
         return true;
     }
