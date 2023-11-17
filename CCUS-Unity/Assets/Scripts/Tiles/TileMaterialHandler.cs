@@ -16,14 +16,14 @@ using UnityEngine;
  */ 
 public class TileMaterialHandler : MonoBehaviour
 {
-    Renderer renderer;
+    Renderer matRenderer;
     Material[] baseMaterials;
     Material[] hoveringMaterials;
     Material[] invalidMaterials;
     // Start is called before the first frame update
     void Start()
     {   
-        renderer = gameObject.GetComponentInChildren<Renderer>();
+        matRenderer = gameObject.GetComponentInChildren<Renderer>();
         //    //GetComponent<Renderer>();
         //baseMaterials = renderer.materials;
         //hoveringMaterials = renderer.materials;
@@ -45,16 +45,16 @@ public class TileMaterialHandler : MonoBehaviour
         switch (set)
         {
             case "placed":
-                foreach (Material mat in renderer.materials)
+                foreach (Material mat in matRenderer.materials)
                     mat.color = new Color(1f, 1f, 1f, 1f); break;//material is fully colored
             case "hovering":
-                foreach (Material mat in renderer.materials)
+                foreach (Material mat in matRenderer.materials)
                     mat.color = new Color(1f, 1f, 1f, .5f); break;//material is 50% transparent
             case "invalid":
-                foreach (Material mat in renderer.materials)
+                foreach (Material mat in matRenderer.materials)
                     mat.color = new Color(1f, .1f, .1f, .75f); break;//material is 50% transparent and also red
             default:
-                foreach (Material mat in renderer.materials)
+                foreach (Material mat in matRenderer.materials)
                     mat.color = new Color(1f, 1f, 1f, 1f); break;//material is fully colored
 
         }
