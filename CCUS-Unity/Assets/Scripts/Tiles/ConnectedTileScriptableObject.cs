@@ -18,6 +18,14 @@ public class ConnectedTileScriptableObject : ScriptableObject
     public Mesh xIntersectionModel; //Default shouldnt matter really
     public Mesh endModel; //Default should have X+ opening
     public Mesh islandModel; //An Isolated Tile
+
+    [Header("Default Y Rotation to Synchronize Models")]
+    public float straightRot;
+    public float cornerRot;
+    public float tRot;
+    public float xRot;
+    public float endRot;
+    public float isleRot;
 }
 
 

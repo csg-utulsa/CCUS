@@ -20,6 +20,7 @@ public class TileMaterialHandler : MonoBehaviour
     Material[] baseMaterials;
     Material[] hoveringMaterials;
     Material[] invalidMaterials;
+    public string debugState;
     // Start is called before the first frame update
     void Start()
     {   
@@ -38,7 +39,14 @@ public class TileMaterialHandler : MonoBehaviour
     }
 
     // Update is called once per frame
-
+    private void Update()
+    {
+        if(debugState != "")
+        {
+            MaterialSet(debugState);
+            //debugState = null;
+        }
+    }
 
     public void MaterialSet(string set)//sets the material to a certain colot
     {
