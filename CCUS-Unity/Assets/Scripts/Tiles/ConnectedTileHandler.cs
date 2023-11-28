@@ -49,7 +49,7 @@ public class ConnectedTileHandler : MonoBehaviour
         }
         if (TileModelGO == null)
             {
-                TileModelGO = this.transform.GetChild(0).gameObject;
+                TileModelGO = transform.Find("Model").gameObject;
             }
         
         
