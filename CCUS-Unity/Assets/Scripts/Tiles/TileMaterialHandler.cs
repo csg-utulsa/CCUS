@@ -17,12 +17,7 @@ using UnityEngine;
 public class TileMaterialHandler : MonoBehaviour
 {
     Renderer matRenderer;
-    Material[] baseMaterials;
-    Material[] hoveringMaterials;
-    Material[] invalidMaterials;
-<<<<<<< Updated upstream
-=======
-    public string debugState;
+
 
     public enum matState
     {
@@ -32,23 +27,12 @@ public class TileMaterialHandler : MonoBehaviour
     }
     private matState currentState;
 
->>>>>>> Stashed changes
     // Start is called before the first frame update
     void Start()
     {   
         matRenderer = gameObject.GetComponentInChildren<Renderer>();
         
     }
-
-    // Update is called once per frame
-<<<<<<< Updated upstream
-
-=======
-    private void Update()
-    {
-
-    }
->>>>>>> Stashed changes
 
     public void MaterialSet(matState state)//sets the material to a certain colot
     {
