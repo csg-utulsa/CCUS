@@ -7,6 +7,7 @@ TagManager:
   - Ground
   - Object
   - UI
+  - Direction
   layers:
   - Default
   - TransparentFX

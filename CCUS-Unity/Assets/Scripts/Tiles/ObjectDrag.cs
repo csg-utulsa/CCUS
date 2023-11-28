@@ -33,7 +33,7 @@ public class ObjectDrag : MonoBehaviour
     {
         dragging = false;
         this.GetComponent<Tile>().SetTileState(TileState.Static);
-        tileMaterialHandler.MaterialSet("placed");
+        tileMaterialHandler.MaterialSet(TileMaterialHandler.matState.Placed);
 
         if(overlapObject != null) {Destroy(overlapObject);}//the overlapping object is always destroyed
         if (GOTag == "Ground")
@@ -60,11 +60,11 @@ public class ObjectDrag : MonoBehaviour
 
             if (IsValidOverlap())//changes material based on if tile is overlapping a tile it can or not
             {
-                tileMaterialHandler.MaterialSet("hovering");
+                tileMaterialHandler.MaterialSet(TileMaterialHandler.matState.HoveringValid);
             }
             else
             {
-                tileMaterialHandler.MaterialSet("invalid");
+                tileMaterialHandler.MaterialSet(TileMaterialHandler.matState.HoveringInvalid);
             }
         }
             
@@ -77,7 +77,7 @@ public class ObjectDrag : MonoBehaviour
             overlapObject = null;
         if (dragging)
         {
-            tileMaterialHandler.MaterialSet("hovering");
+            tileMaterialHandler.MaterialSet(TileMaterialHandler.matState.HoveringValid);
         }
     }
     

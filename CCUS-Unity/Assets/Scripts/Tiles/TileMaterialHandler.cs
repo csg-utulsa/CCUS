@@ -20,37 +20,47 @@ public class TileMaterialHandler : MonoBehaviour
     Material[] baseMaterials;
     Material[] hoveringMaterials;
     Material[] invalidMaterials;
+<<<<<<< Updated upstream
+=======
+    public string debugState;
+
+    public enum matState
+    {
+        Placed,
+        HoveringValid,
+        HoveringInvalid,
+    }
+    private matState currentState;
+
+>>>>>>> Stashed changes
     // Start is called before the first frame update
     void Start()
     {   
         matRenderer = gameObject.GetComponentInChildren<Renderer>();
-        //    //GetComponent<Renderer>();
-        //baseMaterials = renderer.materials;
-        //hoveringMaterials = renderer.materials;
-        //invalidMaterials = renderer.materials;
-
-
-
-        //foreach (Material mat in baseMaterials)
-        //{
-        //    mat.color = new Color(1f, .5f, .5f, .5f);
-        //}
+        
     }
 
     // Update is called once per frame
+<<<<<<< Updated upstream
 
-
-    public void MaterialSet(string set)//sets the material to a certain colot
+=======
+    private void Update()
     {
-        switch (set)
+
+    }
+>>>>>>> Stashed changes
+
+    public void MaterialSet(matState state)//sets the material to a certain colot
+    {
+        switch (state)
         {
-            case "placed":
+            case matState.Placed:
                 foreach (Material mat in matRenderer.materials)
                     mat.color = new Color(1f, 1f, 1f, 1f); break;//material is fully colored
-            case "hovering":
+            case matState.HoveringValid:
                 foreach (Material mat in matRenderer.materials)
                     mat.color = new Color(1f, 1f, 1f, .5f); break;//material is 50% transparent
-            case "invalid":
+            case matState.HoveringInvalid:
                 foreach (Material mat in matRenderer.materials)
                     mat.color = new Color(1f, .1f, .1f, .75f); break;//material is 50% transparent and also red
             default:

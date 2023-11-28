@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9c970274b8bccd4888aa30fee92b0bd, type: 3}
+  m_Name: RoadConnectSO
+  m_EditorClassIdentifier: 
+  straightModel: {fileID: -5321260103611251441, guid: 6fcf68e38aeb0b64091a29d8ac9a417c, type: 3}
+  cornerModel: {fileID: -1950459811383465834, guid: 90dd54dfc1f36874e9a63cf214723ff3, type: 3}
+  tIntersectionModel: {fileID: 5903855540594818103, guid: 7b4d545cb24cb914abd0380497dbdfa2, type: 3}
+  xIntersectionModel: {fileID: -7034457069537432014, guid: 01f8f887e7e7a914981072aefd0cee7b, type: 3}
+  endModel: {fileID: -1999574697696782204, guid: 2fdefb83790646046af050c6db3c0202, type: 3}
+  islandModel: {fileID: 2035880078066663383, guid: ad08bd34c2609ec41bf9f961f84d754e, type: 3}
+  straightRot: 90
+  cornerRot: -90
+  tRot: 90
+  xRot: 0
+  endRot: 90
+  isleRot: 0
