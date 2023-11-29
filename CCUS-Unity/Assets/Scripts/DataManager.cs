@@ -126,7 +126,7 @@ public class DataManager : MonoBehaviour
     public void IncrementYear()
     {
         //Debug.Log("Carbon Added:" + yearlyCarbon + "\n");
-        //year++;
+        year++;
         //AdjustCarbon(yearlyCarbon);
         //AdjustStored(yearlyCarbon);
         //AdjustMoney(yearlyMoney);
