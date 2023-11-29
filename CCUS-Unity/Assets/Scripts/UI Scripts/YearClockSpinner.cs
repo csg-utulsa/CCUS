@@ -6,7 +6,7 @@ public class YearClockSpinner : MonoBehaviour
 {
 
     private float year;
-    private float secondsPerYear = 4.0f;
+    private float secondsPerYear = 4.0f; //This code spins the clockhand on the year in this many seconds
 
     void FixedUpdate()
     {
