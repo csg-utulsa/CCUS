@@ -1,12 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
 using UnityEngine;
 
-public class PanelOpener : MonoBehaviour
+public class PanelOpener : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public GameObject panel; //The object that will be opened and collapsed
     bool isActive = true;
-    // Start is called before the first frame update
+    private Vector3 scaleChange = new Vector3(0.1f, 0.1f, 0); //Scale for the button's change
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        this.transform.localScale += scaleChange;
+        //print("Mouse has entered");
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        this.transform.localScale -= scaleChange;
+        //print("Mouse has left");
+    }
 
     public void OpenPanel()
     {
@@ -15,7 +28,6 @@ public class PanelOpener : MonoBehaviour
             if (isActive) //If the panel is currently up it'll turn off the pannel and shift the button down
             {                
                 panel.transform.position -= new Vector3(0,180,0);
-                print(isActive);
                 isActive = false;
             }
             else //If the pannel is off it'll move the button up and bring back the pannel
