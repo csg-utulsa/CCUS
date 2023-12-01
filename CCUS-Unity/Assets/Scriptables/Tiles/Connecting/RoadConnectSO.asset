@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9c970274b8bccd4888aa30fee92b0bd, type: 3}
   m_Name: RoadConnectSO
   m_EditorClassIdentifier: 
-  straightModel: {fileID: -5321260103611251441, guid: b69ba617ed57b6346bf117a783411f59, type: 3}
-  cornerModel: {fileID: -1950459811383465834, guid: 59b8fb179a5b3084a80815108a2b221b, type: 3}
-  tIntersectionModel: {fileID: 5903855540594818103, guid: 7756f0d85b77ebf49bc0fa18247218f8, type: 3}
-  xIntersectionModel: {fileID: -7034457069537432014, guid: f1e9a7424f7fd2440b694f2697e44ff2, type: 3}
-  endModel: {fileID: -1999574697696782204, guid: 24f7ad983805b09438f225d1c2f8feef, type: 3}
-  islandModel: {fileID: -1999574697696782204, guid: 24f7ad983805b09438f225d1c2f8feef, type: 3}
+  straightModel: {fileID: -5321260103611251441, guid: d1c91987a4d65014997a2ea323910be4, type: 3}
+  cornerModel: {fileID: -1950459811383465834, guid: 50ec40de2a7f44142804ae5dad4364c2, type: 3}
+  tIntersectionModel: {fileID: 5903855540594818103, guid: 7474db1a34cc6434cbe4f84a98e0da60, type: 3}
+  xIntersectionModel: {fileID: -7034457069537432014, guid: f01a2ecd85765b14b9a437f01b5898f0, type: 3}
+  endModel: {fileID: -1999574697696782204, guid: 2deb2f3b0badb34468eb4b0bc5be8cd5, type: 3}
+  islandModel: {fileID: 2035880078066663383, guid: a02986ad48424c84cbe929a23c94f51d, type: 3}
   straightRot: 0
-  cornerRot: 90
+  cornerRot: 180
   tRot: 0
   xRot: 0
-  endRot: 90
+  endRot: 0
   isleRot: 0

@@ -8,18 +8,21 @@ public class ConnectedTileHandler : MonoBehaviour
 {
     [Header("Model to be altered")]
     public GameObject TileModelGO;
+
     [Header("Connected Tile Scriptable Object")]
     public ConnectedTileScriptableObject baseModels;
+
     [Header("Current Model State")]
     public Mesh currentModel;
-    //public float currentRotation; //How much the base model should be rotated to fit the adjacency
+
 
     [Header("Current Adjacecy")]
-    public AdjacencyFlag hasNeighbors = AdjacencyFlag.None;
+    public AdjacencyFlag hasNeighbors = AdjacencyFlag.None;//handles current neighbors
     public GameObject[] neighborGO = new GameObject[4];
 
+    private (AdjacencyFlag direction, GameObject neighbor) tempNeighbor;//to handle floating neighbors
+    
     private (Mesh model, float rotation)[] modelList;
-
     private void Awake()
     {
         modelList = new(Mesh model, float rotation)[]  {
@@ -57,60 +60,99 @@ public class ConnectedTileHandler : MonoBehaviour
     // Start is called before the first frame update
     void Update()
     {
-        Debug.Log((int)hasNeighbors);
+        //Debug.Log(tempNeighbor.neighbor);
+        //Debug.Log(neighborGO[0]+" "+neighborGO[1]+" "+neighborGO[2]+" "+neighborGO[3]);
+        if ((tempNeighbor.neighbor != null) && (tempNeighbor.neighbor.GetComponent<PlaceableObject>().placed))
+        {
+            
+            AddNeighbor(tempNeighbor.direction, tempNeighbor.neighbor);
+            RemoveTempNeighbor();
+        }
+        
         UpdateModel();
     }
-
+    public void AddTempNeighbor(AdjacencyFlag tempDir, GameObject tempGO)
+    {
+        Debug.Log("Adding Temp Neighbor: "+tempGO.name);
+        tempNeighbor.direction = tempDir;
+        tempNeighbor.neighbor = tempGO;
+        Debug.Log("Temp Direction ="+tempNeighbor.direction);
+    }
     public void AddNeighbor(AdjacencyFlag direction, GameObject neighbor)
     {
-        hasNeighbors |= direction;//adds direction to flag
-
-        switch (direction) //adds neighbor GO to array
+        if (!neighbor.GetComponent<PlaceableObject>().placed)
         {
-            case AdjacencyFlag.North:
-                neighborGO[0] = neighbor;
-                break;
-            case AdjacencyFlag.East:
-                neighborGO[1] = neighbor;
-                break;
-            case AdjacencyFlag.South:
-                neighborGO[2] = neighbor;
-                break;
-            case AdjacencyFlag.West:
-                neighborGO[3] = neighbor;
-                break;
-        }//end switch (direction)
+            AddTempNeighbor(direction, neighbor);
+        }
+        else
+        {
+            Debug.Log("Adding neighbor");
+            hasNeighbors |= direction;//adds direction to flag
+
+            switch (direction) //adds neighbor GO to array
+            {
+                case AdjacencyFlag.North:
+                    neighborGO[0] = neighbor;
+                    break;
+                case AdjacencyFlag.East:
+                    neighborGO[1] = neighbor;
+                    break;
+                case AdjacencyFlag.South:
+                    neighborGO[2] = neighbor;
+                    break;
+                case AdjacencyFlag.West:
+                    neighborGO[3] = neighbor;
+                    break;
+            }//end switch (direction)
+        }
         UpdateModel();
     }//end AddNeigbor
 
-    public void RemoveNeightbor(AdjacencyFlag direction)
+    public void RemoveTempNeighbor()
     {
-        hasNeighbors &= ~direction;//removed direction from flag
-        switch (direction) //removes neighbor GO to array
-        {
-            case AdjacencyFlag.North:
-                neighborGO[0] = null;
-                break;
-            case AdjacencyFlag.East:
-                neighborGO[1] = null;
-                break;
-            case AdjacencyFlag.South:
-                neighborGO[2] = null;
-                break;
-            case AdjacencyFlag.West:
-                neighborGO[3] = null;
-                break;
+        Debug.Log("Removing Temp Neightbor");
+        tempNeighbor.direction = AdjacencyFlag.None;
+        tempNeighbor.neighbor = null;
+    }
 
-        }//end switch(direction)
+    public void RemoveNeighbor(AdjacencyFlag direction, GameObject neighbor)
+    {
+        if (neighbor == tempNeighbor.neighbor)
+        {
+            RemoveTempNeighbor();
+        }
+        else
+        {
+            Debug.Log("Removing Neighbor");
+            hasNeighbors &= ~direction;//removed direction from flag
+            switch (direction) //removes neighbor GO to array
+            {
+                case AdjacencyFlag.North:
+                    neighborGO[0] = null;
+                    break;
+                case AdjacencyFlag.East:
+                    neighborGO[1] = null;
+                    break;
+                case AdjacencyFlag.South:
+                    neighborGO[2] = null;
+                    break;
+                case AdjacencyFlag.West:
+                    neighborGO[3] = null;
+                    break;
+            }//end switch(direction)
+            
+        }
 
         UpdateModel();
     }//end remve neighbor
-    
+
     public void UpdateModel()
     {
-        currentModel = modelList[(int)hasNeighbors].model;
+        AdjacencyFlag currentNeighbors = hasNeighbors | tempNeighbor.direction;
+        //Debug.Log(currentNeighbors);
+        currentModel = modelList[(int)currentNeighbors].model;
         TileModelGO.GetComponent<MeshFilter>().mesh = currentModel;
-        TileModelGO.transform.localEulerAngles = new Vector3(-90,modelList[(int)hasNeighbors].rotation,0);
+        TileModelGO.transform.localEulerAngles = new Vector3(0,modelList[(int)currentNeighbors].rotation,90);
 
     }
 }

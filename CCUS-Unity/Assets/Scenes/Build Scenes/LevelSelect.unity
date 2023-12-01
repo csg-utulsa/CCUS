@@ -2685,7 +2685,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8090826261090666394, guid: 22e71846fb0ae564c89ed6afc3efa66a, type: 3}
       propertyPath: lvlName
-      value: LevelOneWOW
+      value: Dec2023DemoLevel
       objectReference: {fileID: 0}
     - target: {fileID: 8090826262904878655, guid: 22e71846fb0ae564c89ed6afc3efa66a, type: 3}
       propertyPath: m_LocalScale.y
@@ -2694,6 +2694,10 @@ PrefabInstance:
     - target: {fileID: 8090826262904878655, guid: 22e71846fb0ae564c89ed6afc3efa66a, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8090826262904879040, guid: 22e71846fb0ae564c89ed6afc3efa66a, type: 3}
+      propertyPath: m_text
+      value: Demo
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
