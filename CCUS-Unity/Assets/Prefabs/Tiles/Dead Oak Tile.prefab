@@ -53,7 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileType: 1
-  tileScriptableObject: {fileID: 0}
+  tileScriptableObject: {fileID: 11400000, guid: 8bca6050023739245be400b9d2544095, type: 2}
   po: {fileID: 8810663931691349949}
   state: 0
 --- !u!114 &4446197576717957288
@@ -83,7 +83,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 445f4295ac6be4d4dabf7acaa5ef0524, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  placed: 0
+  placed: 1
+  Vertices: []
   tile: {fileID: 3700799750909179942}
 --- !u!65 &9211023932889271885
 BoxCollider:

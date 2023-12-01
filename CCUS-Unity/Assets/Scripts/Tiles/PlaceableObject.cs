@@ -17,9 +17,7 @@ public class PlaceableObject : MonoBehaviour
 
     private void Awake()
     {
-        drag = GetComponent<ObjectDrag>();
-
-        if (placed) { drag.Place(); }//For Tiles that start out placed, activates them
+       drag = GetComponent<ObjectDrag>(); 
     }
 
     private void GetColliderVertexPositionsLocal()
@@ -56,6 +54,8 @@ public class PlaceableObject : MonoBehaviour
     {
         GetColliderVertexPositionsLocal();
         CalculateSizeInCells();
+        
+        if (placed) { drag.Place(); }//For Tiles that start out placed, activates them
     }
 
     public virtual void Place()

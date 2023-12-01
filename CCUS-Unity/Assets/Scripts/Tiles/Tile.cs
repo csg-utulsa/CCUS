@@ -12,39 +12,15 @@ public class Tile : MonoBehaviour
     public TileState state = TileState.Uninitialized;
     bool menuOpen = false;
 
-    DataManager dm = DataManager.DM;
+    DataManager dm;
     private TileMaterialHandler tileMatHandler;
 
 
-    // Decorator system is a work in progress ~Coleton
-    /*TileDecorator td;
-    public void SetTileDecorator(TileDecorator td)
-    {
-        this.td = td;
-    }*/
 
     // This method is pretty bad but I needed to have it to test features. Can be reworked at a later date. ~Coleton
     private void CheckForInput()
     {
-        /*if (Input.GetMouseButtonDown(0))
-        {
-            if (po.Placed)
-                EndDrag();
-        }
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (po.isDragging())
-                EndDrag();
-            else
-                CloseMenu();
-        }*/
 
-        // TEMPORARY BUTTON TO ENABLE DRAGGING ~Coleton
-        /*if (Input.GetKeyDown(KeyCode.D))
-        {
-            if (!od.isDragging())
-                BeginDrag();
-        }*/
     }
 
     public void SetTileState(TileState ts)
@@ -70,19 +46,14 @@ public class Tile : MonoBehaviour
 
 
 
-//public void ActivateTile()
-//{
-//        dm.AdjustYearlyCarbon(tileScriptableObject.AnnualCarbonAdded - tileScriptableObject.AnnualCarbonRemoved);
-//        dm.AdjustStorageSize(tileScriptableObject.AnnualCarbonStored);
-//        dm.AdjustYearlyIncome(tileScriptableObject.AnnualIncome - tileScriptableObject.AnnualCost);
-//        state = TileState.Uninitialized;
-//    }
+
     #region Unity Methods
 
     private void Awake()
     {
         TickManager.TM.Tick.AddListener(OnTick);
         tileMatHandler = gameObject.GetComponent<TileMaterialHandler>();
+        dm = DataManager.DM;
     }
 
     private void Update()
@@ -101,12 +72,7 @@ public class Tile : MonoBehaviour
 
     #endregion
 
-//public void DeactivateTile()
-//{
-//        dm.AdjustYearlyCarbon(-tileScriptableObject.AnnualCarbonAdded + tileScriptableObject.AnnualCarbonRemoved);
-//        dm.AdjustStorageSize(-tileScriptableObject.AnnualCarbonStored);
-//        dm.AdjustYearlyIncome(-tileScriptableObject.AnnualIncome + tileScriptableObject.AnnualCost);
-//}
+
     #region Menu Methods
 
     private void OpenMenu()
