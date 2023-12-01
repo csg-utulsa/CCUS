@@ -35,6 +35,7 @@ public class ResourcePanelManager : MonoBehaviour
             }
             moneyText.text = spacing + dm.GetMoney().ToString();
         }
+        spacing = "";
 
         /*if(storageText != null)
         {
@@ -45,19 +46,8 @@ public class ResourcePanelManager : MonoBehaviour
         {
             carbonDial.UpdateCarbon(dm.GetCarbon()); //Updates the Dial
             int carbonPercentage = (dm.GetCarbon() / 10); //Transforms the carbon number into a percent
-            if (carbonPercentage.ToString().Length <= 1) //Determines proper spacing for the numbers
-            {
-                spacing = "  ";  
-            }
-            else if (carbonPercentage.ToString().Length == 2)
-            {
-                spacing = " ";
-            }
-            else
-            {
-                spacing = "";
-            }
-            carbonText.text = spacing + (carbonPercentage).ToString(); //Changes component to match current carbon percent
+
+            carbonText.text = "%" + (carbonPercentage).ToString(); //Changes component to match current carbon percent
         }
     }
 }

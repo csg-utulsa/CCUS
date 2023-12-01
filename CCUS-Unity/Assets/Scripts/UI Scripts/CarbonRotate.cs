@@ -21,7 +21,7 @@ public class CarbonRotate : MonoBehaviour
     public float ConvertToAngle(float current,float max)
     {
         //Note, uses 90 as a baseline because the range is -90 to 90, even if its technically 180 degrees
-        float angle = (((max/2) - current) / (max/2)) * 90;
+        float angle = -(((current/max)*180) -90);
         return angle;
     }
 

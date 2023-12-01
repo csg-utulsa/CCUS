@@ -30,7 +30,7 @@ public class Tile : MonoBehaviour
 
     void OnTick()
     {
-        Debug.Log(this.name);
+        //Debug.Log(this.name);
         if (state != TileState.Static) return;
         if (tileScriptableObject.AnnualIncome != 0)
             dm.AdjustMoney(tileScriptableObject.AnnualIncome);

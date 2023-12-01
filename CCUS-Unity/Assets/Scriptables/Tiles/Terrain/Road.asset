@@ -16,6 +16,9 @@ MonoBehaviour:
   BuildCost: 25
   AnnualCost: 0
   AnnualCarbonRemoved: 0
-  AnnualCarbonAdded: 25
+  AnnualCarbonAdded: 50
   AnnualCarbonStored: 0
   AnnualIncome: 5
+  OverlapBlackList: []
+  OverlapWhiteList: []
+  FlavorText: 
