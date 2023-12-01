@@ -152,7 +152,7 @@ public class ConnectedTileHandler : MonoBehaviour
         //Debug.Log(currentNeighbors);
         currentModel = modelList[(int)currentNeighbors].model;
         TileModelGO.GetComponent<MeshFilter>().mesh = currentModel;
-        TileModelGO.transform.localEulerAngles = new Vector3(-90,modelList[(int)currentNeighbors].rotation,0);
+        TileModelGO.transform.localEulerAngles = new Vector3(0,modelList[(int)currentNeighbors].rotation,90);
 
     }
 }

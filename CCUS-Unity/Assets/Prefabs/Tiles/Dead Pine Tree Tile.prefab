@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileType: 1
-  tileScriptableObject: {fileID: 0}
+  tileScriptableObject: {fileID: 11400000, guid: 8bca6050023739245be400b9d2544095, type: 2}
   po: {fileID: 5596829129350235978}
   state: 0
 --- !u!114 &745974080129992799
@@ -83,6 +83,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   placed: 0
+  Vertices: []
   tile: {fileID: 339401229245237457}
 --- !u!65 &7717605810638029467
 BoxCollider:
@@ -103,7 +104,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.5, y: 0.5, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &-9223013531930817842
 Rigidbody:

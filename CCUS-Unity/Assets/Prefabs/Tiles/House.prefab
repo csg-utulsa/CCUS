@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 7532892136959826067}
   - component: {fileID: 2169967218846739974}
   - component: {fileID: 8935935631449693007}
-  - component: {fileID: 2378633746427060554}
   - component: {fileID: -5747758757886434098}
+  - component: {fileID: 7082364293375485206}
   m_Layer: 0
   m_Name: House
   m_TagString: Object
@@ -83,6 +83,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   placed: 0
+  Vertices: []
   tile: {fileID: 6460394100644508268}
 --- !u!65 &2169967218846739974
 BoxCollider:
@@ -132,18 +133,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &2378633746427060554
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9171035400571233729}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bce17a9110adcc439bb188c35b4ff50, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &-5747758757886434098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,6 +151,18 @@ MonoBehaviour:
   squareRotation: 1
   scaleMin: 0.75
   scaleMax: 1.25
+--- !u!114 &7082364293375485206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9171035400571233729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bce17a9110adcc439bb188c35b4ff50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3816858629521154248
 PrefabInstance:
   m_ObjectHideFlags: 0
