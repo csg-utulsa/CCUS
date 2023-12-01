@@ -2920,8 +2920,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingMoney: 1000
-  startingCarbon: 500
-  startingYear: 2048
+  startingCarbon: 20
+  startingYear: 2023
   money: 0
   yearlyMoney: 0
   yearlyCarbon: 0
@@ -6607,7 +6607,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 23.35
+  m_fontSize: 23.4
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -6746,7 +6746,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 19
+  m_fontSize: 19.05
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -15282,7 +15282,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Reach 1500 Dollars
+  m_text: Reach 3000 Dollars
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -15764,7 +15764,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49fe743722b854841b9bdf7caf683eed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goal: 1500
+  goal: 3000
   type: Money
   checkBox: {fileID: 1883222660410956285}
 --- !u!1001 &5841450423283814312

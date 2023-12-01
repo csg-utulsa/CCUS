@@ -28,7 +28,7 @@ public class TaskManager : MonoBehaviour
 
     public void Money()
     {
-        CompletionCheckLess(dataM.GetMoney());
+        CompletionCheckMore(dataM.GetMoney());
     }
 
     public void Year()
@@ -47,6 +47,14 @@ public class TaskManager : MonoBehaviour
     public void CompletionCheckLess(int current)
     {
         if( goal >= current)
+        {
+            checkBox.StarUpdate();
+        }
+    }
+
+    public void CompletionCheckMore(int current)
+    {
+        if(goal <= current)
         {
             checkBox.StarUpdate();
         }

@@ -47,7 +47,7 @@ public class ResourcePanelManager : MonoBehaviour
             carbonDial.UpdateCarbon(dm.GetCarbon()); //Updates the Dial
             int carbonPercentage = (dm.GetCarbon() / 10); //Transforms the carbon number into a percent
 
-            carbonText.text = "%" + (carbonPercentage).ToString(); //Changes component to match current carbon percent
+            carbonText.text = (carbonPercentage).ToString() + "%"; //Changes component to match current carbon percent
         }
     }
 }
