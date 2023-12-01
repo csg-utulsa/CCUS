@@ -245,7 +245,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8090826261090666394, guid: 22e71846fb0ae564c89ed6afc3efa66a, type: 3}
       propertyPath: lvlName
-      value: Dec2023DemoLevel
+      value: LevelOneWOW
       objectReference: {fileID: 0}
     - target: {fileID: 8090826262904878655, guid: 22e71846fb0ae564c89ed6afc3efa66a, type: 3}
       propertyPath: m_LocalScale.y
