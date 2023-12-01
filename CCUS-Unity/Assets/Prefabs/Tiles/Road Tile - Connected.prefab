@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 5484643323090204880}
   - component: {fileID: 619197792499956847}
   m_Layer: 0
-  m_Name: Road Tile Adjacency Test
+  m_Name: Road Tile - Connected
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -359,7 +359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 996820a34bc025d4298633e7a088c48b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 4
+  direction: 8
 --- !u!1 &6436353263849219294
 GameObject:
   m_ObjectHideFlags: 0

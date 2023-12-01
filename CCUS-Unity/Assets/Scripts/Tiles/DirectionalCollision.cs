@@ -17,22 +17,23 @@ public class DirectionalCollision : MonoBehaviour
     void Start()
     {
         handler = transform.parent.GetComponent<ConnectedTileHandler>();
-        Debug.Log(handler.name);
+        //Debug.Log(handler.name);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(tag)&&other.gameObject.GetComponent<DirectionalCollision>().direction != direction)
         {
-            Debug.Log(other.name);
+            //Debug.Log(other.name);
             handler.AddNeighbor(direction, other.transform.parent.gameObject);
         }
     }
 
     private void OnTriggerExit(Collider other)
-    {   
+    {
+        Debug.Log("Leaving Direction");
         if(other.CompareTag(tag) && other.gameObject.GetComponent<DirectionalCollision>().direction != direction)
-        handler.RemoveNeightbor(direction);
+        handler.RemoveNeighbor(direction, other.transform.parent.gameObject);
     }
 }
 
