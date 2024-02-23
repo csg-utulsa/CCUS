@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{ae7422ba-0e8d-462f-9d24-9d58c790b843}">
+		<property name="assetPath">
+			<value>falling-bamboo-83469.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>24</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.88800000000000001</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{d4fb3e0d-c5d4-47a8-85de-4e01a67ed4a2}</destination>
+		</relationship>
+	</object>
+</objects>
