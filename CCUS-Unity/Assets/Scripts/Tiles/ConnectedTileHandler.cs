@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
+using UnityEngine.Android;
 
 public class ConnectedTileHandler : MonoBehaviour
 {
@@ -15,6 +15,9 @@ public class ConnectedTileHandler : MonoBehaviour
     [Header("Current Model State")]
     public Mesh currentModel;
 
+    [Header("Source Handling")]
+    public bool isSource = false;
+    public int distToSource = -1;
 
     [Header("Current Adjacecy")]
     public AdjacencyFlag hasNeighbors = AdjacencyFlag.None;//handles current neighbors
@@ -154,6 +157,25 @@ public class ConnectedTileHandler : MonoBehaviour
         TileModelGO.GetComponent<MeshFilter>().mesh = currentModel;
         TileModelGO.transform.localEulerAngles = new Vector3(0,modelList[(int)currentNeighbors].rotation,90);
 
+    }//end UpdateModel
+
+    //TODO FINISH THIS 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public bool CheckSourceConnectivity()
+    {
+        if (isSource)
+        {
+            distToSource = 0;
+            return true;
+        }
+        else
+        { 
+            //for
+        }
+        return false;
     }
 }
 
