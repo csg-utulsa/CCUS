@@ -17,7 +17,7 @@ public class ConnectedTileHandler : MonoBehaviour
 
     [Header("Source Handling")]
     public bool isSource = false;
-    public int distToSource = -1;
+    public int distToSource = -1; //checks how far away the tile is from a source tile, If Source, distToSource should = 0, if not connected distToSource should be -1
 
     [Header("Current Adjacecy")]
     public AdjacencyFlag hasNeighbors = AdjacencyFlag.None;//handles current neighbors
@@ -60,6 +60,11 @@ public class ConnectedTileHandler : MonoBehaviour
         
         
     }
+
+    private void Start()
+    {
+        //ConnectivityCheck();
+    }
     // Start is called before the first frame update
     void Update()
     {
@@ -74,12 +79,22 @@ public class ConnectedTileHandler : MonoBehaviour
         
         UpdateModel();
     }
+    private void OnDestroy()
+    {
+        for(int dir=0;dir<4;dir++)
+        {
+            if (neighborGO[dir] != null)
+            {
+                neighborGO[dir].GetComponent<ConnectedTileHandler>().RemoveNeighbor(this.gameObject);
+            }
+        }
+    }
     public void AddTempNeighbor(AdjacencyFlag tempDir, GameObject tempGO)
     {
-        Debug.Log("Adding Temp Neighbor: "+tempGO.name);
+       // Debug.Log("Adding Temp Neighbor: "+tempGO.name);
         tempNeighbor.direction = tempDir;
         tempNeighbor.neighbor = tempGO;
-        Debug.Log("Temp Direction ="+tempNeighbor.direction);
+        //Debug.Log("Temp Direction ="+tempNeighbor.direction);
     }
     public void AddNeighbor(AdjacencyFlag direction, GameObject neighbor)
     {
@@ -89,7 +104,7 @@ public class ConnectedTileHandler : MonoBehaviour
         }
         else
         {
-            Debug.Log("Adding neighbor");
+            //Debug.Log(this.name+ " Adding neighbor: "+neighbor.name);
             hasNeighbors |= direction;//adds direction to flag
 
             switch (direction) //adds neighbor GO to array
@@ -109,6 +124,7 @@ public class ConnectedTileHandler : MonoBehaviour
             }//end switch (direction)
         }
         UpdateModel();
+        ConnectivityCheck();
     }//end AddNeigbor
 
     public void RemoveTempNeighbor()
@@ -116,8 +132,9 @@ public class ConnectedTileHandler : MonoBehaviour
         Debug.Log("Removing Temp Neightbor");
         tempNeighbor.direction = AdjacencyFlag.None;
         tempNeighbor.neighbor = null;
+        ConnectivityCheck();
     }
-
+    
     public void RemoveNeighbor(AdjacencyFlag direction, GameObject neighbor)
     {
         if (neighbor == tempNeighbor.neighbor)
@@ -128,7 +145,7 @@ public class ConnectedTileHandler : MonoBehaviour
         {
             Debug.Log("Removing Neighbor");
             hasNeighbors &= ~direction;//removed direction from flag
-            switch (direction) //removes neighbor GO to array
+            switch (direction) //removes neighbor GO from array
             {
                 case AdjacencyFlag.North:
                     neighborGO[0] = null;
@@ -149,6 +166,12 @@ public class ConnectedTileHandler : MonoBehaviour
         UpdateModel();
     }//end remve neighbor
 
+    public void RemoveNeighbor(GameObject neighbor)
+    {
+        int dir = Array.FindIndex(neighborGO, x => neighbor);
+        if(dir != -1) { RemoveNeighbor((AdjacencyFlag)(1<<dir)  , neighbor); }
+    }
+
     public void UpdateModel()
     {
         AdjacencyFlag currentNeighbors = hasNeighbors | tempNeighbor.direction;
@@ -161,22 +184,51 @@ public class ConnectedTileHandler : MonoBehaviour
 
     //TODO FINISH THIS 
     /// <summary>
-    /// 
+    /// Checks the connectivity of this tile to a source by checking all neighbors, then if the distance has changed, call connectivity check to all neighbors
     /// </summary>
     /// <returns></returns>
-    public bool CheckSourceConnectivity()
+    /// TODO: add ability to check distance from *specific* source tile.
+    public void ConnectivityCheck()
     {
+        Debug.Log("Checking Connectivity of " + this.name);
+        int newDistToSource = int.MaxValue;
         if (isSource)
         {
-            distToSource = 0;
-            return true;
-        }
-        else
-        { 
-            //for
-        }
-        return false;
-    }
+            newDistToSource = 0;
+        }else{
+            foreach (var neighbor in neighborGO)
+            {
+             
+                if ((neighbor == null) || (neighbor.GetComponent<ConnectedTileHandler>().distToSource == -1))
+                {
+                    continue;//if neighbor is empty or is not connected to the source, dont change newDistToSource
+                }
+                else if (neighbor.GetComponent<ConnectedTileHandler>().distToSource != -1)
+                {
+                    Debug.Log("Checking: " + neighbor.name);
+                    newDistToSource = Math.Min(newDistToSource, neighbor.GetComponent<ConnectedTileHandler>().distToSource); //if neighbor is connected to source take the minimum
+                    Debug.Log((int)newDistToSource);
+                }
+            }//end foreach
+            if (newDistToSource == int.MaxValue)
+            {
+                newDistToSource = -1;//if no connected neighbors, lable tile as not connected
+            }
+            else
+            {
+                newDistToSource++;//iterate to have distance be distence of closest neighbor+1
+            }
+        }//end if(isSource)
+        if (newDistToSource != distToSource) //if disToSource has updated, update all neighbors
+        {   
+            distToSource = newDistToSource;
+            Debug.Log(this.name + " is now " + distToSource + " tiles from a source");
+            foreach (var neighbor in neighborGO)
+            {
+                if (neighbor != null) neighbor.GetComponent<ConnectedTileHandler>().ConnectivityCheck();
+            }
+        }//end if(newDistToSource != distToSource)
+    } //end ConnectivityCheckAll()
 }
 
 [Flags] public enum AdjacencyFlag{

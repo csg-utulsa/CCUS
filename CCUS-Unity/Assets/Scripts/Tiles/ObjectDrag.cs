@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UIElements;
+using static UnityEditor.PlayerSettings;
 
 public class ObjectDrag : MonoBehaviour
 {
@@ -30,8 +31,9 @@ public class ObjectDrag : MonoBehaviour
     }
 
     public void Place()
-    {
+    {   
         dragging = false;
+        transform.position = BuildingSystem.current.SnapCoordinateToGrid(transform.position);
         this.GetComponent<Tile>().SetTileState(TileState.Static);
         tileMaterialHandler.MaterialSet(TileMaterialHandler.matState.Placed);
 
