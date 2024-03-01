@@ -17,6 +17,7 @@ public class TileScriptableObject : ScriptableObject
         Grass, Dirt, Pavement, Tree, Water, Machine, Building
     }
 
+    public TileClass thisTileClass;
     public string[] OverlapBlackList;
     public string[] OverlapWhiteList;
 
