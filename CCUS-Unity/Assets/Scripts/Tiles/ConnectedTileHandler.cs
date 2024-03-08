@@ -159,6 +159,7 @@ public class ConnectedTileHandler : MonoBehaviour
                 case AdjacencyFlag.West:
                     neighborGO[3] = null;
                     break;
+                    ConnectivityCheck();
             }//end switch(direction)
             
         }
