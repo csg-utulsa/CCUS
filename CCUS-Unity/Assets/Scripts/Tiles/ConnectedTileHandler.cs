@@ -64,6 +64,7 @@ public class ConnectedTileHandler : MonoBehaviour
     private void Start()
     {
         //ConnectivityCheck();
+        UpdateModel();
     }
     // Start is called before the first frame update
     void Update()
@@ -75,9 +76,10 @@ public class ConnectedTileHandler : MonoBehaviour
             
             AddNeighbor(tempNeighbor.direction, tempNeighbor.neighbor);
             RemoveTempNeighbor();
+            UpdateModel();
         }
         
-        UpdateModel();
+        
     }
     private void OnDestroy()
     {
@@ -143,7 +145,7 @@ public class ConnectedTileHandler : MonoBehaviour
         }
         else
         {
-            Debug.Log("Removing Neighbor");
+            Debug.Log("Removing"+ direction.ToString()+" Neighbor "+ neighbor.name);
             hasNeighbors &= ~direction;//removed direction from flag
             switch (direction) //removes neighbor GO from array
             {
@@ -159,9 +161,9 @@ public class ConnectedTileHandler : MonoBehaviour
                 case AdjacencyFlag.West:
                     neighborGO[3] = null;
                     break;
-                    ConnectivityCheck();
+                    
             }//end switch(direction)
-            
+            ConnectivityCheck();
         }
 
         UpdateModel();
@@ -169,13 +171,15 @@ public class ConnectedTileHandler : MonoBehaviour
 
     public void RemoveNeighbor(GameObject neighbor)
     {
-        int dir = Array.FindIndex(neighborGO, x => neighbor);
+        int dir = Array.IndexOf(neighborGO, neighbor);
+        Debug.Log("Array[" + dir + "]");
         if(dir != -1) { RemoveNeighbor((AdjacencyFlag)(1<<dir)  , neighbor); }
     }
 
     public void UpdateModel()
     {
         AdjacencyFlag currentNeighbors = hasNeighbors | tempNeighbor.direction;
+        Debug.Log(this.name + "Current Neighbors: " + currentNeighbors);
         //Debug.Log(currentNeighbors);
         currentModel = modelList[(int)currentNeighbors].model;
         TileModelGO.GetComponent<MeshFilter>().mesh = currentModel;
