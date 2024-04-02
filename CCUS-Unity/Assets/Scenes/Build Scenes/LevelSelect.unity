@@ -350,7 +350,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1078906320}
   - component: {fileID: 1078906319}
-  - component: {fileID: 1078906318}
+  - component: {fileID: 1078906321}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -358,14 +358,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1078906318
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1078906317}
-  m_Enabled: 1
 --- !u!20 &1078906319
 Camera:
   m_ObjectHideFlags: 0
@@ -432,6 +424,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 24.716, y: 46.757, z: -0.686}
+--- !u!114 &1078906321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078906317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attenuationObject: {fileID: 0}
 --- !u!224 &1110953814 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8090826261090666390, guid: 22e71846fb0ae564c89ed6afc3efa66a, type: 3}
