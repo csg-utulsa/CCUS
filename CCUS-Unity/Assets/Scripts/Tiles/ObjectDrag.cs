@@ -96,7 +96,8 @@ public class ObjectDrag : MonoBehaviour
      * Ensures that the tile is not being placed over an invalid tile
      */
     public bool IsValidOverlap(GameObject otherTile)
-    {
+    {   
+        if(GOTag == "UI") { return true; }
         if(GOTag == "Ground") { return true; }//dont care FOR NOW if this is a terrain tile, or otherTile is a object, the object above gets deleted anyways
         if(otherTile == null) { return true;}//if object, check if there is a ground tile its overlapping
         if( otherTile.tag =="Object"){return true;}

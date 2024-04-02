@@ -31,17 +31,11 @@ public class TileConnectionAdjacent : MonoBehaviour
 
 
     }
-    private void LateUpdate()
-    {
-                if(connected == canvas.active)
-        {
-            canvas.SetActive(!connected);
-        }
-    }
 
 
     public void AddNeighbor( GameObject neighbor)
     {
+        Debug.Log("Henlo");
         if (!neighbor.GetComponent<PlaceableObject>().placed)
         {
             tempNeighbor = neighbor;
@@ -80,11 +74,13 @@ public class TileConnectionAdjacent : MonoBehaviour
                 if (neighbor.GetComponent<ConnectedTileHandler>().distToSource != -1)
                 {
                     connected = true;
+                    canvas.SetActive(!connected);
                     return;
                 }
             }
         }
         connected = false;
+        canvas.SetActive(!connected);
         return;
     }
 
