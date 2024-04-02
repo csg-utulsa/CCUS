@@ -29,7 +29,11 @@ public class TileConnectionAdjacent : MonoBehaviour
 
             ConnectivityCheck();
 
-        if(connected == canvas.active)
+
+    }
+    private void LateUpdate()
+    {
+                if(connected == canvas.active)
         {
             canvas.SetActive(!connected);
         }
