@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{24930bf8-4245-4e0c-b7c0-2ba16f8a2407}">
+		<property name="assetPath">
+			<value>text-notification-96707.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>24</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.74399999999999999</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{d4fb3e0d-c5d4-47a8-85de-4e01a67ed4a2}</destination>
+		</relationship>
+	</object>
+</objects>
