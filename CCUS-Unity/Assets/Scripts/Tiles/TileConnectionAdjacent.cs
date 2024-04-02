@@ -27,9 +27,13 @@ public class TileConnectionAdjacent : MonoBehaviour
             RemoveTempNeighbor();
         }
 
-            ConnectivityCheck();
+            
 
 
+    }
+    private void LateUpdate()
+    {
+        ConnectivityCheck();
     }
 
 
