@@ -40,6 +40,7 @@ public class ObjectDrag : MonoBehaviour
         if (overlapObject != null) {Destroy(overlapObject);}//the overlapping object is always destroyed
         if (GOTag == "Ground")
                 Destroy(overlapTerrain);//terrain is only destroyed when placing terrain
+        DataManager.tileConnectionReset.Invoke();
     }
 
     public void Pickup()
@@ -113,10 +114,10 @@ public class ObjectDrag : MonoBehaviour
     {
         if (IsValidOverlap(overlapTerrain) && IsValidOverlap(overlapObject))//if BOTH terrain and object is valid, its valid
         {
-            Debug.Log("Valid placement for " + this.gameObject.name);
+            //Debug.Log("Valid placement for " + this.gameObject.name);
             return true;
         }
-        Debug.Log("Invalid placement for " + this.gameObject.name);
+        //Debug.Log("Invalid placement for " + this.gameObject.name);
         return false;
  
     }

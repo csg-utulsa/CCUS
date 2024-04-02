@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DataManager : MonoBehaviour
 {
@@ -28,10 +29,13 @@ public class DataManager : MonoBehaviour
     [SerializeField] int storageCapacity;
     [SerializeField] int stored;
 
+    public static UnityEvent tileConnectionReset;
+
     private void Awake()
     {
         LoadManager();
         ResetData();
+        tileConnectionReset = new UnityEvent();
     }
 
     /// <summary>
