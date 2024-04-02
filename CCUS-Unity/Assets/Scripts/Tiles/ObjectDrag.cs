@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UIElements;
+using static UnityEditor.PlayerSettings;
 
 public class ObjectDrag : MonoBehaviour
 {
@@ -38,14 +39,16 @@ public class ObjectDrag : MonoBehaviour
     }
 
     public void Place()
-    {
+    {   
         dragging = false;
+        transform.position = BuildingSystem.current.SnapCoordinateToGrid(transform.position);
         this.GetComponent<Tile>().SetTileState(TileState.Static);
         tileMaterialHandler.MaterialSet(TileMaterialHandler.matState.Placed);
         if (SoundCanBePlayed) { FMODUnity.RuntimeManager.PlayOneShot("event:/Tile" + this.GetComponent<Tile>().tileScriptableObject.thisTileClass); } //Gets Tileclass and plays corresponding FMOD event
         if (overlapObject != null) {Destroy(overlapObject);}//the overlapping object is always destroyed
         if (GOTag == "Ground")
                 Destroy(overlapTerrain);//terrain is only destroyed when placing terrain
+        DataManager.tileConnectionReset.Invoke();
     }
 
     public void Pickup()
@@ -119,10 +122,10 @@ public class ObjectDrag : MonoBehaviour
     {
         if (IsValidOverlap(overlapTerrain) && IsValidOverlap(overlapObject))//if BOTH terrain and object is valid, its valid
         {
-            Debug.Log("Valid placement for " + this.gameObject.name);
+            //Debug.Log("Valid placement for " + this.gameObject.name);
             return true;
         }
-        Debug.Log("Invalid placement for " + this.gameObject.name);
+        //Debug.Log("Invalid placement for " + this.gameObject.name);
         return false;
  
     }

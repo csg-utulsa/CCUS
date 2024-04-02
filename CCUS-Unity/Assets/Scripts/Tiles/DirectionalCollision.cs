@@ -31,7 +31,7 @@ public class DirectionalCollision : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("Leaving Direction");
+        //Debug.Log("Leaving Direction");
         if(other.CompareTag(tag) && other.gameObject.GetComponent<DirectionalCollision>().direction != direction)
         handler.RemoveNeighbor(direction, other.transform.parent.gameObject);
     }

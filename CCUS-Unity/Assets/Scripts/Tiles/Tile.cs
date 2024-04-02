@@ -11,7 +11,7 @@ public class Tile : MonoBehaviour
 
     public TileState state = TileState.Uninitialized;
     bool menuOpen = false;
-
+    
     DataManager dm;
     private TileMaterialHandler tileMatHandler;
 
@@ -30,6 +30,7 @@ public class Tile : MonoBehaviour
 
     void OnTick()
     {
+
         //Debug.Log(this.name);
         if (state != TileState.Static) return;
         if (tileScriptableObject.AnnualIncome != 0)
