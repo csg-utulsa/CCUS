@@ -132,7 +132,8 @@ public class BuildingSystem : MonoBehaviour
 
     public void InitializeWithObject(GameObject prefab)
     {
-        if (objectToPlace != null) return;
+        //Destroy(activeObject);
+        //if (objectToPlace != null) return;
         Vector3 position = SnapCoordinateToGrid(Vector3.zero);
 
         GameObject obj = Instantiate(prefab, position, Quaternion.identity);
