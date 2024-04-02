@@ -19,7 +19,14 @@ public class ObjectDrag : MonoBehaviour
     {
         GOTag = gameObject.tag;
         tileMaterialHandler = GetComponent<TileMaterialHandler>();
+    }
+    public void Start()
+    {
         Invoke("EnableSound", 1f);
+    }
+    public void OnDestroy()
+    {
+        SoundCanBePlayed = false;
     }
 
     public void Update()
