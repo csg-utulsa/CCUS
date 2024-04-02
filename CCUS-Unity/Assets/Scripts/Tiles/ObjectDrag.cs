@@ -14,12 +14,20 @@ public class ObjectDrag : MonoBehaviour
     [SerializeField] GameObject overlapTerrain;
     private string GOTag;//tag of the tile
     private TileMaterialHandler tileMaterialHandler;
-    
+    private static bool SoundCanBePlayed = false; //Should not call sound at beginning so we're not overwhelmed at startup
 
     public void Awake()
     {
         GOTag = gameObject.tag;
         tileMaterialHandler = GetComponent<TileMaterialHandler>();
+    }
+    public void Start()
+    {
+        Invoke("EnableSound", 1f);
+    }
+    public void OnDestroy()
+    {
+        SoundCanBePlayed = false;
     }
 
     public void Update()
@@ -36,7 +44,7 @@ public class ObjectDrag : MonoBehaviour
         transform.position = BuildingSystem.current.SnapCoordinateToGrid(transform.position);
         this.GetComponent<Tile>().SetTileState(TileState.Static);
         tileMaterialHandler.MaterialSet(TileMaterialHandler.matState.Placed);
-        FMODUnity.RuntimeManager.PlayOneShot("event:/Tile" + this.GetComponent<Tile>().tileScriptableObject.thisTileClass); //Gets Tileclass and plays corresponding FMOD event
+        if (SoundCanBePlayed) { FMODUnity.RuntimeManager.PlayOneShot("event:/Tile" + this.GetComponent<Tile>().tileScriptableObject.thisTileClass); } //Gets Tileclass and plays corresponding FMOD event
         if (overlapObject != null) {Destroy(overlapObject);}//the overlapping object is always destroyed
         if (GOTag == "Ground")
                 Destroy(overlapTerrain);//terrain is only destroyed when placing terrain
@@ -120,5 +128,9 @@ public class ObjectDrag : MonoBehaviour
         //Debug.Log("Invalid placement for " + this.gameObject.name);
         return false;
  
+    }
+    void EnableSound()
+    {
+        SoundCanBePlayed = true;
     }
 }

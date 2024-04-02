@@ -19,7 +19,7 @@ MonoBehaviour:
   AnnualCarbonAdded: 5
   AnnualCarbonStored: 0
   AnnualIncome: 0
-  thisClass: 2
+  thisTileClass: 2
   OverlapBlackList: []
   OverlapWhiteList: []
   FlavorText: 
