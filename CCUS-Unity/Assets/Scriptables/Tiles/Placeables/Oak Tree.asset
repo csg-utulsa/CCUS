@@ -19,8 +19,10 @@ MonoBehaviour:
   AnnualCarbonAdded: 0
   AnnualCarbonStored: 0
   AnnualIncome: 0
+  thisClass: 3
   OverlapBlackList:
   - Concrete
   - Road
   - Water
   OverlapWhiteList: []
+  FlavorText: 

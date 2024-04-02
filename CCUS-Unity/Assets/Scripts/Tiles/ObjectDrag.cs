@@ -34,8 +34,8 @@ public class ObjectDrag : MonoBehaviour
         dragging = false;
         this.GetComponent<Tile>().SetTileState(TileState.Static);
         tileMaterialHandler.MaterialSet(TileMaterialHandler.matState.Placed);
-
-        if(overlapObject != null) {Destroy(overlapObject);}//the overlapping object is always destroyed
+        FMODUnity.RuntimeManager.PlayOneShot("event:/Tile" + this.GetComponent<Tile>().tileScriptableObject.thisTileClass); //Gets Tileclass and plays corresponding FMOD event
+        if (overlapObject != null) {Destroy(overlapObject);}//the overlapping object is always destroyed
         if (GOTag == "Ground")
                 Destroy(overlapTerrain);//terrain is only destroyed when placing terrain
     }
