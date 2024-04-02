@@ -14,7 +14,7 @@ public class MusicManager : MonoBehaviour
     private FMOD.Studio.EventInstance musicEventInstance;
     private FMOD.Studio.EventInstance soundEventInstance;
 
-    private void Awake()
+    private void Start()
     {
         if (instance == null)
         {
@@ -26,16 +26,13 @@ public class MusicManager : MonoBehaviour
             // Play the second sound event
             soundEventInstance = FMODUnity.RuntimeManager.CreateInstance(soundEventPath);
             DontDestroyOnLoad(gameObject);
+
+            musicEventInstance.start();
+            soundEventInstance.start();
         }
         else
         {
             Destroy(gameObject);
         }
-    }
-
-    private void Start()
-    {
-        musicEventInstance.start();
-        soundEventInstance.start();
     }
 }
