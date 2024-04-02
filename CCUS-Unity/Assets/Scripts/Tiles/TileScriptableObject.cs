@@ -18,7 +18,9 @@ public class TileScriptableObject : ScriptableObject
     }
 
     public TileClass thisTileClass;
+
     public string[] OverlapBlackList;
+
     public string[] OverlapWhiteList;
 
     public string FlavorText;

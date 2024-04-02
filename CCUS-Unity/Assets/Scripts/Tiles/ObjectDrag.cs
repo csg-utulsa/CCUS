@@ -109,8 +109,13 @@ public class ObjectDrag : MonoBehaviour
             TileScriptableObject thisTSO = this.gameObject.GetComponent<Tile>().tileScriptableObject;
             TileScriptableObject otherTSO = otherTile.GetComponent<Tile>().tileScriptableObject;
 
-            if (otherTSO.OverlapWhiteList.Length > 0 && Array.IndexOf(otherTSO.OverlapWhiteList, otherTSO.name) >= 0) { return true; }//if this has a whitelist and the overlap is on said whitelist, return true
-
+            if (thisTSO.OverlapWhiteList.Length > 0)
+            {
+                if (Array.IndexOf(thisTSO.OverlapWhiteList, otherTSO.name) >= 0) { return true; }//if this has a whitelist and the overlap is on said whitelist, return true
+                
+                else { return false; }
+            }
+            
             if (Array.IndexOf(thisTSO.OverlapBlackList, otherTSO.name) >= 0)
             { //if the tile is in the blacklist, not valid
                 return false;
