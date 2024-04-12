@@ -24,7 +24,7 @@ public class ConnectedTileHandler : MonoBehaviour
     public AdjacencyFlag hasNeighbors = AdjacencyFlag.None;//handles current neighbors
     public GameObject[] neighborGO = new GameObject[4];
 
-    private (AdjacencyFlag direction, GameObject neighbor) tempNeighbor;//to handle floating neighbors
+    public (AdjacencyFlag direction, GameObject neighbor) tempNeighbor;//to handle floating neighbors
 
     private (Mesh model, float rotation)[] modelList;
     private void Awake()
@@ -70,7 +70,7 @@ public class ConnectedTileHandler : MonoBehaviour
     // Start is called before the first frame update
     void Update()
     {
-        //Debug.Log(tempNeighbor.neighbor);
+        //Debug.Log("TEMP: " +tempNeighbor.neighbor);
         //Debug.Log(neighborGO[0]+" "+neighborGO[1]+" "+neighborGO[2]+" "+neighborGO[3]);
         if ((tempNeighbor.neighbor != null) && (tempNeighbor.neighbor.GetComponent<PlaceableObject>().placed))
         {
@@ -86,7 +86,7 @@ public class ConnectedTileHandler : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (isSource)
+        if (isSource && !checkedConnectivity)
         {
             ConnectivityCheck();
         }
@@ -204,12 +204,12 @@ public class ConnectedTileHandler : MonoBehaviour
     /// TODO: add ability to check distance from *specific* source tile.
     public void ConnectivityCheck()
     {   
-        Debug.Log("Checking Connectivity of " + this.name);
+
         if (checkedConnectivity)
         {
             return;
         }
-
+        Debug.Log("Checking Connectivity of " + this.name);
         
         int newDistToSource = int.MaxValue;
         if (isSource)
