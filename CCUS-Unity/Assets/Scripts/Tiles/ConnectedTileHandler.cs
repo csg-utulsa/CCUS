@@ -117,7 +117,7 @@ public class ConnectedTileHandler : MonoBehaviour
         }
         else
         {
-            Debug.Log(this.name+ " Adding neighbor: "+neighbor.name);
+            //Debug.Log(this.name+ " Adding neighbor: "+neighbor.name);
             hasNeighbors |= direction;//adds direction to flag
 
             switch (direction) //adds neighbor GO to array
@@ -155,7 +155,7 @@ public class ConnectedTileHandler : MonoBehaviour
         }
         else
         {
-            Debug.Log("Removing" + direction.ToString() + " Neighbor " + neighbor.name);
+            //Debug.Log("Removing" + direction.ToString() + " Neighbor " + neighbor.name);
             hasNeighbors &= ~direction;//removed direction from flag
             switch (direction) //removes neighbor GO from array
             {
@@ -181,7 +181,6 @@ public class ConnectedTileHandler : MonoBehaviour
     public void RemoveNeighbor(GameObject neighbor)
     {
         int dir = Array.IndexOf(neighborGO, neighbor);
-        Debug.Log("Array[" + dir + "]");
         if (dir != -1) { RemoveNeighbor((AdjacencyFlag)(1 << dir), neighbor); }
     }
 
@@ -209,7 +208,7 @@ public class ConnectedTileHandler : MonoBehaviour
         {
             return;
         }
-        Debug.Log("Checking Connectivity of " + this.name);
+        //Debug.Log("Checking Connectivity of " + this.name);
         
         int newDistToSource = int.MaxValue;
         if (isSource)
@@ -255,7 +254,7 @@ public class ConnectedTileHandler : MonoBehaviour
 
     void  OnTileConnectionReset()
     {
-        Debug.Log("ResettingConnectivity");
+        //Debug.Log("ResettingConnectivity");
         distToSource = -1;
         checkedConnectivity = false;
         if (isSource)
