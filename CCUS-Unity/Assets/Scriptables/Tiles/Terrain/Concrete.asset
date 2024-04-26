@@ -22,4 +22,5 @@ MonoBehaviour:
   thisTileClass: 2
   OverlapBlackList: []
   OverlapWhiteList: []
-  FlavorText: 
+  FlavorText: 'The urban expanse underfoot, pavement reflects the footprint of our
+    civilization''s carbon emissions. '

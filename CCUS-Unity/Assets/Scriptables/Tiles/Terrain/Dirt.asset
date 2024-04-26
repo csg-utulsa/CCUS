@@ -22,4 +22,6 @@ MonoBehaviour:
   thisTileClass: 1
   OverlapBlackList: []
   OverlapWhiteList: []
-  FlavorText: 
+  FlavorText: The humble foundation of ecosystems. Though often overlooked, dirt
+    plays a crucial role in Earth's carbon cycle, silently supporting life above
+    and below ground

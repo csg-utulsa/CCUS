@@ -25,4 +25,5 @@ MonoBehaviour:
   - Road
   - Water
   OverlapWhiteList: []
-  FlavorText: 
+  FlavorText: Adorned with evergreen needles that brave harsh winters, spruce trees
+    tirelessly convert CO2 into oxygen, purifying the air we breathe.

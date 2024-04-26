@@ -25,4 +25,5 @@ MonoBehaviour:
   - Road
   - Water
   OverlapWhiteList: []
-  FlavorText: 
+  FlavorText: Majestic sentinels of the forest. The leaves of Oak Trees act as natural
+    solar panels, harnessing sunlight to convert CO2 into the very air we breathe.
