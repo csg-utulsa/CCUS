@@ -31,7 +31,8 @@ public class ObjectDrag : MonoBehaviour
     }
 
     public void Update()
-    {
+    {   
+        //makes tile follow mouse if dragging == true;
         if (!dragging) return;
         Vector3 pos = BuildingSystem.GetMouseWorldPosition();
         transform.position = BuildingSystem.current.SnapCoordinateToGrid(pos);
@@ -40,9 +41,9 @@ public class ObjectDrag : MonoBehaviour
 
     public void Place()
     {   
-        dragging = false;
-        transform.position = BuildingSystem.current.SnapCoordinateToGrid(transform.position);
-        this.GetComponent<Tile>().SetTileState(TileState.Static);
+        dragging = false;//stops object from following mouse
+        transform.position = BuildingSystem.current.SnapCoordinateToGrid(transform.position);//locks object in grid
+        this.GetComponent<Tile>().SetTileState(TileState.Static);//Non functional
         tileMaterialHandler.MaterialSet(TileMaterialHandler.matState.Placed);
         if (SoundCanBePlayed) { FMODUnity.RuntimeManager.PlayOneShot("event:/Tile" + this.GetComponent<Tile>().tileScriptableObject.thisTileClass); } //Gets Tileclass and plays corresponding FMOD event
         if (overlapObject != null) {Destroy(overlapObject);}//the overlapping object is always destroyed
@@ -82,7 +83,8 @@ public class ObjectDrag : MonoBehaviour
     }
 
     public void OnTriggerExit(Collider other)
-    {
+    {   
+        //clear varibles for temporary placement
             overRide = false; 
             overlapTerrain = null; 
             overlapObject = null;

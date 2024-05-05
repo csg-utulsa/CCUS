@@ -2,10 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+/**
+ * 
+ * Code for Tiles who can be connected to a source (EX: House to Road) but is not a part of the tree
+ */
 public class TileConnectionAdjacent : MonoBehaviour
 {
     [Header("Current Adjacecy")]
-    public List<GameObject> neighborGO = new List<GameObject>();
+    public List<GameObject> neighborGO = new List<GameObject>();//to handle placed neighbors
     private GameObject  tempNeighbor;//to handle floating neighbors
 
     public bool connected = false;
@@ -68,9 +72,10 @@ public class TileConnectionAdjacent : MonoBehaviour
 
     }//end remve neighbor
 
-
+    //*Checks if the current tile is connected to a source through an adjacency tree
     private void ConnectivityCheck()
     {
+        //TODO: Add source differntiation
         checkedConnectivity = true;
         foreach (var neighbor in neighborGO){
             if (neighbor != null)
@@ -92,7 +97,7 @@ public class TileConnectionAdjacent : MonoBehaviour
     {
         if (other.CompareTag("Direction"))
         {
-            Debug.Log("!!!!!!!!!!!");
+            //Debug.Log("Entering Direction");
             AddNeighbor(other.transform.parent.gameObject);
         }
     }
