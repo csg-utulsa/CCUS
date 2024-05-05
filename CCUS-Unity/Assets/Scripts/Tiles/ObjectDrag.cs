@@ -49,7 +49,7 @@ public class ObjectDrag : MonoBehaviour
         if (overlapObject != null) {Destroy(overlapObject);}//the overlapping object is always destroyed
         if (GOTag == "Ground")
                 Destroy(overlapTerrain);//terrain is only destroyed when placing terrain
-        DataManager.tileConnectionReset.Invoke();
+        LevelManager.tileConnectionReset.Invoke();
     }
 
     public void Pickup()

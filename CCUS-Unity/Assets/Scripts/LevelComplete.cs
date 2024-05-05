@@ -2,10 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
+using UnityEngine.UI;
 
+/**script for handling win/lose conditions for a level
+ * Lastedited By: Aidan pohl
+ * Las Edited May 5 2024
+ */
 public class LevelComplete : MonoBehaviour
 {   
-    DataManager dm = DataManager.DM;
+    LevelManager dm = LevelManager.LM;
 
     public GameObject[] NeedRoads;//Tiles that should be connected to a source road for level to be complete
 
@@ -14,6 +19,8 @@ public class LevelComplete : MonoBehaviour
 
     public Vector2 WinMoneyRange = new Vector2(0f, float.MaxValue);
     public float GameOverMoneyLevel = -500f;
+
+    public Button lvlEndButton; //button for confirming Level End;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +30,10 @@ public class LevelComplete : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (CheckLoseConditions())
+        {
+            dm.
+        }
     }
     /*Checks whether the level is in a "Win State" according to variables
      * Should be triggered by player submission or when time runs out

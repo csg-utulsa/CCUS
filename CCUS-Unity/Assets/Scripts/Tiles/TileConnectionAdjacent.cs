@@ -18,7 +18,7 @@ public class TileConnectionAdjacent : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        DataManager.tileConnectionReset.AddListener(OnTileConnectionReset);
+        LevelManager.tileConnectionReset.AddListener(OnTileConnectionReset);
     }
 
     // Update is called once per frame

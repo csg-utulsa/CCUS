@@ -53,7 +53,7 @@ public class BuildingSystem : MonoBehaviour
                 Vector3Int start = gridLayout.WorldToCell(objectToPlace.GetStartPosition());
                 TakeArea(start, objectToPlace.Size);
                 int cost = activeTile.tileScriptableObject.BuildCost;
-                DataManager.DM.AdjustMoney(-1 * cost);
+                LevelManager.LM.AdjustMoney(-1 * cost);
                 activeObject = null;
                 objectToPlace = null;
                 activeTile = null;
@@ -169,7 +169,7 @@ public class BuildingSystem : MonoBehaviour
         int cost = activeTile.tileScriptableObject.BuildCost;
         if (cost != 0 && activeTile.state == TileState.Uninitialized)
         {
-            if (DataManager.DM.GetMoney() < cost)
+            if (LevelManager.LM.GetMoney() < cost)
             {
                 return false;
             }

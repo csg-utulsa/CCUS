@@ -12,7 +12,7 @@ public class Tile : MonoBehaviour
     public TileState state = TileState.Uninitialized;
     bool menuOpen = false;
     
-    DataManager dm;
+    LevelManager dm;
     private TileMaterialHandler tileMatHandler;
 
 
@@ -54,7 +54,7 @@ public class Tile : MonoBehaviour
     {
         TickManager.TM.Tick.AddListener(OnTick);
         tileMatHandler = gameObject.GetComponent<TileMaterialHandler>();
-        dm = DataManager.DM;
+        dm = LevelManager.LM;
     }
 
     private void Update()

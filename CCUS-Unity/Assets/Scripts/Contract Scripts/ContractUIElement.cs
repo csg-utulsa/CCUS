@@ -14,7 +14,7 @@ public class ContractUIElement : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     public bool isContractActive = false;
 
-    private DataManager dm;
+    private LevelManager dm;
 
     private float initialValue;
     private float goalValue;
@@ -22,7 +22,7 @@ public class ContractUIElement : MonoBehaviour, IPointerEnterHandler, IPointerEx
     void Awake()
     {
         contractData = null;
-        dm = DataManager.DM;
+        dm = LevelManager.LM;
         SetToInactive();
     }
 

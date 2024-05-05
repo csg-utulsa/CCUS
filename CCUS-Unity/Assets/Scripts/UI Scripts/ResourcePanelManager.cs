@@ -11,12 +11,12 @@ public class ResourcePanelManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI carbonText;
     [SerializeField] CarbonRotate carbonDial;
     private string spacing = ""; //The amount of spacing for text
-    DataManager dm;
+    LevelManager dm;
 
     // Start is called before the first frame update
     void Start()
     {
-        dm = DataManager.DM;
+        dm = LevelManager.LM;
     }
 
     // Update is called once per frame
@@ -45,7 +45,7 @@ public class ResourcePanelManager : MonoBehaviour
         if(carbonDial != null)
         {
             carbonDial.UpdateCarbon(dm.GetCarbon()); //Updates the Dial
-            int carbonPercentage = (dm.GetCarbon() / 10); //Transforms the carbon number into a percent
+            int carbonPercentage = (dm.GetCarbon() / 100); //Transforms the carbon number into a percent
 
             carbonText.text = (carbonPercentage).ToString() + "%"; //Changes component to match current carbon percent
         }

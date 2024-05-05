@@ -3,24 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class DataManager : MonoBehaviour
+public class LevelManager : MonoBehaviour
 {
     #region Singleton
-    static public DataManager DM { get { return dm; } }
-    static private DataManager dm;
+    static public LevelManager LM { get { return lm; } }
+    static private LevelManager lm;
 
     void LoadManager()
     {
-        if (dm == null)
-            dm = this;
+        if (lm == null)
+            lm = this;
         else
             Destroy(this.gameObject);
     }
     #endregion
-
+    [Header("Initial Stats")]
     [SerializeField] int startingMoney;
     [SerializeField] int startingCarbon;
     [SerializeField] int startingYear;
+    [Header("Current Stats")]
+    public GameState levelState = GameState.Inactive;
     [SerializeField] int money;
     [SerializeField] int yearlyMoney;
     [SerializeField] int yearlyCarbon;
@@ -30,14 +32,38 @@ public class DataManager : MonoBehaviour
     [SerializeField] int stored;
 
     public static UnityEvent tileConnectionReset;
+    [Header("Game Speed and Limits")]
+    public float secBetweenYears = 4;//time between ticks in seconds
+    public UnityEvent Tick { get; private set; }
+    float timer;
+    
 
     private void Awake()
     {
         LoadManager();
         ResetData();
         tileConnectionReset = new UnityEvent();
+        Tick = new UnityEvent();
+        levelState = GameState.Active;
     }
 
+    private void Update()
+    {
+        #region Tick Timer
+        if (levelState == GameState.Active)//time should only pass when the game is in an Active State
+        {
+            timer += Time.deltaTime;
+            if (timer > secBetweenYears)
+            {
+                timer = 0;
+                Tick.Invoke();
+                IncrementYear();
+            }
+        }
+        #endregion
+    }
+
+    #region Stat Get/Set/Adjust
     /// <summary>
     /// Sets the data values to their default values.
     /// </summary>
@@ -129,16 +155,8 @@ public class DataManager : MonoBehaviour
     /// </summary>
     public void IncrementYear()
     {
-        //Debug.Log("Carbon Added:" + yearlyCarbon + "\n");
         year++;
-        //AdjustCarbon(yearlyCarbon);
-        //AdjustStored(yearlyCarbon);
-        //AdjustMoney(yearlyMoney);
-        //Debug.Log("CurrentCarbon:" + carbon);
-        //Debug.Log("\nCurrentCarbonStored:" + stored);
     }
-
-    #region Getters and Setters
 
     /// <summary>
     /// Returns the current money balance of the simulation.
@@ -151,7 +169,7 @@ public class DataManager : MonoBehaviour
 
     public void SetMoney(int value)
     {
-
+        money = value;
     }
 
     /// <summary>
@@ -190,7 +208,16 @@ public class DataManager : MonoBehaviour
         stored = val;
     }
 
+    /// <summary>
+    /// Sets GameState of current scene
+    /// </summary>
+    public void SetLevelState(GameState newState)
+    {
+        levelState = newState;
+    }
     #endregion
+
+    public enum GameState {Active, Inactive, Pause, Lose, Win}
 }
 
 

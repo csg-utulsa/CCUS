@@ -24,7 +24,7 @@ public class TickManager : MonoBehaviour
     /// </summary>
     public UnityEvent Tick { get; private set; }
     float timer;
-    float secBetweenYears = 4;
+    public float secBetweenYears = 4;//time between ticks in seconds
 
     private void Awake()
     {
@@ -39,7 +39,9 @@ public class TickManager : MonoBehaviour
         {
             timer = 0;
             Tick.Invoke();
-            DataManager.DM.IncrementYear();
+            LevelManager.LM.IncrementYear();
         }
     }
+
+    
 }

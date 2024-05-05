@@ -8,11 +8,11 @@ public class TaskManager : MonoBehaviour
     public string type;
     private string stringCall = "Carbon";
     [SerializeField] ContractComplete checkBox;
-    DataManager dataM;
+    LevelManager dataM;
 
     void Start()
     {
-        dataM = DataManager.DM;
+        dataM = LevelManager.LM;
         stringCall = type;
     }
 

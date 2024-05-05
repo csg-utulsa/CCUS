@@ -65,7 +65,7 @@ public class ConnectedTileHandler : MonoBehaviour
     {
         //ConnectivityCheck();
         UpdateModel();
-        DataManager.tileConnectionReset.AddListener(OnTileConnectionReset);
+        LevelManager.tileConnectionReset.AddListener(OnTileConnectionReset);
     }
     // Start is called before the first frame update
     void Update()
@@ -78,7 +78,7 @@ public class ConnectedTileHandler : MonoBehaviour
             AddNeighbor(tempNeighbor.direction, tempNeighbor.neighbor);
             RemoveTempNeighbor();
             UpdateModel();
-            DataManager.tileConnectionReset.Invoke();
+            LevelManager.tileConnectionReset.Invoke();
         }
 
 
