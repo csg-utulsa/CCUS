@@ -16,7 +16,7 @@ MonoBehaviour:
   BuildCost: 25
   AnnualCost: 0
   AnnualCarbonRemoved: 0
-  AnnualCarbonAdded: 50
+  AnnualCarbonAdded: 10
   AnnualCarbonStored: 0
   AnnualIncome: 5
   thisTileClass: 2
