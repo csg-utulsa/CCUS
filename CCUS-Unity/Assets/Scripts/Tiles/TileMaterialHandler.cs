@@ -12,6 +12,7 @@ using UnityEngine;
  * Description: Handles the Matrial changes for draggable tiles and objects
  * 
  * NOTE: This requires the model to be a child of the object this is placed in and that the Materials of that model to be transparent
+ * Not completely functional
  *
  */ 
 public class TileMaterialHandler : MonoBehaviour
@@ -34,7 +35,7 @@ public class TileMaterialHandler : MonoBehaviour
         
     }
 
-    public void MaterialSet(matState state)//sets the material to a certain colot
+    public void MaterialSet(matState state)//sets the material to a certain color
     {
         switch (state)
         {

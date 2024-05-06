@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Script to handle the roatation of the pointer on the carbon dial
+/// </summary>
 public class CarbonRotate : MonoBehaviour
 {   
     public float currentAngle;

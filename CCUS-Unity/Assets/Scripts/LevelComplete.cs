@@ -10,7 +10,7 @@ using UnityEngine.UI;
  */
 public class LevelComplete : MonoBehaviour
 {   
-    LevelManager dm = LevelManager.LM;
+    LevelManager lm = LevelManager.LM;
 
     public GameObject[] NeedRoads;//Tiles that should be connected to a source road for level to be complete
 
@@ -30,9 +30,12 @@ public class LevelComplete : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (CheckLoseConditions())
+        if (lm.levelState == LevelManager.GameState.Active)
         {
-            dm.
+            if (CheckLoseConditions())
+            {
+                lm.SetLevelState(LevelManager.GameState.Lose);
+            }
         }
     }
     /*Checks whether the level is in a "Win State" according to variables
@@ -49,10 +52,10 @@ public class LevelComplete : MonoBehaviour
         }
 
         //Check if Carbon is in Range
-        if (dm.GetCarbon() < WinPollutionRange.x || dm.GetCarbon() > WinPollutionRange.y) return false;
+        if (lm.GetCarbon() < WinPollutionRange.x || lm.GetCarbon() > WinPollutionRange.y) return false;
         
         //If Money is in range
-        if(dm.GetMoney() < WinMoneyRange.x || dm.GetMoney() > WinMoneyRange.y) return false;
+        if(lm.GetMoney() < WinMoneyRange.x || lm.GetMoney() > WinMoneyRange.y) return false;
 
 
         return true;
@@ -65,9 +68,9 @@ public class LevelComplete : MonoBehaviour
     public bool CheckLoseConditions()
     {   
         //If Carbon is way too high
-        if (dm.GetCarbon() > GameOverPollutionLevel) return true;
+        if (lm.GetCarbon() > GameOverPollutionLevel) return true;
         //if money are way too high
-        if (dm.GetMoney() < GameOverMoneyLevel) return true;
+        if (lm.GetMoney() < GameOverMoneyLevel) return true;
         //later lose conditions can be handled here
         return true;
     }
