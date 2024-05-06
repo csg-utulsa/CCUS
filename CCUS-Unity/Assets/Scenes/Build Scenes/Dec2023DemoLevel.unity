@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -199,6 +199,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3081143439295372782, guid: f6854f4789383cb418ca24004e2a728d, type: 3}
   m_PrefabInstance: {fileID: 879189905}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6549490
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1948348579390397039, guid: adb15f795d9e6a746bf43063b91dfc98, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1397.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 1948348579390397039, guid: adb15f795d9e6a746bf43063b91dfc98, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 159.75363
+      objectReference: {fileID: 0}
+    - target: {fileID: 1948348579390397039, guid: adb15f795d9e6a746bf43063b91dfc98, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1948348579390397039, guid: adb15f795d9e6a746bf43063b91dfc98, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1948348579390397039, guid: adb15f795d9e6a746bf43063b91dfc98, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1948348579390397039, guid: adb15f795d9e6a746bf43063b91dfc98, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1948348579390397039, guid: adb15f795d9e6a746bf43063b91dfc98, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1948348579390397039, guid: adb15f795d9e6a746bf43063b91dfc98, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1948348579390397039, guid: adb15f795d9e6a746bf43063b91dfc98, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1948348579390397039, guid: adb15f795d9e6a746bf43063b91dfc98, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8391627845326917416, guid: adb15f795d9e6a746bf43063b91dfc98, type: 3}
+      propertyPath: m_Name
+      value: GameMusicManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: adb15f795d9e6a746bf43063b91dfc98, type: 3}
 --- !u!4 &8528954 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3081143439295372782, guid: f6854f4789383cb418ca24004e2a728d, type: 3}
@@ -9599,6 +9656,7 @@ MonoBehaviour:
   startingMoney: 1000
   startingCarbon: 20
   startingYear: 2023
+  levelState: 1
   money: 0
   yearlyMoney: 0
   yearlyCarbon: 0
@@ -9606,6 +9664,7 @@ MonoBehaviour:
   year: 0
   storageCapacity: 0
   stored: 0
+  secBetweenYears: 4
 --- !u!4 &356496720
 Transform:
   m_ObjectHideFlags: 0
@@ -12251,6 +12310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1489cbf435090d948b3f76079ca2fd4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  secBetweenYears: 4
 --- !u!4 &485928142
 Transform:
   m_ObjectHideFlags: 0
@@ -22357,6 +22417,7 @@ GameObject:
   - component: {fileID: 963194227}
   - component: {fileID: 963194230}
   - component: {fileID: 963194231}
+  - component: {fileID: 963194232}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -22456,6 +22517,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
+--- !u!114 &963194232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ece08adb5d9952408c291b68aeab849, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisSceneType: 1
 --- !u!1001 &963512669
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -55053,3 +55127,4 @@ SceneRoots:
   - {fileID: 1883222660034381620}
   - {fileID: 392848266}
   - {fileID: 1204949677}
+  - {fileID: 6549490}

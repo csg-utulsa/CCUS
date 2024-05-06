@@ -8,6 +8,7 @@ TagManager:
   - Object
   - UI
   - Direction
+  - MusicManager
   layers:
   - Default
   - TransparentFX

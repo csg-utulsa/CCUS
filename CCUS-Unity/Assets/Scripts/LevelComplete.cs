@@ -32,7 +32,6 @@ public class LevelComplete : MonoBehaviour
     {
         if (CheckLoseConditions())
         {
-            dm.
         }
     }
     /*Checks whether the level is in a "Win State" according to variables
