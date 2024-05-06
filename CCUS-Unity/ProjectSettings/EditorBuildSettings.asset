@@ -18,6 +18,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Build Scenes/LevelOneWOW.unity
     guid: 18d5058e9810ae1469fd3b07a6d5df0f
   - enabled: 1
-    path: Assets/Scenes/Build Scenes/Dec2023DemoLevel.unity
+    path: Assets/Scenes/Build Scenes/May2024Demo.unity
     guid: 4ff3f257ffa37774f8d7b61130fd2499
   m_configObjects: {}
