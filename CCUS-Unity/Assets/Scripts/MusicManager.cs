@@ -35,7 +35,7 @@ public class MusicManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
+//Below Play____Music methods are called by PlayMusic.cs components which I've placed on Cameras in scenes where music changes. Consider refactoring to merge with sceneTransitionManager once we have it finalized.
     public void PlayMenuMusic(){
         StopMusic(LevelMusicInstance);
         MenuMusicInstance = FMODUnity.RuntimeManager.CreateInstance(MenuMusicEventPath);
