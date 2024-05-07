@@ -53,10 +53,10 @@ MonoBehaviour:
     Path: event:/MenuMusic
   LevelMusicEventPath:
     Guid:
-      Data1: -933457045
-      Data2: 1200334570
-      Data3: -1583072343
-      Data4: 1627829060
+      Data1: 1666645788
+      Data2: 1151646734
+      Data3: 1189871807
+      Data4: 162969308
     Path: event:/LevelMusic
   soundEventPath:
     Guid:
