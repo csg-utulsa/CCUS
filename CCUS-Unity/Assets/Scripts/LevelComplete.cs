@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
-using UnityEditor.MemoryProfiler;
+//using UnityEditor.MemoryProfiler;
 using UnityEngine;
 using UnityEngine.UI;
 
