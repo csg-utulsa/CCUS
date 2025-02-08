@@ -6,10 +6,12 @@ The **Untitled CCUS Project** is an educational simulation game designed to teac
 
 Developed by **[Computer Simulation & Gaming (CSG)](https://github.com/csg-utulsa)** majors at the **[University of Tulsa](http://utulsa.edu/gaming)**, this game aims to **raise awareness** and **inspiring sustainable action**, all within a quick, **impactful learning** module.
 
+
 > _**Will you rise to the challenge, or will history repeat itself? 
 The fate of the city—and the planet—is in your hands.**_
 > 
 > _**Strategize, manage and transform to build a sustainable future or face the consequences.**_
+
 
 ## Goals 
 📌 **Engage & Educate:** Transform complex concepts of **CCUS** into an **interactive** and **immersive gameplay experience**.
