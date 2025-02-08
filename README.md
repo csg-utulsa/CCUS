@@ -22,7 +22,9 @@ The fate of the city—and the planet—is in your hands.**_
 
 ## Learn More 
 For more information about our project and our ongoing development please visit the links below: 
+
 **[CCUS Project - GitHub](https://github.com/csg-utulsa/CCUS)**
+
 **[CCUS Project on Itch.io](https://csgutulsa.itch.io/ccus-game)**
 
 
