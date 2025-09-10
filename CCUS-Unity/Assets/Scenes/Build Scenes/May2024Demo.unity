@@ -22743,10 +22743,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
-  dragSpeed: 2
-  momentumDamp: 5
-  minBounds: {x: -100, y: -100}
-  maxBounds: {x: 100, y: 100}
+  dragSpeed: 3
+  minBounds: {x: -13, y: -13}
+  maxBounds: {x: 3, y: 3}
 --- !u!114 &963194232
 MonoBehaviour:
   m_ObjectHideFlags: 0
