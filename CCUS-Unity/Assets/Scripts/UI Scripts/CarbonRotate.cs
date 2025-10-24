@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Script to handle the roatation of the pointer on the carbon dial
+/// Script to handle the rotation of the pointer on the carbon dial
 /// </summary>
 public class CarbonRotate : MonoBehaviour
 {   
@@ -15,16 +15,15 @@ public class CarbonRotate : MonoBehaviour
     {
         DifferenceCheck(targetAngle);   
     }
-    public void UpdateCarbon(float carbon) 
+    public void UpdateCarbon(float carbon, int maxCarbon) 
     {
-        targetAngle = ConvertToAngle(carbon,1000);
-        
+        targetAngle = ConvertToAngle(carbon, maxCarbon);
     }
 
     public float ConvertToAngle(float current,float max)
     {
         //Note, uses 90 as a baseline because the range is -90 to 90, even if its technically 180 degrees
-        float angle = -(((current/max)*180) -90);
+        float angle = -(((current/max)*180) - 90);
         return angle;
     }
 
@@ -33,33 +32,25 @@ public class CarbonRotate : MonoBehaviour
         //Debug.Log(currentAngle + "Current angle");
         angle = Mathf.Round(angle);//rounds angle to nearest whole number
 
-        //moves dial towards inteded angle
+        //moves dial towards intended angle
         if (angle > currentAngle)
         {
             currentAngle+=.2f;
-        }else if (angle < currentAngle) {
+        }
+        else if (angle < currentAngle) 
+        {
             currentAngle-=.2f;
         }
 
-        if((angle-currentAngle < .2f) && (currentAngle-angle < .2f)) {
+        if((angle-currentAngle < .2f) && (currentAngle-angle < .2f)) 
+        {
             currentAngle = angle;
         }
 
-        maxCheck(currentAngle);//makes sure dial isnt out of range
+        //clamp current angle between -90 and 90
+        currentAngle = Mathf.Clamp(currentAngle, -90f, 90f);
+        
         pointer.transform.rotation = Quaternion.Euler(0, 0, currentAngle); 
-
-        }
-
-    public void maxCheck(float check)
-    {
-       if ((check) <= -90)
-        {
-            currentAngle = -90;
-        }
-        else if ((check) >= 90)
-        {
-            currentAngle = 90;
-        }
     }
-
+    
 }
