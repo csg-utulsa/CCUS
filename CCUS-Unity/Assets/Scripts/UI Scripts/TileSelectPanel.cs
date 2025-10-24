@@ -22,10 +22,6 @@ public class TileSelectPanel : ScrollableArea
     public float gapBetweenTiles = 20f;
     public float distanceFromTopOfPanel = 30f;
     
-
-
-
-
     [Header("Scrolling Settings")]
     public float scrollIncrement = 10f;
     public float peakScrollSpeed = 210f;
@@ -55,11 +51,16 @@ public class TileSelectPanel : ScrollableArea
         //Gets all of the buttons that are attached to the tile panel
         if(GetComponentsInChildren<Button>(true) != null){
             heightOfTile = GetComponentInChildren<Button>(true).transform.gameObject.GetComponent<RectTransform>().rect.height;
-            Button[] buttonRectComponents = GetComponentsInChildren<Button>(true);
-            tileButtons = new GameObject[buttonRectComponents.Length];
-            for(int i = 0; i < buttonRectComponents.Length; i++){
-                tileButtons[i] = buttonRectComponents[i].transform.gameObject;
-            }
+            // Button[] buttonRectComponents = GetComponentsInChildren<Button>(true);
+            // tileButtons = new GameObject[buttonRectComponents.Length];
+            // for(int i = 0; i < buttonRectComponents.Length; i++){
+            //     tileButtons[i] = buttonRectComponents[i].transform.gameObject;
+            // }
+            
+            //
+            tileButtons = Array.Empty<GameObject>();
+            //
+            
             allTileScriptableObjects =  new TileScriptableObject[tileButtons.Length];
             disabledPollutionButtons = new bool[tileButtons.Length];
             disabledMoneyButtons = new bool[tileButtons.Length];
@@ -68,7 +69,7 @@ public class TileSelectPanel : ScrollableArea
                 disabledPollutionButtons[i] = false;
                 disabledMoneyButtons[i] = false;
             }
-
+        
         }else{
             Debug.LogError("There ain't no buttons attached to the tile select panel! We kinda need those.");
         }

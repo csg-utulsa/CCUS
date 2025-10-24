@@ -3039,8 +3039,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 839993047}
+  - component: {fileID: 839993048}
   m_Layer: 0
-  m_Name: LevelProgressionManager
+  m_Name: ProgressionManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3061,6 +3062,46 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &839993048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 839993046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17a633e97dd19f64c9e89077abaadb89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  tileSelectPanel: {fileID: 555511772}
+  milestones:
+  - tileButton: {fileID: 1774404326}
+    conditions: []
+    enableOnStart: 1
+  - tileButton: {fileID: 1882207150}
+    conditions: []
+    enableOnStart: 1
+  - tileButton: {fileID: 1811822501}
+    conditions: []
+    enableOnStart: 1
+  - tileButton: {fileID: 753105783}
+    conditions:
+    - type: 2
+      threshold: 5000
+    enableOnStart: 0
+  - tileButton: {fileID: 823944154}
+    conditions:
+    - type: 0
+      threshold: 2045
+    enableOnStart: 0
+  - tileButton: {fileID: 1079235569}
+    conditions:
+    - type: 0
+      threshold: 2045
+    - type: 2
+      threshold: 10000
+    enableOnStart: 0
 --- !u!1001 &853144658
 PrefabInstance:
   m_ObjectHideFlags: 0
