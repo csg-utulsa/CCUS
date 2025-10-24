@@ -20,14 +20,14 @@ public class SceneTransitionManager : MonoBehaviour
         if (sceneManager == null)
         {
             sceneManager = this; //set gm to this gm of the game object
-            Debug.Log(sceneManager);
+            //Debug.Log(sceneManager);
         }
         else //else if gm is not null a Game Manager must already exsist
         {
             Destroy(this.gameObject); //In this case you need to delete this gm
         }
         DontDestroyOnLoad(this); //Do not delete the GameManager when scenes load
-        Debug.Log(sceneManager);
+        //Debug.Log(sceneManager);
     }//end CheckGameManagerIsInScene()
     #endregion
 

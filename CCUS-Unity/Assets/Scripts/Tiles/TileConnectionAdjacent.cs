@@ -43,7 +43,7 @@ public class TileConnectionAdjacent : MonoBehaviour
 
     public void AddNeighbor( GameObject neighbor)
     {
-        Debug.Log("Henlo");
+        
         if (!neighbor.GetComponent<PlaceableObject>().placed)
         {
             tempNeighbor = neighbor;

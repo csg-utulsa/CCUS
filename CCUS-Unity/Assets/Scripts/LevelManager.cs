@@ -18,12 +18,13 @@ public class LevelManager : MonoBehaviour
     }
     #endregion
     [Header("Initial Stats")]
+    public int maxCarbon = 200;
     [SerializeField] int startingMoney;
     [SerializeField] int startingCarbon;
     [SerializeField] int startingYear;
     [Header("Current Stats")]
     public GameState levelState = GameState.Inactive;
-    [SerializeField] int money;
+    [SerializeField] public int money;
     [SerializeField] int yearlyMoney;
     [SerializeField] int yearlyCarbon;
     [SerializeField] int carbon;
@@ -35,7 +36,11 @@ public class LevelManager : MonoBehaviour
     [Header("Game Speed and Limits")]
     public float secBetweenYears = 4;//time between ticks in seconds
     public UnityEvent Tick { get; private set; }
+    
     float timer;
+
+    // bool moneyChangedSinceUpdate = false;
+    // bool carbonChangedSinceUpdate = false;
     
 
     private void Awake()
@@ -43,25 +48,60 @@ public class LevelManager : MonoBehaviour
         LoadManager();
         ResetData();
         tileConnectionReset = new UnityEvent();
-        Tick = new UnityEvent();
+        //Tick = new UnityEvent();
+
         levelState = GameState.Active;
+
+        TickManager.TM.PollutionTick.AddListener(OnPollutionTick);
+        TickManager.TM.MoneyTick.AddListener(OnMoneyTick);
     }
 
     private void Update()
     {
         #region Tick Timer
-        if (levelState == GameState.Active)//time should only pass when the game is in an Active State
-        {
-            timer += Time.deltaTime;
-            if (timer > secBetweenYears)
-            {
-                timer = 0;
-                Tick.Invoke();
-                IncrementYear();
-            }
-        }
+        // if (levelState == GameState.Active)//time should only pass when the game is in an Active State
+        // {
+        //     timer += Time.deltaTime;
+        //     if (timer > secBetweenYears)
+        //     {
+        //         timer = 0;
+        //         Tick.Invoke();
+        //         IncrementYear();
+        //     }
+        // }
         #endregion
     }
+
+    public void OnMoneyTick(){
+        StartCoroutine(endOfMoneyTick());
+    }
+    //Runs at the end of each money tick
+    IEnumerator endOfMoneyTick(){
+        yield return null;
+        TileSelectPanel.TSP.checkPricesOfTiles(money);
+    }
+
+    public void OnPollutionTick(){
+        StartCoroutine(endOfPollutionTick());
+    }
+    //Runs at the end of each money tick
+    IEnumerator endOfPollutionTick(){
+        yield return null;
+        if(carbon > maxCarbon){
+            TileSelectPanel.TSP.disablePolluters();
+        } else {
+            TileSelectPanel.TSP.enablePolluters();
+        }
+        
+    }
+
+    public static bool overMaxCarbon(){
+        return (LM.carbon > LM.maxCarbon);
+    }
+
+
+
+
 
     #region Stat Get/Set/Adjust
     /// <summary>
@@ -97,6 +137,7 @@ public class LevelManager : MonoBehaviour
     /// <param name="value"></param>
     public void AdjustCarbon(int value)
     {
+        //carbonChangedSinceUpdate = true;
         //print("Carbon Update Called");
         carbon += value;
         if (carbon < 0) carbon = 0;

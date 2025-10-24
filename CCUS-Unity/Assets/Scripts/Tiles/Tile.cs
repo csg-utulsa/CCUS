@@ -11,9 +11,30 @@ public class Tile : MonoBehaviour
 
     public TileState state = TileState.Uninitialized;
     bool menuOpen = false;
-    
     LevelManager dm;
     private TileMaterialHandler tileMatHandler;
+
+    public Vector3 tilePosition;
+
+
+    void Start(){
+        //Saves the tile coordinates of this tile
+        if(state == TileState.Static){
+            tilePosition = BuildingSystem.current.SnapCoordinateToGrid(transform.position);
+
+            GridManager.GM.AddObject(this.gameObject);
+        }
+
+
+        
+        
+        //dm = LevelManager.LM;
+    }
+
+    public Vector3 getTileGridPosition(){
+        tilePosition = BuildingSystem.current.SnapCoordinateToGrid(transform.position);
+        return tilePosition;
+    }
 
 
 
@@ -31,18 +52,56 @@ public class Tile : MonoBehaviour
     void OnTick()
     {
 
-        //Debug.Log(this.name);
+        // I split this tick up into a separate pollution tick and money tick
+        // if (state != TileState.Static) return;
+        // if (tileScriptableObject.AnnualIncome != 0)
+        //     dm.AdjustMoney(tileScriptableObject.AnnualIncome);
+        // if (tileScriptableObject.AnnualCost != 0)
+        //     dm.AdjustMoney(-1 * tileScriptableObject.AnnualCost);
+        // if (tileScriptableObject.AnnualCarbonStored != 0)
+        //     dm.AdjustStored(tileScriptableObject.AnnualCarbonStored);
+        // if (tileScriptableObject.AnnualCarbonRemoved != 0)
+        //     dm.AdjustCarbon(-1 * tileScriptableObject.AnnualCarbonRemoved);
+        // if (tileScriptableObject.AnnualCarbonAdded != 0)
+        //     dm.AdjustCarbon(tileScriptableObject.AnnualCarbonAdded);
+    }
+
+    void OnPollutionTick()
+    {
         if (state != TileState.Static) return;
-        if (tileScriptableObject.AnnualIncome != 0)
-            dm.AdjustMoney(tileScriptableObject.AnnualIncome);
-        if (tileScriptableObject.AnnualCost != 0)
-            dm.AdjustMoney(-1 * tileScriptableObject.AnnualCost);
-        if (tileScriptableObject.AnnualCarbonStored != 0)
-            dm.AdjustStored(tileScriptableObject.AnnualCarbonStored);
         if (tileScriptableObject.AnnualCarbonRemoved != 0)
             dm.AdjustCarbon(-1 * tileScriptableObject.AnnualCarbonRemoved);
         if (tileScriptableObject.AnnualCarbonAdded != 0)
             dm.AdjustCarbon(tileScriptableObject.AnnualCarbonAdded);
+
+    }
+
+    void OnMoneyTick()
+    {
+        if (state != TileState.Static) return;
+        if (tileScriptableObject.AnnualIncome != 0)
+             dm.AdjustMoney(tileScriptableObject.AnnualIncome);
+
+    }
+
+    public bool tooMuchCarbonToPlace(){
+        if(tileScriptableObject.AnnualCarbonAdded <= 0){
+            return false;
+        }
+        else if(LevelManager.overMaxCarbon()){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public bool notEnoughMoneyToPlace(){
+        if(tileScriptableObject.BuildCost > LevelManager.LM.money){
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
@@ -53,6 +112,8 @@ public class Tile : MonoBehaviour
     private void Awake()
     {
         TickManager.TM.Tick.AddListener(OnTick);
+        TickManager.TM.PollutionTick.AddListener(OnPollutionTick);
+        TickManager.TM.MoneyTick.AddListener(OnMoneyTick);
         tileMatHandler = gameObject.GetComponent<TileMaterialHandler>();
         dm = LevelManager.LM;
     }

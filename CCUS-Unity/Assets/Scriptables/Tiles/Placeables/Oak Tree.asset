@@ -24,5 +24,6 @@ MonoBehaviour:
   - Concrete
   - Road
   - Water
+  - Water
   OverlapWhiteList: []
   FlavorText: 

@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 83904f9843ecfe342a25ffd043e3a9fc
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - m_ViewDataDictionary: {instanceID: 0}
+  - blankTilePrefab: {fileID: 9171035400571233729, guid: 81824e4d3c03c8549bf91254aabd16f2, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
