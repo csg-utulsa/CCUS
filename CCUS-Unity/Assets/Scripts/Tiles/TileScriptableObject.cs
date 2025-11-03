@@ -5,6 +5,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Tile", menuName = "Asset/Tile")]
 public class TileScriptableObject : ScriptableObject
 {
+    //Default Constructor
+    // public TileScriptableObject(){
+
+    // }
+
+
     public string Name;
     public int BuildCost;
     public int AnnualCost;
@@ -12,6 +18,8 @@ public class TileScriptableObject : ScriptableObject
     public int AnnualCarbonAdded;
     public int AnnualCarbonStored;
     public int AnnualIncome;
+    public Mesh TileMesh;
+
     public enum TileClass
     {
         Grass, Dirt, Pavement, Tree, Water, Machine, Building

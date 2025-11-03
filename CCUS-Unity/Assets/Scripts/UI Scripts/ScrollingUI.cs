@@ -87,8 +87,8 @@ public class ScrollingUI : MonoBehaviour
     void visiblyScrollButtons(){
         float panelHeight = scrollableArea.rectangleTransform.rect.height;
 
-        //The next if-else structure forces the button scrolling to remain within the bounds
-        if(actualScrollOffset > scrollableArea.heightOfScrollableArea){
+        //The next if-else structure forces the button scrolling to remain within the bounds       
+        if(visibleScrollOffset > scrollableArea.heightOfScrollableArea){
             visibleScrollOffset = scrollableArea.heightOfScrollableArea;
             scrollableArea.UpdateVisibleScrollOffset(visibleScrollOffset);
             actualScrollOffset = scrollableArea.heightOfScrollableArea;
@@ -96,7 +96,7 @@ public class ScrollingUI : MonoBehaviour
            // Debug.Log("Updating UI Elements Positions");
             currentlyScrolling = false;
             return;
-        } else if(actualScrollOffset < 0f){
+        } else if(visibleScrollOffset < 0f){
             visibleScrollOffset = 0f;
             //Debug.Log("Updating UI Elements Positions");
             scrollableArea.UpdateVisibleScrollOffset(visibleScrollOffset);
@@ -105,6 +105,7 @@ public class ScrollingUI : MonoBehaviour
             currentlyScrolling = false;
             return;
         }
+        
 
         //Prevents the user from scrolling too fast (makes touchpad less sensative)
         if(Mathf.Abs(visibleScrollOffset - actualScrollOffset) > peakScrollSpeed){
