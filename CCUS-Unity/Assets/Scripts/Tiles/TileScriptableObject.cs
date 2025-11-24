@@ -18,6 +18,7 @@ public class TileScriptableObject : ScriptableObject
     public int AnnualCarbonAdded;
     public int AnnualCarbonStored;
     public int AnnualIncome;
+    //public GameObject MyButton;
     public Mesh TileMesh;
 
     public enum TileClass

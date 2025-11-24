@@ -76,10 +76,11 @@ public class BuildingSystem : MonoBehaviour
             if (CanBePlaced(objectToPlace))
             {
                 placeSelectedTile();
-            } else if(objectToPlace.GetComponent<Tile>().tooMuchCarbonToPlace() && !isMouseOverScreen()) {
-                unableToPlaceTileUI.tooMuchCarbon();
-            } else if(objectToPlace.GetComponent<Tile>().notEnoughMoneyToPlace() && !isMouseOverScreen()) {
-                unableToPlaceTileUI.notEnoughMoney();
+            } 
+            else if(objectToPlace.GetComponent<Tile>().tooMuchCarbonToPlace() && isMouseOverScreen()) {
+                unableToPlaceTileUI._unableToPlaceTileUI.tooMuchCarbon();
+            } else if(objectToPlace.GetComponent<Tile>().notEnoughMoneyToPlace() && isMouseOverScreen()) {
+                unableToPlaceTileUI._unableToPlaceTileUI.notEnoughMoney();
             } else
             {
                 //deselectCurrentObject();

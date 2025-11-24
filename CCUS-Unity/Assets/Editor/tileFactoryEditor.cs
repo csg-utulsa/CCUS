@@ -1,10 +1,15 @@
+//This one is the tile factory
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.UIElements;
 using System.IO;
+using System;
 using System.Linq;
+using UnityEngine.UI;
+using UnityEditor.Events;
+//using UnityEngine.Events.UnityEventTools;
 
 //[CreateAssetMenu(fileName = "New Tile", menuName = "Tile System/Tile")]
 //[CustomEditor(typeof(tileFactory))]
@@ -26,7 +31,17 @@ public class tileFactoryEditor : EditorWindow
 
     public GameObject editingTilePrefab;
 
-    //public tileFactoryEditor myWindow;
+    public GameObject blankButtonPrefab;
+
+    private Sprite buttonImage;
+
+    public GameObject tileButtonManager;
+
+    
+
+    public void setButtonImage(Sprite _buttonImage){
+        buttonImage = _buttonImage;
+    }
 
 
 
@@ -91,21 +106,14 @@ public class tileFactoryEditor : EditorWindow
             GUILayout.Label("");
 
 
-            //Ask for all of the input data
-
-            //Check input mesh is of type .fbx
-            //GameObject newTileMesh = null;
-            //newTileMesh = (Object)EditorGUILayout.ObjectField("New Object Mesh", newTileMesh, typeof(Object), true);
-            //newTileMeshFilePath = AssetDatabase.GetAssetPath(newTileMesh);
-            //newTileMeshFilePath = EditorUtility.OpenFilePanel("Select a File", "Assets/Models", "");
-            //remove the && false from the next line
+            //Ask for all the input Data
 
             if(isCreatingNewTile){
                 newTileMesh = (GameObject)EditorGUILayout.ObjectField("FBX File", newTileMesh, typeof(GameObject), false);
                 newTileMeshFilePath = AssetDatabase.GetAssetPath(newTileMesh);
             }
-            
-            //Debug.Log(newTileMeshFilePath);
+
+            buttonImage = (Sprite)EditorGUILayout.ObjectField("Button Image", buttonImage, typeof(Sprite), false);
 
 
             // if(Path.GetExtension(newTileMeshFilePath) != ".fbx") {
@@ -118,8 +126,6 @@ public class tileFactoryEditor : EditorWindow
             moneyPerYear = EditorGUILayout.IntField("Money Per Year", moneyPerYear);
 
             pollutionPerYear = EditorGUILayout.IntField("Pollution Per Year", pollutionPerYear);
-
-            //isPolluter = EditorGUILayout.Toggle("Polluting Tile?", isPolluter);
 
             GUILayout.Label("");
             
@@ -142,7 +148,7 @@ public class tileFactoryEditor : EditorWindow
                         bool prefabCreationSuccess = CreateNewPrefab();
                         if(!prefabCreationSuccess) Debug.LogError("Tile Creation Error! It couldn't successfully create a prefab in the prefabs folder.");   
 
-                        closeThisWindow = true; //this.Close();
+                        closeThisWindow = true;
                     }
                     
                     
@@ -195,6 +201,8 @@ public class tileFactoryEditor : EditorWindow
                 editingTilePrefab.GetComponentInChildren<MeshFilter>().mesh = instanceOfNewTileMesh;
             }
 
+            
+
             if(newTileName != null) editingTilePrefab.name = newTileName;
             
             if(editingTilePrefab.GetComponent<Tile>().tileScriptableObject != null){
@@ -202,8 +210,42 @@ public class tileFactoryEditor : EditorWindow
                 if(newTileName != null) tileScriptableObject.name = newTileName;
                 if(pollutionPerYear != null) tileScriptableObject.AnnualCarbonAdded = pollutionPerYear;
                 if(moneyPerYear != null) tileScriptableObject.AnnualIncome = moneyPerYear;
+                //Here I find the Button Manager in Scene and loop through each button to assign a new image to the one with a matching scriptable object
+                // TileSelectPanel[] tileButtonManagerArray = FindObjectsOfType(typeof(TileSelectPanel)) as TileSelectPanel[];
+                // if(tileButtonManagerArray[0] != null){
+                //     buttonScript[] allButtonScripts = tileButtonManagerArray[0].GetComponentsInChildren<buttonScript>();
+                //     foreach(buttonScript _buttonScript in allButtonScripts){
+                //         if(_buttonScript.tileToPlace.GetComponent<Tile>().tileScriptableObject == tileScriptableObject){
+                //             _buttonScript.gameObject.GetComponent<UnityEngine.UI.Image>().sprite = buttonImage;
+                //         }
+                //     }
+                // }
+                getButtonWithScriptableObject(tileScriptableObject).GetComponent<UnityEngine.UI.Image>().sprite = buttonImage;
+                //if((buttonImage != null) && (tileScriptableObject.MyButton != null) && (tileScriptableObject.MyButton.GetComponent<UnityEngine.UI.Image>() != null)) tileScriptableObject.MyButton.GetComponent<UnityEngine.UI.Image>().sprite = buttonImage;
             }
+            
+            
 
+        }
+
+        public static GameObject getButtonWithScriptableObject(TileScriptableObject tileScriptableObjectToFind){
+            //Here I find the Button Manager in Scene and loop through each button to find the one with a matching scriptable object
+            //TileSelectPanel[] tileButtonManagerArray = FindObjectsOfType(typeof(TileSelectPanel)) as TileSelectPanel[];
+            TileSelectPanel _tileButtonManager = getTileButtonManager();
+            if(_tileButtonManager != null){
+                buttonScript[] allButtonScripts = _tileButtonManager.GetComponentsInChildren<buttonScript>();
+                foreach(buttonScript _buttonScript in allButtonScripts){
+                    if(_buttonScript.tileToPlace.GetComponent<Tile>().tileScriptableObject == tileScriptableObjectToFind){
+                        return _buttonScript.gameObject;
+                    }
+                }
+            }
+            return null;
+        }
+
+        public static TileSelectPanel getTileButtonManager(){
+            TileSelectPanel[] tileButtonManagerArray = FindObjectsOfType(typeof(TileSelectPanel)) as TileSelectPanel[];
+            return tileButtonManagerArray[0];
         }
 
         public bool CreateNewPrefab() {
@@ -254,6 +296,31 @@ public class tileFactoryEditor : EditorWindow
                 // meshChild.transform.localRotation = Quaternion.identity;
                 // meshChild.transform.localScale = Vector3.one;
 
+                //Finds tileSelectPanel for later use
+                TileSelectPanel[] tileButtonManagerArray = FindObjectsOfType(typeof(TileSelectPanel)) as TileSelectPanel[];
+                if(tileButtonManagerArray [0] != null) tileButtonManager = tileButtonManagerArray[0].gameObject;
+
+                //Creates new button and updates its image / prefab it instantiates
+                GameObject newButtonPrefab = (GameObject)PrefabUtility.InstantiatePrefab(blankButtonPrefab, tileButtonManager.transform); //zzz
+                newButtonPrefab.name = newTileName;
+                if(buttonImage != null) newButtonPrefab.GetComponent<UnityEngine.UI.Image>().sprite = buttonImage;
+                newButtonPrefab.GetComponent<buttonScript>().tileToPlace = newTilePrefab;
+
+                //Adds On click listener to that new little button!
+                try{
+                    TileSelectPanel _tileButtonManager = getTileButtonManager();
+
+
+
+                    //UnityEditor.Events.UnityEventTools.AddPersistentListener(newButtonPrefab.GetComponent<UnityEngine.UIElements.Button>().clicked, delegate{ _tileButtonManager.clickButton(newTilePrefab); });
+                    //newButtonPrefab.GetComponent<UnityEngine.UIElements.Button>().clicked += delegate{ _tileButtonManager.clickButton(newTilePrefab); };
+                    //newButtonPrefab.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => _tileButtonManager.clickButton(newTilePrefab));
+                    UnityEventTools.AddObjectPersistentListener(newButtonPrefab.GetComponent<UnityEngine.UI.Button>().onClick, _tileButtonManager.clickButton, newButtonPrefab);
+                    //UnityEventTools.AddPersistentListener(newButtonPrefab.GetComponent<UnityEngine.UI.Button>().onClick, _tileButtonManager.clickButton(newTilePrefab));
+                }catch(Exception err){
+                    Debug.LogError("Failed to add Click Listener to new Button (Probably won't work when clicked). Error Message:");
+                    Debug.LogError(err);
+                }
                 
 
                 //Creates and sets parameters of new tile's scriptable object
@@ -269,6 +336,7 @@ public class tileFactoryEditor : EditorWindow
                 newScriptableObject.Name = newTileName;
                 newScriptableObject.AnnualCarbonAdded = pollutionPerYear;
                 newScriptableObject.AnnualIncome = moneyPerYear;
+                //newScriptableObject.MyButton = newButtonPrefab;
                 
                 //Sets Scriptable Object Of New Object
                 newTilePrefab.GetComponentInChildren<Tile>().tileScriptableObject = newScriptableObject;

@@ -18,7 +18,8 @@ MonoBehaviour:
   AnnualCarbonRemoved: 0
   AnnualCarbonAdded: 50
   AnnualCarbonStored: 0
-  AnnualIncome: 100
+  AnnualIncome: 10
+  TileMesh: {fileID: 0}
   thisTileClass: 6
   OverlapBlackList: []
   OverlapWhiteList: []

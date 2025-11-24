@@ -120,7 +120,7 @@ public class ObjectDrag : MonoBehaviour
     }
 
     public void updateTileMaterialValidity(){
-        if (!BuildingSystem.current.CanBePlaced(GetComponent<PlaceableObject>()))//changes material based on if tile is overlapping a tile it can or not // also makes sure that it can be placed with Building SYstem Function
+        if ((!BuildingSystem.current.CanBePlaced(GetComponent<PlaceableObject>())) && dragging)//changes material based on if tile is overlapping a tile it can or not // also makes sure that it can be placed with Building SYstem Function
         {
             tileMaterialHandler.MaterialSet(TileMaterialHandler.matState.HoveringInvalid);
         }

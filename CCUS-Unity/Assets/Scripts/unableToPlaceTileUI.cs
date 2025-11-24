@@ -9,37 +9,52 @@ public class unableToPlaceTileUI : MonoBehaviour
     public float timeToShowGraphic = 1.5f;
     public GameObject tooMuchCarbonGraphic;
     public GameObject notEnoughMoneyGraphic;
-    static unableToPlaceTileUI _unableToPlaceTileUI;
+    public static unableToPlaceTileUI _unableToPlaceTileUI;
 
-    void Start(){
+
+    void Awake(){
+
         _unableToPlaceTileUI = this;
     }
 
-
-    public static void tooMuchCarbon(){
-        _unableToPlaceTileUI.carbonGraphicTimer = _unableToPlaceTileUI.timeToShowGraphic;
-        _unableToPlaceTileUI.tooMuchCarbonGraphic.SetActive(true);
+    //Displays the error that says: TOO MUCH CARBON!!!
+    public void tooMuchCarbon(){
+        carbonGraphicTimer = timeToShowGraphic;
+        tooMuchCarbonGraphic.SetActive(true);
+        tooMuchCarbonGraphic.GetComponent<ShakeGraphic>().ShakeItUp();
+        tooMuchCarbonGraphic.GetComponent<FadeGraphic>().StopFading();
+        
     }
 
-    public static void notEnoughMoney(){
-        _unableToPlaceTileUI.moneyGraphicTimer = _unableToPlaceTileUI.timeToShowGraphic;
-        _unableToPlaceTileUI.notEnoughMoneyGraphic.SetActive(true);
+    //Displays the error that says: NOT ENOUGH MONEY!!!!!
+    public void notEnoughMoney(){
+        moneyGraphicTimer = timeToShowGraphic;
+        notEnoughMoneyGraphic.SetActive(true);
+        notEnoughMoneyGraphic.GetComponent<ShakeGraphic>().ShakeItUp();
+        notEnoughMoneyGraphic.GetComponent<FadeGraphic>().StopFading();
     }
+
+
 
     void Update(){
-
+        
+        //The next two if else structures time how long the graphics should be visible for
         if(carbonGraphicTimer > 0f){
             _unableToPlaceTileUI.carbonGraphicTimer -= Time.deltaTime;
         } else {
-            _unableToPlaceTileUI.tooMuchCarbonGraphic.SetActive(false);
+            _unableToPlaceTileUI.tooMuchCarbonGraphic.GetComponent<FadeGraphic>().beginFading();
+            //_unableToPlaceTileUI.tooMuchCarbonGraphic.SetActive(false);
         }
 
         if(moneyGraphicTimer > 0f){
             _unableToPlaceTileUI.moneyGraphicTimer -= Time.deltaTime;
         } else {
-            _unableToPlaceTileUI.notEnoughMoneyGraphic.SetActive(false);
+
+            _unableToPlaceTileUI.notEnoughMoneyGraphic.GetComponent<FadeGraphic>().beginFading();//.SetActive(false);
         }
 
+
     }
+
 
 }

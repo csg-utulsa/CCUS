@@ -24,7 +24,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] int startingYear;
     [Header("Current Stats")]
     public GameState levelState = GameState.Inactive;
-    [SerializeField] public int money;
+    [SerializeField] private int money;
     [SerializeField] int yearlyMoney;
     [SerializeField] int yearlyCarbon;
     [SerializeField] int carbon;
@@ -39,21 +39,53 @@ public class LevelManager : MonoBehaviour
     
     float timer;
 
-    // bool moneyChangedSinceUpdate = false;
-    // bool carbonChangedSinceUpdate = false;
+    public float currentMaxTileIncome = 0f;
+    public float currentMaxTileCarbon = 0f;
+    public float currentMinTileCarbon = 0f;
+
+    
+
+    public float getCurrentMaxTileIncome(){
+        return currentMaxTileIncome;
+    }
+
+    public float getCurrentMaxTileCarbon(){
+        return currentMaxTileCarbon;
+    }
+
+    public float getCurrentMinTileCarbon(){
+        return currentMinTileCarbon;
+    }
+
+    public void setCurrentMaxTileIncome(float _currentMaxTileIncome){
+        currentMaxTileIncome = _currentMaxTileIncome;
+    }
+
+    public void setCurrentMaxTileCarbon(float _currentMaxTileCarbon){
+        currentMaxTileCarbon = _currentMaxTileCarbon;
+    }
+
+    public void setCurrentMinTileCarbon(float _currentMinTileCarbon){
+        currentMinTileCarbon = _currentMinTileCarbon;
+    }
     
 
     private void Awake()
     {
         LoadManager();
-        ResetData();
-        tileConnectionReset = new UnityEvent();
+        
         //Tick = new UnityEvent();
 
         levelState = GameState.Active;
 
         TickManager.TM.PollutionTick.AddListener(OnPollutionTick);
         TickManager.TM.MoneyTick.AddListener(OnMoneyTick);
+    }
+
+    //Moved these functions to Start() from Awake() because resetData tries to reference Tile Select Panel.TSP before it's initialized
+    void Start(){
+        ResetData();
+        tileConnectionReset = new UnityEvent();
     }
 
     private void Update()
@@ -73,6 +105,7 @@ public class LevelManager : MonoBehaviour
     }
 
     public void OnMoneyTick(){
+        GetComponent<UIPopUps>().displayMoneyPopUps();
         StartCoroutine(endOfMoneyTick());
     }
     //Runs at the end of each money tick
@@ -82,6 +115,7 @@ public class LevelManager : MonoBehaviour
     }
 
     public void OnPollutionTick(){
+        GetComponent<UIPopUps>().displayCarbonPopUps();
         StartCoroutine(endOfPollutionTick());
     }
     //Runs at the end of each money tick
@@ -109,7 +143,7 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     public void ResetData()
     {
-        money = startingMoney;
+        SetMoney(startingMoney);
         carbon = startingCarbon;
         year = startingYear;
         storageCapacity = 0;
@@ -123,7 +157,7 @@ public class LevelManager : MonoBehaviour
     /// <param name="value"></param>
     public void AdjustMoney(int value)
     {
-        money += value;
+        SetMoney(GetMoney() + value);
     }
 
     public void AdjustYearlyIncome(int moneyChange)
@@ -203,14 +237,14 @@ public class LevelManager : MonoBehaviour
     /// Returns the current money balance of the simulation.
     /// </summary>
     /// <returns></returns>
-    public int GetMoney()
-    {
+    
+    public int GetMoney(){
         return money;
     }
 
-    public void SetMoney(int value)
-    {
-        money = value;
+    public void SetMoney(int _money){
+        money = _money;
+        TileSelectPanel.TSP.checkPricesOfTiles(GetMoney());
     }
 
     /// <summary>

@@ -46,6 +46,13 @@ public class deleteTileButton : EditorWindow
         GUILayout.Label("");
         if (GUILayout.Button("DELETE THIS TILE", deleteButtonStyle)){
 
+            //Delete Button
+            try{
+                DestroyImmediate(tileFactoryEditor.getButtonWithScriptableObject(tileToDelete.GetComponent<Tile>().tileScriptableObject));
+            }catch (Exception ex){
+                Debug.LogError(ex);
+            }
+
             //Delete Scriptable Object
             try{
                 string pathOfScriptableObjectToDelete = AssetDatabase.GetAssetPath(tileToDelete.GetComponent<Tile>().tileScriptableObject);

@@ -21,8 +21,9 @@ public class Tile : MonoBehaviour
         //Saves the tile coordinates of this tile
         if(state == TileState.Static){
             tilePosition = BuildingSystem.current.SnapCoordinateToGrid(transform.position);
-
+            //Adds this object to the GridManager's database of all current tiles
             GridManager.GM.AddObject(this.gameObject);
+            
         }
 
 
@@ -30,6 +31,8 @@ public class Tile : MonoBehaviour
         
         //dm = LevelManager.LM;
     }
+
+
 
     public Vector3 getTileGridPosition(){
         tilePosition = BuildingSystem.current.SnapCoordinateToGrid(transform.position);
@@ -97,7 +100,7 @@ public class Tile : MonoBehaviour
     }
 
     public bool notEnoughMoneyToPlace(){
-        if(tileScriptableObject.BuildCost > LevelManager.LM.money){
+        if(tileScriptableObject.BuildCost > LevelManager.LM.GetMoney()){
             return true;
         } else {
             return false;
@@ -116,6 +119,23 @@ public class Tile : MonoBehaviour
         TickManager.TM.MoneyTick.AddListener(OnMoneyTick);
         tileMatHandler = gameObject.GetComponent<TileMaterialHandler>();
         dm = LevelManager.LM;
+
+
+        
+        
+        if(tileScriptableObject != null){
+            //Lets Level Manager know if this tile has the biggest income, carbon, or carbon removed (has obscure use in setting size of the bubble pop ups)
+            if(LevelManager.LM.getCurrentMaxTileIncome() < tileScriptableObject.AnnualIncome){
+               LevelManager.LM.setCurrentMaxTileIncome(tileScriptableObject.AnnualIncome); 
+            }
+            if(LevelManager.LM.getCurrentMaxTileCarbon() < tileScriptableObject.AnnualCarbonAdded){
+               LevelManager.LM.setCurrentMaxTileCarbon(tileScriptableObject.AnnualCarbonAdded); 
+            }
+            if(LevelManager.LM.getCurrentMinTileCarbon() > tileScriptableObject.AnnualCarbonAdded){
+               LevelManager.LM.setCurrentMinTileCarbon(tileScriptableObject.AnnualCarbonAdded); 
+            }
+
+        }
     }
 
     private void Update()

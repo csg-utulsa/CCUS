@@ -13,10 +13,14 @@ public class ResourcePanelManager : MonoBehaviour
     private string spacing = ""; //The amount of spacing for text
     LevelManager dm;
 
+    private int previousMoney = 0;
+
     // Start is called before the first frame update
     void Start()
     {
+        
         dm = LevelManager.LM;
+        previousMoney = dm.GetMoney();
     }
 
     // Update is called once per frame
@@ -29,11 +33,18 @@ public class ResourcePanelManager : MonoBehaviour
 
         if(moneyText != null)
         {
+            //Shakes the money when it increases
+            if(dm.GetMoney() > previousMoney){
+                moneyText.GetComponent<ShakeGraphic>().ShakeItUp();
+            }
+            previousMoney = dm.GetMoney();
+
+            //Updates Cash Text
             for(int i = 0; i < 6 - dm.GetMoney().ToString().Length; i++)
             {
                 spacing += "0";
             }
-            moneyText.text = spacing + dm.GetMoney().ToString();
+            moneyText.text = "$" + dm.GetMoney().ToString();
         }
         spacing = "";
 
@@ -45,7 +56,7 @@ public class ResourcePanelManager : MonoBehaviour
         if(carbonDial != null)
         {
             carbonDial.UpdateCarbon(dm.GetCarbon()); //Updates the Dial
-            int carbonPercentage = (dm.GetCarbon() / 100); //Transforms the carbon number into a percent
+            //int carbonPercentage = (dm.GetCarbon() / 100); //Transforms the carbon number into a percent
 
             //carbonText.text = (carbonPercentage).ToString() + "%"; //Changes component to match current carbon percent
         }

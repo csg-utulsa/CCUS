@@ -1,8 +1,10 @@
+//This one is the tile editor
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.UIElements;
+using UnityEngine.UI;
 using System.IO;
 
 public class tilePrefabEditor : EditorWindow
@@ -48,6 +50,7 @@ public class tilePrefabEditor : EditorWindow
             GUILayout.Label("        If you need any help with this tool, or if you need anything else, ask Graydon");
             GUILayout.Label("");
 
+            //Loads the tile prefabs and their scriptable objects into the local arrays
             string path = "Assets/Prefabs/Tiles/CurrentTiles";
             string[] files = Directory.GetFiles(path, "*.prefab", SearchOption.TopDirectoryOnly);
             tileScriptableObjects = new TileScriptableObject[files.Length];
@@ -57,17 +60,29 @@ public class tilePrefabEditor : EditorWindow
                 tileScriptableObjects[i] = tilePrefabs[i].GetComponent<Tile>().tileScriptableObject;
             }
 
-            for(int i = 0; i < tileScriptableObjects.Length; i++){// TileScriptableObject scriptableObject in ){
+            //Sets parameters of the Tile Factory Window
+            for(int i = 0; i < tileScriptableObjects.Length; i++){
                 if(GUILayout.Button(tileScriptableObjects[i].Name, buttonStyle)){
                     tileFactoryEditor tileEditorWindow = (tileFactoryEditor) EditorWindow.GetWindow(typeof(tileFactoryEditor), false, tileScriptableObjects[i].Name + " Tile Factory", true);
-                    //tileEditorWindow.wnd = tileEditorWindow;
                     if(tilePrefabs[i] != null) tileEditorWindow.editingTilePrefab = tilePrefabs[i];
                     tileEditorWindow.isCreatingNewTile = false;
                     if(tileScriptableObjects[i].Name != null) tileEditorWindow.newTileName = tileScriptableObjects[i].Name;
                     if(tileScriptableObjects[i].AnnualCarbonAdded != null) tileEditorWindow.pollutionPerYear = tileScriptableObjects[i].AnnualCarbonAdded;
                     if(tileScriptableObjects[i].AnnualIncome != null) tileEditorWindow.moneyPerYear = tileScriptableObjects[i].AnnualIncome;
-                    //if(scriptableObject.Name != null) tileEditorWindow.newTileName = scriptableObject.Name;
-                    //if(scriptableObject.TileMesh != null) tileEditorWindow.newTileMesh = (GameObject)scriptableObject.TileMesh;
+
+                    //Here I find the Button Manager in Scene and loop through each button to assign a new image to the one with a matching scriptable object
+                    // TileSelectPanel[] tileButtonManagerArray = FindObjectsOfType(typeof(TileSelectPanel)) as TileSelectPanel[];
+                    // if(tileButtonManagerArray[0] != null){
+                    //     buttonScript[] allButtonScripts = tileButtonManagerArray[0].GetComponentsInChildren<buttonScript>();
+                    //     foreach(buttonScript _buttonScript in allButtonScripts){
+                    //         if(_buttonScript.tileToPlace.GetComponent<Tile>().tileScriptableObject == tileScriptableObject){
+                    //             tileEditorWindow.setButtonImage(_buttonScript.gameObject.GetComponent<UnityEngine.UI.Image>());
+                    //         }
+                    //     }
+                    // }   
+                    tileEditorWindow.setButtonImage(tileFactoryEditor.getButtonWithScriptableObject(tileScriptableObjects[i]).GetComponent<UnityEngine.UI.Image>().sprite);
+                    //if(tileScriptableObjects[i].MyButton != null) tileEditorWindow.setButtonImage(tileScriptableObjects[i].MyButton.GetComponent<UnityEngine.UI.Image>().sprite);
+
                 }
             }
 

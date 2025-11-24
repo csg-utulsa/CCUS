@@ -68,11 +68,12 @@ public class TileSelectPanel : ScrollableArea
             for(int i = 0; i < tileButtons.Length; i++){
                 allTileScriptableObjects[i] = tileButtons[i].GetComponent<buttonScript>().tileToPlace.GetComponent<Tile>().tileScriptableObject;
                 disabledPollutionButtons[i] = false;
+                
                 disabledMoneyButtons[i] = false;
             }
 
         }else{
-            Debug.LogError("There ain't no buttons attached to the tile select panel! We kinda need those.");
+            Debug.LogError("There ain't no buttons attached to the tile select panel! We kinda need those, dude.");
         }
         //Moves all the buttons to their proper position;
         updateButtonPositions();
@@ -103,12 +104,13 @@ public class TileSelectPanel : ScrollableArea
     //When called, this function disables the tile buttons above a certain price, and enables the tiles below that price.
     public void checkPricesOfTiles(int currentAmountOfMoney){
         for(int i = 0; i < tileButtons.Length; i++){
-            if(allTileScriptableObjects[i].BuildCost > LevelManager.LM.money){
+            if(allTileScriptableObjects[i].BuildCost > LevelManager.LM.GetMoney()){
                 disabledMoneyButtons[i] = true;
             } else{
                 disabledMoneyButtons[i] = false;
             }
         }
+        visuallyUpdateDisabledButtons();
         updateActiveTileGraphics();
     }
 
@@ -157,15 +159,18 @@ public class TileSelectPanel : ScrollableArea
     public void clickButton(GameObject clickedButton){
         //runs if the user clicks a button that isn't currently selected
         if(!buttonIsSelected || clickedButton != selectedButton){
+            //Debug.Log("Ran that button isn't selected");
 
             //The next three if statements check if the button the user clicked is disabled. If it is, it prevents the user from selecting it.
             bool doNotSelectButton = false;
+            //Debug.Log("Offensive Index: " + Array.IndexOf(tileButtons, clickedButton));
+            //Debug.Log("Offended Array: " + disabledPollutionButtons);
             if(disabledPollutionButtons[Array.IndexOf(tileButtons, clickedButton)]){
-                unableToPlaceTileUI.tooMuchCarbon();
+                unableToPlaceTileUI._unableToPlaceTileUI.tooMuchCarbon();
                 doNotSelectButton = true;
             }
             if(disabledMoneyButtons[Array.IndexOf(tileButtons, clickedButton)]){
-                unableToPlaceTileUI.notEnoughMoney();
+                unableToPlaceTileUI._unableToPlaceTileUI.notEnoughMoney();
                 doNotSelectButton = true;
             }
             if(doNotSelectButton) { return;}
@@ -179,6 +184,7 @@ public class TileSelectPanel : ScrollableArea
         } 
         //runs if the user clicks the button that is already selected, and so deselects it.
         else {
+            //Debug.Log("Ran Deselect Buttons");
             deselectAllButtons();
         }
             
@@ -212,7 +218,7 @@ public class TileSelectPanel : ScrollableArea
     // }
 
     public override void UpdateUIElementsPositions(){
-        Debug.Log("instance called");
+       //Debug.Log("instance called");
         updateButtonPositions();
         
     }
@@ -225,7 +231,7 @@ public class TileSelectPanel : ScrollableArea
 
     //This function moves all of the buttons to their proper positions in the RectTransform when called
     public void updateButtonPositions(){
-        Debug.Log("Updating Button Positions");
+        //Debug.Log("Updating Button Positions");
         float panelHeight = GetComponent<RectTransform>().rect.height;
         float buttonPlacementPosition = /* center of panel */GetComponent<RectTransform>().anchoredPosition.y + /*height of panel*/ ((.5f)*panelHeight);
         float topOfScrollingArea = buttonPlacementPosition;

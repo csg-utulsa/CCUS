@@ -9,7 +9,14 @@ public class GridManager : MonoBehaviour
 
     public static GridManager GM;
 
-    
+    private List<GameObject> allGridObjects = new List<GameObject>();
+
+    public void AddGridObjectToList(GameObject objectToAdd){
+        allGridObjects.Add(objectToAdd);
+    }
+    public void RemoveGridObjectFromList(GameObject objectToRemove){
+        allGridObjects.Remove(objectToRemove);
+    }
     
     void Awake(){
         GM = this;
@@ -66,6 +73,14 @@ public class GridManager : MonoBehaviour
         
     }
     
+    public GameObject[] GetAllGridObjects(){
+        GameObject[] allGridObjectsArray = new GameObject[allGridObjects.Count];
+        for(int i = 0; i < allGridObjects.Count; i++){
+            allGridObjectsArray[i] = allGridObjects[i];
+        }
+        return allGridObjectsArray;
+    }
+
     //returns all the objects sitting in a cell
     public GameObject[] GetGameObjectsInGridCell(int x, int z){
         GridCell currentGridCell = GetGridCell(x, z);
@@ -172,6 +187,7 @@ public class GridCell
     public void AddObject(GameObject objectToAdd, int x, int y) {
         if (objectsInCell.Length > numberOfObjectsInCell)
         {
+            GridManager.GM.AddGridObjectToList(objectToAdd);
             xLocation = x;
             yLocation = y;
             objectsInCell[numberOfObjectsInCell] = objectToAdd;
@@ -191,6 +207,7 @@ public class GridCell
         for(int i = 0; i < objectsInCell.Length; i++) {
             if(objectToRemove == objectsInCell[i])
             {
+                GridManager.GM.RemoveGridObjectFromList(objectToRemove);
                 objectsInCell[i] = null;
                 for(int b=i; b < objectsInCell.Length-1; b++) {
                     objectsInCell[b] = objectsInCell[b + 1];

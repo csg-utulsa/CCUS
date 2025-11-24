@@ -45,6 +45,7 @@ public class ScrollingUI : MonoBehaviour
     {
         scrollingPanelIndex = totalNumberOfScrollingPanels;
         totalNumberOfScrollingPanels++;
+        visiblyScrollButtons();
     }
 
     // Update is called once per frame

@@ -16,9 +16,10 @@ MonoBehaviour:
   BuildCost: 75
   AnnualCost: 50
   AnnualCarbonRemoved: 75
-  AnnualCarbonAdded: 0
+  AnnualCarbonAdded: -50
   AnnualCarbonStored: 25
   AnnualIncome: 0
+  TileMesh: {fileID: 0}
   thisTileClass: 5
   OverlapBlackList: []
   OverlapWhiteList:

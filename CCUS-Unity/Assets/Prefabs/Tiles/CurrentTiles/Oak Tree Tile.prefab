@@ -55,6 +55,7 @@ MonoBehaviour:
   tileScriptableObject: {fileID: 11400000, guid: 4bd5c2b14a661f048a21cce36aa396d6, type: 2}
   po: {fileID: 5005935283683086740}
   state: 0
+  tilePosition: {x: 0, y: 0, z: 0}
 --- !u!114 &182803255203503745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,6 +71,7 @@ MonoBehaviour:
   overRide: 0
   overlapObject: {fileID: 0}
   overlapTerrain: {fileID: 0}
+  tileMaterialHandler: {fileID: 0}
 --- !u!114 &5005935283683086740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,6 +85,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   placed: 0
+  Vertices: []
   tile: {fileID: 893544993669701135}
 --- !u!65 &2563827287191700666
 BoxCollider:
