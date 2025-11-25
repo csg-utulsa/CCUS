@@ -10,6 +10,7 @@ public class ResourcePanelManager : MonoBehaviour
     //[SerializeField] TextMeshProUGUI storageText;
     [SerializeField] TextMeshProUGUI carbonText;
     [SerializeField] CarbonRotate carbonDial;
+    [SerializeField] ChangeOpacity carbonDialGreenImageGraphic;
     private string spacing = ""; //The amount of spacing for text
     LevelManager dm;
 
@@ -56,7 +57,8 @@ public class ResourcePanelManager : MonoBehaviour
         if(carbonDial != null)
         {
             carbonDial.UpdateCarbon(dm.GetCarbon()); //Updates the Dial
-            //int carbonPercentage = (dm.GetCarbon() / 100); //Transforms the carbon number into a percent
+            float carbonPercentage = (dm.GetCarbon() / dm.getMaxCarbon()); //Transforms the carbon number into a percent
+            carbonDialGreenImageGraphic.SetOpacity(1f - carbonPercentage);
 
             //carbonText.text = (carbonPercentage).ToString() + "%"; //Changes component to match current carbon percent
         }

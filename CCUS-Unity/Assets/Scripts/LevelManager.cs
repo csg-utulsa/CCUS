@@ -18,7 +18,7 @@ public class LevelManager : MonoBehaviour
     }
     #endregion
     [Header("Initial Stats")]
-    public int maxCarbon = 200;
+    [SerializeField] private int maxCarbon = 200;
     [SerializeField] int startingMoney;
     [SerializeField] int startingCarbon;
     [SerializeField] int startingYear;
@@ -39,11 +39,19 @@ public class LevelManager : MonoBehaviour
     
     float timer;
 
+    //At runtime, these floats store the highest amount of each that any tile makes
     public float currentMaxTileIncome = 0f;
     public float currentMaxTileCarbon = 0f;
     public float currentMinTileCarbon = 0f;
 
     
+    public float getMaxCarbon(){
+        return maxCarbon;
+    }
+
+    public void setMaxCarbon(int _maxCarbon){
+        maxCarbon = _maxCarbon;
+    }
 
     public float getCurrentMaxTileIncome(){
         return currentMaxTileIncome;

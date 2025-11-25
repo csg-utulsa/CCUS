@@ -79,9 +79,26 @@ public class TileSelectPanel : ScrollableArea
         updateButtonPositions();
     }
 
+
+    //Input the prefab for the button you want to turn on.
     public void AddButton(GameObject prefabOfButton){
         for(int i = 0; i < allTileScriptableObjects.Length; i++){
             if(prefabOfButton.GetComponent<Tile>().tileScriptableObject == allTileScriptableObjects[i]){
+                tileButtons[i].SetActive(true);
+                updateButtonPositions();
+            }else{
+                Debug.LogError("None of the tile Buttons are for the prefab you're trying to turn on the button for.");
+            }
+        }
+    }
+
+    //Input the button script for the button you want to turn on
+    public void AddButton(buttonScript _buttonScript){
+        for(int i = 0; i < allTileScriptableObjects.Length; i++){
+            buttonScript testbutton = _buttonScript;
+            GameObject testTile = _buttonScript.gameObject;
+            Tile testTile2 = _buttonScript.tileToPlace.GetComponent<Tile>();
+            if(_buttonScript.tileToPlace.GetComponent<Tile>().tileScriptableObject == allTileScriptableObjects[i]){
                 tileButtons[i].SetActive(true);
                 updateButtonPositions();
             }else{
@@ -198,7 +215,7 @@ public class TileSelectPanel : ScrollableArea
     }
 
 
-    //TEMP REMOVED
+    //Moved to Another Script in an attempt at modularity
     // void Update()
     // {
     //     //The next two if functions deal with scrolling (Move these to a separate script at some point)
@@ -281,7 +298,7 @@ public class TileSelectPanel : ScrollableArea
 
     
     
-    //TEMP REMOVED
+    //Moved to separate script in a vague attempt at modularity
     //This function does all the math for scrolling (Move it to a separate script at some point)
     // void visiblyScrollButtons(){
     //     float panelHeight = GetComponent<RectTransform>().rect.height;

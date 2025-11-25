@@ -15,6 +15,7 @@ public class ObjectDrag : MonoBehaviour
     private string GOTag;//tag of the tile
     public TileMaterialHandler tileMaterialHandler;
     private static bool SoundCanBePlayed = false; //Should not call sound at beginning so we're not overwhelmed at startup
+    private Vector3 previousPosition = new Vector3(0f, 0f, 0f);
     
    // private Vector2 previousPosition = new Vector2(0, 0);
 
@@ -45,6 +46,11 @@ public class ObjectDrag : MonoBehaviour
         
         Vector3 pos = BuildingSystem.GetMouseWorldPosition();
         transform.position = BuildingSystem.current.SnapCoordinateToGrid(pos);
+        if(previousPosition != pos){
+            OnMoveTile();
+            previousPosition = pos;
+        }
+        
 
         // Vector2 newSnappedPosition = GridManager.GM.switchToGridIndexCoordinates(pos);
         
@@ -68,15 +74,14 @@ public class ObjectDrag : MonoBehaviour
         this.GetComponent<Tile>().SetTileState(TileState.Static);//Non functional
         tileMaterialHandler.MaterialSet(TileMaterialHandler.matState.Placed);
         if (SoundCanBePlayed) { FMODUnity.RuntimeManager.PlayOneShot("event:/Tile" + this.GetComponent<Tile>().tileScriptableObject.thisTileClass); } //Gets Tileclass and plays corresponding FMOD event
-        if (overlapObject != null) {
-            //Vector3 tileGridPosition = overlapObject.GetComponent<Tile>().tilePosition;
+        if (overlapObject != null && GOTag != "Ground") {
+
             //remove object that this tile is overlapping.
             GridManager.GM.RemoveObject(overlapObject);
             Destroy(overlapObject);
-        }//the overlapping object is always destroyed
+        }//the overlapping object is always destroyed if this tile isn't terrain
         if (GOTag == "Ground")
         {
-            //Vector3 tileGridPosition = overlapTerrain.GetComponent<Tile>().tilePosition;
             //remove overlap terrain from the tile gridmanager
             if(overlapTerrain != null){
                 GridManager.GM.RemoveObject(overlapTerrain);
@@ -92,6 +97,33 @@ public class ObjectDrag : MonoBehaviour
         dragging = true;
     }
 
+    public void OnMoveTile(){
+
+        //Resets variables when moved
+        overRide = false; 
+        overlapTerrain = null; 
+        overlapObject = null;
+
+        if (dragging)
+        {
+            GameObject[] otherObjectsInCell = GridManager.GM.GetGameObjectsInGridCell(this.gameObject);
+            foreach(GameObject otherObject in otherObjectsInCell){
+                //FIX ME / TODO / NOT DONE!!!!!!!!!
+                //If we ever want to have multiple objects (More than 1 object & 1 terrain) in a GridCell, this code is toast!
+                //You'll have to make the overlapTerrain and overlapObject variable arrays.
+                string otherTag = otherObject.gameObject.tag;
+                if (otherTag.Equals("Ground")) { overlapTerrain = otherObject.gameObject; }//checks if a Terrain tile is already where this is
+                if (otherTag.Equals("Object")) { overlapObject = otherObject.gameObject; }//checks if a Object tile is already where this is
+                if (otherObject.gameObject.tag == this.gameObject.tag) { overRide = true; }//checks if this tile will replace a tile that already exists
+            }
+        }
+
+        if (dragging) { updateTileMaterialValidity(); } //Checks if it can be placed at this location and updates material accordingly
+    }
+
+
+    //Deprecated Code replaced by the OnMoveTile() function.
+    /*
     public void OnTriggerEnter(Collider other)
     {   
         //Debug.Log(this.gameObject.name+"hit"+other.gameObject.name);//Collison Debug (DO NOT FORGET RIGIDBODIES -AP
@@ -119,20 +151,9 @@ public class ObjectDrag : MonoBehaviour
             
     }
 
-    public void updateTileMaterialValidity(){
-        if ((!BuildingSystem.current.CanBePlaced(GetComponent<PlaceableObject>())) && dragging)//changes material based on if tile is overlapping a tile it can or not // also makes sure that it can be placed with Building SYstem Function
-        {
-            tileMaterialHandler.MaterialSet(TileMaterialHandler.matState.HoveringInvalid);
-        }
-        else
-        {
-            tileMaterialHandler.MaterialSet(TileMaterialHandler.matState.HoveringValid);
-        }
-    }
-
     public void OnTriggerExit(Collider other)
     {   
-        //clear varibles for temporary placement
+        //clear variables for temporary placement
             overRide = false; 
             overlapTerrain = null; 
             overlapObject = null;
@@ -147,6 +168,21 @@ public class ObjectDrag : MonoBehaviour
             // }
         }
     }
+    */
+
+
+    public void updateTileMaterialValidity(){
+        if ((!BuildingSystem.current.CanBePlaced(GetComponent<PlaceableObject>())) && dragging)//changes material based on if it's somewhere it can be placed
+        {
+            tileMaterialHandler.MaterialSet(TileMaterialHandler.matState.HoveringInvalid);
+        }
+        else
+        {
+            tileMaterialHandler.MaterialSet(TileMaterialHandler.matState.HoveringValid);
+        }
+    }
+
+    
     
     /*
      * Ensures that the tile is not being placed over an invalid tile
@@ -187,10 +223,8 @@ public class ObjectDrag : MonoBehaviour
     {
         if (IsValidOverlap(overlapTerrain) && IsValidOverlap(overlapObject))//if BOTH terrain and object is valid, it's valid
         {
-            //Debug.Log("Valid placement for " + this.gameObject.name);
             return true;
         }
-        //Debug.Log("Invalid placement for " + this.gameObject.name);
         return false;
  
     }

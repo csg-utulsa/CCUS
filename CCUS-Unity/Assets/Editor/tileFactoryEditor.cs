@@ -202,12 +202,17 @@ public class tileFactoryEditor : EditorWindow
             }
 
             
-
+            Debug.Log("Updating Prefab Settings");
             if(newTileName != null) editingTilePrefab.name = newTileName;
+            if(newTileName == null) Debug.Log("ITS NULL!?!??");
             
             if(editingTilePrefab.GetComponent<Tile>().tileScriptableObject != null){
                 TileScriptableObject tileScriptableObject = editingTilePrefab.GetComponent<Tile>().tileScriptableObject;
-                if(newTileName != null) tileScriptableObject.name = newTileName;
+                if(newTileName != null){
+                    tileScriptableObject.Name = newTileName;
+                    Debug.Log("Updated tile scriptable object.name");
+                }
+                
                 if(pollutionPerYear != null) tileScriptableObject.AnnualCarbonAdded = pollutionPerYear;
                 if(moneyPerYear != null) tileScriptableObject.AnnualIncome = moneyPerYear;
                 //Here I find the Button Manager in Scene and loop through each button to assign a new image to the one with a matching scriptable object

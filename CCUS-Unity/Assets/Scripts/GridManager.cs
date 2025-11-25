@@ -108,6 +108,10 @@ public class GridManager : MonoBehaviour
         return GetGameObjectsInGridCell((int)gridPositionOfGridcell.x , (int)gridPositionOfGridcell.z);
     }
 
+    public GameObject[] GetGameObjectsInGridCell(GameObject gameObjectInGridCell){
+        return GetGameObjectsInGridCell(gameObjectInGridCell.transform.position);
+    }
+
     public Vector3 switchToGridCoordinates(Vector3 worldCoordinates) {
         Vector3 gridCoordinates = BuildingSystem.current.SnapCoordinateToGrid(worldCoordinates);
         //Debug.Log("Snapped given coordinates: " + gridCoordinates.x + ", " + gridCoordinates.z);

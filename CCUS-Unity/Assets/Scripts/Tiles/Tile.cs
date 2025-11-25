@@ -72,8 +72,6 @@ public class Tile : MonoBehaviour
     void OnPollutionTick()
     {
         if (state != TileState.Static) return;
-        if (tileScriptableObject.AnnualCarbonRemoved != 0)
-            dm.AdjustCarbon(-1 * tileScriptableObject.AnnualCarbonRemoved);
         if (tileScriptableObject.AnnualCarbonAdded != 0)
             dm.AdjustCarbon(tileScriptableObject.AnnualCarbonAdded);
 

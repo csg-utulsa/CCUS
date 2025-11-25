@@ -10,6 +10,8 @@ public class CarbonRotate : MonoBehaviour
     public float currentAngle;
     public GameObject pointer;
     public float targetAngle;
+    public float speedToRotate = .5f;
+    public ChangeOpacity greenCarbonDialGraphic;
 
     private void FixedUpdate()
     {
@@ -17,7 +19,8 @@ public class CarbonRotate : MonoBehaviour
     }
     public void UpdateCarbon(float carbon) 
     {
-        targetAngle = ConvertToAngle(carbon,1000);
+        targetAngle = ConvertToAngle(carbon, LevelManager.LM.getMaxCarbon());
+
         
     }
 
@@ -33,15 +36,15 @@ public class CarbonRotate : MonoBehaviour
         //Debug.Log(currentAngle + "Current angle");
         angle = Mathf.Round(angle);//rounds angle to nearest whole number
 
-        //moves dial towards inteded angle
+        //moves dial towards intended angle
         if (angle > currentAngle)
         {
-            currentAngle+=.2f;
+            currentAngle += speedToRotate;
         }else if (angle < currentAngle) {
-            currentAngle-=.2f;
+            currentAngle -= speedToRotate;
         }
 
-        if((angle-currentAngle < .2f) && (currentAngle-angle < .2f)) {
+        if(Mathf.Abs(angle-currentAngle) < speedToRotate) {
             currentAngle = angle;
         }
 
