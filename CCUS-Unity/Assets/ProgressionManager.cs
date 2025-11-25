@@ -35,10 +35,9 @@ public class ProgressionManager : MonoBehaviour
     }
 
     private void CheckProgressEventConditions(){
-        Debug.Log("Checking progress event condition");
+        
         for(int i = 0; i < progressEvents.Length; i++){
             if(!progressEventHasOccurred[i] && progressEvents[i].ProgressionCondition()){
-                Debug.Log("Progress Condition Met");
                 float delayTime = progressEvents[i].TimeTillExcecution;
                 if(delayTime > 0){
                     StartCoroutine(delayProgressionEvent(progressEvents[i].TimeTillExcecution, progressEvents[i].ProgressionAction));

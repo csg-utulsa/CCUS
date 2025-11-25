@@ -67,7 +67,7 @@ public class ScrollingUI : MonoBehaviour
             visiblyScrollButtons();
         }
 
-        //The next two if statements whether or not the mouse is over a scrolling panel
+        //The next two if statements check whether or not the mouse is over a scrolling panel
         if((scrollingPanelIndex == 0)){
             mouseIsOverScrollableArea =  false;
         }
@@ -84,7 +84,7 @@ public class ScrollingUI : MonoBehaviour
         return RectTransformUtility.RectangleContainsScreenPoint(scrollableArea.rectangleTransform, mousePos);//_MouseIsOverScrollableArea;
     }
 
-    //This function does all the math for scrolling (Move it to a separate script at some point)
+    //This function does all the math for scrolling
     void visiblyScrollButtons(){
         float panelHeight = scrollableArea.rectangleTransform.rect.height;
 

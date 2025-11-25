@@ -11,12 +11,51 @@ public class GridManager : MonoBehaviour
 
     private List<GameObject> allGridObjects = new List<GameObject>();
 
+    public List<Tile> moneyProducingTiles = new List<Tile>();
+    public List<Tile> carbonProducingTiles = new List<Tile>();
+
+
+    public Tile[] GetMoneyProducingTiles(){
+        Tile[] returnArray = new Tile[moneyProducingTiles.Count];
+        for(int i = 0; i < moneyProducingTiles.Count; i++){
+            returnArray[i] = moneyProducingTiles[i];
+        }
+        return returnArray;
+    }
+
+    public Tile[] GetCarbonProducingTiles(){
+        Tile[] returnArray = new Tile[carbonProducingTiles.Count];
+        for(int i = 0; i < carbonProducingTiles.Count; i++){
+            returnArray[i] = carbonProducingTiles[i];
+        }
+        return returnArray;
+    }
+
+    public void AddToMoneyTileList(Tile tileToAdd){
+        moneyProducingTiles.Add(tileToAdd);
+    }    
+
+    public void AddToCarbonTileList(Tile tileToAdd){
+        carbonProducingTiles.Add(tileToAdd);
+    }    
+
+    public void RemoveFromMoneyTileList(Tile tileToAdd){
+        moneyProducingTiles.Remove(tileToAdd);
+    }    
+
+    public void RemoveFromCarbonTileList(Tile tileToAdd){
+        carbonProducingTiles.Remove(tileToAdd);
+    }    
+
     public void AddGridObjectToList(GameObject objectToAdd){
         allGridObjects.Add(objectToAdd);
     }
+
     public void RemoveGridObjectFromList(GameObject objectToRemove){
         allGridObjects.Remove(objectToRemove);
     }
+
+
     
     void Awake(){
         GM = this;
@@ -191,7 +230,17 @@ public class GridCell
     public void AddObject(GameObject objectToAdd, int x, int y) {
         if (objectsInCell.Length > numberOfObjectsInCell)
         {
-            GridManager.GM.AddGridObjectToList(objectToAdd);
+            GridManager gm = GridManager.GM;
+            gm.AddGridObjectToList(objectToAdd);
+            if(objectToAdd.GetComponent<Tile>() != null && objectToAdd.GetComponent<Tile>().tileScriptableObject != null){
+                Tile tileScript = objectToAdd.GetComponent<Tile>();
+                if(tileScript.tileScriptableObject.AnnualIncome > 0){
+                    gm.AddToMoneyTileList(tileScript);
+                }
+                if(tileScript.tileScriptableObject.AnnualCarbonAdded != 0){
+                    gm.AddToCarbonTileList(tileScript);
+                }
+            }
             xLocation = x;
             yLocation = y;
             objectsInCell[numberOfObjectsInCell] = objectToAdd;
@@ -211,7 +260,17 @@ public class GridCell
         for(int i = 0; i < objectsInCell.Length; i++) {
             if(objectToRemove == objectsInCell[i])
             {
-                GridManager.GM.RemoveGridObjectFromList(objectToRemove);
+                GridManager gm = GridManager.GM;
+                gm.RemoveGridObjectFromList(objectToRemove);
+                if(objectToRemove.GetComponent<Tile>() != null && objectToRemove.GetComponent<Tile>().tileScriptableObject != null){
+                    Tile tileScript = objectToRemove.GetComponent<Tile>();
+                    if(tileScript.tileScriptableObject.AnnualIncome > 0){
+                        gm.RemoveFromMoneyTileList(tileScript);
+                    }
+                    if(tileScript.tileScriptableObject.AnnualCarbonAdded != 0){
+                        gm.RemoveFromCarbonTileList(tileScript);
+                    }
+                }
                 objectsInCell[i] = null;
                 for(int b=i; b < objectsInCell.Length-1; b++) {
                     objectsInCell[b] = objectsInCell[b + 1];

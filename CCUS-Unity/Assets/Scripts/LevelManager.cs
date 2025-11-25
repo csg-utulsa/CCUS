@@ -32,6 +32,11 @@ public class LevelManager : MonoBehaviour
     [SerializeField] int storageCapacity;
     [SerializeField] int stored;
 
+    [SerializeField] public int NetCarbon {get; set;} = 0;
+    [SerializeField] public int NetMoney {get; set;} = 0;
+
+    
+
     public static UnityEvent tileConnectionReset;
     [Header("Game Speed and Limits")]
     public float secBetweenYears = 4;//time between ticks in seconds
@@ -39,10 +44,12 @@ public class LevelManager : MonoBehaviour
     
     float timer;
 
-    //At runtime, these floats store the highest amount of each that any tile makes
+    //At runtime, these floats store the highest amount of each that any tile makes // Updated from each tile script
     public float currentMaxTileIncome = 0f;
     public float currentMaxTileCarbon = 0f;
     public float currentMinTileCarbon = 0f;
+
+
 
     
     public float getMaxCarbon(){
@@ -77,6 +84,38 @@ public class LevelManager : MonoBehaviour
         currentMinTileCarbon = _currentMinTileCarbon;
     }
     
+    public void UpdateNetCarbonAndMoney(){
+
+        
+
+        //The next chunk snatches the lists of money & carbon producing tiles from the GridManager.
+        //Then it adds the net Money/Carbon from each of those tiles and adds them to its own count.
+        Tile[] moneyTiles = GridManager.GM.GetMoneyProducingTiles();
+        Tile[] carbonTiles = GridManager.GM.GetCarbonProducingTiles();
+        
+
+        int _netMoney = 0;
+        int _netCarbon = 0;
+
+        foreach(Tile moneyTile in moneyTiles){
+            if(moneyTile.tileScriptableObject != null){
+                _netMoney += moneyTile.tileScriptableObject.AnnualIncome;
+            }
+            
+        }
+        foreach(Tile carbonTile in carbonTiles){
+            if(carbonTile.tileScriptableObject != null){
+                _netCarbon += carbonTile.tileScriptableObject.AnnualCarbonAdded;
+            }
+        }
+
+        NetCarbon = _netCarbon;
+        NetMoney = _netMoney;
+
+        //These update the Net Money and Net Carbon counter texts
+        NetMoneyCounter.NMC.UpdateNetMoneyCounter();
+        NetCarbonCounter.NCC.UpdateNetCarbonCounter();
+    }
 
     private void Awake()
     {

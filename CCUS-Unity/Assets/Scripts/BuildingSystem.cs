@@ -111,8 +111,8 @@ public class BuildingSystem : MonoBehaviour
 
     //Places the currently selected tile
     public void placeSelectedTile(){
+        GridManager.GM.AddObject(objectToPlace.gameObject);   
         objectToPlace.Place();
-        GridManager.GM.AddObject(objectToPlace.gameObject);                
         Vector3Int start = gridLayout.WorldToCell(objectToPlace.GetStartPosition());
         TakeArea(start, objectToPlace.Size);
         int cost = activeTile.tileScriptableObject.BuildCost;

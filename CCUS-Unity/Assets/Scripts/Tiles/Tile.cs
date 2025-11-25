@@ -16,6 +16,33 @@ public class Tile : MonoBehaviour
 
     public Vector3 tilePosition;
 
+    private int _currentTileNetMoney = 0;
+    private int _currentTileNetCarbon = 0;
+
+    public int currentTileNetMoney{
+        get {
+            return _currentTileNetMoney;
+        }
+        set {
+            _currentTileNetMoney = value;
+            LevelManager.LM.UpdateNetCarbonAndMoney();
+        }
+    }
+
+    public int currentTileNetCarbon{
+        get {
+            return _currentTileNetCarbon;
+        }
+        set {
+            _currentTileNetCarbon = value;
+            LevelManager.LM.UpdateNetCarbonAndMoney();
+        }
+    }
+
+
+
+    //private bool accountedForNetContribution = false;
+
 
     void Start(){
         //Saves the tile coordinates of this tile
@@ -23,14 +50,22 @@ public class Tile : MonoBehaviour
             tilePosition = BuildingSystem.current.SnapCoordinateToGrid(transform.position);
             //Adds this object to the GridManager's database of all current tiles
             GridManager.GM.AddObject(this.gameObject);
+
+            //Adds annual income and annual carbon for tiles that are placed when the game starts
+            setInitialIncomeAndCarbon();
+            
             
         }
-
-
-        
-        
-        //dm = LevelManager.LM;
     }
+
+    public void setInitialIncomeAndCarbon(){
+        if(tileScriptableObject != null){
+            currentTileNetMoney =  tileScriptableObject.AnnualIncome;
+            currentTileNetCarbon = tileScriptableObject.AnnualCarbonAdded; 
+        }
+        LevelManager.LM.UpdateNetCarbonAndMoney();
+    }
+
 
 
 
@@ -119,18 +154,20 @@ public class Tile : MonoBehaviour
         dm = LevelManager.LM;
 
 
+
+
         
         
         if(tileScriptableObject != null){
-            //Lets Level Manager know if this tile has the biggest income, carbon, or carbon removed (has obscure use in setting size of the bubble pop ups)
-            if(LevelManager.LM.getCurrentMaxTileIncome() < tileScriptableObject.AnnualIncome){
-               LevelManager.LM.setCurrentMaxTileIncome(tileScriptableObject.AnnualIncome); 
+            //Lets Level Manager know if this tile has the biggest income, carbon, or carbon removed (has obscure use in setting size of the bubble pop ups over objects)
+            if(dm.getCurrentMaxTileIncome() < tileScriptableObject.AnnualIncome){
+               dm.setCurrentMaxTileIncome(tileScriptableObject.AnnualIncome); 
             }
-            if(LevelManager.LM.getCurrentMaxTileCarbon() < tileScriptableObject.AnnualCarbonAdded){
-               LevelManager.LM.setCurrentMaxTileCarbon(tileScriptableObject.AnnualCarbonAdded); 
+            if(dm.getCurrentMaxTileCarbon() < tileScriptableObject.AnnualCarbonAdded){
+               dm.setCurrentMaxTileCarbon(tileScriptableObject.AnnualCarbonAdded); 
             }
-            if(LevelManager.LM.getCurrentMinTileCarbon() > tileScriptableObject.AnnualCarbonAdded){
-               LevelManager.LM.setCurrentMinTileCarbon(tileScriptableObject.AnnualCarbonAdded); 
+            if(dm.getCurrentMinTileCarbon() > tileScriptableObject.AnnualCarbonAdded){
+               dm.setCurrentMinTileCarbon(tileScriptableObject.AnnualCarbonAdded); 
             }
 
         }

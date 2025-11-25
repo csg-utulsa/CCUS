@@ -101,8 +101,6 @@ public class TileSelectPanel : ScrollableArea
             if(_buttonScript.tileToPlace.GetComponent<Tile>().tileScriptableObject == allTileScriptableObjects[i]){
                 tileButtons[i].SetActive(true);
                 updateButtonPositions();
-            }else{
-                Debug.LogError("None of the tile Buttons are for the prefab you're trying to turn on the button for.");
             }
         }
     }
@@ -250,7 +248,7 @@ public class TileSelectPanel : ScrollableArea
     public void updateButtonPositions(){
         //Debug.Log("Updating Button Positions");
         float panelHeight = GetComponent<RectTransform>().rect.height;
-        float buttonPlacementPosition = /* center of panel */GetComponent<RectTransform>().anchoredPosition.y + /*height of panel*/ ((.5f)*panelHeight);
+        float buttonPlacementPosition = /* center of panel */GetComponent<RectTransform>().anchoredPosition.y + /*half of height of panel*/ ((.5f)*panelHeight) - /* distance from top of panel */ distanceFromTopOfPanel;
         float topOfScrollingArea = buttonPlacementPosition;
         float bottomOfScrollingArea = 0f;
         //It's at the top of the tile select panel

@@ -69,6 +69,7 @@ public class ObjectDrag : MonoBehaviour
     public void Place()
     {   
         gameObject.GetComponent<Tile>().tilePosition = BuildingSystem.current.SnapCoordinateToGrid(transform.position);//updates tile position of tile
+        
         dragging = false;//stops object from following mouse
         transform.position = BuildingSystem.current.SnapCoordinateToGrid(transform.position);//locks object in grid
         this.GetComponent<Tile>().SetTileState(TileState.Static);//Non functional
@@ -90,6 +91,8 @@ public class ObjectDrag : MonoBehaviour
             Destroy(overlapTerrain);//terrain is only destroyed when placing terrain
         }
         LevelManager.tileConnectionReset.Invoke();
+        
+        gameObject.GetComponent<Tile>().setInitialIncomeAndCarbon(); //Updates the initial net carbon and net income of tile.
     }
 
     public void Pickup()
