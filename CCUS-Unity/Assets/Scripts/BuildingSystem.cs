@@ -4,6 +4,7 @@
         -- Change click-to-drag to always follow w/ click to place
 *   - Prevent multiple buildings to follow mouse (true/false)
 **/
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,6 +35,8 @@ public class BuildingSystem : MonoBehaviour
     //Prevents multiple tiles from being placed in the same square when the user holds down the left mouse button
     bool preventMultipleObjectPlacement = false;
 
+    bool weirdTest = false;
+
     
 
     //Set by ObjectDrag Script on each tile
@@ -56,7 +59,7 @@ public class BuildingSystem : MonoBehaviour
     
     private void Update()
     {
-
+        
         if (!activeObject)
         {
             return;
@@ -73,23 +76,13 @@ public class BuildingSystem : MonoBehaviour
 
         if (Input.GetMouseButton(0) && !preventMultipleObjectPlacement)//Object placing
         {
-            if (CanBePlaced(objectToPlace))
-            {
-                placeSelectedTile();
-            } 
-            else if(objectToPlace.GetComponent<Tile>().tooMuchCarbonToPlace() && isMouseOverScreen()) {
-                unableToPlaceTileUI._unableToPlaceTileUI.tooMuchCarbon();
-            } else if(objectToPlace.GetComponent<Tile>().notEnoughMoneyToPlace() && isMouseOverScreen()) {
-                unableToPlaceTileUI._unableToPlaceTileUI.notEnoughMoney();
-            } else
-            {
-                //deselectCurrentObject();
-                //Destroy(activeObject);
-            }
+            attemptToPlaceSelectedTile();
             preventMultipleObjectPlacement = true;
         }
         if (Input.GetMouseButtonUp(0)){
+
             preventMultipleObjectPlacement = false;
+
         }
         else if (Input.GetMouseButtonDown(1))
         {
@@ -105,12 +98,46 @@ public class BuildingSystem : MonoBehaviour
         }
     }
 
-    public void activeObjectMovedToNewTile(Vector3 newSnappedPosition){
-        preventMultipleObjectPlacement = false;
+    //Called from ObjectDrag of activeObject and enables click and drag placing
+    public void activeObjectMovedToNewTile(){
+        if(activeTile != null && activeTile.tileScriptableObject.allowClickAndDrag && Input.GetMouseButton(0)){
+            StartCoroutine(DelayActionOneFrame(attemptToPlaceSelectedTile));
+            //attemptToPlaceSelectedTile();
+        }
+    }
+
+    //This Coroutine delays the placement of a new tile by one frame when placing with click and drag
+    //This gives the ConnectedTileHandler time to create a "tempNeighbor" road tile and assign it the 
+    //correct road model(end road, left, right, corner, etc)
+    private IEnumerator DelayActionOneFrame(Action delayedAction){
+        // for (int i = 0; i < 2; i++)
+        // {
+        //     yield return 0;
+        // }
+        yield return new WaitForSeconds(.1f);
+        delayedAction();
+    }
+
+    public void attemptToPlaceSelectedTile(){
+
+        if (CanBePlaced(objectToPlace))
+        {
+            placeSelectedTile();
+        } 
+        else if(objectToPlace.GetComponent<Tile>().tooMuchCarbonToPlace() && isMouseOverScreen()) {
+            unableToPlaceTileUI._unableToPlaceTileUI.tooMuchCarbon();
+        } else if(objectToPlace.GetComponent<Tile>().notEnoughMoneyToPlace() && isMouseOverScreen()) {
+            unableToPlaceTileUI._unableToPlaceTileUI.notEnoughMoney();
+        }
+
     }
 
     //Places the currently selected tile
     public void placeSelectedTile(){
+
+        
+
+        //Adds object to Grid Manager List
         GridManager.GM.AddObject(objectToPlace.gameObject);   
         objectToPlace.Place();
         Vector3Int start = gridLayout.WorldToCell(objectToPlace.GetStartPosition());
@@ -124,6 +151,11 @@ public class BuildingSystem : MonoBehaviour
         //Makes a new prefab to drag around, so now we don't have to repeatedly click
         //the button for the tile we want to place :)
         InitializeWithObject(previousPrefabToPlace);
+
+        //Tells the people manager to check the max number of people
+        if(TemporaryPeopleManager.TPM != null){
+            TemporaryPeopleManager.TPM.UpdateMaxPeople();
+        }
     }
 
 
@@ -164,6 +196,12 @@ public class BuildingSystem : MonoBehaviour
         if(ScrollingUI.mouseIsOverScrollableArea){
             return false;
         }
+
+        //Checks if mouse is over bottom UI Area
+        if(PeoplePanel._peoplePanel.isMouseOverPanel()){
+            return false;
+        }
+
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if(Physics.Raycast(ray, out RaycastHit raycastHit))
         {
@@ -270,6 +308,20 @@ public class BuildingSystem : MonoBehaviour
         //Checks if the mouse is over the screen. If not, it can't be placed
         if(!isMouseOverScreen()){
             return false;
+        }
+
+        //Checks if trying to place object over same object
+        //Guard against a missing Tile reference and use the GridManager singleton instance
+
+        if (activeTile == null) return false;
+
+        foreach (GameObject obj in GridManager.GM.GetGameObjectsInGridCell(activeTile.gameObject))
+        {
+            Tile tile = obj.GetComponent<Tile>();
+            if (tile != null && tile.tileScriptableObject == activeTile.tileScriptableObject)
+            {
+                return false;
+            }
         }
 
         BoundsInt area = new BoundsInt();

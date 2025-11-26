@@ -19,6 +19,7 @@ public class LevelManager : MonoBehaviour
     #endregion
     [Header("Initial Stats")]
     [SerializeField] private int maxCarbon = 200;
+    [SerializeField] public int carbonCapPastMax {get; set;} = 200;
     [SerializeField] int startingMoney;
     [SerializeField] int startingCarbon;
     [SerializeField] int startingYear;
@@ -31,6 +32,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] int year;
     [SerializeField] int storageCapacity;
     [SerializeField] int stored;
+
+
 
     [SerializeField] public int NetCarbon {get; set;} = 0;
     [SerializeField] public int NetMoney {get; set;} = 0;
@@ -88,7 +91,7 @@ public class LevelManager : MonoBehaviour
 
         
 
-        //The next chunk snatches the lists of money & carbon producing tiles from the GridManager.
+        //The next chunk of code snatches the lists of money & carbon producing tiles from the GridManager.
         //Then it adds the net Money/Carbon from each of those tiles and adds them to its own count.
         Tile[] moneyTiles = GridManager.GM.GetMoneyProducingTiles();
         Tile[] carbonTiles = GridManager.GM.GetCarbonProducingTiles();
@@ -107,6 +110,11 @@ public class LevelManager : MonoBehaviour
             if(carbonTile.tileScriptableObject != null){
                 _netCarbon += carbonTile.tileScriptableObject.AnnualCarbonAdded;
             }
+        }
+
+        //Adds money created by the people
+        if(TemporaryPeopleManager.TPM != null){
+            _netMoney += TemporaryPeopleManager.TPM.NetPeopleIncome;
         }
 
         NetCarbon = _netCarbon;
@@ -168,7 +176,7 @@ public class LevelManager : MonoBehaviour
     //Runs at the end of each money tick
     IEnumerator endOfPollutionTick(){
         yield return null;
-        if(carbon > maxCarbon){
+        if(carbon >= maxCarbon){
             TileSelectPanel.TSP.disablePolluters();
         } else {
             TileSelectPanel.TSP.enablePolluters();
@@ -177,7 +185,7 @@ public class LevelManager : MonoBehaviour
     }
 
     public static bool overMaxCarbon(){
-        return (LM.carbon > LM.maxCarbon);
+        return (LM.carbon >= LM.maxCarbon);
     }
 
 
@@ -220,8 +228,15 @@ public class LevelManager : MonoBehaviour
     {
         //carbonChangedSinceUpdate = true;
         //print("Carbon Update Called");
-        carbon += value;
-        if (carbon < 0) carbon = 0;
+        if(carbon >= carbonCapPastMax){
+            if(value < 0){
+                carbon += value;
+            }
+        } else{
+            carbon += value;
+            if (carbon < 0) carbon = 0;
+            if(carbon > carbonCapPastMax) carbon = carbonCapPastMax;
+        }
     }
 
     /// <summary>

@@ -1,4 +1,5 @@
 using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,6 +11,7 @@ public class FadeGraphic : MonoBehaviour
     public float timeToFade = .5f;
     private float percentageFaded;
     private Color currentColor;
+    public bool destroyAfterFade = false;
 
     private Image myImage;
 
@@ -18,8 +20,13 @@ public class FadeGraphic : MonoBehaviour
     }
 
     public void beginFading(){
+
         isFading = true;
+        
+        
     }
+
+    
 
     public void StopFading(){
         myImage = GetComponent<Image>();

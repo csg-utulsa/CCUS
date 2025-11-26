@@ -7,6 +7,7 @@ public class ResourcePanelManager : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI yearText;
     [SerializeField] TextMeshProUGUI moneyText;
+    [SerializeField] TextMeshProUGUI peopleText;
     //[SerializeField] TextMeshProUGUI storageText;
     [SerializeField] TextMeshProUGUI carbonText;
     [SerializeField] CarbonRotate carbonDial;
@@ -61,6 +62,10 @@ public class ResourcePanelManager : MonoBehaviour
             carbonDialGreenImageGraphic.SetOpacity(1f - carbonPercentage);
 
             //carbonText.text = (carbonPercentage).ToString() + "%"; //Changes component to match current carbon percent
+        }
+
+        if(peopleText != null){
+            peopleText.text = "" + TemporaryPeopleManager.TPM.numberOfPeople;
         }
     }
 }

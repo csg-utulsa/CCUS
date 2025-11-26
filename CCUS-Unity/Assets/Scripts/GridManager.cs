@@ -60,7 +60,7 @@ public class GridManager : MonoBehaviour
     void Awake(){
         GM = this;
 
-        //Declares new 1000 by 1000 fragmented array of grid cells
+        //Declares new 100 by 100 fragmented array of grid cells
         positionsOfCells = new GridCell[100][];
         for(int i = 0; i < 100; i++)
         {
@@ -122,6 +122,7 @@ public class GridManager : MonoBehaviour
 
     //returns all the objects sitting in a cell
     public GameObject[] GetGameObjectsInGridCell(int x, int z){
+        
         GridCell currentGridCell = GetGridCell(x, z);
         
         GameObject[] allObjectsInCell = currentGridCell.GetObjectsInCell();
@@ -144,6 +145,7 @@ public class GridManager : MonoBehaviour
         //GridCell myGridCell = GetGridCell((int)gridPositionOfGridcell.x, (int)gridPositionOfGridcell.z);
         //return myGridCell.GetObjectsInCell();
         //return GetGridCell((int)gridPositionOfGridcell.x , (int)gridPositionOfGridcell.z).GetObjectsInCell();
+        
         return GetGameObjectsInGridCell((int)gridPositionOfGridcell.x , (int)gridPositionOfGridcell.z);
     }
 
@@ -160,7 +162,10 @@ public class GridManager : MonoBehaviour
     //returns the Grid Cell Object for a given point
     public GridCell GetGridCell(int x, int z)
     {
-        return positionsOfCells[x + 50][z + 50];
+        //return positionsOfCells[x ][z ];
+
+        //Used to be
+        return positionsOfCells[x + 50][z + 50 ];
     }
 
     //returns the Grid Cell Object for a given world point
@@ -182,7 +187,6 @@ public class GridManager : MonoBehaviour
         Vector3 positionInGrid = switchToGridCoordinates(objectToAdd.transform.position);
         int posX = (int)positionInGrid.x + 50;
         int posY = (int)positionInGrid.z + 50;
-
 
         if(positionsOfCells == null)
             Debug.Log("The cell is null");
@@ -215,7 +219,7 @@ public class GridManager : MonoBehaviour
 public class GridCell 
 {
 
-    GameObject[] objectsInCell = new GameObject[15];
+    GameObject[] objectsInCell = new GameObject[8];
     public int xLocation { get; set; }
     public int yLocation { get; set; }
     public int numberOfObjectsInCell = 0;

@@ -9,7 +9,6 @@ public class ShakeGraphic : MonoBehaviour
     public float shakeSpeed = 1700f;
     private bool currentlyShaking = false;
     private bool returnToOriginalPosition = false;
-    private float shakeTimer;
     private float graphicYPosition;
     private int directionToShake;
     
@@ -17,8 +16,6 @@ public class ShakeGraphic : MonoBehaviour
     void Start()
     {
         graphicYPosition = transform.position.y;
-        //Maybe fix the next line some day... (Like that's the biggest problem with my Spaghetti code tho lol)
-        //timeToShakeGraphic = 0.07f * unableToPlaceTileUI._unableToPlaceTileUI.timeToShowGraphic;
     }
 
     //Wiggles the errors for emphasis! That way the user knows what they're doing wrong.

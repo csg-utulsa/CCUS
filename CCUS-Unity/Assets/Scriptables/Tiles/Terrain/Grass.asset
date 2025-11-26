@@ -19,6 +19,7 @@ MonoBehaviour:
   AnnualCarbonAdded: -5
   AnnualCarbonStored: 0
   AnnualIncome: 0
+  allowClickAndDrag: 1
   TileMesh: {fileID: 0}
   thisTileClass: 0
   OverlapBlackList: []

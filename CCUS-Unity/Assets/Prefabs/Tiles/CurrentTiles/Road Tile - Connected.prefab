@@ -59,6 +59,7 @@ MonoBehaviour:
   tileScriptableObject: {fileID: 11400000, guid: cb93dd19a9afb8d4a896fef3a57181cf, type: 2}
   po: {fileID: 846071137815965341}
   state: 0
+  tilePosition: {x: 0, y: 0, z: 0}
 --- !u!114 &5497782706522415496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74,6 +75,7 @@ MonoBehaviour:
   overRide: 0
   overlapObject: {fileID: 0}
   overlapTerrain: {fileID: 0}
+  tileMaterialHandler: {fileID: 0}
 --- !u!114 &846071137815965341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,6 +166,9 @@ MonoBehaviour:
   TileModelGO: {fileID: 8254522582561241870}
   baseModels: {fileID: 11400000, guid: 918d863afefc4b146aa6beb7391536fa, type: 2}
   currentModel: {fileID: 7354017918037259378, guid: aeffad8f8a487b346bc37b10f08e1007, type: 3}
+  isSource: 0
+  checkedConnectivity: 0
+  distToSource: -1
   hasNeighbors: 0
   neighborGO:
   - {fileID: 0}
@@ -251,7 +256,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &4142184124422991775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -346,7 +351,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &4609846951462096640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -441,7 +446,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &7389255255299359349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -536,7 +541,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &8550193386287935526
 MonoBehaviour:
   m_ObjectHideFlags: 0

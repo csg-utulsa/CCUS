@@ -28,7 +28,7 @@ public class ObjectDrag : MonoBehaviour
     {
         //Sets the previous position to the object's starting position
         Vector3 pos = BuildingSystem.GetMouseWorldPosition();
-        Vector2 previousPosition = GridManager.GM.switchToGridIndexCoordinates(pos);
+        previousPosition = GridManager.GM.switchToGridIndexCoordinates(pos);
 
 
         Invoke("EnableSound", 1f);
@@ -45,10 +45,19 @@ public class ObjectDrag : MonoBehaviour
 
         
         Vector3 pos = BuildingSystem.GetMouseWorldPosition();
-        transform.position = BuildingSystem.current.SnapCoordinateToGrid(pos);
-        if(previousPosition != pos){
+        Vector3 positionAsSnappedCoordinates = BuildingSystem.current.SnapCoordinateToGrid(pos);
+        transform.position = positionAsSnappedCoordinates;
+        Vector3 positionAsGridCoordinates = GridManager.GM.switchToGridIndexCoordinates(pos);
+        if(previousPosition != positionAsGridCoordinates){
+
+            previousPosition = positionAsGridCoordinates;
+
+            //Tells Building System if the Tile has Moved
+            BuildingSystem.current.activeObjectMovedToNewTile();
+            //Debug.Log("MOVED TO NEW TILE");
+
             OnMoveTile();
-            previousPosition = pos;
+            
         }
         
 
@@ -93,6 +102,8 @@ public class ObjectDrag : MonoBehaviour
         LevelManager.tileConnectionReset.Invoke();
         
         gameObject.GetComponent<Tile>().setInitialIncomeAndCarbon(); //Updates the initial net carbon and net income of tile.
+
+
     }
 
     public void Pickup()
@@ -102,10 +113,14 @@ public class ObjectDrag : MonoBehaviour
 
     public void OnMoveTile(){
 
+        
+
         //Resets variables when moved
         overRide = false; 
         overlapTerrain = null; 
         overlapObject = null;
+
+
 
         if (dragging)
         {

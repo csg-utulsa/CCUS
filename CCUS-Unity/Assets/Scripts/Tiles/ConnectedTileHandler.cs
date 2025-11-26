@@ -84,6 +84,14 @@ public class ConnectedTileHandler : MonoBehaviour
 
     }
 
+    //Called by placeable object. Allows script to work when placed during a click and drag operation
+    // public void AddNeighborAndUpdateModel(){
+    //     AddNeighbor(tempNeighbor.direction, tempNeighbor.neighbor);
+    //     RemoveTempNeighbor();
+    //     UpdateModel();
+    //     LevelManager.tileConnectionReset.Invoke();
+    // }
+
     private void LateUpdate()
     {
         if (isSource && !checkedConnectivity)
@@ -104,10 +112,10 @@ public class ConnectedTileHandler : MonoBehaviour
     }
     public void AddTempNeighbor(AdjacencyFlag tempDir, GameObject tempGO)
     {
-        // Debug.Log("Adding Temp Neighbor: "+tempGO.name);
+        Debug.Log("Adding Temp Neighbor: "+tempGO.name);
         tempNeighbor.direction = tempDir;
         tempNeighbor.neighbor = tempGO;
-        //Debug.Log("Temp Direction ="+tempNeighbor.direction);
+        Debug.Log("Temp Direction ="+tempNeighbor.direction);
     }
     public void AddNeighbor(AdjacencyFlag direction, GameObject neighbor)
     {
@@ -117,6 +125,9 @@ public class ConnectedTileHandler : MonoBehaviour
         }
         else
         {
+
+            
+
             //Debug.Log(this.name+ " Adding neighbor: "+neighbor.name);
             hasNeighbors |= direction;//adds direction to flag
 
@@ -271,5 +282,6 @@ public class ConnectedTileHandler : MonoBehaviour
     South = 4,
     West = 8,
     DONOTTOUCH = 99,
+
 }
 
