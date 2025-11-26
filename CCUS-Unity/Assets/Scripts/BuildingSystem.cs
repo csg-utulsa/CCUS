@@ -288,9 +288,23 @@ public class BuildingSystem : MonoBehaviour
         }
 
         //Checks if there is not enough money to place the tile
-        if(placeableObject.GetComponent<Tile>().notEnoughMoneyToPlace()){
+        if (placeableObject.GetComponent<Tile>().notEnoughMoneyToPlace())
+        {
             return false;
         }
+
+        //Checks if trying to place object over same object
+        //Guard against a missing Tile reference and use the GridManager singleton instance
+        if (activeTile == null) return false;
+        foreach (GameObject obj in GridManager.GM.GetGameObjectsInGridCell(activeTile.gameObject))
+        {
+            Tile tile = obj.GetComponent<Tile>();
+            if (tile != null && tile.tileScriptableObject == activeTile.tileScriptableObject)
+            {
+                return false;
+            }
+        }
+
 
         foreach (var b in baseArray)
         {
