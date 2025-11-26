@@ -34,7 +34,9 @@ public class BuildingSystem : MonoBehaviour
     //Prevents multiple tiles from being placed in the same square when the user holds down the left mouse button
     bool preventMultipleObjectPlacement = false;
 
-    
+    //Drag placement mode: tracks the last cell where a tile was placed to avoid placing multiple tiles in the same cell while dragging
+    private Vector3Int lastPlacedCell = new Vector3Int(int.MinValue, int.MinValue, int.MinValue);
+    private bool isDragPlacing = false;
 
     //Set by ObjectDrag Script on each tile
     //public bool mouseOverScreen = false;
@@ -71,24 +73,41 @@ public class BuildingSystem : MonoBehaviour
             activeObject.SetActive(true);
         }
 
-        if (Input.GetMouseButton(0) && !preventMultipleObjectPlacement)//Object placing
+        // Start drag placement mode
+        if (Input.GetMouseButtonDown(0))
         {
-            if (CanBePlaced(objectToPlace))
-            {
-                placeSelectedTile();
-            } 
-            else if(objectToPlace.GetComponent<Tile>().tooMuchCarbonToPlace() && isMouseOverScreen()) {
-                unableToPlaceTileUI._unableToPlaceTileUI.tooMuchCarbon();
-            } else if(objectToPlace.GetComponent<Tile>().notEnoughMoneyToPlace() && isMouseOverScreen()) {
-                unableToPlaceTileUI._unableToPlaceTileUI.notEnoughMoney();
-            } else
-            {
-                //deselectCurrentObject();
-                //Destroy(activeObject);
-            }
-            preventMultipleObjectPlacement = true;
+            isDragPlacing = true;
+            lastPlacedCell = new Vector3Int(int.MinValue, int.MinValue, int.MinValue);
         }
-        if (Input.GetMouseButtonUp(0)){
+
+        // Handle continuous drag placement
+        if (isDragPlacing && Input.GetMouseButton(0))
+        {
+            Vector3 mouseWorldPos = GetMouseWorldPosition();
+            Vector3Int currentCell = gridLayout.WorldToCell(mouseWorldPos);
+
+            // Only place if moved to a new cell
+            if (currentCell != lastPlacedCell && isMouseOverScreen())
+            {
+                lastPlacedCell = currentCell;
+                
+                //Reset the active tile's neighbors before moving so it recalculates connections at new position
+                ConnectedTileHandler activeTileHandler = activeObject.GetComponent<ConnectedTileHandler>();
+                
+                activeObject.transform.position = grid.GetCellCenterWorld(currentCell);
+
+                // Try to place at new location
+                if (CanBePlaced(objectToPlace))
+                {
+                    placeSelectedTile();
+                }
+            }
+        }
+
+        // End drag placement mode
+        if (Input.GetMouseButtonUp(0))
+        {
+            isDragPlacing = false;
             preventMultipleObjectPlacement = false;
         }
         else if (Input.GetMouseButtonDown(1))
@@ -117,6 +136,13 @@ public class BuildingSystem : MonoBehaviour
         TakeArea(start, objectToPlace.Size);
         int cost = activeTile.tileScriptableObject.BuildCost;
         LevelManager.LM.AdjustMoney(-1 * cost);
+        
+        //Force physics update so ConnectedTileHandler triggers fire immediately
+        Physics.SyncTransforms();
+        
+        //Notify adjacent tiles to recalculate their connections
+        NotifyAdjacentTilesToRecalculate(objectToPlace.gameObject);
+        
         activeObject = null;
         objectToPlace = null;
         activeTile = null;
@@ -124,6 +150,38 @@ public class BuildingSystem : MonoBehaviour
         //Makes a new prefab to drag around, so now we don't have to repeatedly click
         //the button for the tile we want to place :)
         InitializeWithObject(previousPrefabToPlace);
+    }
+
+    //Tell all adjacent connected tiles to update their models based on new neighbors
+    private void NotifyAdjacentTilesToRecalculate(GameObject placedTile)
+    {
+        Vector3Int tileCell = gridLayout.WorldToCell(placedTile.transform.position);
+        
+        Vector3Int[] directions = new Vector3Int[]
+        {
+            new Vector3Int(0, 1, 0),  // North
+            new Vector3Int(1, 0, 0),  // East
+            new Vector3Int(0, -1, 0), // South
+            new Vector3Int(-1, 0, 0)  // West
+        };
+        
+        for (int i = 0; i < directions.Length; i++)
+        {
+            Vector3Int checkCell = tileCell + directions[i];
+            Vector3 checkWorldPos = grid.GetCellCenterWorld(checkCell);
+            
+            foreach (GameObject obj in GridManager.GM.GetGameObjectsInGridCell(checkWorldPos))
+            {
+                if (obj != placedTile)
+                {
+                    ConnectedTileHandler neighborHandler = obj.GetComponent<ConnectedTileHandler>();
+                    if (neighborHandler != null)
+                    {
+                        neighborHandler.UpdateModel();
+                    }
+                }
+            }
+        }
     }
 
 
