@@ -93,6 +93,17 @@ public class ObjectDrag : MonoBehaviour
         LevelManager.tileConnectionReset.Invoke();
         
         gameObject.GetComponent<Tile>().setInitialIncomeAndCarbon(); //Updates the initial net carbon and net income of tile.
+<<<<<<< Updated upstream
+=======
+
+        //visually updates road connections
+        if(GetComponent<RoadConnections>() != null){
+            Debug.Log("Placing object");
+            GetComponent<RoadConnections>().UpdateModelConnections(true);
+        }
+
+
+>>>>>>> Stashed changes
     }
 
     public void Pickup()
@@ -119,9 +130,17 @@ public class ObjectDrag : MonoBehaviour
                 if (otherTag.Equals("Object")) { overlapObject = otherObject.gameObject; }//checks if a Object tile is already where this is
                 if (otherObject.gameObject.tag == this.gameObject.tag) { overRide = true; }//checks if this tile will replace a tile that already exists
             }
+            //visually updates road connections
+            if(GetComponent<RoadConnections>() != null){
+                Debug.Log("Moving Tiles");
+                GetComponent<RoadConnections>().UpdateModelConnections(true);
+            }
         }
 
         if (dragging) { updateTileMaterialValidity(); } //Checks if it can be placed at this location and updates material accordingly
+
+        
+
     }
 
 

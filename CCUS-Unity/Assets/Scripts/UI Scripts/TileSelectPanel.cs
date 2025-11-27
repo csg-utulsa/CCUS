@@ -172,6 +172,7 @@ public class TileSelectPanel : ScrollableArea
 
     //The buttons call this function when they're clicked. It then selects one of the buttons.
     public void clickButton(GameObject clickedButton){
+        TrashButtonScript.TBS.trashButtonDeselected();
         //runs if the user clicks a button that isn't currently selected
         if(!buttonIsSelected || clickedButton != selectedButton){
             //Debug.Log("Ran that button isn't selected");
@@ -195,7 +196,7 @@ public class TileSelectPanel : ScrollableArea
             selectedButton = clickedButton;
             BuildingSystem.current.InitializeWithObject(selectedButton.GetComponent<buttonScript>().tileToPlace);
             selectedButtonGraphic.SetActive(true);
-            selectedButtonGraphic.GetComponent<RectTransform>().anchoredPosition = new Vector2(selectedButtonGraphic.GetComponent<RectTransform>().anchoredPosition.x, selectedButton.GetComponent<RectTransform>().anchoredPosition.y);
+            selectedButtonGraphic.GetComponent<RectTransform>().anchoredPosition = new Vector2(selectedButton.GetComponent<RectTransform>().anchoredPosition.x, selectedButton.GetComponent<RectTransform>().anchoredPosition.y);
         } 
         //runs if the user clicks the button that is already selected, and so deselects it.
         else {

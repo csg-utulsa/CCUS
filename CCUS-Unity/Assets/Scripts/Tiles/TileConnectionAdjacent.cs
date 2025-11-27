@@ -26,7 +26,7 @@ public class TileConnectionAdjacent : MonoBehaviour
     {
         if ((tempNeighbor != null) && (tempNeighbor.GetComponent<PlaceableObject>().placed))
         {
-
+            Debug.Log("TileConnectionAdjacent Added its own neighbor in Update");
             AddNeighbor(tempNeighbor);
             RemoveTempNeighbor();
         }
@@ -95,9 +95,11 @@ public class TileConnectionAdjacent : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        //This doesn't seem to ever run
         if (other.CompareTag("Direction"))
         {
             //Debug.Log("Entering Direction");
+            Debug.Log("TileConnectionAdjacent Added its own neighbor in Trigger Enter");
             AddNeighbor(other.transform.parent.gameObject);
         }
     }
@@ -111,6 +113,7 @@ public class TileConnectionAdjacent : MonoBehaviour
 
     public void OnTileConnectionReset()
     {
+        Debug.Log("Connection Reset");
         connected = false;
     }
 }

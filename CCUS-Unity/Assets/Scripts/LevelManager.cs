@@ -19,6 +19,10 @@ public class LevelManager : MonoBehaviour
     #endregion
     [Header("Initial Stats")]
     [SerializeField] private int maxCarbon = 200;
+<<<<<<< Updated upstream
+=======
+    [SerializeField] public int carbonCapPastMax {get; set;} = 100;
+>>>>>>> Stashed changes
     [SerializeField] int startingMoney;
     [SerializeField] int startingCarbon;
     [SerializeField] int startingYear;
@@ -218,10 +222,25 @@ public class LevelManager : MonoBehaviour
     /// <param name="value"></param>
     public void AdjustCarbon(int value)
     {
+<<<<<<< Updated upstream
         //carbonChangedSinceUpdate = true;
         //print("Carbon Update Called");
         carbon += value;
         if (carbon < 0) carbon = 0;
+=======
+        //Caps the amount of carbon that can accumulate at maxCarbon +  carbonCapPastMax
+        if(carbon >= carbonCapPastMax + maxCarbon){
+            if(value < 0){
+                carbon += value;
+            }
+        } else{
+            
+            carbon += value;
+
+            if (carbon < 0) carbon = 0;
+            if(carbon > carbonCapPastMax + maxCarbon) carbon = carbonCapPastMax + maxCarbon;
+        }
+>>>>>>> Stashed changes
     }
 
     /// <summary>

@@ -66,6 +66,12 @@ public class PlaceableObject : MonoBehaviour
     {
         drag.Place();
         placed = true;
+<<<<<<< Updated upstream
+=======
+        // if(GetComponent<ConnectedTileHandler>() != null){
+        //     GetComponent<ConnectedTileHandler>().AddANeighborAndUpdateModel();
+        // }
+>>>>>>> Stashed changes
 
         //invoke events of placement
         //tile.SetTileState(TileState.Static);

@@ -74,7 +74,7 @@ public class ConnectedTileHandler : MonoBehaviour
         //Debug.Log(neighborGO[0]+" "+neighborGO[1]+" "+neighborGO[2]+" "+neighborGO[3]);
         if ((tempNeighbor.neighbor != null) && (tempNeighbor.neighbor.GetComponent<PlaceableObject>().placed))
         {
-
+            //Debug.Log("ConnectedTIleHandler added its own neighbor in update");
             AddNeighbor(tempNeighbor.direction, tempNeighbor.neighbor);
             RemoveTempNeighbor();
             UpdateModel();
@@ -84,6 +84,11 @@ public class ConnectedTileHandler : MonoBehaviour
 
     }
 
+<<<<<<< Updated upstream
+=======
+
+
+>>>>>>> Stashed changes
     private void LateUpdate()
     {
         if (isSource && !checkedConnectivity)
@@ -104,7 +109,11 @@ public class ConnectedTileHandler : MonoBehaviour
     }
     public void AddTempNeighbor(AdjacencyFlag tempDir, GameObject tempGO)
     {
+<<<<<<< Updated upstream
         // Debug.Log("Adding Temp Neighbor: "+tempGO.name);
+=======
+        //Debug.Log("Adding Temp Neighbor: "+tempGO.name);
+>>>>>>> Stashed changes
         tempNeighbor.direction = tempDir;
         tempNeighbor.neighbor = tempGO;
         //Debug.Log("Temp Direction ="+tempNeighbor.direction);
@@ -117,21 +126,32 @@ public class ConnectedTileHandler : MonoBehaviour
         }
         else
         {
+<<<<<<< Updated upstream
+=======
+
+
+            
+
+>>>>>>> Stashed changes
             //Debug.Log(this.name+ " Adding neighbor: "+neighbor.name);
             hasNeighbors |= direction;//adds direction to flag
 
             switch (direction) //adds neighbor GO to array
             {
                 case AdjacencyFlag.North:
+                    //Debug.Log("Adding north neighbor");
                     neighborGO[0] = neighbor;
                     break;
                 case AdjacencyFlag.East:
+                    //Debug.Log("Adding east neighbor");
                     neighborGO[1] = neighbor;
                     break;
                 case AdjacencyFlag.South:
+                    //Debug.Log("Adding south neighbor"); 
                     neighborGO[2] = neighbor;
                     break;
                 case AdjacencyFlag.West:
+                    //Debug.Log("Adding west neighbor");
                     neighborGO[3] = neighbor;
                     break;
             }//end switch (direction)
@@ -155,6 +175,7 @@ public class ConnectedTileHandler : MonoBehaviour
         }
         else
         {
+            Debug.Log("removing neighbor");
             //Debug.Log("Removing" + direction.ToString() + " Neighbor " + neighbor.name);
             hasNeighbors &= ~direction;//removed direction from flag
             switch (direction) //removes neighbor GO from array

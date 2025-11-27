@@ -14,7 +14,7 @@ public class BuildingSystem : MonoBehaviour
     public static BuildingSystem current { get; private set; }
 
     public GridLayout gridLayout;
-    private Grid grid;
+    public Grid grid;
     [SerializeField] private Tilemap TerrainTilemap;
     [SerializeField] private Tilemap PlaceablesTilemap;
     [SerializeField] private TileBase whiteTile;
@@ -115,17 +115,56 @@ public class BuildingSystem : MonoBehaviour
             //Vector3 tileGridPosition = activeObject.GetComponent<Tile>().tilePosition;
 
             //GridManager.GM.RemoveObject(activeObject);
-            if (activeObject != null){
-                TileSelectPanel.TSP.deselectAllButtons();
-                Destroy(activeObject);
-            }
+            deselectActiveObject();
             
 
         }
     }
 
+<<<<<<< Updated upstream
     public void activeObjectMovedToNewTile(Vector3 newSnappedPosition){
         preventMultipleObjectPlacement = false;
+=======
+    public void deselectActiveObject(){
+        if (activeObject != null){
+            TileSelectPanel.TSP.deselectAllButtons();
+            Destroy(activeObject);
+        }
+    }
+
+    //Called from ObjectDrag of activeObject and enables click and drag placing
+    public void activeObjectMovedToNewTile(){
+        if(activeTile != null && activeTile.tileScriptableObject.allowClickAndDrag && Input.GetMouseButton(0)){
+            StartCoroutine(DelayActionOneFrame(attemptToPlaceSelectedTile));
+            //attemptToPlaceSelectedTile();
+        }
+    }
+
+    //This Coroutine delays the placement of a new tile by one frame when placing with click and drag
+    //This gives the ConnectedTileHandler time to create a "tempNeighbor" road tile and assign it the 
+    //correct road model(end road, left, right, corner, etc)
+    private IEnumerator DelayActionOneFrame(Action delayedAction){
+        for (int i = 0; i < 1; i++)
+        {
+            yield return 0;
+        }
+        //yield return new WaitForSeconds(.1f);
+        delayedAction();
+    }
+
+    public void attemptToPlaceSelectedTile(){
+
+        if (CanBePlaced(objectToPlace))
+        {
+            placeSelectedTile();
+        } 
+        else if(objectToPlace.GetComponent<Tile>().tooMuchCarbonToPlace() && isMouseOverScreen()) {
+            unableToPlaceTileUI._unableToPlaceTileUI.tooMuchCarbon();
+        } else if(objectToPlace.GetComponent<Tile>().notEnoughMoneyToPlace() && isMouseOverScreen()) {
+            unableToPlaceTileUI._unableToPlaceTileUI.notEnoughMoney();
+        }
+
+>>>>>>> Stashed changes
     }
 
     //Places the currently selected tile

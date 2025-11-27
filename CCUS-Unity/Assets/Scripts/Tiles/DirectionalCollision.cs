@@ -24,7 +24,13 @@ public class DirectionalCollision : MonoBehaviour
     {
         if (other.CompareTag(tag)&&other.gameObject.GetComponent<DirectionalCollision>().direction != direction)
         {
-            //Debug.Log(other.name);
+            //Debug.Log("Directional Collision added neighbor to connectedTileHandler");
+            
+            
+
+            //Test for click and drag functionality
+            //handler.AddTempNeighbor(direction, other.transform.parent.gameObject);
+            
             handler.AddNeighbor(direction, other.transform.parent.gameObject);
         }
     }

@@ -199,13 +199,56 @@ public class GridManager : MonoBehaviour
     //Removes an object from the fragmented array positionsOfCells
     public void RemoveObject(GameObject objectToRemove, int posX, int posY)
     {
+        
         positionsOfCells[posX + 50][posY + 50].RemoveObject(objectToRemove);
+        LevelManager.LM.UpdateNetCarbonAndMoney();
     }
+
+    //returns all neighbors of input tile
+    public GameObject[] GetRoadNeighbors(GameObject _tile){
+
+        BuildingSystem currentBuildingSystem = BuildingSystem.current;
+        Vector3Int tileCell = currentBuildingSystem.gridLayout.WorldToCell(_tile.transform.position);
+        GameObject[] tileNeighbors = new GameObject[4];
+
+        Vector3Int[] directions = new Vector3Int[]
+        {
+            new Vector3Int(0, 1, 0),  // North
+            new Vector3Int(1, 0, 0),  // East
+            new Vector3Int(0, -1, 0), // South
+            new Vector3Int(-1, 0, 0)  // West
+        };
+
+        for (int i = 0; i < directions.Length; i++)
+        {
+            Vector3Int checkCell = tileCell + directions[i];
+            Vector3 checkWorldPos = currentBuildingSystem.grid.GetCellCenterWorld(checkCell);
+
+            foreach (GameObject obj in GridManager.GM.GetGameObjectsInGridCell(checkWorldPos))
+            {
+                if(obj.GetComponent<RoadConnections>() != null){
+                    tileNeighbors[i] = obj;
+                }
+                // if (obj != placedTile)
+                // {
+                //     ConnectedTileHandler neighborHandler = obj.GetComponent<ConnectedTileHandler>();
+                //     if (neighborHandler != null)
+                //     {
+                //         neighborHandler.UpdateModel();
+                //     }
+                // }
+            }
+        }
+        return tileNeighbors;
+    }
+    
 
     public void RemoveObject(GameObject objectToRemove)
     {
+        
         Vector3 positionInGrid = switchToGridCoordinates(objectToRemove.transform.position);
         positionsOfCells[(int)positionInGrid.x + 50][(int)positionInGrid.z + 50].RemoveObject(objectToRemove);
+        LevelManager.LM.UpdateNetCarbonAndMoney();
     }
 
 }
