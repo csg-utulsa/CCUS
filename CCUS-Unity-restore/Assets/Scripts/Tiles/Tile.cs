@@ -107,16 +107,21 @@ public class Tile : MonoBehaviour
     void OnPollutionTick()
     {
         if (state != TileState.Static) return;
-        if (tileScriptableObject.AnnualCarbonAdded != 0)
-            dm.AdjustCarbon(tileScriptableObject.AnnualCarbonAdded);
+        if (tileScriptableObject.AnnualCarbonAdded != 0){
+            //Moved to Level Manager
+            //dm.AdjustCarbon(tileScriptableObject.AnnualCarbonAdded);
+        }
+            
 
     }
 
     void OnMoneyTick()
     {
         if (state != TileState.Static) return;
-        if (tileScriptableObject.AnnualIncome != 0)
-             dm.AdjustMoney(tileScriptableObject.AnnualIncome);
+        if (tileScriptableObject.AnnualIncome != 0){
+            dm.AdjustMoney(tileScriptableObject.AnnualIncome);
+        }
+             
 
     }
 
@@ -138,6 +143,17 @@ public class Tile : MonoBehaviour
         } else {
             return false;
         }
+    }
+
+    //Deletes this tile
+    public void DeleteThisTile(){
+        //Refunds cost of tile when tile deleted
+        LevelManager.LM.AdjustMoney(tileScriptableObject.BuildCost);
+        GridManager.GM.RemoveObject(gameObject);
+        if(GetComponent<RoadConnections>() != null){ //Updates road connections of neighbors
+            GetComponent<RoadConnections>().UpdateNeighborConnections();
+        }
+        Destroy(gameObject);
     }
 
 

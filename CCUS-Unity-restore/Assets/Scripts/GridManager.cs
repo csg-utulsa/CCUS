@@ -112,11 +112,15 @@ public class GridManager : MonoBehaviour
         
     }
 
-    //returns all neighbors of input tile
     public GameObject[] GetRoadNeighbors(GameObject _tile){
+        return GetRoadNeighbors(_tile.transform.position);
+    }
+
+    //returns all neighbors of input tile
+    public GameObject[] GetRoadNeighbors(Vector3 tileLocation){
 
         BuildingSystem currentBuildingSystem = BuildingSystem.current;
-        Vector3Int tileCell = currentBuildingSystem.gridLayout.WorldToCell(_tile.transform.position);
+        Vector3Int tileCell = currentBuildingSystem.gridLayout.WorldToCell(tileLocation);
         GameObject[] tileNeighbors = new GameObject[4];
 
         Vector3Int[] directions = new Vector3Int[]

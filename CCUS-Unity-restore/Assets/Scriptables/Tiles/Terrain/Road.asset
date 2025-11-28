@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: Road
   m_EditorClassIdentifier: 
   Name: Road
-  BuildCost: 5
+  BuildCost: 30
   AnnualCost: 0
   AnnualCarbonRemoved: 0
-  AnnualCarbonAdded: 10
+  AnnualCarbonAdded: 4
   AnnualCarbonStored: 0
-  AnnualIncome: 5
+  AnnualIncome: 3
+  MaxPeople: 0
   allowClickAndDrag: 1
   TileMesh: {fileID: 0}
   thisTileClass: 2

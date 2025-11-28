@@ -1,3 +1,4 @@
+//Clean up repetitive code in this script
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,10 +8,16 @@ public class unableToPlaceTileUI : MonoBehaviour
     float carbonGraphicTimer = 0f;
     float moneyGraphicTimer = 0f;
     float homesGraphicTimer = 0f;
-    public float timeToShowGraphic = 1.5f;
+    float newTileGraphicTimer = 0f;
+
+    public float timeToShowErrorGraphic = 1.5f;
+    public float timeToShowNewTileGraphic = 2.3f;
+
     public GameObject tooMuchCarbonGraphic;
     public GameObject notEnoughMoneyGraphic;
     public GameObject notEnoughHomesGraphic;
+    public GameObject newTileGraphic;
+
     public static unableToPlaceTileUI _unableToPlaceTileUI;
 
 
@@ -21,7 +28,7 @@ public class unableToPlaceTileUI : MonoBehaviour
 
     //Displays the error that says: TOO MUCH CARBON!!!
     public void tooMuchCarbon(){
-        carbonGraphicTimer = timeToShowGraphic;
+        carbonGraphicTimer = timeToShowErrorGraphic;
         tooMuchCarbonGraphic.SetActive(true);
         tooMuchCarbonGraphic.GetComponent<ShakeGraphic>().ShakeItUp();
         tooMuchCarbonGraphic.GetComponent<FadeGraphic>().StopFading();
@@ -30,7 +37,7 @@ public class unableToPlaceTileUI : MonoBehaviour
 
     //Displays the error that says: NOT ENOUGH MONEY!!!!!
     public void notEnoughMoney(){
-        moneyGraphicTimer = timeToShowGraphic;
+        moneyGraphicTimer = timeToShowErrorGraphic;
         notEnoughMoneyGraphic.SetActive(true);
         notEnoughMoneyGraphic.GetComponent<ShakeGraphic>().ShakeItUp();
         notEnoughMoneyGraphic.GetComponent<FadeGraphic>().StopFading();
@@ -38,10 +45,19 @@ public class unableToPlaceTileUI : MonoBehaviour
 
     //Displays the error that says: NOT ENOUGH MONEY!!!!!
     public void notEnoughHomes(){
-        homesGraphicTimer = timeToShowGraphic;
+        homesGraphicTimer = timeToShowErrorGraphic;
         notEnoughHomesGraphic.SetActive(true);
         notEnoughHomesGraphic.GetComponent<ShakeGraphic>().ShakeItUp();
         notEnoughHomesGraphic.GetComponent<FadeGraphic>().StopFading();
+    }
+
+    //Displays the error that says: NOT ENOUGH MONEY!!!!!
+    public void newTile(){
+        Debug.Log("Newtile");
+        newTileGraphicTimer = timeToShowNewTileGraphic;
+        newTileGraphic.SetActive(true);
+        newTileGraphic.GetComponent<ShakeGraphic>().ShakeItUp();
+        newTileGraphic.GetComponent<FadeGraphic>().StopFading();
     }
 
 
@@ -67,6 +83,13 @@ public class unableToPlaceTileUI : MonoBehaviour
         } else {
 
             _unableToPlaceTileUI.notEnoughHomesGraphic.GetComponent<FadeGraphic>().beginFading();//.SetActive(false);
+        }
+
+        if(newTileGraphicTimer > 0f){
+            _unableToPlaceTileUI.newTileGraphicTimer -= Time.deltaTime;
+        } else {
+
+            _unableToPlaceTileUI.newTileGraphic.GetComponent<FadeGraphic>().beginFading();//.SetActive(false);
         }
 
 

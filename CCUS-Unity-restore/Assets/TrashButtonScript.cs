@@ -29,10 +29,10 @@ public class TrashButtonScript : MonoBehaviour
             return;
         }
         isSelected = true;
-        selectedButtonGraphic.SetActive(true);
         selectedButtonGraphic.transform.position = transform.position;
         currentRedDeleteCube = Instantiate(redDeleteCubePrefab, redDeleteCubePrefab.transform.position, redDeleteCubePrefab.transform.rotation);
         BuildingSystem.current.deselectActiveObject();
+        selectedButtonGraphic.SetActive(true);
     }
 
     public void trashButtonDeselected(){
@@ -53,23 +53,37 @@ public class TrashButtonScript : MonoBehaviour
             currentRedDeleteCube.SetActive(true);
             Vector3 mouseWorldPosition = BuildingSystem.GetMouseWorldPosition();
             Vector3 mouseGridCoordinate = BuildingSystem.current.SnapCoordinateToGrid(mouseWorldPosition);
-            Debug.Log(mouseGridCoordinate);
             currentRedDeleteCube.transform.position = new Vector3(mouseGridCoordinate.x, currentRedDeleteCube.transform.position.y, mouseGridCoordinate.z);
+            
             if(Input.GetMouseButtonDown(0)){ // object deleting
                 //TODO: later make it first delete the top tile, then the terrain
-                if(!isDeleteCubeOverVoid()){
-                    GameObject[] gameObjectsToDelete =  GridManager.GM.GetGameObjectsInGridCell(currentRedDeleteCube);
-                    foreach(GameObject gameObjectToDelete in gameObjectsToDelete){
-                        GridManager.GM.RemoveObject(gameObjectToDelete);
-                        Destroy(gameObjectToDelete);
-                    }
-                }
+                deleteTile();
                 
             }
         } else if(!BuildingSystem.isMouseOverScreen() && currentRedDeleteCube != null){
             currentRedDeleteCube.SetActive(false);
         }
         
+    }
+
+    public bool mouseIsOverTrashButton(){
+        Vector2 mousePos = Input.mousePosition;
+        if(GetComponent<RectTransform>() != null){
+            return RectTransformUtility.RectangleContainsScreenPoint(GetComponent<RectTransform>(), mousePos);
+        }
+        return false;
+    }
+
+    public void deleteTile(){
+        if(!isDeleteCubeOverVoid()){
+            GameObject[] gameObjectsToDelete =  GridManager.GM.GetGameObjectsInGridCell(currentRedDeleteCube);
+            foreach(GameObject gameObjectToDelete in gameObjectsToDelete){
+                if(gameObjectToDelete.GetComponent<Tile>() != null){
+                    gameObjectToDelete.GetComponent<Tile>().DeleteThisTile();
+                }
+            }
+        }
+        LevelManager.LM.UpdateNetCarbonAndMoney();
     }
 
     //This function raycasts straight down over a tile to find out what's on it

@@ -15,7 +15,8 @@ public class ObjectDrag : MonoBehaviour
     private string GOTag;//tag of the tile
     public TileMaterialHandler tileMaterialHandler;
     private static bool SoundCanBePlayed = false; //Should not call sound at beginning so we're not overwhelmed at startup
-    private Vector3 previousPosition = new Vector3(0f, 0f, 0f);
+    private Vector3 previousGridPosition = new Vector3(0f, 0f, 0f);
+    private Vector3 previousWorldPosition = new Vector3(0f, 0f, 0f);
     
    // private Vector2 previousPosition = new Vector2(0, 0);
 
@@ -28,7 +29,8 @@ public class ObjectDrag : MonoBehaviour
     {
         //Sets the previous position to the object's starting position
         Vector3 pos = BuildingSystem.GetMouseWorldPosition();
-        Vector2 previousPosition = GridManager.GM.switchToGridIndexCoordinates(pos);
+        Vector2 previousGridPosition = GridManager.GM.switchToGridIndexCoordinates(pos);
+        previousWorldPosition = transform.position;
 
 
         Invoke("EnableSound", 1f);
@@ -46,9 +48,12 @@ public class ObjectDrag : MonoBehaviour
         
         Vector3 pos = BuildingSystem.GetMouseWorldPosition();
         transform.position = BuildingSystem.current.SnapCoordinateToGrid(pos);
-        if(previousPosition != pos){
-            OnMoveTile();
-            previousPosition = pos;
+        Vector3 currentGridPosition = GridManager.GM.switchToGridIndexCoordinates(pos);
+        if(previousGridPosition != currentGridPosition){
+            //Debug.Log("moving tile");
+            OnMoveTile(previousWorldPosition);
+            previousGridPosition = currentGridPosition;
+            previousWorldPosition = transform.position;
         }
         
 
@@ -96,8 +101,12 @@ public class ObjectDrag : MonoBehaviour
 
         //visually updates road connections
         if(GetComponent<RoadConnections>() != null){
-            Debug.Log("Placing object");
             GetComponent<RoadConnections>().UpdateModelConnections(true);
+        }
+
+        //Updates the cap on number of people
+        if(TemporaryPeopleManager.TPM != null){
+            TemporaryPeopleManager.TPM.UpdateMaxPeople();
         }
 
 
@@ -108,7 +117,7 @@ public class ObjectDrag : MonoBehaviour
         dragging = true;
     }
 
-    public void OnMoveTile(){
+    public void OnMoveTile(Vector3 previousPosition){
 
         //Resets variables when moved
         overRide = false; 
@@ -117,6 +126,9 @@ public class ObjectDrag : MonoBehaviour
 
         if (dragging)
         {
+            //Lets Building system know this object moved to a new tile
+            BuildingSystem.current.activeObjectMovedToNewTile();
+
             GameObject[] otherObjectsInCell = GridManager.GM.GetGameObjectsInGridCell(this.gameObject);
             foreach(GameObject otherObject in otherObjectsInCell){
                 //FIX ME / TODO / NOT DONE!!!!!!!!!
@@ -127,11 +139,22 @@ public class ObjectDrag : MonoBehaviour
                 if (otherTag.Equals("Object")) { overlapObject = otherObject.gameObject; }//checks if a Object tile is already where this is
                 if (otherObject.gameObject.tag == this.gameObject.tag) { overRide = true; }//checks if this tile will replace a tile that already exists
             }
-            //visually updates road connections
+
+            //visually updates road connections when dragging
             if(GetComponent<RoadConnections>() != null){
-                Debug.Log("Moving Tiles");
+                //Updates connections of new surrounding road tiles
                 GetComponent<RoadConnections>().UpdateModelConnections(true);
+
+                //Updates connections of the surrounding road tiles just moved away from
+                GameObject[] oldNeighbors = GridManager.GM.GetRoadNeighbors(previousPosition);
+                foreach(GameObject oldNeighbor in oldNeighbors){
+                    if(oldNeighbor != null && oldNeighbor.GetComponent<RoadConnections>() != null){
+                        oldNeighbor.GetComponent<RoadConnections>().UpdateModelConnections(false);
+                    }
+                }
             }
+
+
         }
 
         if (dragging) { updateTileMaterialValidity(); } //Checks if it can be placed at this location and updates material accordingly

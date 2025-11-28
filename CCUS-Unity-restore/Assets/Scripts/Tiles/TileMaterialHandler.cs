@@ -18,6 +18,7 @@ using UnityEngine;
 public class TileMaterialHandler : MonoBehaviour
 {
     Renderer matRenderer;
+    Color[] originalColors;
 
 
     public enum matState
@@ -32,25 +33,44 @@ public class TileMaterialHandler : MonoBehaviour
     void Awake()
     {   
         matRenderer = gameObject.GetComponentInChildren<Renderer>();
-        
+        originalColors = new Color[matRenderer.materials.Length];
+        for(int i = 0; i < matRenderer.materials.Length; i++){
+            originalColors[i] = matRenderer.materials[i].color;
+        }
     }
 
     public void MaterialSet(matState state)//sets the material to a certain color
     {
         switch (state)
         {
+            //This is the old code:
+            // case matState.Placed:
+            //     foreach (Material mat in matRenderer.materials)
+            //         mat.color = new Color(1f, 1f, 1f, 1f); break;//material is fully colored
+            // case matState.HoveringValid:
+            //     foreach (Material mat in matRenderer.materials)
+            //         mat.color = new Color(1f, 1f, 1f, .5f); break;//material is 50% transparent
+            // case matState.HoveringInvalid:
+            //     foreach (Material mat in matRenderer.materials)
+            //         mat.color = new Color(1f, .1f, .1f, .75f); break;//material is 50% transparent and also red
+            // default:
+            //     foreach (Material mat in matRenderer.materials)
+            //         mat.color = new Color(1f, 1f, 1f, 1f); break;//material is fully colored
+
+
+            //New code that allows materials to retain their original color:
             case matState.Placed:
-                foreach (Material mat in matRenderer.materials)
-                    mat.color = new Color(1f, 1f, 1f, 1f); break;//material is fully colored
+                for(int i = 0; i < matRenderer.materials.Length; i++)
+                    matRenderer.materials[i].color = originalColors[i]; break;//material is fully colored
             case matState.HoveringValid:
-                foreach (Material mat in matRenderer.materials)
-                    mat.color = new Color(1f, 1f, 1f, .5f); break;//material is 50% transparent
+                for(int i = 0; i < matRenderer.materials.Length; i++)
+                    matRenderer.materials[i].color = originalColors[i] * new Color(1f, 1f, 1f, 0.5f); break; //Material is 50% transparent
             case matState.HoveringInvalid:
                 foreach (Material mat in matRenderer.materials)
                     mat.color = new Color(1f, .1f, .1f, .75f); break;//material is 50% transparent and also red
             default:
-                foreach (Material mat in matRenderer.materials)
-                    mat.color = new Color(1f, 1f, 1f, 1f); break;//material is fully colored
+                for(int i = 0; i < matRenderer.materials.Length; i++)
+                    matRenderer.materials[i].color = originalColors[i]; break;//material is fully colored
 
         }
     }

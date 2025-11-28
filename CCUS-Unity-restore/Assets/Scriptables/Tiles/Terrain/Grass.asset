@@ -15,10 +15,11 @@ MonoBehaviour:
   Name: Grass
   BuildCost: 5
   AnnualCost: 5
-  AnnualCarbonRemoved: 10
+  AnnualCarbonRemoved: 0
   AnnualCarbonAdded: -5
   AnnualCarbonStored: 0
   AnnualIncome: 0
+  MaxPeople: 0
   allowClickAndDrag: 1
   TileMesh: {fileID: 0}
   thisTileClass: 0

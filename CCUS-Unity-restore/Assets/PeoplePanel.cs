@@ -21,6 +21,9 @@ public class PeoplePanel : MonoBehaviour
 
     public bool isMouseOverPanel(){
         Vector2 mousePos = Input.mousePosition;
-        return RectTransformUtility.RectangleContainsScreenPoint(GetComponent<RectTransform>(), mousePos);
+        if(GetComponent<RectTransform>() != null){
+            return RectTransformUtility.RectangleContainsScreenPoint(GetComponent<RectTransform>(), mousePos);
+        }
+        return false;
     }
 }

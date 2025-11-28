@@ -160,7 +160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modelList:
-  - {fileID: 2100000, guid: a18e99e0795b03b4297c1b5abf9af888, type: 2}
+  - {fileID: 2100000, guid: d45290ba36f59b041ae4740f1871839f, type: 2}
   - {fileID: 2100000, guid: ec8024f89717b1d48b8c98fceb902f6c, type: 2}
   - {fileID: 2100000, guid: 477d265f87853c5448ea2d6f9c162124, type: 2}
   - {fileID: 2100000, guid: 47210e7ad7fca15499906d0b93b5651e, type: 2}

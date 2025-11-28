@@ -14,11 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Oak Tree
   BuildCost: 10
-  AnnualCost: 10
-  AnnualCarbonRemoved: 15
+  AnnualCost: 0
+  AnnualCarbonRemoved: 0
   AnnualCarbonAdded: -10
   AnnualCarbonStored: 0
   AnnualIncome: 0
+  MaxPeople: 0
+  allowClickAndDrag: 0
   TileMesh: {fileID: 0}
   thisTileClass: 3
   OverlapBlackList:

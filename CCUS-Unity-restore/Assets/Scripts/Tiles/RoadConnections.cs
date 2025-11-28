@@ -79,12 +79,18 @@ public class RoadConnections : MonoBehaviour
         4
     };
 
-    // public void correctOrientation(int ){
+    //This method switches side "i" of a tile, which is either side 0, 1, 2, or 3, to the opposite side.
+    public int flipTileSide(int initialSide){
+        if(initialSide < 2){
+            return initialSide + 2;
+        } else{
+            return initialSide - 2;
+        }
+    }
 
-    // }
-
+    //This method updates road's visual connections. 
+    //If makeNeighborsCheckConnections = true, it also forces its neighbors to update their connections.
     public void UpdateModelConnections(bool makeNeighborsCheckConnections){
-        //Debug.Log("Updating model connections");
         GameObject[] neighborGameObjects = GridManager.GM.GetRoadNeighbors(gameObject);
         neighbors = neighborGameObjects;
         int currentAlignment = Array.IndexOf(neighborAlignments, neighborsAsBits(neighborGameObjects));
@@ -92,20 +98,58 @@ public class RoadConnections : MonoBehaviour
         Material newModel = modelList[arrangementModels[currentAlignment]];
 
         if(previousModel == null || previousOrientation != newOrientation || newModel != previousModel){
-            //Debug.Log("Model Number: " + arrangementModels[currentAlignment]);
-            GetComponentInChildren<Renderer>().material = newModel;//("Model Arrangement: " + arrangementModels[currentAlignment], newModel);
+            GetComponentInChildren<Renderer>().material = newModel;
             transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, (newOrientation * 90f) + correctModelRotations, transform.rotation.eulerAngles.z);
             
             if(makeNeighborsCheckConnections){
-                foreach(GameObject _neighbor in neighborGameObjects){
+                for(int i = 0; i < neighborGameObjects.Length; i++){
+                    GameObject _neighbor = neighborGameObjects[i];
                     if(_neighbor != null && _neighbor.GetComponent<RoadConnections>() != null){
-                        _neighbor.GetComponent<RoadConnections>().UpdateModelConnections(false);
+                        //Flip which side the tile is on. That way, _neighbor knows which side to add a new neighbor (this road) on.
+                        _neighbor.GetComponent<RoadConnections>().UpdateConnectionsWithExtraNeighbor(flipTileSide(i), gameObject);
+                        //_neighbor.GetComponent<RoadConnections>().UpdateModelConnections(false);
                     }    
                 }
             }
             
         }
+    }
 
+    //Overload method that passes an extra neighbor that isn't listed in the Grid Manager.
+    //Allows roads to connect to floating objects that the user hasn't placed yet.
+    public void UpdateConnectionsWithExtraNeighbor(int whichNeighborToAdd, GameObject extraNeighbor){
+        GameObject[] neighborGameObjects = GridManager.GM.GetRoadNeighbors(gameObject);
+        neighborGameObjects[whichNeighborToAdd] = extraNeighbor;
+        neighbors = neighborGameObjects;
+        int currentAlignment = Array.IndexOf(neighborAlignments, neighborsAsBits(neighborGameObjects));
+        int newOrientation = arrangementOrientationAngles[currentAlignment];
+        Material newModel = modelList[arrangementModels[currentAlignment]];
+
+        if(previousModel == null || previousOrientation != newOrientation || newModel != previousModel){
+            GetComponentInChildren<Renderer>().material = newModel;
+            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, (newOrientation * 90f) + correctModelRotations, transform.rotation.eulerAngles.z);
+            
+            // if(makeNeighborsCheckConnections){
+            //     //This is mostly a duplicate of code from UpdateNeighborConnections, but partially rewriting it here
+            //     //is more efficient for the system, since we don't have to call GridManager's GetRoadNeighbors() again.
+            //     foreach(GameObject _neighbor in neighborGameObjects){
+            //         if(_neighbor != null && _neighbor.GetComponent<RoadConnections>() != null){
+            //             _neighbor.GetComponent<RoadConnections>().UpdateModelConnections(false);
+            //         }    
+            //     }
+            // }
+            
+        }
+
+    }
+
+    public void UpdateNeighborConnections(){
+        GameObject[] neighborGameObjects = GridManager.GM.GetRoadNeighbors(gameObject);
+        foreach(GameObject _neighbor in neighborGameObjects){
+            if(_neighbor != null && _neighbor.GetComponent<RoadConnections>() != null){
+                _neighbor.GetComponent<RoadConnections>().UpdateModelConnections(false);
+            }    
+        }
     }
 
 

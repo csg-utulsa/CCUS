@@ -35,8 +35,8 @@ public class BuildingSystem : MonoBehaviour
     bool preventMultipleObjectPlacement = false;
 
     //Drag placement mode: tracks the last cell where a tile was placed to avoid placing multiple tiles in the same cell while dragging
-    private Vector3Int lastPlacedCell = new Vector3Int(int.MinValue, int.MinValue, int.MinValue);
-    private bool isDragPlacing = false;
+    // private Vector3Int lastPlacedCell = new Vector3Int(int.MinValue, int.MinValue, int.MinValue);
+    // private bool isDragPlacing = false;
 
     //Set by ObjectDrag Script on each tile
     //public bool mouseOverScreen = false;
@@ -73,41 +73,47 @@ public class BuildingSystem : MonoBehaviour
             activeObject.SetActive(true);
         }
 
-        // Start drag placement mode
-        if (Input.GetMouseButtonDown(0))
-        {
-            isDragPlacing = true;
-            lastPlacedCell = new Vector3Int(int.MinValue, int.MinValue, int.MinValue);
+        if(Input.GetMouseButtonDown(0) && !preventMultipleObjectPlacement){
+            
+            attemptToPlaceSelectedTile();
+            
         }
 
-        // Handle continuous drag placement
-        if (isDragPlacing && Input.GetMouseButton(0))
-        {
-            Vector3 mouseWorldPos = GetMouseWorldPosition();
-            Vector3Int currentCell = gridLayout.WorldToCell(mouseWorldPos);
+        // // Start drag placement mode
+        // if (Input.GetMouseButtonDown(0))
+        // {
+        //     isDragPlacing = true;
+        //     lastPlacedCell = new Vector3Int(int.MinValue, int.MinValue, int.MinValue);
+        // }
 
-            // Only place if moved to a new cell
-            if (currentCell != lastPlacedCell && isMouseOverScreen())
-            {
-                lastPlacedCell = currentCell;
+        // // Handle continuous drag placement
+        // if (isDragPlacing && Input.GetMouseButton(0))
+        // {
+        //     Vector3 mouseWorldPos = GetMouseWorldPosition();
+        //     Vector3Int currentCell = gridLayout.WorldToCell(mouseWorldPos);
+
+        //     // Only place if moved to a new cell
+        //     if (currentCell != lastPlacedCell && isMouseOverScreen())
+        //     {
+        //         lastPlacedCell = currentCell;
                 
-                //Reset the active tile's neighbors before moving so it recalculates connections at new position
-                ConnectedTileHandler activeTileHandler = activeObject.GetComponent<ConnectedTileHandler>();
+        //         //Reset the active tile's neighbors before moving so it recalculates connections at new position
+        //         ConnectedTileHandler activeTileHandler = activeObject.GetComponent<ConnectedTileHandler>();
                 
-                activeObject.transform.position = grid.GetCellCenterWorld(currentCell);
+        //         activeObject.transform.position = grid.GetCellCenterWorld(currentCell);
 
-                // Try to place at new location
-                if (CanBePlaced(objectToPlace))
-                {
-                    placeSelectedTile();
-                }
-            }
-        }
+        //         // Try to place at new location
+        //         if (CanBePlaced(objectToPlace))
+        //         {
+        //             placeSelectedTile();
+        //         }
+        //     }
+        // }
 
-        // End drag placement mode
+        // Delete active object
         if (Input.GetMouseButtonUp(0))
         {
-            isDragPlacing = false;
+            //isDragPlacing = false;
             preventMultipleObjectPlacement = false;
         }
         else if (Input.GetMouseButtonDown(1))
@@ -132,6 +138,7 @@ public class BuildingSystem : MonoBehaviour
     public void activeObjectMovedToNewTile(){
         if(activeTile != null && activeTile.tileScriptableObject.allowClickAndDrag && Input.GetMouseButton(0)){
             attemptToPlaceSelectedTile();
+            preventMultipleObjectPlacement = false;
         }
     }
 
@@ -141,6 +148,7 @@ public class BuildingSystem : MonoBehaviour
         if (CanBePlaced(objectToPlace))
         {
             placeSelectedTile();
+            preventMultipleObjectPlacement = true;
         } 
         else if(objectToPlace.GetComponent<Tile>().tooMuchCarbonToPlace() && isMouseOverScreen()) {
             unableToPlaceTileUI._unableToPlaceTileUI.tooMuchCarbon();
@@ -160,10 +168,10 @@ public class BuildingSystem : MonoBehaviour
         LevelManager.LM.AdjustMoney(-1 * cost);
         
         //Force physics update so ConnectedTileHandler triggers fire immediately
-        Physics.SyncTransforms();
+        //Physics.SyncTransforms();
         
         //Notify adjacent tiles to recalculate their connections
-        NotifyAdjacentTilesToRecalculate(objectToPlace.gameObject);
+        //NotifyAdjacentTilesToRecalculate(objectToPlace.gameObject);
         
         activeObject = null;
         objectToPlace = null;
@@ -175,36 +183,36 @@ public class BuildingSystem : MonoBehaviour
     }
 
     //Tell all adjacent connected tiles to update their models based on new neighbors
-    private void NotifyAdjacentTilesToRecalculate(GameObject placedTile)
-    {
-        Vector3Int tileCell = gridLayout.WorldToCell(placedTile.transform.position);
+    // private void NotifyAdjacentTilesToRecalculate(GameObject placedTile)
+    // {
+    //     Vector3Int tileCell = gridLayout.WorldToCell(placedTile.transform.position);
         
-        Vector3Int[] directions = new Vector3Int[]
-        {
-            new Vector3Int(0, 1, 0),  // North
-            new Vector3Int(1, 0, 0),  // East
-            new Vector3Int(0, -1, 0), // South
-            new Vector3Int(-1, 0, 0)  // West
-        };
+    //     Vector3Int[] directions = new Vector3Int[]
+    //     {
+    //         new Vector3Int(0, 1, 0),  // North
+    //         new Vector3Int(1, 0, 0),  // East
+    //         new Vector3Int(0, -1, 0), // South
+    //         new Vector3Int(-1, 0, 0)  // West
+    //     };
         
-        for (int i = 0; i < directions.Length; i++)
-        {
-            Vector3Int checkCell = tileCell + directions[i];
-            Vector3 checkWorldPos = grid.GetCellCenterWorld(checkCell);
+    //     for (int i = 0; i < directions.Length; i++)
+    //     {
+    //         Vector3Int checkCell = tileCell + directions[i];
+    //         Vector3 checkWorldPos = grid.GetCellCenterWorld(checkCell);
             
-            foreach (GameObject obj in GridManager.GM.GetGameObjectsInGridCell(checkWorldPos))
-            {
-                if (obj != placedTile)
-                {
-                    ConnectedTileHandler neighborHandler = obj.GetComponent<ConnectedTileHandler>();
-                    if (neighborHandler != null)
-                    {
-                        neighborHandler.UpdateModel();
-                    }
-                }
-            }
-        }
-    }
+    //         foreach (GameObject obj in GridManager.GM.GetGameObjectsInGridCell(checkWorldPos))
+    //         {
+    //             if (obj != placedTile)
+    //             {
+    //                 ConnectedTileHandler neighborHandler = obj.GetComponent<ConnectedTileHandler>();
+    //                 if (neighborHandler != null)
+    //                 {
+    //                     neighborHandler.UpdateModel();
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
 
 
     //Sets the material of the active object to the invalid (red) state or not
@@ -241,9 +249,21 @@ public class BuildingSystem : MonoBehaviour
 
 
     public static bool isMouseOverScreen(){
+        //Checks if mouse is over a scrollable area, like the tile select panel
         if(ScrollingUI.mouseIsOverScrollableArea){
             return false;
         }
+
+        //Checks if the mouse is over the tile delete button
+        if(TrashButtonScript.TBS != null && TrashButtonScript.TBS.mouseIsOverTrashButton()){
+            return false;
+        }
+
+        //Checks if the mouse is over the people panel
+        if(PeoplePanel._peoplePanel != null && PeoplePanel._peoplePanel.isMouseOverPanel()){
+            return false;
+        }
+
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if(Physics.Raycast(ray, out RaycastHit raycastHit))
         {

@@ -19,7 +19,7 @@ public class LevelManager : MonoBehaviour
     #endregion
     [Header("Initial Stats")]
     [SerializeField] private int maxCarbon = 200;
-    [SerializeField] public int carbonCapPastMax {get; set;} = 200;
+    [SerializeField] public int carbonCapPastMax {get; set;} = 100;
     [SerializeField] int startingMoney;
     [SerializeField] int startingCarbon;
     [SerializeField] int startingYear;
@@ -170,6 +170,7 @@ public class LevelManager : MonoBehaviour
     }
 
     public void OnPollutionTick(){
+        AdjustCarbon(NetCarbon);
         GetComponent<UIPopUps>().displayCarbonPopUps();
         StartCoroutine(endOfPollutionTick());
     }
@@ -226,16 +227,17 @@ public class LevelManager : MonoBehaviour
     /// <param name="value"></param>
     public void AdjustCarbon(int value)
     {
-        //carbonChangedSinceUpdate = true;
-        //print("Carbon Update Called");
-        if(carbon >= carbonCapPastMax){
+        //Caps the amount of carbon that can accumulate at maxCarbon +  carbonCapPastMax
+        if(carbon >= (carbonCapPastMax + maxCarbon)){
             if(value < 0){
                 carbon += value;
             }
         } else{
+            
             carbon += value;
+
             if (carbon < 0) carbon = 0;
-            if(carbon > carbonCapPastMax) carbon = carbonCapPastMax;
+            if(carbon > (carbonCapPastMax + maxCarbon)) carbon = carbonCapPastMax + maxCarbon;
         }
     }
 
@@ -257,14 +259,15 @@ public class LevelManager : MonoBehaviour
     /// <param name="value"></param>
     public void AdjustStorageSize(int value)
     {
-        storageCapacity += value;
+        //Temporarily disabled
+        // storageCapacity += value;
 
-        // If storage size decreased, release over capacity carbon into the atmosphere
-        if (stored > storageCapacity)
-        {
-            AdjustCarbon(stored - storageCapacity);
-            SetStored(storageCapacity);
-        }
+        // // If storage size decreased, release over capacity carbon into the atmosphere
+        // if (stored > storageCapacity)
+        // {
+        //     AdjustCarbon(stored - storageCapacity);
+        //     SetStored(storageCapacity);
+        // }
 
     }
 
@@ -276,15 +279,16 @@ public class LevelManager : MonoBehaviour
     /// <param name="value"></param>
     public void AdjustStored(int value)
     {
-        if (stored + value > storageCapacity)
-        {
-            value = storageCapacity - stored;
-            SetStored(storageCapacity);
-            AdjustCarbon(value);
-        }
-        stored += value;
+        //Temporarily Disabled
+        // if (stored + value > storageCapacity)
+        // {
+        //     value = storageCapacity - stored;
+        //     SetStored(storageCapacity);
+        //     AdjustCarbon(value);
+        // }
+        // stored += value;
 
-        if(stored <0) stored = 0;
+        // if(stored <0) stored = 0;
     }
 
     /// <summary>

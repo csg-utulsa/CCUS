@@ -147,5 +147,8 @@ public class ScrollingUI : MonoBehaviour
         //Moves the UI Elements into their new positions
         scrollableArea.UpdateUIElementsPositions();
 
+        //Tells Tool Tips to Update their positions
+        ToolTipManager.TTM.UpdateToolTipPosition();
+
     }
 }

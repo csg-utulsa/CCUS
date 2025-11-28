@@ -30,11 +30,14 @@ public class ProgressionManager : MonoBehaviour
     */
     public ProgressEvent[] progressEvents => new ProgressEvent[]{
 
-        //Event 0: Enables the people button when you have net income > 10
-        new ProgressEvent(() => LevelManager.LM.NetMoney > 10, () => {PressPeopleButton.PPB.EnablePeopleButton();}, 3f),
+        //Event 0: Enables the people button when you fix the maxed out carbon the first time
+        new ProgressEvent(() => progressEventHasOccurred[1] && !LevelManager.overMaxCarbon(), () => {PressPeopleButton.PPB.EnablePeopleButton();}, 6f),
         
         //Event 1: Adds the tree and grass buttons the first time you max out on carbon.
-        new ProgressEvent(() => LevelManager.overMaxCarbon(), () => {TileSelectPanel.TSP.AddButton(buttons[0]); TileSelectPanel.TSP.AddButton(buttons[1]);}, 12f),
+        new ProgressEvent(() => LevelManager.overMaxCarbon(), () => {TileSelectPanel.TSP.AddButton(buttons[0]); TileSelectPanel.TSP.AddButton(buttons[1]);}, 4.5f),
+
+        //Event 2: Adds apartment
+        new ProgressEvent(() => LevelManager.LM.NetMoney > 80, () => {TileSelectPanel.TSP.AddButton(buttons[3]);}, 1.5f),
 
         //Event 2: Adds Roads when you fix the maxed out carbon the first time
         //new ProgressEvent(() => progressEventHasOccurred[1] && !LevelManager.overMaxCarbon(), () => {TileSelectPanel.TSP.AddButton(buttons[2]);}, 3f),

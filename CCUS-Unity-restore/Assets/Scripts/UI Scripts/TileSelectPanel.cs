@@ -80,17 +80,23 @@ public class TileSelectPanel : ScrollableArea
     }
 
 
-    //Input the prefab for the button you want to turn on.
-    public void AddButton(GameObject prefabOfButton){
-        for(int i = 0; i < allTileScriptableObjects.Length; i++){
-            if(prefabOfButton.GetComponent<Tile>().tileScriptableObject == allTileScriptableObjects[i]){
-                tileButtons[i].SetActive(true);
-                updateButtonPositions();
-            }else{
-                Debug.LogError("None of the tile Buttons are for the prefab you're trying to turn on the button for.");
-            }
-        }
-    }
+    // //Input the prefab for the button you want to turn on.
+    // public void AddButton(GameObject prefabOfButton){
+    //     //Displays "NEW TILE!" graphic
+    //     Debug.Log("adding tile");
+    //     unableToPlaceTileUI._unableToPlaceTileUI.newTile();
+    //     for(int i = 0; i < allTileScriptableObjects.Length; i++){
+    //         if(prefabOfButton.GetComponent<Tile>().tileScriptableObject == allTileScriptableObjects[i]){
+    //             tileButtons[i].SetActive(true);
+    //             updateButtonPositions();
+    //         }else{
+    //             Debug.LogError("None of the tile Buttons are for the prefab you're trying to turn on the button for.");
+    //         }
+    //     }
+
+    //     //Displays "NEW TILE!" graphic
+    //     unableToPlaceTileUI._unableToPlaceTileUI.newTile();
+    // }
 
     //Input the button script for the button you want to turn on
     public void AddButton(buttonScript _buttonScript){
@@ -103,6 +109,9 @@ public class TileSelectPanel : ScrollableArea
                 updateButtonPositions();
             }
         }
+
+        //Displays "NEW TILE!" graphic
+        unableToPlaceTileUI._unableToPlaceTileUI.newTile();
     }
 
     public void RemoveButton(GameObject prefabOfButton){

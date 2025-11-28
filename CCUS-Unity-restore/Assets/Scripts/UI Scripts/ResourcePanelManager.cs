@@ -12,6 +12,7 @@ public class ResourcePanelManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI carbonText;
     [SerializeField] CarbonRotate carbonDial;
     [SerializeField] ChangeOpacity carbonDialGreenImageGraphic;
+    public GameObject NewMoneyUIFeedbackPrefab;
     private string spacing = ""; //The amount of spacing for text
     LevelManager dm;
 
@@ -33,13 +34,23 @@ public class ResourcePanelManager : MonoBehaviour
             yearText.text = "Year: " + dm.GetYear().ToString();
         }
 
+
+        if(dm.GetMoney() > previousMoney){
+            OnMoneyIncrease(dm.GetMoney() - previousMoney);
+            previousMoney = dm.GetMoney();
+            
+        } else if(dm.GetMoney() != previousMoney){
+            previousMoney = dm.GetMoney();
+        }
+        
+
         if(moneyText != null)
         {
-            //Shakes the money when it increases
-            if(dm.GetMoney() > previousMoney){
-                moneyText.GetComponent<ShakeGraphic>().ShakeItUp();
-            }
-            previousMoney = dm.GetMoney();
+            // //Shakes the money when it increases
+            // if(dm.GetMoney() > previousMoney){
+            //     moneyText.GetComponent<ShakeGraphic>().ShakeItUp();
+            // }
+            // previousMoney = dm.GetMoney();
 
             //Updates Cash Text
             for(int i = 0; i < 6 - dm.GetMoney().ToString().Length; i++)
@@ -67,5 +78,19 @@ public class ResourcePanelManager : MonoBehaviour
         if(peopleText != null){
             peopleText.text = "" + TemporaryPeopleManager.TPM.numberOfPeople;
         }
+    }
+
+    public void OnMoneyIncrease(int amountMoneyIncreased){
+        
+        //Shakes the money when it increases
+        if(moneyText != null){
+           moneyText.GetComponent<ShakeGraphic>().ShakeItUp(); 
+        }
+
+        //Adds alert when money increases
+        GameObject UIFeedbackObject = Instantiate(NewMoneyUIFeedbackPrefab);
+        UIFeedbackObject.GetComponentInChildren<TextMeshProUGUI>().text = "$" + amountMoneyIncreased;
+        
+        
     }
 }
