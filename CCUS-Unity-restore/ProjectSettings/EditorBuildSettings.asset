@@ -5,22 +5,25 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Build Scenes/Main Menu Scene.unity
     guid: 8cad6fd7663d3b54ab7122010f0e36e1
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Build Scenes/LevelSelect.unity
     guid: 509da17598ccb154a8c7ae7e9369dfe7
   - enabled: 0
     path: Assets/Scenes/Testing Scenes/PrototypeScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
+    path: Assets/Scenes/Build Scenes/GlobeTitleScreen.unity
+    guid: 97355a5414c151a4882c590e7a1ffdb6
+  - enabled: 1
     path: Assets/Scenes/Build Scenes/LevelOneWOW.unity
     guid: 18d5058e9810ae1469fd3b07a6d5df0f
   - enabled: 0
     path: Assets/Scenes/Build Scenes/Dec2023DemoLevel.unity
     guid: 4ff3f257ffa37774f8d7b61130fd2499
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Build Scenes/May2024Demo.unity
     guid: bfcf3cf532215374b884bad8e62fde1c
   m_configObjects: {}

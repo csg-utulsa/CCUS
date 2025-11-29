@@ -148,6 +148,7 @@ public class ScrollingUI : MonoBehaviour
         scrollableArea.UpdateUIElementsPositions();
 
         //Tells Tool Tips to Update their positions
+        if(ToolTipManager.TTM != null)
         ToolTipManager.TTM.UpdateToolTipPosition();
 
     }

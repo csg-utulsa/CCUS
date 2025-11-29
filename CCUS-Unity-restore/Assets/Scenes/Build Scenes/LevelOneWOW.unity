@@ -2875,6 +2875,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tile Select Panel Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 374369395213156625, guid: 7a5260dd559af31409882e5ed74d4534, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 374369395337713220, guid: 7a5260dd559af31409882e5ed74d4534, type: 3}
       propertyPath: maxBarValue
       value: 1000
@@ -5235,7 +5239,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 272250749bfc336418c4a699ef46288d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToShowGraphic: 1.5
+  timeToShowErrorGraphic: 1.5
+  timeToShowNewTileGraphic: 1.5
   tooMuchCarbonGraphic: {fileID: 345088750}
   notEnoughMoneyGraphic: {fileID: 368722726}
   notEnoughHomesGraphic: {fileID: 1006295423}
@@ -9626,9 +9631,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Resource Panel Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 1883222661589581327, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1883222661589581330, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
       propertyPath: m_SortingOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1883222661589581331, guid: 69b1dfc3f711dac47884c330662636b9, type: 3}
       propertyPath: m_Pivot.x
