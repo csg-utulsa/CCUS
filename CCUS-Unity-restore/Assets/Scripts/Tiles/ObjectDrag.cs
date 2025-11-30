@@ -262,7 +262,7 @@ public class ObjectDrag : MonoBehaviour
                 }
             }
         }
-        Debug.Log("Denying overlap");
+        //Debug.Log("Denying overlap");
         return false;
     }
 

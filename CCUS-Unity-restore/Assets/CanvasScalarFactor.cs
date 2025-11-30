@@ -23,7 +23,8 @@ public class CanvasScalarFactor : MonoBehaviour
             CSF = this;
         }
 
-        scaleFactor = myCanvas.GetComponent<RectTransform>().rect.height / correctHeight;
+        scaleFactor = Screen.height / correctHeight;//myCanvas.GetComponent<RectTransform>().rect.height / correctHeight;
+        //Debug.Log("Height: " + myCanvas.GetComponent<RectTransform>().rect.height);
         //Debug.Log("Canvas: " + myCanvas.GetComponent<RectTransform>().rect.height);
         //Debug.Log("Correct: " + correctHeight);
         if(myText != null)
@@ -32,6 +33,7 @@ public class CanvasScalarFactor : MonoBehaviour
     }
 
     void Update(){
+        scaleFactor = Screen.height / correctHeight;
         //Debug.Log("Canvas: " + myCanvas.GetComponent<RectTransform>().rect.height);
         //Debug.Log("Correct: " + correctHeight);
         //scaleFactor = myCanvas.GetComponent<RectTransform>().rect.height / correctHeight;
