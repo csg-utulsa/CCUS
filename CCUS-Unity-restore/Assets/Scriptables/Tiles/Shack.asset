@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a5987a142a40cc4fa0c05b204dd415a, type: 3}
-  m_Name: Shack4
+  m_Name: Shack
   m_EditorClassIdentifier: 
   Name: Shack
   BuildCost: 100
@@ -25,4 +25,6 @@ MonoBehaviour:
   thisTileClass: 6
   OverlapBlackList: []
   OverlapWhiteList: []
+  AllowOverlapList:
+  - {fileID: 11400000, guid: a54fa51cf27e90549be15d1bc33ef758, type: 2}
   FlavorText: 

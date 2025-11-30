@@ -25,4 +25,8 @@ MonoBehaviour:
   thisTileClass: 0
   OverlapBlackList: []
   OverlapWhiteList: []
+  AllowOverlapList:
+  - {fileID: 11400000, guid: b94ec3b514b904e4db3a5d87e4f525fd, type: 2}
+  - {fileID: 11400000, guid: 4bd5c2b14a661f048a21cce36aa396d6, type: 2}
+  - {fileID: 11400000, guid: 82488ddc2e2512d4e9a74e054f7c70fd, type: 2}
   FlavorText: 

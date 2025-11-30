@@ -35,5 +35,8 @@ public class TileScriptableObject : ScriptableObject
 
     public string[] OverlapWhiteList;
 
+    //Anything on this list won't be destroyed when the tile is placed on top of it
+    public TileScriptableObject[] AllowOverlapList;
+
     public string FlavorText;
 }

@@ -6,5 +6,5 @@ using UnityEngine;
 
 public class TileFactoryReferences : ScriptableObject
 {
-    public tileFactory currentTileFactory;
+    //public tileFactory currentTileFactory;
 }

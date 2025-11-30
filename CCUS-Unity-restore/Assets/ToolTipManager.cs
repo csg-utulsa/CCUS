@@ -102,13 +102,21 @@ public class ToolTipManager : MonoBehaviour
 
         Vector3 pos = currentButton.transform.position;
 
-        toolTipBackground.transform.position = pos + toolTipBackgroundBoxOffset;
+        float scaleFactor = CanvasScalarFactor.CSF.GetScaleFactor();
+
+        //Vector3 newBackgroundPosition = pos + (toolTipBackgroundBoxOffset * scaleFactor);
+        toolTipBackground.transform.position = pos + (toolTipBackgroundBoxOffset * scaleFactor);//new Vector3(newBackgroundPosition.x * scaleFactor, newBackgroundPosition.y * scaleFactor, newBackgroundPosition.z * scaleFactor);
         
         for(int i = 0; i < toolTips.Length; i++){
             if(numOfToolTips == 1){
-                toolTips[i].transform.position = (pos + toolTipBackgroundBoxOffset + topItemOffset + new Vector3(0f, additionalOffsetSingleItem, 0f)) - new Vector3(0f, distanceBetweenToolTipItems * i, 0f);
+                //Vector3 newPosition = (pos + toolTipBackgroundBoxOffset + topItemOffset + new Vector3(0f, additionalOffsetSingleItem, 0f)) - new Vector3(0f, distanceBetweenToolTipItems * i, 0f);
+                
+                toolTips[i].transform.position = (pos + (toolTipBackgroundBoxOffset * scaleFactor) + (topItemOffset * scaleFactor) + new Vector3(0f, (additionalOffsetSingleItem * scaleFactor), 0f)) - new Vector3(0f, (distanceBetweenToolTipItems * scaleFactor) * i, 0f);//new Vector3(newPosition.x * scaleFactor, newPosition.y * scaleFactor, newPosition.z * scaleFactor);
             } else{
-                toolTips[i].transform.position = (pos + toolTipBackgroundBoxOffset + topItemOffset) - new Vector3(0f, distanceBetweenToolTipItems * i, 0f);
+                //Vector3 newPosition = (pos + toolTipBackgroundBoxOffset + topItemOffset) - new Vector3(0f, distanceBetweenToolTipItems * i, 0f);
+                //float scaleFactor = CanvasScalarFactor.CSF.GetScaleFactor();
+                toolTips[i].transform.position = (pos + (toolTipBackgroundBoxOffset * scaleFactor) + (topItemOffset * scaleFactor)) - new Vector3(0f, (distanceBetweenToolTipItems * scaleFactor) * i, 0f);//new Vector3(newPosition.x * scaleFactor, newPosition.y * scaleFactor, newPosition.z * scaleFactor);
+
             }
             if(toolTips[i].GetComponentInChildren<TextMeshProUGUI>() != null){
                 toolTips[i].GetComponentInChildren<TextMeshProUGUI>().text = "" + resourceAmounts[i];

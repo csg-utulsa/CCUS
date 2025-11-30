@@ -145,16 +145,17 @@ public class BuildingSystem : MonoBehaviour
 
     public void attemptToPlaceSelectedTile(){
 
-        if (CanBePlaced(objectToPlace))
+        if (CanBePlaced(objectToPlace, true))
         {
             placeSelectedTile();
             preventMultipleObjectPlacement = true;
         } 
-        else if(objectToPlace.GetComponent<Tile>().tooMuchCarbonToPlace() && isMouseOverScreen()) {
-            unableToPlaceTileUI._unableToPlaceTileUI.tooMuchCarbon();
-        } else if(objectToPlace.GetComponent<Tile>().notEnoughMoneyToPlace() && isMouseOverScreen()) {
-            unableToPlaceTileUI._unableToPlaceTileUI.notEnoughMoney();
-        }
+        //Moved to CanBePlaced() function
+        // else if(objectToPlace.GetComponent<Tile>().tooMuchCarbonToPlace() && isMouseOverScreen()) {
+        //     unableToPlaceTileUI._unableToPlaceTileUI.tooMuchCarbon();
+        // } else if(objectToPlace.GetComponent<Tile>().notEnoughMoneyToPlace() && isMouseOverScreen()) {
+        //     unableToPlaceTileUI._unableToPlaceTileUI.notEnoughMoney();
+        // }
 
     }
 
@@ -365,7 +366,7 @@ public class BuildingSystem : MonoBehaviour
         return isOverVoid;
     }
 
-    public bool CanBePlaced(PlaceableObject placeableObject)
+    public bool CanBePlaced(PlaceableObject placeableObject, bool attemptingToPlaceTile)
     {
         //Checks if the mouse is over the screen. If not, it can't be placed
         if(!isMouseOverScreen()){
@@ -382,16 +383,9 @@ public class BuildingSystem : MonoBehaviour
         if (isObjectOverVoid()==true)
             return false;
 
-        //Checks if there is too much carbon to place tile
-        if(placeableObject.GetComponent<Tile>().tooMuchCarbonToPlace()){
-            return false;
-        }
 
-        //Checks if there is not enough money to place the tile
-        if (placeableObject.GetComponent<Tile>().notEnoughMoneyToPlace())
-        {
-            return false;
-        }
+
+
 
         //Checks if trying to place object over same object
         //Guard against a missing Tile reference and use the GridManager singleton instance
@@ -405,6 +399,19 @@ public class BuildingSystem : MonoBehaviour
             }
         }
 
+        //Checks if there is too much carbon to place tile
+        if(placeableObject.GetComponent<Tile>().tooMuchCarbonToPlace() && attemptingToPlaceTile){
+            unableToPlaceTileUI._unableToPlaceTileUI.tooMuchCarbon();
+            return false;
+        }
+
+        //Checks if there is not enough money to place the tile
+        if (placeableObject.GetComponent<Tile>().notEnoughMoneyToPlace() && attemptingToPlaceTile)
+        {
+            unableToPlaceTileUI._unableToPlaceTileUI.notEnoughMoney();
+            return false;
+        }
+
 
         foreach (var b in baseArray)
         {
@@ -416,14 +423,16 @@ public class BuildingSystem : MonoBehaviour
 
         
 
-        int cost = activeTile.tileScriptableObject.BuildCost;
-        if (cost != 0 && activeTile.state == TileState.Uninitialized)
-        {
-            if (LevelManager.LM.GetMoney() < cost)
-            {
-                return false;
-            }
-        }
+        
+
+        // int cost = activeTile.tileScriptableObject.BuildCost;
+        // if (cost != 0 && activeTile.state == TileState.Uninitialized)
+        // {
+        //     if (LevelManager.LM.GetMoney() < cost)
+        //     {
+        //         return false;
+        //     }
+        // }
 
         if (!activeTile.gameObject.GetComponent<ObjectDrag>().IsValidOverlap()) { return false; }//makes sure tile is not placed with invalid tiles
 

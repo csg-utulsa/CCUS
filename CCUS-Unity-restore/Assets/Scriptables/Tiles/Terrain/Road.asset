@@ -25,4 +25,5 @@ MonoBehaviour:
   thisTileClass: 2
   OverlapBlackList: []
   OverlapWhiteList: []
+  AllowOverlapList: []
   FlavorText: 

@@ -16,15 +16,13 @@ public class ShakeGraphic : MonoBehaviour
     void Start()
     {
         graphicYPosition = transform.position.y;
+        shakeSpeed *= CanvasScalarFactor.CSF.GetScaleFactor();
     }
 
     //Wiggles the errors for emphasis! That way the user knows what they're doing wrong.
     public void ShakeItUp(){
-        //Debug.Log("IM TRYING TO SHAKE IT OFF!");
-        //GameObject shakingGraphic = this.gameObject;
         if(!currentlyShaking){
             currentlyShaking = true;
-            //graphicYPosition = transform.position.y;
             directionToShake = -1;
             StartCoroutine(changeShakeDirection());
         }
@@ -48,7 +46,6 @@ public class ShakeGraphic : MonoBehaviour
 
     void Update()
     {
-        //Debug.Log(transform.position);
         //Wiggles the graphic back and forth, like it's bouncing on a trampoline it got for its birthday
         if(currentlyShaking){
             transform.position += new Vector3( 0f, Time.deltaTime * shakeSpeed * directionToShake, 0f );

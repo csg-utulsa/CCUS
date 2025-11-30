@@ -74,7 +74,13 @@ public class GridManager : MonoBehaviour
     }
     
     void Start(){
-        GM = this;
+        if(GM == null){
+           GM = this; 
+        }else{
+            Destroy(this);
+        }
+        
+        
 
         //Test
         // int[] testArray = { 1, 2, 3, 4, 5, 6, 7, 0, 0, 0, 0, 0, 0};

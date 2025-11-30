@@ -24,9 +24,9 @@ MonoBehaviour:
   TileMesh: {fileID: 0}
   thisTileClass: 3
   OverlapBlackList:
-  - Concrete
   - Road
-  - Water
-  - Water
+  - Road
   OverlapWhiteList: []
+  AllowOverlapList:
+  - {fileID: 11400000, guid: a54fa51cf27e90549be15d1bc33ef758, type: 2}
   FlavorText: 

@@ -43,7 +43,7 @@ public class unableToPlaceTileUI : MonoBehaviour
         notEnoughMoneyGraphic.GetComponent<FadeGraphic>().StopFading();
     }
 
-    //Displays the error that says: NOT ENOUGH MONEY!!!!!
+    //Displays the message that says: NOT ENOUGH HOMES!!!
     public void notEnoughHomes(){
         homesGraphicTimer = timeToShowErrorGraphic;
         notEnoughHomesGraphic.SetActive(true);
@@ -51,9 +51,8 @@ public class unableToPlaceTileUI : MonoBehaviour
         notEnoughHomesGraphic.GetComponent<FadeGraphic>().StopFading();
     }
 
-    //Displays the error that says: NOT ENOUGH MONEY!!!!!
+    //Displays the message that says a new tile has appeared
     public void newTile(){
-        Debug.Log("Newtile");
         newTileGraphicTimer = timeToShowNewTileGraphic;
         newTileGraphic.SetActive(true);
         newTileGraphic.GetComponent<ShakeGraphic>().ShakeItUp();

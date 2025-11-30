@@ -42,18 +42,23 @@ public class FadeGraphic : MonoBehaviour
         if(isFading){
             myImage = GetComponent<Image>();
             fadingTimer += Time.deltaTime;
-            if(fadingTimer > timeToFade){
+            if(fadingTimer > timeToFade){ // Finished fading
                 
                 isFading = false;
                 fadingTimer = 0f;
                 currentColor = myImage.color;
                 myImage.color = new Color(currentColor.r, currentColor.g, currentColor.b, 0f);
                 this.gameObject.SetActive(false);
-            } else{
+                if(destroyAfterFade){
+                    if(transform.parent.gameObject.GetComponent<DestroyCanvas>() != null){
+                        Destroy(transform.parent.gameObject);
+                    }
+                    Destroy(this.gameObject);
+                }
+                
+            } else{ //Curretly fading
                 percentageFaded = (1 - (fadingTimer / timeToFade));
-                //float alphaValue = percentageFaded * 255F;
                 currentColor = myImage.color;
-                //Debug.Log(alphaValue);
                 myImage.color = new Color(currentColor.r, currentColor.g, currentColor.b, percentageFaded);
 
             }

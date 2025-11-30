@@ -33,7 +33,8 @@ public class PressPeopleButton : MonoBehaviour, IPointerDownHandler, IPointerUpH
         buttonPressedGraphic.SetActive(true);
         if(_TPM.CanAddMorePeople()){
             _TPM.AddAPerson();
-            GameObject UIFeedbackObject = Instantiate(newPersonUIFeedback, new Vector3(transform.position.x, transform.position.y + UIFeedbackHeight, transform.position.z), newPersonUIFeedback.transform.rotation);
+            GameObject UIFeedbackObject = Instantiate(newPersonUIFeedback, this.transform);//new Vector3(transform.position.x, transform.position.y + UIFeedbackHeight, transform.position.z), newPersonUIFeedback.transform.rotation);
+            //UIFeedbackObject.transform.position = new Vector3(transform.position.x, transform.position.y + UIFeedbackHeight, transform.position.z);
             UIFeedbackObject.GetComponentInChildren<TextMeshProUGUI>().text = "+$" + _TPM.incomeOfPerson;
         }else{
             unableToPlaceTileUI._unableToPlaceTileUI.notEnoughHomes();
