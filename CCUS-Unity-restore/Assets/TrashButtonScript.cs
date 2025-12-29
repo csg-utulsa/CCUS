@@ -14,7 +14,11 @@ public class TrashButtonScript : MonoBehaviour
 
     public static TrashButtonScript TBS;
 
+    Vector3 previousGridPosition;
+
     bool isSelected = false;
+
+    bool hasMoved = false;
 
     public void Start(){
         if(TBS == null){
@@ -33,6 +37,12 @@ public class TrashButtonScript : MonoBehaviour
         currentRedDeleteCube = Instantiate(redDeleteCubePrefab, redDeleteCubePrefab.transform.position, redDeleteCubePrefab.transform.rotation);
         BuildingSystem.current.deselectActiveObject();
         selectedButtonGraphic.SetActive(true);
+
+        //Sets the previousGridPosition variable :)
+        Vector3 mouseWorldPosition = BuildingSystem.GetMouseWorldPosition();
+        Vector3 mouseGridCoordinate = BuildingSystem.current.SnapCoordinateToGrid(mouseWorldPosition);
+        previousGridPosition = new Vector3(mouseGridCoordinate.x, currentRedDeleteCube.transform.position.y, mouseGridCoordinate.z);
+            
     }
 
     public void trashButtonDeselected(){
@@ -48,6 +58,7 @@ public class TrashButtonScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
 
         if(isSelected && currentRedDeleteCube != null && BuildingSystem.isMouseOverScreen()){
             currentRedDeleteCube.SetActive(true);
@@ -55,11 +66,12 @@ public class TrashButtonScript : MonoBehaviour
             Vector3 mouseGridCoordinate = BuildingSystem.current.SnapCoordinateToGrid(mouseWorldPosition);
             currentRedDeleteCube.transform.position = new Vector3(mouseGridCoordinate.x, currentRedDeleteCube.transform.position.y, mouseGridCoordinate.z);
             
-            if(Input.GetMouseButtonDown(0)){ // object deleting
+            if(Input.GetMouseButtonDown(0) || (Input.GetMouseButton(0) && previousGridPosition != currentRedDeleteCube.transform.position)){ // object deleting     || (Input.GetMouseButton(0) && hasMoved)
                 //TODO: later make it first delete the top tile, then the terrain
                 deleteTile();
-                
             }
+
+            previousGridPosition = currentRedDeleteCube.transform.position;
         } else if(!BuildingSystem.isMouseOverScreen() && currentRedDeleteCube != null){
             currentRedDeleteCube.SetActive(false);
         }
@@ -86,7 +98,7 @@ public class TrashButtonScript : MonoBehaviour
         LevelManager.LM.UpdateNetCarbonAndMoney();
     }
 
-    //This function raycasts straight down over a tile to find out what's on it
+    //This function raycasts straight down over a tile to find out what's on it. TODO FIXME: Make & use a Grid System function for this
     public bool isDeleteCubeOverVoid(){
         BuildingSystem current = BuildingSystem.current;
         Vector3 activeObjectPositionOnGrid = current.SnapCoordinateToGrid(currentRedDeleteCube.transform.position);

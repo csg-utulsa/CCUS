@@ -20,7 +20,7 @@ MonoBehaviour:
   AnnualCarbonStored: 0
   AnnualIncome: 10
   MaxPeople: 5
-  allowClickAndDrag: 0
+  allowClickAndDrag: 1
   TileMesh: {fileID: 0}
   thisTileClass: 6
   OverlapBlackList: []

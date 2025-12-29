@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class ProgressionManager : MonoBehaviour
 {
+    public static ProgressionManager PM;
+
     //Stores all the buttons, to be added or removed. Assign in inspector.
     public buttonScript[] buttons;
 
@@ -48,6 +50,13 @@ public class ProgressionManager : MonoBehaviour
     
     
     void Start(){
+        
+        if(PM == null){
+            PM = this;
+        } else{
+            Destroy(this);
+        }
+
         TickManager.TM.PollutionTick.AddListener(OnPollutionTick);
         TickManager.TM.MoneyTick.AddListener(OnMoneyTick);
         progressEventHasOccurred = new bool[progressEvents.Length];
@@ -61,6 +70,15 @@ public class ProgressionManager : MonoBehaviour
     }
     void OnPollutionTick(){
         CheckProgressEventConditions();
+    }
+
+    public void CallProgressEvents(int[] progressEventsToCall){
+        foreach(int progressEventToCall in progressEventsToCall){
+            if(progressEventToCall < progressEvents.Length){
+                progressEvents[progressEventToCall].ProgressionAction();
+            }
+        }
+        
     }
 
     private void CheckProgressEventConditions(){

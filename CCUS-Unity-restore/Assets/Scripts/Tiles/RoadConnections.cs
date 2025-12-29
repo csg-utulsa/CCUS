@@ -5,6 +5,9 @@ using System;
 
 public class RoadConnections : MonoBehaviour
 {
+
+    public GameObject activationGraphic;
+
     public Material[] modelList;
 
     public Material previousModel;
@@ -79,6 +82,17 @@ public class RoadConnections : MonoBehaviour
         4
     };
 
+    //This method displays if this road is connecting two or more residences
+    public void activateConnectedRoad(){
+        if(activationGraphic != null)
+            activationGraphic.SetActive(true);
+    }
+    //This method displays if this road is NOT connecting two or more residences
+    public void deactivateConnectedRoad(){
+        if(activationGraphic != null)
+            activationGraphic.SetActive(false);
+    }
+
     //This method switches side "i" of a tile, which is either side 0, 1, 2, or 3, to the opposite side.
     public int flipTileSide(int initialSide){
         if(initialSide < 2){
@@ -145,14 +159,18 @@ public class RoadConnections : MonoBehaviour
 
     public void UpdateNeighborConnections(){
         GameObject[] neighborGameObjects = GridManager.GM.GetRoadNeighbors(gameObject);
+        neighbors = neighborGameObjects;
         foreach(GameObject _neighbor in neighborGameObjects){
+
+            //Updates road connections for each neighbor
             if(_neighbor != null && _neighbor.GetComponent<RoadConnections>() != null){
+                //The "false" being input here just tells it not to tell each of its neighbors to update their connections
                 _neighbor.GetComponent<RoadConnections>().UpdateModelConnections(false);
-            }    
+            }   
         }
     }
 
-
+    //Converts the arrangement of neighbors into a 4 digit code of 1s and 0s
     public int neighborsAsBits(GameObject[] _neighbors){
         int[] neighborAlignmentAsArray = new int[_neighbors.Length];
         for(int i = 0; i < _neighbors.Length; i++){

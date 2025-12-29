@@ -144,17 +144,10 @@ public class GridManager : MonoBehaviour
 
             foreach (GameObject obj in GridManager.GM.GetGameObjectsInGridCell(checkWorldPos))
             {
-                if(obj.GetComponent<RoadConnections>() != null){
+                //Checks if a neighbor object is either a road or a residential buildings, since those are the only things roads connect to
+                if(obj.GetComponent<RoadConnections>() != null || obj.GetComponent<ResidentialBuilding>() != null){
                     tileNeighbors[i] = obj;
                 }
-                // if (obj != placedTile)
-                // {
-                //     ConnectedTileHandler neighborHandler = obj.GetComponent<ConnectedTileHandler>();
-                //     if (neighborHandler != null)
-                //     {
-                //         neighborHandler.UpdateModel();
-                //     }
-                // }
             }
         }
         return tileNeighbors;
