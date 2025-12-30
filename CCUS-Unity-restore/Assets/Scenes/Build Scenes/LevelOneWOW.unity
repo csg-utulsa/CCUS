@@ -2416,6 +2416,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moneyProducingTiles: []
   carbonProducingTiles: []
+  residenceTiles: []
+  roadTiles: []
 --- !u!1001 &522281697
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8785,7 +8787,7 @@ GameObject:
   - component: {fileID: 1522759607}
   - component: {fileID: 1522759606}
   m_Layer: 0
-  m_Name: CreativeMode (delete in build)
+  m_Name: CreativeMode (delete in build) (activate with G+Ctrl+Space)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

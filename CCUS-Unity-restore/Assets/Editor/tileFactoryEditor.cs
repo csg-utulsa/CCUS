@@ -1,4 +1,16 @@
 //This one is the tile factory
+
+/*
+How to add more options to this dialog box:
+1) Create a public variable at the top of the tileFactoryEditorClass
+2) Update that variable through the GUI in the OnGui() function
+3) Save that variable to the prefab in both the UpdatePrefabSettings() function and CreateNewPrefab() function
+4) Go to the "tilePrefabEditor" script and under the for loop in the OnGUI() function, take that info from the
+   prefab's scriptable object and give it to the Editor Window (which is this script)
+
+(srry it's a little convoluted)
+*/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,6 +32,7 @@ public class tileFactoryEditor : EditorWindow
     bool importErrors = false;
 
     public string newTileName = "Untitled Tile";
+    public bool isResidence = false;
     public int moneyPerYear = 0;
     public int pollutionPerYear = 0;
     public bool isPolluter = false;
@@ -127,6 +140,8 @@ public class tileFactoryEditor : EditorWindow
 
             pollutionPerYear = EditorGUILayout.IntField("Pollution Per Year", pollutionPerYear);
 
+            isResidence = EditorGUILayout.Toggle("Tile is a Residence", isResidence);
+
             GUILayout.Label("");
             
 
@@ -204,7 +219,13 @@ public class tileFactoryEditor : EditorWindow
             
             Debug.Log("Updating Prefab Settings");
             if(newTileName != null) editingTilePrefab.name = newTileName;
-            if(newTileName == null) Debug.Log("ITS NULL!?!??");
+            
+            if(isResidence && editingTilePrefab.GetComponent<ResidentialBuilding>() == null){
+                editingTilePrefab.AddComponent<ResidentialBuilding>();
+            }else if(!isResidence && editingTilePrefab.GetComponent<ResidentialBuilding>() != null){
+                ResidentialBuilding residentialBuildingScript = editingTilePrefab.GetComponent<ResidentialBuilding>();
+                Destroy(residentialBuildingScript);
+            }
             
             if(editingTilePrefab.GetComponent<Tile>().tileScriptableObject != null){
                 TileScriptableObject tileScriptableObject = editingTilePrefab.GetComponent<Tile>().tileScriptableObject;
@@ -215,6 +236,8 @@ public class tileFactoryEditor : EditorWindow
                 
                 if(pollutionPerYear != null) tileScriptableObject.AnnualCarbonAdded = pollutionPerYear;
                 if(moneyPerYear != null) tileScriptableObject.AnnualIncome = moneyPerYear;
+                tileScriptableObject.isResidence = isResidence;
+                
                 //Here I find the Button Manager in Scene and loop through each button to assign a new image to the one with a matching scriptable object
                 // TileSelectPanel[] tileButtonManagerArray = FindObjectsOfType(typeof(TileSelectPanel)) as TileSelectPanel[];
                 // if(tileButtonManagerArray[0] != null){
@@ -225,7 +248,10 @@ public class tileFactoryEditor : EditorWindow
                 //         }
                 //     }
                 // }
-                getButtonWithScriptableObject(tileScriptableObject).GetComponent<UnityEngine.UI.Image>().sprite = buttonImage;
+                if(getButtonWithScriptableObject(tileScriptableObject).GetComponent<UnityEngine.UI.Image>() != null){
+                    getButtonWithScriptableObject(tileScriptableObject).GetComponent<UnityEngine.UI.Image>().sprite = buttonImage;
+                }
+                
                 //if((buttonImage != null) && (tileScriptableObject.MyButton != null) && (tileScriptableObject.MyButton.GetComponent<UnityEngine.UI.Image>() != null)) tileScriptableObject.MyButton.GetComponent<UnityEngine.UI.Image>().sprite = buttonImage;
             }
             
@@ -254,6 +280,7 @@ public class tileFactoryEditor : EditorWindow
         }
 
         public bool CreateNewPrefab() {
+            bool creationSuccess = true;
             if(isCreatingNewTile){
 
                 //The next few lines save the prefab as an asset
@@ -262,7 +289,7 @@ public class tileFactoryEditor : EditorWindow
                 fullPrefabFilePath = AssetDatabase.GenerateUniqueAssetPath(fullPrefabFilePath); //Prevents two tiles from having same file path
                 bool success = false;
                 newTilePrefab = (GameObject)PrefabUtility.SaveAsPrefabAsset(blankTilePrefab, fullPrefabFilePath, out success); //first arg of saveAsPrefabAsset() used to be blankTilePrefab
-                if(!success){ return false; }
+                if(!success){ creationSuccess = success; }
 
                 //Temporarily Instantiates blankTilePrefab in the Scene
                 //newTilePrefab = (GameObject)PrefabUtility.InstantiatePrefab(blankTilePrefab);
@@ -279,20 +306,16 @@ public class tileFactoryEditor : EditorWindow
                 //Assigns materials to mesh renderer
                 Material[] materials = AssetDatabase.LoadAllAssetsAtPath(newTileMeshFilePath).Where(x => x.GetType() == typeof(Material)).Cast<Material>().ToArray();
                 newTilePrefab.GetComponentInChildren<MeshRenderer>().sharedMaterials = materials;
+
+                //Adds Residential Building script to residences
+                if(isResidence && editingTilePrefab.GetComponent<ResidentialBuilding>() == null){
+                    editingTilePrefab.AddComponent<ResidentialBuilding>();
+                }
                 
-                
 
-                //Deletes the tile from the scene since it's saved as an asset now.
-                //DestroyImmediate(newInstantiatedTile);
-
-
-
-                //Delete NExt LINE!
-                //newTilePrefab = (GameObject)PrefabUtility.InstantiatePrefab(blankTilePrefab);//Instantiate(blankTilePrefab);
 
                 
 
-                
 
 
                 // GameObject meshChild = (GameObject)PrefabUtility.InstantiatePrefab(meshPrefab);
@@ -341,6 +364,7 @@ public class tileFactoryEditor : EditorWindow
                 newScriptableObject.Name = newTileName;
                 newScriptableObject.AnnualCarbonAdded = pollutionPerYear;
                 newScriptableObject.AnnualIncome = moneyPerYear;
+                newScriptableObject.isResidence = isResidence;
                 //newScriptableObject.MyButton = newButtonPrefab;
                 
                 //Sets Scriptable Object Of New Object

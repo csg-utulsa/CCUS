@@ -5,6 +5,7 @@ using System.Linq;
 
 public class GridManager : MonoBehaviour
 {
+
     public GridCell[][] positionsOfCells;
 
     public static GridManager GM;
@@ -13,6 +14,9 @@ public class GridManager : MonoBehaviour
 
     public List<Tile> moneyProducingTiles = new List<Tile>();
     public List<Tile> carbonProducingTiles = new List<Tile>();
+    public List<ResidentialBuilding> residenceTiles = new List<ResidentialBuilding>();
+    public List<RoadConnections> roadTiles = new List<RoadConnections>();
+
 
 
     public Tile[] GetMoneyProducingTiles(){
@@ -31,13 +35,37 @@ public class GridManager : MonoBehaviour
         return returnArray;
     }
 
+    public RoadConnections[] GetRoadTiles(){
+        RoadConnections[] returnArray = new RoadConnections[roadTiles.Count];
+        for(int i = 0; i < roadTiles.Count; i++){
+            returnArray[i] = roadTiles[i];
+        }
+        return returnArray;
+    }
+
+    public ResidentialBuilding[] GetResidentialTiles(){
+        ResidentialBuilding[] returnArray = new ResidentialBuilding[residenceTiles.Count];
+        for(int i = 0; i < residenceTiles.Count; i++){
+            returnArray[i] = residenceTiles[i];
+        }
+        return returnArray;
+    }
+
     public void AddToMoneyTileList(Tile tileToAdd){
         moneyProducingTiles.Add(tileToAdd);
     }    
 
     public void AddToCarbonTileList(Tile tileToAdd){
         carbonProducingTiles.Add(tileToAdd);
+    } 
+
+    public void AddToResidenceTileList(ResidentialBuilding residenceToAdd){
+        residenceTiles.Add(residenceToAdd);
     }    
+
+    public void AddToRoadTileList(RoadConnections tileToAdd){
+        roadTiles.Add(tileToAdd);
+    }
 
     public void RemoveFromMoneyTileList(Tile tileToAdd){
         moneyProducingTiles.Remove(tileToAdd);
@@ -46,6 +74,15 @@ public class GridManager : MonoBehaviour
     public void RemoveFromCarbonTileList(Tile tileToAdd){
         carbonProducingTiles.Remove(tileToAdd);
     }    
+
+    public void RemoveFromResidenceTileList(ResidentialBuilding residenceToAdd){
+        residenceTiles.Remove(residenceToAdd);
+    }
+
+    public void RemoveFromRoadTileList(RoadConnections tileToRemove){
+        roadTiles.Add(tileToRemove);
+    }
+
 
     public void AddGridObjectToList(GameObject objectToAdd){
         allGridObjects.Add(objectToAdd);
@@ -145,7 +182,7 @@ public class GridManager : MonoBehaviour
             foreach (GameObject obj in GridManager.GM.GetGameObjectsInGridCell(checkWorldPos))
             {
                 //Checks if a neighbor object is either a road or a residential buildings, since those are the only things roads connect to
-                if(obj.GetComponent<RoadConnections>() != null || obj.GetComponent<ResidentialBuilding>() != null){
+                if(obj.GetComponent<RoadConnections>() != null || obj.GetComponent<ResidentialBuilding>()){
                     tileNeighbors[i] = obj;
                 }
             }
@@ -253,6 +290,128 @@ public class GridManager : MonoBehaviour
         positionsOfCells[(int)positionInGrid.x + 50][(int)positionInGrid.z + 50].RemoveObject(objectToRemove);
     }
 
+    public void UpdateResidenceConnections(GameObject objectToCheck){
+
+        if(objectToCheck != null && (objectToCheck.GetComponent<RoadConnections>() != null || objectToCheck.GetComponent<ResidentialBuilding>() != null)){
+            List<int> TilesCheckedAlready = new List<int>();
+            List<GameObject> ConnectedRoads = new List<GameObject>(); 
+            List<GameObject> ConnectedResidences = new List<GameObject>(); 
+            //Goes through each of roads connected to this road. Returns true if it's connected to a residence
+            bool connectedTwoResidences = RecursivelyCheckTileConnections(objectToCheck, ConnectedRoads, ConnectedResidences, TilesCheckedAlready);
+
+            //Activates/Deactivates the attached roads depending on if they connect two residences.
+            if(connectedTwoResidences){
+                foreach(GameObject connectedRoad in ConnectedRoads){
+                    //Activate Road
+                    if(connectedRoad.GetComponent<RoadConnections>() != null){
+                        //Debug.Log("ACTIVATED A ROAD");
+                        connectedRoad.GetComponent<RoadConnections>().activateConnectedRoad();
+                    }
+                }
+                foreach(GameObject connectedResidence in ConnectedResidences){
+                    //Activate Residence
+                    if(connectedResidence.GetComponent<ResidentialBuilding>() != null){
+                        //Debug.Log("ACTIVATED A RESIDENCE");
+                        connectedResidence.GetComponent<ResidentialBuilding>().ActivateResidence();
+                    }
+                }
+            } else{
+                //Deactivates roads and residences
+                foreach(GameObject connectedRoad in ConnectedRoads){
+                    //Deactivate Road
+                    if(connectedRoad.GetComponent<RoadConnections>() != null){
+                        //Debug.Log("DEACTIVATED A ROAD");
+                        connectedRoad.GetComponent<RoadConnections>().deactivateConnectedRoad();
+                    }
+                }
+                foreach(GameObject connectedResidence in ConnectedResidences){
+                    //Deactivate Residence
+                    if(connectedResidence.GetComponent<ResidentialBuilding>() != null){
+                        //Debug.Log("DEACTIVATED A RESIDENCE");
+                        connectedResidence.GetComponent<ResidentialBuilding>().DeactivateResidence();
+                    }
+                }
+            }
+
+        }
+
+
+        /*
+        //Loops through each of the roads connected to this residence (4 max)
+        for(int i = 0; i < neighboringRoads.Length; i++){
+            if(neighboringRoads[i] != null && neighboringRoads[i].GetComponent<RoadConnections>() != null){
+                List<GameObject> ConnectedRoads = new List<GameObject>(); 
+                List<GameObject> ConnectedResidences = new List<GameObject>(); 
+                //Goes through each of roads connected to this road. Returns true if it's connected to a residence
+                bool isConnected = RecursivelyCheckConnections(neighboringRoads[i], ConnectedRoads, ConnectedResidences);
+
+                //Activates/Deactivates the attached roads depending on if they connect two residences.
+                if(isConnected){
+                    ActivateResidence();
+                    ConnectedResidences.Add(objectToCheck);
+                    foreach(GameObject connectedRoad in ConnectedRoads){
+                        if(connectedRoad.GetComponent<RoadConnections>() != null){
+                            connectedRoad.GetComponent<RoadConnections>().activateConnectedRoad();
+                            //Debug.Log("activatedroad");
+                        }
+                    }
+                } else{
+                    DeactivateResidence();
+                    foreach(GameObject connectedRoad in ConnectedRoads){
+                        if(connectedRoad.GetComponent<RoadConnections>() != null){
+                            //Debug.Log("DEACTIVATED A ROAD. I'm so cool.");
+                            connectedRoad.GetComponent<RoadConnections>().deactivateConnectedRoad();
+                        }
+                    }
+                }
+            }
+        }
+        */
+    }
+
+    // Recursive function that checks all of the roads connected to an object
+    // Returns true if it's connected to another residence
+    private bool RecursivelyCheckTileConnections(GameObject nextObjectToCheck, List<GameObject> ConnectedRoads, List<GameObject> ConnectedResidences, List<int> TilesCheckedAlready){
+        
+        //Adds roads/residences to the ConnectedRoads and ConnectedResidences lists.
+        if(!TilesCheckedAlready.Contains(nextObjectToCheck.GetInstanceID())){ //&& nextObjectToCheck.GetComponent<RoadConnections>() != null){
+            TilesCheckedAlready.Add(nextObjectToCheck.GetInstanceID());
+            if(nextObjectToCheck.GetComponent<RoadConnections>() != null){
+                ConnectedRoads.Add(nextObjectToCheck);
+            }else if(nextObjectToCheck.GetComponent<ResidentialBuilding>() != null){
+                ConnectedResidences.Add(nextObjectToCheck);
+            }
+            
+        }
+        
+        GameObject[] neighboringTiles = GM.GetRoadNeighbors(nextObjectToCheck);
+        bool _ConnectedTwoResidences = false;
+        for(int i = 0; i < neighboringTiles.Length; i++){
+            //This if statement checks if the object isn't null, and if it hasn't already checked the object
+            if(neighboringTiles[i] != null && !TilesCheckedAlready.Contains(neighboringTiles[i].GetInstanceID())){
+                //If statement runs if the neighboring object is a residential building that isn't the one that this script is on
+                if(neighboringTiles[i].GetComponent<ResidentialBuilding>() != null && !ConnectedResidences.Contains(neighboringTiles[i])){
+                    ConnectedResidences.Add(neighboringTiles[i]);
+                    if(ConnectedResidences.Count >= 2){
+                        _ConnectedTwoResidences = true;
+                    }
+                    
+                }
+
+                //Tells next object to run a recursive check if the neighboring object is a road or residence
+                if(neighboringTiles[i].GetComponent<RoadConnections>() != null || neighboringTiles[i].GetComponent<ResidentialBuilding>() != null){
+                    //ConnectedRoads.Add(neighboringTiles[i]);
+                    if(RecursivelyCheckTileConnections(neighboringTiles[i], ConnectedRoads, ConnectedResidences, TilesCheckedAlready)){
+                        _ConnectedTwoResidences = true;
+                    }
+                }
+            }
+        }
+        return _ConnectedTwoResidences;
+
+    }
+
+
 }
 
 
@@ -285,6 +444,11 @@ public class GridCell
                 if(tileScript.tileScriptableObject.AnnualCarbonAdded != 0){
                     gm.AddToCarbonTileList(tileScript);
                 }
+                if(objectToAdd.GetComponent<ResidentialBuilding>() != null){
+                    gm.AddToResidenceTileList(objectToAdd.GetComponent<ResidentialBuilding>());
+                } else if(objectToAdd.GetComponent<RoadConnections>() != null){
+                    gm.AddToRoadTileList(objectToAdd.GetComponent<RoadConnections>());
+                }
             }
             xLocation = x;
             yLocation = y;
@@ -314,6 +478,11 @@ public class GridCell
                     }
                     if(tileScript.tileScriptableObject.AnnualCarbonAdded != 0){
                         gm.RemoveFromCarbonTileList(tileScript);
+                    }
+                    if(objectToRemove.GetComponent<ResidentialBuilding>() != null){
+                        gm.RemoveFromResidenceTileList(objectToRemove.GetComponent<ResidentialBuilding>());
+                    } else if(objectToRemove.GetComponent<RoadConnections>() != null){
+                        gm.RemoveFromRoadTileList(objectToRemove.GetComponent<RoadConnections>());
                     }
                 }
                 objectsInCell[i] = null;

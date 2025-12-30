@@ -149,11 +149,31 @@ public class Tile : MonoBehaviour
     public void DeleteThisTile(){
         //Refunds cost of tile when tile deleted
         LevelManager.LM.AdjustMoney(tileScriptableObject.BuildCost);
-        GridManager.GM.RemoveObject(gameObject);
-        if(GetComponent<RoadConnections>() != null){ //Updates road connections of neighbors
-            GetComponent<RoadConnections>().UpdateNeighborConnections();
+        
+
+        //Updates neighboring road connections and deletes the gameObject
+        GetComponent<ObjectDrag>().DestroyTile();
+
+        //moved these to DestroyTile() function of ObjectDrag
+        // //Updates road connections of neighbors
+        // if(GetComponent<RoadConnections>() != null){
+        //     GetComponent<RoadConnections>().UpdateNeighborConnections();
+        // }else{
+        //     UpdateTileNeighborConnections();
+        // }
+
+        // Destroy(gameObject);
+    }
+
+    //Updates the road connection graphics of any surrounding roads
+    public void UpdateTileNeighborConnections(){
+        GameObject[] neighborGameObjects = GridManager.GM.GetRoadNeighbors(gameObject);
+        for(int i = 0; i < neighborGameObjects.Length; i++){
+            GameObject _neighbor = neighborGameObjects[i];
+            if(_neighbor != null && _neighbor.GetComponent<RoadConnections>() != null){
+                _neighbor.GetComponent<RoadConnections>().UpdateModelConnections(false);
+            }    
         }
-        Destroy(gameObject);
     }
 
 

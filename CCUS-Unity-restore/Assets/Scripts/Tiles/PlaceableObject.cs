@@ -1,3 +1,5 @@
+//TODO/FIXME: This script and ObjectDrag are awfully similar. We should probably merge them eventually to simplify things
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -61,6 +63,8 @@ public class PlaceableObject : MonoBehaviour
         
         if (placed) { drag.Place(); }//For Tiles that start out placed, activates them
     }
+
+
 
     public virtual void Place()
     {

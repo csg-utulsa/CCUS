@@ -6,6 +6,9 @@ using System;
 public class RoadConnections : MonoBehaviour
 {
 
+    //When enabled, it makes the roads also connect to houses, apartments, etc.
+    public bool visuallyConnectToResidences = false;
+
     public GameObject activationGraphic;
 
     public Material[] modelList;
@@ -106,6 +109,7 @@ public class RoadConnections : MonoBehaviour
     //If makeNeighborsCheckConnections = true, it also forces its neighbors to update their connections.
     public void UpdateModelConnections(bool makeNeighborsCheckConnections){
         GameObject[] neighborGameObjects = GridManager.GM.GetRoadNeighbors(gameObject);
+
         neighbors = neighborGameObjects;
         int currentAlignment = Array.IndexOf(neighborAlignments, neighborsAsBits(neighborGameObjects));
         int newOrientation = arrangementOrientationAngles[currentAlignment];
@@ -174,7 +178,8 @@ public class RoadConnections : MonoBehaviour
     public int neighborsAsBits(GameObject[] _neighbors){
         int[] neighborAlignmentAsArray = new int[_neighbors.Length];
         for(int i = 0; i < _neighbors.Length; i++){
-            if(_neighbors[i] != null){
+            //Only includes neighbors that aren't residential buildings, so it doesn't connect to them.
+            if( (_neighbors[i] != null) && (visuallyConnectToResidences || !(_neighbors[i].GetComponent<ResidentialBuilding>() != null) ) ){
                 neighborAlignmentAsArray[i] = 1;
             }
             else{

@@ -1,3 +1,5 @@
+//TODO/FIXME: This script and PlaceableObject are awfully similar. We should probably merge them eventually to simplify things
+
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
@@ -79,8 +81,11 @@ public class ObjectDrag : MonoBehaviour
         transform.position = BuildingSystem.current.SnapCoordinateToGrid(transform.position);//locks object in grid
         this.GetComponent<Tile>().SetTileState(TileState.Static);//Non functional
         tileMaterialHandler.MaterialSet(TileMaterialHandler.matState.Placed);
+
+        //FIXME - Update the system that plays the sound. FMOD is a struggle bus :(
         if (SoundCanBePlayed) { FMODUnity.RuntimeManager.PlayOneShot("event:/Tile" + this.GetComponent<Tile>().tileScriptableObject.thisTileClass); } //Gets Tileclass and plays corresponding FMOD event
         
+        //Delete overlapping tiles (that can't overlap) on placement
         if(overlapObject != null && !AllowObjectOverlap(overlapObject)){
             overlapObject.GetComponent<Tile>().DeleteThisTile();
         }
@@ -111,7 +116,21 @@ public class ObjectDrag : MonoBehaviour
         //visually updates road connections
         if(GetComponent<RoadConnections>() != null){
             GetComponent<RoadConnections>().UpdateModelConnections(true);
+        } else{
+            UpdateTileNeighborConnections();
         }
+
+        //Updates residence connections
+        if(GetComponent<RoadConnections>() != null || GetComponent<ResidentialBuilding>() != null){
+            GridManager.GM.UpdateResidenceConnections(gameObject);
+
+            
+            // foreach(ResidentialBuilding residence in GridManager.GM.GetResidentialTiles()){
+
+            //     //residence.UpdateResidenceConnections();
+            // }
+        }
+        
 
         //Updates the cap on number of people
         if(TemporaryPeopleManager.TPM != null){
@@ -119,6 +138,54 @@ public class ObjectDrag : MonoBehaviour
         }
 
 
+    }
+
+    public void DestroyTile(){
+
+        // Removes object from GridManager, 
+        // so when the roads use the GridManager to update their connections, they will ignore this tile
+        GridManager.GM.RemoveObject(gameObject);
+
+        //Updates road connections of neighbors
+        if(GetComponent<RoadConnections>() != null){
+            GetComponent<RoadConnections>().UpdateNeighborConnections();
+        }else{
+            UpdateTileNeighborConnections();
+        }
+
+        //Updates residence/road connections
+        if(GetComponent<RoadConnections>() != null || GetComponent<ResidentialBuilding>() != null){
+
+            // //Deactivates all road connection graphics. They will be reenabled by the residence connection updates, if they're still connected to two houses.
+            // foreach(RoadConnections road in GridManager.GM.GetRoadTiles()){
+            //     road.deactivateConnectedRoad();
+            // }
+
+            // //Updates Connections of Each Residence
+            // foreach(ResidentialBuilding residence in GridManager.GM.GetResidentialTiles()){
+            //     residence.UpdateResidenceConnections();
+            // }
+
+            foreach(GameObject neighboringTile in GridManager.GM.GetRoadNeighbors(gameObject)){
+                GridManager.GM.UpdateResidenceConnections(neighboringTile);
+            }
+
+            
+
+        }
+
+        Destroy(gameObject);
+    }
+
+    //Updates the road connection graphics of any surrounding roads
+    public void UpdateTileNeighborConnections(){
+        GameObject[] neighborGameObjects = GridManager.GM.GetRoadNeighbors(gameObject);
+        for(int i = 0; i < neighborGameObjects.Length; i++){
+            GameObject _neighbor = neighborGameObjects[i];
+            if(_neighbor != null && _neighbor.GetComponent<RoadConnections>() != null){
+                _neighbor.GetComponent<RoadConnections>().UpdateModelConnections(false);
+            }    
+        }
     }
 
     public void Pickup()
@@ -257,7 +324,7 @@ public class ObjectDrag : MonoBehaviour
             TileScriptableObject tileScriptableObject = GetComponent<Tile>().tileScriptableObject;
             foreach(TileScriptableObject validOverlap in otherTileValidOverlaps){
                 if(tileScriptableObject == validOverlap){
-                    Debug.Log("Allowing overlap");
+                    //Debug.Log("Allowing overlap");
                     return true;
                 }
             }

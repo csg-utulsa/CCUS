@@ -8,28 +8,43 @@ public class ResidentialBuilding : MonoBehaviour
     public bool IsConnectedToOtherResidences {get; set;} = false;
     List<int> GameObjectsCheckedSoFar = new List<int>();
 
-    //FIXME -- This is temporary. DO NOT use the update function to update connections long term
-    float timer = 0;
-    void Update(){
-        timer += Time.deltaTime;
-        if(timer > 15f){
-            timer = 0f;
-            UpdateResidenceConnections();
+    //FIXME -- This Update() function is temporary. DO NOT use the update function to update connections long term
+    // float timer = 0;
+    // void Update(){
+    //     timer += Time.deltaTime;
+    //     if(timer > 15f){
+    //         timer = 0f;
+    //         UpdateResidenceConnections();
 
-        }
+    //     }
+    // }
+
+    //Allows for a residence to hold people, once it is connected to another residence by roads.
+    public void ActivateResidence(){
+        //Change a graphic to make it clear the house is activated.
     }
 
+    public void DeactivateResidence(){
+        //Change a graphic to make it clear the house is NOT activated.
+    }
+
+    //Duplicated in Grid Manager (Switch to using GridManager's version)
     public void UpdateResidenceConnections(){
         GameObjectsCheckedSoFar.Clear();
         GameObject[] neighboringRoads = GridManager.GM.GetRoadNeighbors(gameObject);
+
+        //Loops through each of the roads connected to this residence (4 max)
         for(int i = 0; i < neighboringRoads.Length; i++){
             if(neighboringRoads[i] != null && neighboringRoads[i].GetComponent<RoadConnections>() != null){
                 List<GameObject> ConnectedRoads = new List<GameObject>(); 
                 List<GameObject> ConnectedResidences = new List<GameObject>(); 
+                //Goes through each of roads connected to this road. Returns true if it's connected to a residence
                 bool isConnected = RecursivelyCheckConnections(neighboringRoads[i], ConnectedRoads, ConnectedResidences);
-                if(isConnected){
-                    ConnectedResidences.Add(gameObject);
 
+                //Activates/Deactivates the attached roads depending on if they connect two residences.
+                if(isConnected){
+                    ActivateResidence();
+                    ConnectedResidences.Add(gameObject);
                     foreach(GameObject connectedRoad in ConnectedRoads){
                         if(connectedRoad.GetComponent<RoadConnections>() != null){
                             connectedRoad.GetComponent<RoadConnections>().activateConnectedRoad();
@@ -37,6 +52,7 @@ public class ResidentialBuilding : MonoBehaviour
                         }
                     }
                 } else{
+                    DeactivateResidence();
                     foreach(GameObject connectedRoad in ConnectedRoads){
                         if(connectedRoad.GetComponent<RoadConnections>() != null){
                             //Debug.Log("DEACTIVATED A ROAD. I'm so cool.");
@@ -52,6 +68,7 @@ public class ResidentialBuilding : MonoBehaviour
 
     }
 
+    //Duplicated in Grid Manager (Switch to using GridManager's version)
     // Recursive function that checks all of the roads connected to an object
     // Returns true if it's connected to another residence
     private bool RecursivelyCheckConnections(GameObject nextObjectToCheck, List<GameObject> ConnectedRoads, List<GameObject> ConnectedResidences){

@@ -69,6 +69,7 @@ public class tilePrefabEditor : EditorWindow
                     if(tileScriptableObjects[i].Name != null) tileEditorWindow.newTileName = tileScriptableObjects[i].Name;
                     if(tileScriptableObjects[i].AnnualCarbonAdded != null) tileEditorWindow.pollutionPerYear = tileScriptableObjects[i].AnnualCarbonAdded;
                     if(tileScriptableObjects[i].AnnualIncome != null) tileEditorWindow.moneyPerYear = tileScriptableObjects[i].AnnualIncome;
+                    if(tileScriptableObjects[i].isResidence != null) tileEditorWindow.isResidence = tileScriptableObjects[i].isResidence;
 
                     //Here I find the Button Manager in Scene and loop through each button to assign a new image to the one with a matching scriptable object
                     // TileSelectPanel[] tileButtonManagerArray = FindObjectsOfType(typeof(TileSelectPanel)) as TileSelectPanel[];
@@ -80,7 +81,9 @@ public class tilePrefabEditor : EditorWindow
                     //         }
                     //     }
                     // }   
-                    tileEditorWindow.setButtonImage(tileFactoryEditor.getButtonWithScriptableObject(tileScriptableObjects[i]).GetComponent<UnityEngine.UI.Image>().sprite);
+                    if(tileFactoryEditor.getButtonWithScriptableObject(tileScriptableObjects[i]) != null){
+                        tileEditorWindow.setButtonImage(tileFactoryEditor.getButtonWithScriptableObject(tileScriptableObjects[i]).GetComponent<UnityEngine.UI.Image>().sprite);
+                    }
                     //if(tileScriptableObjects[i].MyButton != null) tileEditorWindow.setButtonImage(tileScriptableObjects[i].MyButton.GetComponent<UnityEngine.UI.Image>().sprite);
 
                 }
