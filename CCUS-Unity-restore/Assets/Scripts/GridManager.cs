@@ -328,8 +328,8 @@ public class GridManager : MonoBehaviour
                     
                 }
 
-                //Tells next object to run a recursive check if the neighboring object is a road or residence
-                if(neighboringTiles[i].GetComponent<RoadConnections>() != null){// || neighboringTiles[i].GetComponent<ResidentialBuilding>() != null){
+                //Tells next object to run a recursive check if the neighboring object is a road or residence, but prevents traveling through two residenes sitting next to each other
+                if(neighboringTiles[i].GetComponent<RoadConnections>() != null || (neighboringTiles[i].GetComponent<ResidentialBuilding>() != null && nextObjectToCheck.GetComponent<ResidentialBuilding>() == null)){
                     //ConnectedRoads.Add(neighboringTiles[i]);
                     if(RecursivelyCheckTileConnections(neighboringTiles[i], ConnectedRoads, ConnectedResidences, TilesCheckedAlready)){
                         _ConnectedTwoResidences = true;

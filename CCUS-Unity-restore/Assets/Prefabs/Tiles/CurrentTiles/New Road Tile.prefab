@@ -160,7 +160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd7ea454849684c4897945d6e14719d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visuallyConnectToResidences: 1
+  visuallyConnectToResidences: 0
   activationGraphic: {fileID: 5145472264364763080}
   modelList:
   - {fileID: 2100000, guid: d45290ba36f59b041ae4740f1871839f, type: 2}

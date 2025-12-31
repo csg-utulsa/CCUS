@@ -12,10 +12,18 @@ public class FadeGraphic : MonoBehaviour
     private float percentageFaded;
     private Color currentColor;
     public bool destroyAfterFade = false;
+    float maximumOpacity;
 
     private Image myImage;
 
     void Start(){
+        Debug.Log("My opacity: " + GetComponent<Image>().color.a);
+    }
+
+    void Awake(){
+        myImage = GetComponent<Image>();
+        maximumOpacity = myImage.color.a;
+        //Debug.Log(maximumOpacity);
         //myImage = GetComponent<Image>();
     }
 
@@ -33,7 +41,7 @@ public class FadeGraphic : MonoBehaviour
         isFading = false;
         fadingTimer = 0f;
         currentColor = myImage.color;
-        myImage.color = new Color(currentColor.r, currentColor.g, currentColor.b, 255f);
+        myImage.color = new Color(currentColor.r, currentColor.g, currentColor.b, maximumOpacity);
     }
 
     void Update()
@@ -47,17 +55,20 @@ public class FadeGraphic : MonoBehaviour
                 isFading = false;
                 fadingTimer = 0f;
                 currentColor = myImage.color;
-                myImage.color = new Color(currentColor.r, currentColor.g, currentColor.b, 0f);
-                this.gameObject.SetActive(false);
+                
+                myImage.color = new Color(currentColor.r, currentColor.g, currentColor.b, maximumOpacity);
+                
                 if(destroyAfterFade){
                     if(transform.parent.gameObject.GetComponent<DestroyCanvas>() != null){
                         Destroy(transform.parent.gameObject);
                     }
                     Destroy(this.gameObject);
                 }
+                this.gameObject.SetActive(false);
                 
-            } else{ //Curretly fading
-                percentageFaded = (1 - (fadingTimer / timeToFade));
+            } else{ //Currently fading
+                Debug.Log("Max Opacity: " + maximumOpacity);
+                percentageFaded = ((maximumOpacity) - ((maximumOpacity) * (fadingTimer / timeToFade)));
                 currentColor = myImage.color;
                 myImage.color = new Color(currentColor.r, currentColor.g, currentColor.b, percentageFaded);
 

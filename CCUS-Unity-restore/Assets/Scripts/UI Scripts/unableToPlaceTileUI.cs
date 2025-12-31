@@ -55,7 +55,7 @@ public class unableToPlaceTileUI : MonoBehaviour
             }else{
                 inputTimeToShowGraphic = timesToShowGraphics[0];
             }
-            Debug.Log("Calling Constructor");
+            //Debug.Log("Calling Constructor");
             //errorGraphicTimers[i] = new ErrorGraphicDisplayer(inputTimeToShowGraphic, inputErrorGraphic);
             errorGraphicTimers[i] = errorGraphics[i].AddComponent<ErrorGraphicDisplayer>();
             errorGraphicTimers[i].SetValues(inputTimeToShowGraphic, inputErrorGraphic);

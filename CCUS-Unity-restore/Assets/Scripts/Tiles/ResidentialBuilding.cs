@@ -9,6 +9,8 @@ public class ResidentialBuilding : MonoBehaviour
     public bool IsActivated {get; set;} = false;
     List<int> GameObjectsCheckedSoFar = new List<int>();
 
+    public GameObject houseActivatedGraphic;
+
     //FIXME -- This Update() function is temporary. DO NOT use the update function to update connections long term
     // float timer = 0;
     // void Update(){
@@ -23,12 +25,20 @@ public class ResidentialBuilding : MonoBehaviour
     //Allows for a residence to hold people, once it is connected to another residence by roads.
     public void ActivateResidence(){
         IsActivated = true;
+
         //Change a graphic to make it clear the house is activated.
+        if(houseActivatedGraphic != null){
+          houseActivatedGraphic.SetActive(true);  
+        }
     }
 
     public void DeactivateResidence(){
         IsActivated = false;
+
         //Change a graphic to make it clear the house is NOT activated.
+        if(houseActivatedGraphic != null){
+            houseActivatedGraphic.SetActive(false);
+        }
     }
 
     //Duplicated in Grid Manager (Switch to using GridManager's version)
