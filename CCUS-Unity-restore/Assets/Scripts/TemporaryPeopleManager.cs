@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class TemporaryPeopleManager : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class TemporaryPeopleManager : MonoBehaviour
     public int incomeOfPerson = 2;
     public int maxPeople = 0;
     public int NetPeopleIncome {get; set;} = 0;
+    
     public static TemporaryPeopleManager TPM;
 
     void Start(){
@@ -22,7 +24,7 @@ public class TemporaryPeopleManager : MonoBehaviour
     }
     
 
-    public void AddAPerson(){
+    private void AddAPerson(){
         numberOfPeople++;
         NetPeopleIncome = numberOfPeople * incomeOfPerson;
         LevelManager.LM.UpdateNetCarbonAndMoney();
@@ -32,18 +34,38 @@ public class TemporaryPeopleManager : MonoBehaviour
     public void UpdateMaxPeople(){
 
         int _maxPeople = 0;
-        Tile[] moneyProducingTiles = GridManager.GM.GetMoneyProducingTiles();
-        foreach(Tile tile in moneyProducingTiles){
+        ResidentialBuilding[] residentialTiles = GridManager.GM.GetResidentialTiles();
+        foreach(ResidentialBuilding residence in residentialTiles){
             
-            if(tile.tileScriptableObject.MaxPeople > 0){
-                _maxPeople += tile.tileScriptableObject.MaxPeople;
+            if(residence.IsActivated){
+                _maxPeople += residence.gameObject.GetComponent<Tile>().tileScriptableObject.MaxPeople;
             }
         }
         maxPeople = _maxPeople;
+
+        if(numberOfPeople > maxPeople){
+            numberOfPeople = maxPeople;
+        }
+        
     }
 
     public int GetMaxPeople(){
         return maxPeople;
+    }
+
+    public void AttemptToAddPerson(){
+        if(CanAddMorePeople()){
+            AddAPerson();
+            PeoplePanel._peoplePanel.NewPersonUIPopUp();
+        }else{
+            //Displays the "Can only add people to houses connected by roads" Error
+            if(!RoadAndResidenceConnectionManager.RARCM.AllResidencesAreConnected()){
+                unableToPlaceTileUI._unableToPlaceTileUI.mustConnectResidences();
+            }else{
+                unableToPlaceTileUI._unableToPlaceTileUI.notEnoughHomes();
+            }
+            
+        }
     }
 
     public bool CanAddMorePeople(){

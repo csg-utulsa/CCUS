@@ -173,6 +173,13 @@ public class ObjectDrag : MonoBehaviour
             
 
         }
+        
+        
+        //Updates the cap on number of people
+        if(TemporaryPeopleManager.TPM != null){
+            
+            TemporaryPeopleManager.TPM.UpdateMaxPeople();
+        }
 
         Destroy(gameObject);
     }

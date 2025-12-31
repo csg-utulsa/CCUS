@@ -116,43 +116,6 @@ public class GridManager : MonoBehaviour
         }else{
             Destroy(this);
         }
-        
-        
-
-        //Test
-        // int[] testArray = { 1, 2, 3, 4, 5, 6, 7, 0, 0, 0, 0, 0, 0};
-        // for(int i = 0; i < testArray.Length; i++) {
-        //     if(3 == testArray[i])
-        //     {
-        //         testArray[i] = 0;
-        //         for(int b=i; b < testArray.Length-1; b++) {
-        //             testArray[b] = testArray[b + 1];
-        //         }
-        //         testArray[testArray.Length-1] = 0;
-        //     }
-        // }
-        // Debug.Log("This is the test: ");
-        // for(int i = 0; i < testArray.Length; i++){
-        //     Debug.Log(testArray[i]);
-        // }
-
-        // for(int i = 0; i < testArray.Length; i++) {
-        //     if(6 == testArray[i])
-        //     {
-        //         testArray[i] = 0;
-        //         for(int b=i; b < testArray.Length-1; b++) {
-        //             testArray[b] = testArray[b + 1];
-        //         }
-        //         testArray[testArray.Length-1] = 0;
-        //     }
-        // }
-        // Debug.Log("This is the test: ");
-        // for(int i = 0; i < testArray.Length; i++){
-        //     Debug.Log(testArray[i]);
-        // }
-        
-        
-        
     }
 
     public GameObject[] GetRoadNeighbors(GameObject _tile){
@@ -334,39 +297,6 @@ public class GridManager : MonoBehaviour
             }
 
         }
-
-
-        /*
-        //Loops through each of the roads connected to this residence (4 max)
-        for(int i = 0; i < neighboringRoads.Length; i++){
-            if(neighboringRoads[i] != null && neighboringRoads[i].GetComponent<RoadConnections>() != null){
-                List<GameObject> ConnectedRoads = new List<GameObject>(); 
-                List<GameObject> ConnectedResidences = new List<GameObject>(); 
-                //Goes through each of roads connected to this road. Returns true if it's connected to a residence
-                bool isConnected = RecursivelyCheckConnections(neighboringRoads[i], ConnectedRoads, ConnectedResidences);
-
-                //Activates/Deactivates the attached roads depending on if they connect two residences.
-                if(isConnected){
-                    ActivateResidence();
-                    ConnectedResidences.Add(objectToCheck);
-                    foreach(GameObject connectedRoad in ConnectedRoads){
-                        if(connectedRoad.GetComponent<RoadConnections>() != null){
-                            connectedRoad.GetComponent<RoadConnections>().activateConnectedRoad();
-                            //Debug.Log("activatedroad");
-                        }
-                    }
-                } else{
-                    DeactivateResidence();
-                    foreach(GameObject connectedRoad in ConnectedRoads){
-                        if(connectedRoad.GetComponent<RoadConnections>() != null){
-                            //Debug.Log("DEACTIVATED A ROAD. I'm so cool.");
-                            connectedRoad.GetComponent<RoadConnections>().deactivateConnectedRoad();
-                        }
-                    }
-                }
-            }
-        }
-        */
     }
 
     // Recursive function that checks all of the roads connected to an object
@@ -389,8 +319,8 @@ public class GridManager : MonoBehaviour
         for(int i = 0; i < neighboringTiles.Length; i++){
             //This if statement checks if the object isn't null, and if it hasn't already checked the object
             if(neighboringTiles[i] != null && !TilesCheckedAlready.Contains(neighboringTiles[i].GetInstanceID())){
-                //If statement runs if the neighboring object is a residential building that isn't the one that this script is on
-                if(neighboringTiles[i].GetComponent<ResidentialBuilding>() != null && !ConnectedResidences.Contains(neighboringTiles[i])){
+                //Checks if the neighboring object is a residential building that hasn't already been checked. It also prevents connecting two residences that are sitting next to each other w/o roads
+                if(neighboringTiles[i].GetComponent<ResidentialBuilding>() != null && !ConnectedResidences.Contains(neighboringTiles[i]) && (nextObjectToCheck.GetComponent<ResidentialBuilding>() == null)){
                     ConnectedResidences.Add(neighboringTiles[i]);
                     if(ConnectedResidences.Count >= 2){
                         _ConnectedTwoResidences = true;
@@ -399,7 +329,7 @@ public class GridManager : MonoBehaviour
                 }
 
                 //Tells next object to run a recursive check if the neighboring object is a road or residence
-                if(neighboringTiles[i].GetComponent<RoadConnections>() != null || neighboringTiles[i].GetComponent<ResidentialBuilding>() != null){
+                if(neighboringTiles[i].GetComponent<RoadConnections>() != null){// || neighboringTiles[i].GetComponent<ResidentialBuilding>() != null){
                     //ConnectedRoads.Add(neighboringTiles[i]);
                     if(RecursivelyCheckTileConnections(neighboringTiles[i], ConnectedRoads, ConnectedResidences, TilesCheckedAlready)){
                         _ConnectedTwoResidences = true;

@@ -8,9 +8,9 @@ using TMPro;
 public class PressPeopleButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
 
     public GameObject buttonPressedGraphic;
-    public GameObject newPersonUIFeedback;
+    //public GameObject newPersonUIFeedback;
     public GameObject peopleButtonEnabledImage;
-    public GameObject peopleCounter;
+    //public GameObject peopleCounter;
 
     public float UIFeedbackHeight = 3f;
     public TemporaryPeopleManager _TPM;
@@ -31,14 +31,17 @@ public class PressPeopleButton : MonoBehaviour, IPointerDownHandler, IPointerUpH
     public void OnPointerDown(PointerEventData eventData) {
         if(!enabled) return;
         buttonPressedGraphic.SetActive(true);
-        if(_TPM.CanAddMorePeople()){
-            _TPM.AddAPerson();
-            GameObject UIFeedbackObject = Instantiate(newPersonUIFeedback, this.transform);//new Vector3(transform.position.x, transform.position.y + UIFeedbackHeight, transform.position.z), newPersonUIFeedback.transform.rotation);
-            //UIFeedbackObject.transform.position = new Vector3(transform.position.x, transform.position.y + UIFeedbackHeight, transform.position.z);
-            UIFeedbackObject.GetComponentInChildren<TextMeshProUGUI>().text = "+$" + _TPM.incomeOfPerson;
-        }else{
-            unableToPlaceTileUI._unableToPlaceTileUI.notEnoughHomes();
-        }
+
+        TemporaryPeopleManager.TPM.AttemptToAddPerson();
+        //Replace with function in temporary people manager
+        // if(_TPM.CanAddMorePeople()){
+        //     _TPM.AddAPerson();
+        //     GameObject UIFeedbackObject = Instantiate(newPersonUIFeedback, this.transform);//new Vector3(transform.position.x, transform.position.y + UIFeedbackHeight, transform.position.z), newPersonUIFeedback.transform.rotation);
+        //     //UIFeedbackObject.transform.position = new Vector3(transform.position.x, transform.position.y + UIFeedbackHeight, transform.position.z);
+        //     UIFeedbackObject.GetComponentInChildren<TextMeshProUGUI>().text = "+$" + _TPM.incomeOfPerson;
+        // }else{
+        //     unableToPlaceTileUI._unableToPlaceTileUI.notEnoughHomes();
+        // }
     }
 
     private IEnumerator DelayAction(Action delayedAction, float secondsToWait){
@@ -55,7 +58,7 @@ public class PressPeopleButton : MonoBehaviour, IPointerDownHandler, IPointerUpH
     public void EnablePeopleButton(){
         enabled = true;
         peopleButtonEnabledImage.SetActive(true);
-        peopleCounter.SetActive(true);
+        //peopleCounter.SetActive(true);
         GetComponent<SizingEmphasis>().WobbleGraphic();
     }
 }
