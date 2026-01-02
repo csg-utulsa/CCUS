@@ -9,7 +9,7 @@ public class RoadConnections : MonoBehaviour
     //When enabled, it makes the roads also connect to houses, apartments, etc.
     public bool visuallyConnectToResidences = false;
 
-    public GameObject activationGraphic;
+    //public GameObject activationGraphic;
 
     public Material[] modelList;
 
@@ -85,16 +85,16 @@ public class RoadConnections : MonoBehaviour
         4
     };
 
-    //This method displays if this road is connecting two or more residences
-    public void activateConnectedRoad(){
-        if(activationGraphic != null)
-            activationGraphic.SetActive(true);
-    }
-    //This method displays if this road is NOT connecting two or more residences
-    public void deactivateConnectedRoad(){
-        if(activationGraphic != null)
-            activationGraphic.SetActive(false);
-    }
+    // //This method displays if this road is connecting two or more residences
+    // public void activateConnectedRoad(){
+    //     if(activationGraphic != null)
+    //         activationGraphic.SetActive(true);
+    // }
+    // //This method displays if this road is NOT connecting two or more residences
+    // public void deactivateConnectedRoad(){
+    //     if(activationGraphic != null)
+    //         activationGraphic.SetActive(false);
+    // }
 
     //This method switches side "i" of a tile, which is either side 0, 1, 2, or 3, to the opposite side.
     public int flipTileSide(int initialSide){

@@ -5871,7 +5871,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8859714510574772770}
-  - component: {fileID: 6460394100644508268}
+  - component: {fileID: 8112040236496164479}
   - component: {fileID: 8026660272149806273}
   - component: {fileID: 7532892136959826067}
   - component: {fileID: 2169967218846739974}
@@ -5879,7 +5879,6 @@ GameObject:
   - component: {fileID: -5747758757886434098}
   - component: {fileID: 7082364293375485206}
   - component: {fileID: 3159399386138731229}
-  - component: {fileID: 8112040236496164479}
   m_Layer: 0
   m_Name: Shack
   m_TagString: Object
@@ -5907,7 +5906,7 @@ Transform:
   - {fileID: 7936081311012686877}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6460394100644508268
+--- !u!114 &8112040236496164479
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5916,14 +5915,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 9171035400571233729}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c00ae30ee8fe0a4eb3563927540d9bb, type: 3}
+  m_Script: {fileID: 11500000, guid: 899793433bf8a294a9bf98b29a202280, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: '::'
   tileType: 0
   tileScriptableObject: {fileID: 11400000, guid: 795118177f2a89d44b85a335294df036, type: 2}
   po: {fileID: 7532892136959826067}
   state: 0
   tilePosition: {x: 0, y: 0, z: 0}
+  buildingActivatedGraphic: {fileID: 711606454191959763}
 --- !u!114 &8026660272149806273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5954,7 +5954,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placed: 0
   Vertices: []
-  tile: {fileID: 6460394100644508268}
+  tile: {fileID: 0}
 --- !u!65 &2169967218846739974
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6053,19 +6053,6 @@ MonoBehaviour:
   connected: 0
   checkedConnectivity: 0
   canvas: {fileID: 3166937364804318959}
---- !u!114 &8112040236496164479
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9171035400571233729}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 899793433bf8a294a9bf98b29a202280, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  houseActivatedGraphic: {fileID: 711606454191959763}
 --- !u!1001 &3339841640696085006
 PrefabInstance:
   m_ObjectHideFlags: 0

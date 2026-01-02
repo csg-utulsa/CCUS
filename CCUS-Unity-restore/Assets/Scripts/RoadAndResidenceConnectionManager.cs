@@ -14,12 +14,15 @@ public class RoadAndResidenceConnectionManager : MonoBehaviour
     }
 
     public bool AllResidencesAreConnected(){
-        ResidentialBuilding[] allResidences = GridManager.GM.GetResidentialTiles();
+        Tile[] allResidences = GridManager.GM.ResidenceTileTracker.GetAllTiles();
         bool allResidencesConnected = true;
-        foreach(ResidentialBuilding residence in allResidences){
-            if(residence.IsActivated == false){
-                allResidencesConnected = false;
+        foreach(Tile tile in allResidences){
+            if(tile is ResidentialBuilding residence){
+                if(residence.IsActivated == false){
+                    allResidencesConnected = false;
+                }
             }
+            
         }
         return allResidencesConnected;
     }

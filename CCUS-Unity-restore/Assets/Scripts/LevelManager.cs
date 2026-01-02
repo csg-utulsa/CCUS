@@ -93,8 +93,8 @@ public class LevelManager : MonoBehaviour
 
         //The next chunk of code snatches the lists of money & carbon producing tiles from the GridManager.
         //Then it adds the net Money/Carbon from each of those tiles and adds them to its own count.
-        Tile[] moneyTiles = GridManager.GM.GetMoneyProducingTiles();
-        Tile[] carbonTiles = GridManager.GM.GetCarbonProducingTiles();
+        Tile[] moneyTiles = GridManager.GM.MoneyTileTracker.GetAllTiles();
+        Tile[] carbonTiles = GridManager.GM.CarbonTileTracker.GetAllTiles();
         
 
         int _netMoney = 0;

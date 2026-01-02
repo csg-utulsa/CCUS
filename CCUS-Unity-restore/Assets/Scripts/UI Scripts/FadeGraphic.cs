@@ -17,7 +17,7 @@ public class FadeGraphic : MonoBehaviour
     private Image myImage;
 
     void Start(){
-        Debug.Log("My opacity: " + GetComponent<Image>().color.a);
+        //Debug.Log("My opacity: " + GetComponent<Image>().color.a);
     }
 
     void Awake(){
@@ -67,7 +67,7 @@ public class FadeGraphic : MonoBehaviour
                 this.gameObject.SetActive(false);
                 
             } else{ //Currently fading
-                Debug.Log("Max Opacity: " + maximumOpacity);
+                //Debug.Log("Max Opacity: " + maximumOpacity);
                 percentageFaded = ((maximumOpacity) - ((maximumOpacity) * (fadingTimer / timeToFade)));
                 currentColor = myImage.color;
                 myImage.color = new Color(currentColor.r, currentColor.g, currentColor.b, percentageFaded);

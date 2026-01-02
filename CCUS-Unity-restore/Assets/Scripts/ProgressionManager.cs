@@ -41,6 +41,9 @@ public class ProgressionManager : MonoBehaviour
         //Event 2: Adds apartment
         new ProgressEvent(() => LevelManager.LM.NetMoney > 80, () => {TileSelectPanel.TSP.AddButton(buttons[3]);}, 1.5f),
 
+        //Event 3: Adds More Ground
+        new ProgressEvent(() => LevelManager.LM.NetMoney > 650, () => {GroundAreaExpansion.GAE.AddGroundChunk();}, 0f),
+
         //Event 2: Adds Roads when you fix the maxed out carbon the first time
         //new ProgressEvent(() => progressEventHasOccurred[1] && !LevelManager.overMaxCarbon(), () => {TileSelectPanel.TSP.AddButton(buttons[2]);}, 3f),
     
@@ -76,6 +79,7 @@ public class ProgressionManager : MonoBehaviour
         foreach(int progressEventToCall in progressEventsToCall){
             if(progressEventToCall < progressEvents.Length){
                 progressEvents[progressEventToCall].ProgressionAction();
+                progressEventHasOccurred[progressEventToCall] = true;
             }
         }
         

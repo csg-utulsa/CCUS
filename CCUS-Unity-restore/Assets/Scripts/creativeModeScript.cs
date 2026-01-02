@@ -7,6 +7,7 @@ public class creativeModeScript : MonoBehaviour
     bool wasJustInCreativeMode = false;
     float previousMaxCarbon;
     int previousMoney;
+    public GridVisualizer gridVisualizer;
     
     void Start(){
         previousMaxCarbon = LevelManager.LM.getMaxCarbon();
@@ -34,6 +35,9 @@ public class creativeModeScript : MonoBehaviour
                 }
                 ProgressionManager.PM.CallProgressEvents(progressionEventsToCall);
             }
+            if(Input.GetKeyDown(KeyCode.T)){
+                gridVisualizer.ActivateGridVisualization();
+            }
         }else if(wasJustInCreativeMode){
             wasJustInCreativeMode = false;
             LevelManager.LM.SetMoney(0);
@@ -41,3 +45,5 @@ public class creativeModeScript : MonoBehaviour
         }
     }
 }
+
+

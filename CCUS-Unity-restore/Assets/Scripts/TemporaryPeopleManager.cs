@@ -34,11 +34,14 @@ public class TemporaryPeopleManager : MonoBehaviour
     public void UpdateMaxPeople(){
 
         int _maxPeople = 0;
-        ResidentialBuilding[] residentialTiles = GridManager.GM.GetResidentialTiles();
-        foreach(ResidentialBuilding residence in residentialTiles){
+        Tile[] residentialTiles = GridManager.GM.ResidenceTileTracker.GetAllTiles();
+        foreach(Tile tile in residentialTiles){
             
-            if(residence.IsActivated){
-                _maxPeople += residence.gameObject.GetComponent<Tile>().tileScriptableObject.MaxPeople;
+            if(tile is ResidentialBuilding residence){
+                if(residence.IsActivated){
+                    _maxPeople += residence.gameObject.GetComponent<Tile>().tileScriptableObject.MaxPeople;
+                }
+                
             }
         }
         maxPeople = _maxPeople;

@@ -1,0 +1,25 @@
+using UnityEngine;
+
+public class ActivatableBuilding : Tile
+{
+    public GameObject buildingActivatedGraphic;
+    public bool IsActivated {get; set;} = false;
+
+    public virtual void ActivateBuilding(){
+        IsActivated = true;
+
+        //Change a graphic to make it clear the house is activated.
+        if(buildingActivatedGraphic != null){
+          buildingActivatedGraphic.SetActive(true);  
+        }
+    }
+
+    public virtual void DeactivateBuilding(){
+        IsActivated = false;
+
+        //Change a graphic to make it clear the house is NOT activated.
+        if(buildingActivatedGraphic != null){
+            buildingActivatedGraphic.SetActive(false);
+        }
+    }
+}

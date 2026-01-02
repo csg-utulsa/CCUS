@@ -2,14 +2,14 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class ResidentialBuilding : MonoBehaviour
+public class ResidentialBuilding : ActivatableBuilding
 {
 
     public bool IsConnectedToOtherResidences {get; set;} = false;
-    public bool IsActivated {get; set;} = false;
-    List<int> GameObjectsCheckedSoFar = new List<int>();
+    //public bool IsActivated {get; set;} = false;
+    //List<int> GameObjectsCheckedSoFar = new List<int>();
 
-    public GameObject houseActivatedGraphic;
+    //public GameObject buildingActivatedGraphic;
 
     //FIXME -- This Update() function is temporary. DO NOT use the update function to update connections long term
     // float timer = 0;
@@ -23,23 +23,23 @@ public class ResidentialBuilding : MonoBehaviour
     // }
 
     //Allows for a residence to hold people, once it is connected to another residence by roads.
-    public void ActivateResidence(){
-        IsActivated = true;
+    // public void ActivateBuilding(){
+    //     IsActivated = true;
 
-        //Change a graphic to make it clear the house is activated.
-        if(houseActivatedGraphic != null){
-          houseActivatedGraphic.SetActive(true);  
-        }
-    }
+    //     //Change a graphic to make it clear the house is activated.
+    //     if(buildingActivatedGraphic != null){
+    //       buildingActivatedGraphic.SetActive(true);  
+    //     }
+    // }
 
-    public void DeactivateResidence(){
-        IsActivated = false;
+    // public void DeactivateResidence(){
+    //     IsActivated = false;
 
-        //Change a graphic to make it clear the house is NOT activated.
-        if(houseActivatedGraphic != null){
-            houseActivatedGraphic.SetActive(false);
-        }
-    }
+    //     //Change a graphic to make it clear the house is NOT activated.
+    //     if(buildingActivatedGraphic != null){
+    //         buildingActivatedGraphic.SetActive(false);
+    //     }
+    // }
 
     //Duplicated in Grid Manager (Switch to using GridManager's version)
     // public void UpdateResidenceConnections(){
