@@ -1281,6 +1281,7 @@ GameObject:
   - component: {fileID: 272760340}
   - component: {fileID: 272760339}
   - component: {fileID: 272760338}
+  - component: {fileID: 272760341}
   m_Layer: 5
   m_Name: LeftArrow
   m_TagString: Untagged
@@ -1305,7 +1306,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -407.1, y: 37}
+  m_AnchoredPosition: {x: -409.23, y: 37}
   m_SizeDelta: {x: 41.3, y: 89.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &272760338
@@ -1329,8 +1330,8 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 0.8}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -1377,7 +1378,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.8352941}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1402,6 +1403,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 272760336}
   m_CullTransparentMesh: 1
+--- !u!114 &272760341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272760336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7345bdc5d4a11fc46a055ee76b76e03c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BreatheAnimation
+  breatheTimer: 0
+  breatheSize: 0.1
+  breatheSpeed: 1.8
+  resizeVertical: 1
+  resizeHorizontal: 0
+  defaultSizing: {x: 0, y: 0, z: 0}
 --- !u!4 &298248274 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b10c0bd8101943c4086c0958cc898724, type: 3}
@@ -4525,6 +4544,7 @@ GameObject:
   - component: {fileID: 717949573}
   - component: {fileID: 717949572}
   - component: {fileID: 717949571}
+  - component: {fileID: 717949574}
   m_Layer: 5
   m_Name: RightArrow
   m_TagString: Untagged
@@ -4573,8 +4593,8 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 0.79607844}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -4621,7 +4641,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.8352941}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4646,6 +4666,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 717949569}
   m_CullTransparentMesh: 1
+--- !u!114 &717949574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717949569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7345bdc5d4a11fc46a055ee76b76e03c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BreatheAnimation
+  breatheTimer: 0
+  breatheSize: 0.1
+  breatheSpeed: 1.8
+  resizeVertical: 1
+  resizeHorizontal: 0
+  defaultSizing: {x: 0, y: 0, z: 0}
 --- !u!1001 &739275091
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5874,6 +5912,7 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194229}
+  - component: {fileID: 963194230}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -5961,6 +6000,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attenuationObject: {fileID: 0}
+--- !u!114 &963194230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0e73640e9576fe4183f2aa113fccaa6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  cameraMoveTime: 0.2
 --- !u!1001 &963914727
 PrefabInstance:
   m_ObjectHideFlags: 0

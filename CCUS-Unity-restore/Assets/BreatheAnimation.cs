@@ -8,6 +8,9 @@ public class BreatheAnimation : MonoBehaviour
     public float breatheSize = 1f;
     public float breatheSpeed = 1f;
 
+    public bool resizeVertical = true;
+    public bool resizeHorizontal = true;
+
     public Vector3 defaultSizing = new Vector3(0f, 0f, 0f);
 
     void Start(){
@@ -23,8 +26,13 @@ public class BreatheAnimation : MonoBehaviour
             breatheTimer = 0f;
         }
 
-        float sizingPercentage = 1 + (breatheSize * ( ( (Mathf.Cos((breatheTimer) * Mathf.PI * breatheSpeed)) * 0.5f ) + 0.5f ));
+        //Prevents resizing on each axis if it's disabled
+        float verticalResizing = (resizeVertical)? 1f : 0f;
+        float horizontalResizing = (resizeHorizontal)? 1f : 0f;
 
-        transform.localScale = new Vector3(sizingPercentage * defaultSizing.x, sizingPercentage * defaultSizing.y, sizingPercentage * defaultSizing.z);
+        float sizingPercentageHorizontal = 1 + (horizontalResizing * (breatheSize * ( ( (Mathf.Cos((breatheTimer) * Mathf.PI * breatheSpeed)) * 0.5f ) + 0.5f )));
+        float sizingPercentageVertical = 1 + (verticalResizing * (breatheSize * ( ( (Mathf.Cos((breatheTimer) * Mathf.PI * breatheSpeed)) * 0.5f ) + 0.5f )));
+
+        transform.localScale = new Vector3(sizingPercentageHorizontal * defaultSizing.x, sizingPercentageVertical * defaultSizing.y, defaultSizing.z);
     }
 }

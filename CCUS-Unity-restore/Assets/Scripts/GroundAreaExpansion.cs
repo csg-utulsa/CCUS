@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class GroundAreaExpansion : MonoBehaviour
 {
+    
     public static GroundAreaExpansion GAE;
     public GameObject camera;
     private Vector3 cameraStartPosition;
@@ -78,7 +79,8 @@ public class GroundAreaExpansion : MonoBehaviour
     public void UpdateCameraPosition(){
         float offset = (widthOfGrid * ActiveGroundChunk) + (distanceBetweenGroundChunks * ActiveGroundChunk);
         Vector3 newCameraPosition = new Vector3(cameraStartPosition.x + offset, cameraStartPosition.y, cameraStartPosition.z + offset);
-        camera.transform.position = newCameraPosition;
+        camera.GetComponent<CameraMove>().MoveCamera(newCameraPosition);
+        //camera.transform.position = newCameraPosition;
     }
 
     //Puts the GameObjects in order from lowest to highest z position.
