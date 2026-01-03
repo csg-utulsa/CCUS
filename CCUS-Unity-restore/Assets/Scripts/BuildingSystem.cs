@@ -235,9 +235,12 @@ public class BuildingSystem : MonoBehaviour
     // Raycast to get world position of mouse hover input
     public static Vector3 GetMouseWorldPosition() 
     {
+        int layer_mask = LayerMask.GetMask("RaycastHitter");
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if(Physics.Raycast(ray, out RaycastHit raycastHit))
+        if(Physics.Raycast(ray, out RaycastHit raycastHit, 30f, layer_mask))
         {
+            if(raycastHit.collider != null)
+                Debug.Log("Collider I hit: " + raycastHit.collider.gameObject);
             //BuildingSystem.current.mouseOverScreen = true;
             return raycastHit.point;
         }

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -1689354558572396692}
   - component: {fileID: 6515190209519265039}
   - component: {fileID: -7098372502136121969}
+  - component: {fileID: -593227431733664701}
   m_Layer: 0
   m_Name: Base Tile
   m_TagString: Ground
@@ -54,6 +55,7 @@ MonoBehaviour:
   tileScriptableObject: {fileID: 11400000, guid: c10281c8203477047a1c4972170cde44, type: 2}
   po: {fileID: 438115123275365452}
   state: 0
+  tilePosition: {x: 0, y: 0, z: 0}
 --- !u!114 &4748388760939082585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,6 +71,7 @@ MonoBehaviour:
   overRide: 0
   overlapObject: {fileID: 0}
   overlapTerrain: {fileID: 0}
+  tileMaterialHandler: {fileID: 0}
 --- !u!114 &438115123275365452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,10 +115,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 358861468803373170}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -144,6 +147,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bce17a9110adcc439bb188c35b4ff50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-593227431733664701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 358861468803373170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9089043adfa1cdf4a848a222a38bfd3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MouseHoverHideTile
 --- !u!1001 &1376123056715380705
 PrefabInstance:
   m_ObjectHideFlags: 0

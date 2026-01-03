@@ -88,27 +88,11 @@ public class ScrollingUI : MonoBehaviour
     void visiblyScrollButtons(){
         float panelHeight = scrollableArea.rectangleTransform.rect.height;
 
-        //The next if-else structure forces the button scrolling to remain within the bounds       
-        if(visibleScrollOffset > scrollableArea.heightOfScrollableArea){
-            visibleScrollOffset = scrollableArea.heightOfScrollableArea;
-            scrollableArea.UpdateVisibleScrollOffset(visibleScrollOffset);
-            actualScrollOffset = scrollableArea.heightOfScrollableArea;
-            scrollableArea.UpdateUIElementsPositions();
-           // Debug.Log("Updating UI Elements Positions");
-            currentlyScrolling = false;
-            return;
-        } else if(visibleScrollOffset < 0f){
-            visibleScrollOffset = 0f;
-            //Debug.Log("Updating UI Elements Positions");
-            scrollableArea.UpdateVisibleScrollOffset(visibleScrollOffset);
-            actualScrollOffset = 0f;
-            scrollableArea.UpdateUIElementsPositions();
-            currentlyScrolling = false;
-            return;
-        }
+        //Debug.Log("Visible Scroll Offset: " + visibleScrollOffset);
+        
         
 
-        //Prevents the user from scrolling too fast (makes touchpad less sensative)
+        //Prevents the user from scrolling too fast (makes touchpad less sensitive)
         if(Mathf.Abs(visibleScrollOffset - actualScrollOffset) > peakScrollSpeed){
             if(visibleScrollOffset > actualScrollOffset){
                 actualScrollOffset = visibleScrollOffset - peakScrollSpeed;
@@ -142,6 +126,25 @@ public class ScrollingUI : MonoBehaviour
                 currentlyScrolling = false;
             }
             scrollableArea.UpdateVisibleScrollOffset(visibleScrollOffset);
+        }
+
+        //The next if-else structure forces the button scrolling to remain within the bounds       
+        if(visibleScrollOffset > scrollableArea.heightOfScrollableArea){
+            visibleScrollOffset = scrollableArea.heightOfScrollableArea;
+            scrollableArea.UpdateVisibleScrollOffset(visibleScrollOffset);
+            actualScrollOffset = scrollableArea.heightOfScrollableArea;
+            scrollableArea.UpdateUIElementsPositions();
+           // Debug.Log("Updating UI Elements Positions");
+            currentlyScrolling = false;
+            return;
+        } else if(visibleScrollOffset < 0f){
+            visibleScrollOffset = 0f;
+            //Debug.Log("Updating UI Elements Positions");
+            scrollableArea.UpdateVisibleScrollOffset(visibleScrollOffset);
+            actualScrollOffset = 0f;
+            scrollableArea.UpdateUIElementsPositions();
+            currentlyScrolling = false;
+            return;
         }
 
         //Moves the UI Elements into their new positions

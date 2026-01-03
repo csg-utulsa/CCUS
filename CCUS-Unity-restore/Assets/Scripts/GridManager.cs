@@ -170,7 +170,7 @@ public class GridManager : MonoBehaviour
         return GetRoadNeighbors(_tile.transform.position);
     }
 
-    //returns all neighbors of input tile
+    //returns all road & residential neighbors of input tile
     public GameObject[] GetRoadNeighbors(Vector3 tileLocation){
 
         BuildingSystem currentBuildingSystem = BuildingSystem.current;
@@ -199,6 +199,45 @@ public class GridManager : MonoBehaviour
             }
         }
         return tileNeighbors;
+    }
+
+    //returns all neighbors of input tile
+    public GameObject[] GetTileNeighbors(Vector3 tilePosition, int[] neighborsToReturn){
+
+        BuildingSystem currentBuildingSystem = BuildingSystem.current;
+        Vector3Int tileCell = currentBuildingSystem.gridLayout.WorldToCell(tilePosition);
+        List<GameObject> tileNeighbors = new List<GameObject>();
+
+        Vector3Int[] directions = new Vector3Int[]
+        {
+            new Vector3Int(0, 1, 0),  // North
+            new Vector3Int(1, 1, 0),  // North East
+            new Vector3Int(1, 0, 0),  // East
+            new Vector3Int(1, -1, 0), // South East
+            new Vector3Int(0, -1, 0), // South
+            new Vector3Int(-1, -1, 0), // South West
+            new Vector3Int(-1, 0, 0),  // West
+            new Vector3Int(-1, 1, 0),  // North West
+        };
+
+        for (int i = 0; i < neighborsToReturn.Length; i++)
+        {
+            Vector3Int checkCell = tileCell + directions[neighborsToReturn[i]];
+            Vector3 checkWorldPos = currentBuildingSystem.grid.GetCellCenterWorld(checkCell);
+
+            foreach (GameObject obj in GetGameObjectsInGridCell(checkWorldPos))
+            {
+                if(obj.GetComponent<Tile>() != null){
+                    tileNeighbors.Add(obj);
+                }
+            }
+        }
+
+        GameObject[] returnArray = new GameObject[tileNeighbors.Count];
+        for(int i = 0; i < returnArray.Length; i++){
+            returnArray[i] = tileNeighbors[i];
+        }
+        return returnArray;
     }
     
     public GameObject[] GetAllGridObjects(){

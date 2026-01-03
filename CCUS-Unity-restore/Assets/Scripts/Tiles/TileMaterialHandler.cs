@@ -12,7 +12,7 @@ using UnityEngine;
  * Description: Handles the Matrial changes for draggable tiles and objects
  * 
  * NOTE: This requires the model to be a child of the object this is placed in and that the Materials of that model to be transparent
- * Not completely functional
+ * Not completely functional.
  *
  */ 
 public class TileMaterialHandler : MonoBehaviour
@@ -26,6 +26,7 @@ public class TileMaterialHandler : MonoBehaviour
         Placed,
         HoveringValid,
         HoveringInvalid,
+        PartiallyTransparentPlaced
     }
     private matState currentState;
 
@@ -68,10 +69,17 @@ public class TileMaterialHandler : MonoBehaviour
             case matState.HoveringInvalid:
                 foreach (Material mat in matRenderer.materials)
                     mat.color = new Color(1f, .1f, .1f, .75f); break;//material is 50% transparent and also red
+            case matState.PartiallyTransparentPlaced:
+                Debug.Log("Number of Materials: " + matRenderer.materials.Length);
+                for(int i = 0; i < matRenderer.materials.Length; i++)
+                    matRenderer.materials[i].color = originalColors[i] * new Color(1f, 1f, 1f, 0.25f);
+                    break; //Material is 25% visible
             default:
                 for(int i = 0; i < matRenderer.materials.Length; i++)
                     matRenderer.materials[i].color = originalColors[i]; break;//material is fully colored
 
         }
     }
+
+
 }

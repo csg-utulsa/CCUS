@@ -299,14 +299,20 @@ public class ObjectDrag : MonoBehaviour
 
 
     public void updateTileMaterialValidity(){
-        if ((!BuildingSystem.current.CanBePlaced(GetComponent<PlaceableObject>(), false)) && dragging)//changes material based on if it's somewhere it can be placed
-        {
-            tileMaterialHandler.MaterialSet(TileMaterialHandler.matState.HoveringInvalid);
+        if(GetComponent<PlaceableObject>().placed){
+            tileMaterialHandler.MaterialSet(TileMaterialHandler.matState.Placed);
+        }else{
+           if ((!BuildingSystem.current.CanBePlaced(GetComponent<PlaceableObject>(), false)) && dragging)//changes material based on if it's somewhere it can be placed
+            {
+                tileMaterialHandler.MaterialSet(TileMaterialHandler.matState.HoveringInvalid);
+            }
+            else
+            {
+                tileMaterialHandler.MaterialSet(TileMaterialHandler.matState.HoveringValid);
+            } 
         }
-        else
-        {
-            tileMaterialHandler.MaterialSet(TileMaterialHandler.matState.HoveringValid);
-        }
+        
+        
     }
 
 

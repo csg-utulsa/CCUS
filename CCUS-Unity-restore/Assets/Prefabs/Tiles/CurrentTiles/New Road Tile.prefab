@@ -136,7 +136,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &5484643323090204880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,7 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd7ea454849684c4897945d6e14719d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visuallyConnectToResidences: 1
+  visuallyConnectToResidences: 0
   modelList:
   - {fileID: 2100000, guid: d45290ba36f59b041ae4740f1871839f, type: 2}
   - {fileID: 2100000, guid: ec8024f89717b1d48b8c98fceb902f6c, type: 2}

@@ -22,4 +22,13 @@ public class ActivatableBuilding : Tile
             buildingActivatedGraphic.SetActive(false);
         }
     }
+
+    public virtual void UpdateBuildingActivation(){
+        if(IsActivated && buildingActivatedGraphic != null){
+            buildingActivatedGraphic.SetActive(true);  
+        }
+        if(!IsActivated && buildingActivatedGraphic != null){
+            buildingActivatedGraphic.SetActive(false);
+        }
+    }
 }

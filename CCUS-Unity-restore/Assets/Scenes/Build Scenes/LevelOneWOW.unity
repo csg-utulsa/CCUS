@@ -2520,6 +2520,7 @@ GameObject:
   - component: {fileID: 506658620}
   - component: {fileID: 506658621}
   - component: {fileID: 506658622}
+  - component: {fileID: 506658623}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -2614,6 +2615,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaed36ec97dae4c47943f076fe78c3f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+--- !u!114 &506658623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 506658617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9606724dc3ff8d44786642e3ae3b3f5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  radiusToDeactivate: 0.5
 --- !u!1001 &522281697
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8037,7 +8051,7 @@ GameObject:
   - component: {fileID: 1205465262}
   - component: {fileID: 1205465261}
   - component: {fileID: 1205465260}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RaycastHitter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8131,7 +8145,7 @@ Transform:
   m_GameObject: {fileID: 1205465259}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.2683, y: -0.03, z: -0.85}
+  m_LocalPosition: {x: -3.2683, y: 0, z: -0.85}
   m_LocalScale: {x: 5.393, y: 1, z: 4.5782}
   m_ConstrainProportionsScale: 0
   m_Children: []

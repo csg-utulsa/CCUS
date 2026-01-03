@@ -5879,6 +5879,7 @@ GameObject:
   - component: {fileID: -5747758757886434098}
   - component: {fileID: 7082364293375485206}
   - component: {fileID: 3159399386138731229}
+  - component: {fileID: 5286191409307436212}
   m_Layer: 0
   m_Name: Shack
   m_TagString: Object
@@ -5974,8 +5975,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.7970842, y: 0.12060317, z: 0.8040856}
-  m_Center: {x: 0.035311162, y: -0.048469838, z: 0.01644522}
+  m_Size: {x: 0.7970842, y: 0.6959676, z: 0.8040856}
+  m_Center: {x: 0.035311162, y: 0.4276822, z: 0.01644522}
 --- !u!54 &8935935631449693007
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6002,7 +6003,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &-5747758757886434098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6053,6 +6054,18 @@ MonoBehaviour:
   connected: 0
   checkedConnectivity: 0
   canvas: {fileID: 3166937364804318959}
+--- !u!114 &5286191409307436212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9171035400571233729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9089043adfa1cdf4a848a222a38bfd3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1001 &3339841640696085006
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6120,6 +6133,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: d4826c23c09fb9045bab9f5d5b427261, type: 3}
       propertyPath: m_Name
       value: 2025-11-25-Boswell-BaseHouse-v001
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d4826c23c09fb9045bab9f5d5b427261, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

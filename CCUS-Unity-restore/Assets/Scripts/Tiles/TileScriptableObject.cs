@@ -20,6 +20,7 @@ public class TileScriptableObject : ScriptableObject
     public int AnnualIncome;
     public int MaxPeople;
     public bool isResidence;
+    public bool isTerrain;
     public bool allowClickAndDrag = false;
     //public GameObject MyButton;
     public Mesh TileMesh;

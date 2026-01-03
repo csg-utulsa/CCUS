@@ -15,12 +15,12 @@ public class CameraMove : MonoBehaviour
         moveOrigin = transform.position;
     }
 
+
     void Update(){
         if(isMoving){
             
             moveTimer += Time.deltaTime;
             float percentageMoved = moveTimer / cameraMoveTime;
-            Debug.Log("Percentage Moved: " + percentageMoved);
             if(percentageMoved >= 1){
                 isMoving = false;
                 transform.position = moveDestination;

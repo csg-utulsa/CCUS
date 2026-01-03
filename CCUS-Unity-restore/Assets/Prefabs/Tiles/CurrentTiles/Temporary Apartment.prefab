@@ -7153,6 +7153,7 @@ GameObject:
   - component: {fileID: -5747758757886434098}
   - component: {fileID: 7082364293375485206}
   - component: {fileID: 3159399386138731229}
+  - component: {fileID: -5242415792276811256}
   m_Layer: 0
   m_Name: Temporary Apartment
   m_TagString: Object
@@ -7249,8 +7250,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3, y: 1, z: 3}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 2.0867417, y: 3.4089546, z: 3}
+  m_Center: {x: 0.047500197, y: 1.8644775, z: 0}
 --- !u!54 &8935935631449693007
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7277,7 +7278,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &-5747758757886434098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7328,6 +7329,18 @@ MonoBehaviour:
   connected: 0
   checkedConnectivity: 0
   canvas: {fileID: 3166937364804318959}
+--- !u!114 &-5242415792276811256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9171035400571233729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9089043adfa1cdf4a848a222a38bfd3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MouseHoverHideTile
 --- !u!1001 &496773761343131842
 PrefabInstance:
   m_ObjectHideFlags: 0

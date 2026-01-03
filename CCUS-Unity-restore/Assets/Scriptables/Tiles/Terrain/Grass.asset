@@ -20,6 +20,8 @@ MonoBehaviour:
   AnnualCarbonStored: 0
   AnnualIncome: 0
   MaxPeople: 0
+  isResidence: 0
+  isTerrain: 1
   allowClickAndDrag: 1
   TileMesh: {fileID: 0}
   thisTileClass: 0

@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 7055272838946634421}
   - component: {fileID: -4325390473545972412}
   - component: {fileID: 6800886591653229714}
+  - component: {fileID: -5532164775325637488}
   m_Layer: 0
   m_Name: Oak Tree Tile
   m_TagString: Object
@@ -107,8 +108,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.8353801, y: 3.8275452, z: 1.7199999}
+  m_Center: {x: 0.037691046, y: 2.153774, z: 0}
 --- !u!54 &7055272838946634421
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -135,7 +136,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &-4325390473545972412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,6 +167,18 @@ MonoBehaviour:
   squareRotation: 0
   scaleMin: 0.75
   scaleMax: 1.25
+--- !u!114 &-5532164775325637488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5158370238513952170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9089043adfa1cdf4a848a222a38bfd3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MouseHoverHideTile
 --- !u!1001 &620602910271166720
 PrefabInstance:
   m_ObjectHideFlags: 0
