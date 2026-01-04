@@ -195,7 +195,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5639402334884477844
 Transform:
   m_ObjectHideFlags: 0
@@ -325,7 +325,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7266196105497728644
 Transform:
   m_ObjectHideFlags: 0
@@ -5788,7 +5788,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6329187042673264179
 Transform:
   m_ObjectHideFlags: 0
@@ -5904,6 +5904,7 @@ Transform:
   - {fileID: 1168607608021026129}
   - {fileID: 8078159987059088695}
   - {fileID: 3013815503773900261}
+  - {fileID: 5409700868515899794}
   - {fileID: 7936081311012686877}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6076,7 +6077,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: d4826c23c09fb9045bab9f5d5b427261, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.9999999
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d4826c23c09fb9045bab9f5d5b427261, type: 3}
       propertyPath: m_LocalScale.y
@@ -6130,6 +6131,18 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: d4826c23c09fb9045bab9f5d5b427261, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: d4826c23c09fb9045bab9f5d5b427261, type: 3}
+      propertyPath: 'm_Materials.Array.data[10]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 6e37a3868b1cccd45b72e42ef83272cc, type: 2}
+    - target: {fileID: -7511558181221131132, guid: d4826c23c09fb9045bab9f5d5b427261, type: 3}
+      propertyPath: 'm_Materials.Array.data[11]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 0cb1d37efce8f9e45b3b29d6c5804be9, type: 2}
     - target: {fileID: 919132149155446097, guid: d4826c23c09fb9045bab9f5d5b427261, type: 3}
       propertyPath: m_Name
       value: 2025-11-25-Boswell-BaseHouse-v001
@@ -6147,6 +6160,98 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d4826c23c09fb9045bab9f5d5b427261, type: 3}
   m_PrefabInstance: {fileID: 3339841640696085006}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5519626687207067257
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8859714510574772770}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 69bcb1f6461963d48988b0c79977463e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.18000002
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 69bcb1f6461963d48988b0c79977463e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.18000002
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 69bcb1f6461963d48988b0c79977463e, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.18000002
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 69bcb1f6461963d48988b0c79977463e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.107
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 69bcb1f6461963d48988b0c79977463e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.288
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 69bcb1f6461963d48988b0c79977463e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.112
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 69bcb1f6461963d48988b0c79977463e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 69bcb1f6461963d48988b0c79977463e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 69bcb1f6461963d48988b0c79977463e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 69bcb1f6461963d48988b0c79977463e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 69bcb1f6461963d48988b0c79977463e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 69bcb1f6461963d48988b0c79977463e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 69bcb1f6461963d48988b0c79977463e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 69bcb1f6461963d48988b0c79977463e, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8432316785492117190, guid: 69bcb1f6461963d48988b0c79977463e, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8432316785492117190, guid: 69bcb1f6461963d48988b0c79977463e, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 0cb1d37efce8f9e45b3b29d6c5804be9, type: 2}
+    - target: {fileID: 919132149155446097, guid: 69bcb1f6461963d48988b0c79977463e, type: 3}
+      propertyPath: m_Name
+      value: 2025-11-25-Boswell-BaseHouse-v004
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 69bcb1f6461963d48988b0c79977463e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects:
+    - {fileID: -8700617353114198275, guid: 69bcb1f6461963d48988b0c79977463e, type: 3}
+    - {fileID: 65702495048144492, guid: 69bcb1f6461963d48988b0c79977463e, type: 3}
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 69bcb1f6461963d48988b0c79977463e, type: 3}
+--- !u!4 &5409700868515899794 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 69bcb1f6461963d48988b0c79977463e, type: 3}
+  m_PrefabInstance: {fileID: 5519626687207067257}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8615908115433601756
 PrefabInstance:

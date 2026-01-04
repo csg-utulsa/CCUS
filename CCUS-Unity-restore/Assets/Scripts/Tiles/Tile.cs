@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+
 //using UnityEngine.WSA;
 [SelectionBase]
 public class Tile : MonoBehaviour
@@ -15,6 +17,8 @@ public class Tile : MonoBehaviour
     private TileMaterialHandler tileMatHandler;
 
     public Vector3 tilePosition;
+
+    public GridCell gridCell {get; set;}
 
     private int _currentTileNetMoney = 0;
     private int _currentTileNetCarbon = 0;
@@ -72,6 +76,27 @@ public class Tile : MonoBehaviour
     public Vector3 getTileGridPosition(){
         tilePosition = BuildingSystem.current.SnapCoordinateToGrid(transform.position);
         return tilePosition;
+    }
+
+
+
+    public bool MouseIsOnTile(){
+        Vector3 mouseWorldPosition = BuildingSystem.GetMouseWorldPosition();
+        Vector3 mouseGridCoordinate = BuildingSystem.current.SnapCoordinateToGrid(mouseWorldPosition);
+        Vector3 mouseSnappedWorldPosition = new Vector3(mouseGridCoordinate.x, 0f, mouseGridCoordinate.z);
+        GameObject[] gameObjectsInCell =  GridManager.GM.GetGameObjectsInGridCell(mouseSnappedWorldPosition);
+        if (gameObjectsInCell.Contains(gameObject)){
+            return true;
+        } else{
+            return false;
+        }
+        // Vector3 mouseWorldPosition = BuildingSystem.GetMouseWorldPosition();
+        // if(GridManager.GM.GetGridCellFromWorldPoint(mouseWorldPosition) == gridCell){
+        //     return true;
+            
+        // }else{
+        //     return false;
+        // }
     }
 
 

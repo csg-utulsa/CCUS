@@ -16,7 +16,7 @@ public class TrashButtonScript : MonoBehaviour
 
     Vector3 previousGridPosition;
 
-    bool isSelected = false;
+    public bool isSelected {get; set;} = false;
 
     bool hasMoved = false;
 

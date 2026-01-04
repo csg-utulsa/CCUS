@@ -239,8 +239,6 @@ public class BuildingSystem : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if(Physics.Raycast(ray, out RaycastHit raycastHit, 30f, layer_mask))
         {
-            if(raycastHit.collider != null)
-                Debug.Log("Collider I hit: " + raycastHit.collider.gameObject);
             //BuildingSystem.current.mouseOverScreen = true;
             return raycastHit.point;
         }

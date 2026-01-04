@@ -16,9 +16,10 @@ public class creativeModeScript : MonoBehaviour
 
     void Update()
     {
-        //Activate creative mode on G + Ctrl + Space
-        //You must press space last
-        if(Debug.isDebugBuild && Input.GetKey(KeyCode.G) && (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)) && Input.GetKeyDown(KeyCode.Space)){
+        //Activate creative mode on Tab + G
+        //You must press G Last
+        //Prevents it from running in build if included: Debug.isDebugBuild && 
+        if(Input.GetKey(KeyCode.Tab) && Input.GetKeyDown(KeyCode.G)){
             creativeMode = !creativeMode;
             previousMaxCarbon = LevelManager.LM.getMaxCarbon();
             previousMoney = LevelManager.LM.GetMoney();
@@ -28,7 +29,7 @@ public class creativeModeScript : MonoBehaviour
             LevelManager.LM.setMaxCarbon(999999);
             LevelManager.LM.AdjustCarbon(-9999);
             wasJustInCreativeMode = true;
-            if(Input.GetKeyDown(KeyCode.P)){
+            if(Input.GetKeyDown(KeyCode.O)){
                 int[] progressionEventsToCall = new int[ProgressionManager.PM.progressEvents.Length];
                 for(int i = 0; i < ProgressionManager.PM.progressEvents.Length; i++){
                     progressionEventsToCall[i] = i;

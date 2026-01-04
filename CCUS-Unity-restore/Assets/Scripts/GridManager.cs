@@ -287,6 +287,7 @@ public class GridManager : MonoBehaviour
         return new Vector3(gridCoordinates.x - .5f, gridCoordinates.y - .01f, gridCoordinates.z - .5f);
     }
 
+
     //returns the Grid Cell Object for a given point
     public GridCell GetGridCell(int x, int z)
     {
@@ -296,12 +297,15 @@ public class GridManager : MonoBehaviour
         return positionsOfCells[x + (xLengthOfGrid / 2)][z + (yLengthOfGrid / 2) ];
     }
 
-    //returns the Grid Cell Object for a given world point
+    //returns the Grid Cell Object for a given world point.
+    //I think there's a glitch with this one
     public GridCell GetGridCellFromWorldPoint(Vector3 worldPointPosition)
     {
-        Vector3 positionInGrid = switchToGridCoordinates(new Vector3(worldPointPosition.x, worldPointPosition.y, 0f));
+        Vector3 positionInGrid = switchToGridCoordinates(worldPointPosition);
+        //Debug.Log("Got Grid Cell #" + ((int)positionInGrid.x + (xLengthOfGrid / 2)) + "" + ((int)positionInGrid.y + (yLengthOfGrid / 2)) + " at " + worldPointPosition);
         return positionsOfCells[(int)positionInGrid.x + (xLengthOfGrid / 2)][(int)positionInGrid.y + (yLengthOfGrid / 2)];
     }
+
 
     // //returns the world position for a Given grid cell
     // public Vector3 GetWorldPointFromGridCoordinate()
@@ -464,6 +468,8 @@ public class GridCell
         {
             GridManager gm = GridManager.GM;
             if(objectToAdd.GetComponent<Tile>() != null && objectToAdd.GetComponent<Tile>().tileScriptableObject != null){
+
+                //Keeps track of different tile types, like money tiles, residences, etc
                 foreach(TileTracker tileTracker in gm.tileTrackers){
                     tileTracker.CheckTileForAddition(objectToAdd.GetComponent<Tile>());
                 }
@@ -483,6 +489,10 @@ public class GridCell
             //xLocation = x;
             //yLocation = y;
             objectsInCell[numberOfObjectsInCell] = objectToAdd;
+            
+            Tile tile = objectToAdd.GetComponent<Tile>();
+            if(tile != null)
+                tile.gridCell = this;
             // Debug.Log("objects in cell: ");
             // for(int i = 0; i < objectsInCell.Length; i++){
             //     Debug.Log(objectsInCell[i]);
@@ -502,6 +512,8 @@ public class GridCell
                 GridManager gm = GridManager.GM;
                 //gm.RemoveGridObjectFromList(objectToRemove);
                 if(objectToRemove.GetComponent<Tile>() != null && objectToRemove.GetComponent<Tile>().tileScriptableObject != null){
+
+                    //Keeps track of different tile types, like money tiles, residences, etc
                     foreach(TileTracker tileTracker in gm.tileTrackers){
                         tileTracker.CheckTileForRemoval(objectToRemove.GetComponent<Tile>());
                     }
