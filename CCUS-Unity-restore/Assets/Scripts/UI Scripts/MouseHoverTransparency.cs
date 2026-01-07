@@ -158,7 +158,7 @@ public class MouseHoverTransparency : MonoBehaviour
 
     //Only disables models of tiles that are placed, aren't terrain, and don't have the delete box over them
     public bool ShouldDeactivateModel(GameObject model){
-        Debug.Log("Checking if we should deactivate this model");
+        
         if(model.GetComponent<Tile>() == null) return false;
 
         if(!model.GetComponent<PlaceableObject>().placed) return false;
@@ -166,7 +166,7 @@ public class MouseHoverTransparency : MonoBehaviour
         if(model.GetComponent<Tile>().tileScriptableObject.isTerrain) return false;
 
         if(TrashButtonScript.TBS.isSelected && model.GetComponent<Tile>().MouseIsOnTile()){
-            Debug.Log("trash should be disabled");
+
             return false;
 
         } 

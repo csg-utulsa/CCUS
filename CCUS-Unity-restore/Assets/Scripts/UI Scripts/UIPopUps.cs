@@ -14,12 +14,12 @@ public class UIPopUps : MonoBehaviour
 
     //This function displays pop ups over the money generating tiles.
     public void displayMoneyPopUps(){
-        GameObject[] allGridObjects = GridManager.GM.GetAllGridObjects();
-        foreach(GameObject gridObject in allGridObjects){
-            if(gridObject.GetComponent<Tile>() != null){
-                float tileAnnualIncome = gridObject.GetComponent<Tile>().tileScriptableObject.AnnualIncome;
+        Tile[] allGridObjects = GridManager.GM.AllTileTracker.GetAllTiles();
+        foreach(Tile gridObject in allGridObjects){
+            if(gridObject != null){
+                float tileAnnualIncome = gridObject.tileScriptableObject.AnnualIncome;
                 if(tileAnnualIncome > 0){
-                    GameObject newDollarSign = Instantiate(dollarSign, gridObject.transform.position + new Vector3(0f, heightAboveObject, 0f), dollarSign.transform.rotation);
+                    GameObject newDollarSign = Instantiate(dollarSign, gridObject.gameObject.transform.position + new Vector3(0f, heightAboveObject, 0f), dollarSign.transform.rotation);
                     newDollarSign.GetComponent<UIPopUpSize>().setSize(tileAnnualIncome, LevelManager.LM.getCurrentMaxTileIncome(), maxRangeToIncreaseSize);
                     
                 }
@@ -31,16 +31,16 @@ public class UIPopUps : MonoBehaviour
     //This function displays pop ups over the carbon generating pop ups.
     public void displayCarbonPopUps(){
         
-        GameObject[] allGridObjects = GridManager.GM.GetAllGridObjects();
-        foreach(GameObject gridObject in allGridObjects){
-            if(gridObject.GetComponent<Tile>() != null){
-                float tileAnnualCarbon = gridObject.GetComponent<Tile>().tileScriptableObject.AnnualCarbonAdded;
+        Tile[] allGridObjects = GridManager.GM.AllTileTracker.GetAllTiles();
+        foreach(Tile gridObject in allGridObjects){
+            if(gridObject != null){
+                float tileAnnualCarbon = gridObject.tileScriptableObject.AnnualCarbonAdded;
                 if(tileAnnualCarbon > 0){
                     //Debug.Log("Carbon Trying to Pop");
-                    GameObject newCarbonCloud = Instantiate(carbonCloud, gridObject.transform.position + new Vector3(0f, heightAboveObject, 0f), dollarSign.transform.rotation);
+                    GameObject newCarbonCloud = Instantiate(carbonCloud, gridObject.gameObject.transform.position + new Vector3(0f, heightAboveObject, 0f), dollarSign.transform.rotation);
                     newCarbonCloud.GetComponent<UIPopUpSize>().setSize(tileAnnualCarbon, LevelManager.LM.getCurrentMaxTileCarbon(), maxRangeToIncreaseSize);
                 } else if(tileAnnualCarbon < 0){
-                    GameObject newCarbonRemovalCloud = Instantiate(carbonRemovalCloud, gridObject.transform.position + new Vector3(0f, heightAboveObject, 0f), dollarSign.transform.rotation);
+                    GameObject newCarbonRemovalCloud = Instantiate(carbonRemovalCloud, gridObject.gameObject.transform.position + new Vector3(0f, heightAboveObject, 0f), dollarSign.transform.rotation);
                     newCarbonRemovalCloud.GetComponent<UIPopUpSize>().setSize(tileAnnualCarbon, LevelManager.LM.getCurrentMinTileCarbon(), maxRangeToIncreaseSize);
                 }
             }

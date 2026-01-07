@@ -6,10 +6,20 @@ using TMPro;
 public class TemporaryPeopleManager : MonoBehaviour
 {
     public int numberOfPeople = 0;
+    public int NumberOfPeople{
+        set{
+            numberOfPeople = value;
+            PeoplePanel._peoplePanel.NumberOfPeople = numberOfPeople;
+        }
+        get{
+            return numberOfPeople;
+        }
+    }
     public int incomeOfPerson = 2;
-    public int maxPeople = 0;
+    public int maxPeople {get; set;} = 0;
     public int NetPeopleIncome {get; set;} = 0;
     
+    public PeoplePanel peoplePanel;
     public static TemporaryPeopleManager TPM;
 
     void Start(){
@@ -17,17 +27,19 @@ public class TemporaryPeopleManager : MonoBehaviour
         if(TPM == null){
             TPM = this;
         }
+        peoplePanel = PeoplePanel._peoplePanel;
     }
 
     void OnMoneyTick(){
-        LevelManager.LM.AdjustMoney(numberOfPeople * incomeOfPerson);
+        LevelManager.LM.AdjustMoney(NumberOfPeople * incomeOfPerson);
     }
     
 
     private void AddAPerson(){
-        numberOfPeople++;
-        NetPeopleIncome = numberOfPeople * incomeOfPerson;
+        NumberOfPeople++;
+        NetPeopleIncome = NumberOfPeople * incomeOfPerson;
         LevelManager.LM.UpdateNetCarbonAndMoney();
+        
     }
 
     //Called from ObjectDrag when a tile is placed. It adds that tile's max people to the max people count
@@ -46,9 +58,11 @@ public class TemporaryPeopleManager : MonoBehaviour
         }
         maxPeople = _maxPeople;
 
-        if(numberOfPeople > maxPeople){
-            numberOfPeople = maxPeople;
+        if(NumberOfPeople > maxPeople){
+            NumberOfPeople = maxPeople;
         }
+
+        peoplePanel.MaxNumberOfPeople = maxPeople;
         
     }
 
@@ -59,20 +73,21 @@ public class TemporaryPeopleManager : MonoBehaviour
     public void AttemptToAddPerson(){
         if(CanAddMorePeople()){
             AddAPerson();
-            PeoplePanel._peoplePanel.NewPersonUIPopUp();
-        }else{
-            //Displays the "Can only add people to houses connected by roads" Error
-            if(!RoadAndResidenceConnectionManager.RARCM.AllResidencesAreConnected()){
-                unableToPlaceTileUI._unableToPlaceTileUI.mustConnectResidences();
-            }else{
-                unableToPlaceTileUI._unableToPlaceTileUI.notEnoughHomes();
-            }
-            
+            //PeoplePanel._peoplePanel.NewPersonUIPopUp();
         }
+        //else{
+        //     //Displays the "Can only add people to houses connected by roads" Error
+        //     if(!RoadAndResidenceConnectionManager.RARCM.AllResidencesAreConnected()){
+        //         unableToPlaceTileUI._unableToPlaceTileUI.mustConnectResidences();
+        //     }else{
+        //         unableToPlaceTileUI._unableToPlaceTileUI.notEnoughHomes();
+        //     }
+            
+        // }
     }
 
     public bool CanAddMorePeople(){
-        return (numberOfPeople < maxPeople);
+        return (NumberOfPeople < maxPeople);
     }
 
 }

@@ -8,22 +8,27 @@ using TMPro;
 public class PressPeopleButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
 
     public GameObject buttonPressedGraphic;
+    public GameObject buttonUnpressedGraphic;
     //public GameObject newPersonUIFeedback;
     public GameObject peopleButtonEnabledImage;
     //public GameObject peopleCounter;
 
     public float UIFeedbackHeight = 3f;
     public TemporaryPeopleManager _TPM;
+    public PeoplePanel PeoplePanel;
     private bool enabled = false;
     public static PressPeopleButton PPB;
 
-    void Start(){
+    void Awake(){
         if(TemporaryPeopleManager.TPM != null){
           _TPM = TemporaryPeopleManager.TPM;  
         }
         if(PPB == null){
             PPB = this;
+        } else{
+            Destroy(this);
         }
+        
     }
 
 
@@ -31,9 +36,11 @@ public class PressPeopleButton : MonoBehaviour, IPointerDownHandler, IPointerUpH
     public void OnPointerDown(PointerEventData eventData) {
         if(!enabled) return;
         buttonPressedGraphic.SetActive(true);
+        buttonUnpressedGraphic.SetActive(false);
 
-        TemporaryPeopleManager.TPM.AttemptToAddPerson();
-        //Replace with function in temporary people manager
+        PeoplePanel._peoplePanel.PeopleButtonPressed();
+        
+        //Replaced with function in temporary people manager
         // if(_TPM.CanAddMorePeople()){
         //     _TPM.AddAPerson();
         //     GameObject UIFeedbackObject = Instantiate(newPersonUIFeedback, this.transform);//new Vector3(transform.position.x, transform.position.y + UIFeedbackHeight, transform.position.z), newPersonUIFeedback.transform.rotation);
@@ -53,12 +60,13 @@ public class PressPeopleButton : MonoBehaviour, IPointerDownHandler, IPointerUpH
     public void OnPointerUp(PointerEventData eventData) {
         if(!enabled) return;
         buttonPressedGraphic.SetActive(false);
+        buttonUnpressedGraphic.SetActive(true);
     }
 
     public void EnablePeopleButton(){
         enabled = true;
         peopleButtonEnabledImage.SetActive(true);
         //peopleCounter.SetActive(true);
-        GetComponent<SizingEmphasis>().WobbleGraphic();
+        //GetComponent<SizingEmphasis>().WobbleGraphic();
     }
 }

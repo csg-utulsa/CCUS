@@ -1,5 +1,3 @@
-//TODO/FIXME: This script and PlaceableObject are awfully similar. We should probably merge them eventually to simplify things
-
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
@@ -311,7 +309,7 @@ public class ObjectDrag : MonoBehaviour
                 tileMaterialHandler.MaterialSet(TileMaterialHandler.matState.HoveringValid);
             } 
         }
-        
+
         
     }
 

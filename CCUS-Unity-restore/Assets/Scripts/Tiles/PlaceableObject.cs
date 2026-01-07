@@ -1,5 +1,3 @@
-//TODO/FIXME: This script and ObjectDrag are awfully similar. We should probably merge them eventually to simplify things
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
