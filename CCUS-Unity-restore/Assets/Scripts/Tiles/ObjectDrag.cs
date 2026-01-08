@@ -119,8 +119,8 @@ public class ObjectDrag : MonoBehaviour
         }
 
         //Updates residence connections
-        if(GetComponent<RoadConnections>() != null || GetComponent<ResidentialBuilding>() != null){
-            GridManager.GM.UpdateResidenceConnections(gameObject);
+        if(GetComponent<ActivatableTile>() != null){
+            RoadAndResidenceConnectionManager.RARCM.UpdateResidenceConnections(gameObject);
 
             
             // foreach(ResidentialBuilding residence in GridManager.GM.GetResidentialTiles()){
@@ -131,8 +131,8 @@ public class ObjectDrag : MonoBehaviour
         
 
         //Updates the cap on number of people
-        if(TemporaryPeopleManager.TPM != null){
-            TemporaryPeopleManager.TPM.UpdateMaxPeople();
+        if(PeopleManager.current != null){
+            PeopleManager.current.UpdateMaxPeople();
         }
 
 
@@ -165,7 +165,7 @@ public class ObjectDrag : MonoBehaviour
             // }
 
             foreach(GameObject neighboringTile in GridManager.GM.GetRoadNeighbors(gameObject)){
-                GridManager.GM.UpdateResidenceConnections(neighboringTile);
+                RoadAndResidenceConnectionManager.RARCM.UpdateResidenceConnections(neighboringTile);
             }
 
             
@@ -174,9 +174,9 @@ public class ObjectDrag : MonoBehaviour
         
         
         //Updates the cap on number of people
-        if(TemporaryPeopleManager.TPM != null){
+        if(PeopleManager.current != null){
             
-            TemporaryPeopleManager.TPM.UpdateMaxPeople();
+            PeopleManager.current.UpdateMaxPeople();
         }
 
         Destroy(gameObject);

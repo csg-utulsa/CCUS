@@ -39,16 +39,18 @@ public class TileSelectPanel : ScrollableArea
     //float lastTimeOfScroll = 0f;
 
     TileScriptableObject[] allTileScriptableObjects;//= new TileScriptableObject[];
-
+    Tile[] allTiles;
     bool buttonIsSelected = false;
 
-    bool[] disabledPollutionButtons;
-    bool[] disabledMoneyButtons;
+    //bool[] disabledPollutionButtons;
+    //bool[] disabledMoneyButtons;
+    bool[] disabledButtons;
 
     //public GameObject testPrefabToAdd;
     
     void Awake(){
         TSP = this;
+        TickManager.TM.EndOfMoneyAndPollutionTicks.AddListener(EndOfTicks);
     }
 
     void Start()
@@ -63,13 +65,14 @@ public class TileSelectPanel : ScrollableArea
                 tileButtons[i] = buttonRectComponents[i].transform.gameObject;
             }
             allTileScriptableObjects =  new TileScriptableObject[tileButtons.Length];
-            disabledPollutionButtons = new bool[tileButtons.Length];
-            disabledMoneyButtons = new bool[tileButtons.Length];
+            allTiles = new Tile[tileButtons.Length];
+            //disabledPollutionButtons = new bool[tileButtons.Length];
+            //disabledMoneyButtons = new bool[tileButtons.Length];
+            disabledButtons = new bool[tileButtons.Length];
             for(int i = 0; i < tileButtons.Length; i++){
                 allTileScriptableObjects[i] = tileButtons[i].GetComponent<buttonScript>().tileToPlace.GetComponent<Tile>().tileScriptableObject;
-                disabledPollutionButtons[i] = false;
-                
-                disabledMoneyButtons[i] = false;
+                disabledButtons[i] = false;
+                allTiles[i] = tileButtons[i].GetComponent<buttonScript>().tileToPlace.GetComponent<Tile>();
             }
 
         }else{
@@ -77,26 +80,11 @@ public class TileSelectPanel : ScrollableArea
         }
         //Moves all the buttons to their proper position;
         updateButtonPositions();
+        CheckPlaceabilityOfTiles();
     }
 
 
-    // //Input the prefab for the button you want to turn on.
-    // public void AddButton(GameObject prefabOfButton){
-    //     //Displays "NEW TILE!" graphic
-    //     Debug.Log("adding tile");
-    //     unableToPlaceTileUI._unableToPlaceTileUI.newTile();
-    //     for(int i = 0; i < allTileScriptableObjects.Length; i++){
-    //         if(prefabOfButton.GetComponent<Tile>().tileScriptableObject == allTileScriptableObjects[i]){
-    //             tileButtons[i].SetActive(true);
-    //             updateButtonPositions();
-    //         }else{
-    //             Debug.LogError("None of the tile Buttons are for the prefab you're trying to turn on the button for.");
-    //         }
-    //     }
-
-    //     //Displays "NEW TILE!" graphic
-    //     unableToPlaceTileUI._unableToPlaceTileUI.newTile();
-    // }
+    
 
     //Input the button script for the button you want to turn on
     public void AddButton(buttonScript _buttonScript){
@@ -125,40 +113,57 @@ public class TileSelectPanel : ScrollableArea
         }
     }
 
-    //When called, this function disables the tile buttons above a certain price, and enables the tiles below that price.
-    public void checkPricesOfTiles(int currentAmountOfMoney){
+    //Runs at the end of each money and pollution tick
+    public void EndOfTicks(){
+        CheckPlaceabilityOfTiles();
+    }
+
+    public void CheckPlaceabilityOfTiles(){
         for(int i = 0; i < tileButtons.Length; i++){
-            if(allTileScriptableObjects[i].BuildCost > LevelManager.LM.GetMoney()){
-                disabledMoneyButtons[i] = true;
+            if(allTiles[i].CheckIfTileIsPlaceable(false)){
+                disabledButtons[i] = false;
             } else{
-                disabledMoneyButtons[i] = false;
+                disabledButtons[i] = true;
             }
         }
         visuallyUpdateDisabledButtons();
         updateActiveTileGraphics();
     }
 
-    //disables all buttons for tiles that emit pollution
-    public void disablePolluters(){
-        for(int i = 0; i < tileButtons.Length; i++){
-            if(allTileScriptableObjects[i].AnnualCarbonAdded > 0f){
-                disabledPollutionButtons[i] = true;
-            }
-        }
-        visuallyUpdateDisabledButtons();
-        updateActiveTileGraphics();
-    }
+    //When called, this function disables the tile buttons above a certain price, and enables the tiles below that price.
+    // public void checkPricesOfTiles(int currentAmountOfMoney){
+    //     for(int i = 0; i < tileButtons.Length; i++){
+    //         if(allTileScriptableObjects[i].BuildCost > LevelManager.LM.GetMoney()){
+    //             disabledMoneyButtons[i] = true;
+    //         } else{
+    //             disabledMoneyButtons[i] = false;
+    //         }
+    //     }
+    //     visuallyUpdateDisabledButtons();
+    //     updateActiveTileGraphics();
+    // }
 
-    //enables all buttons for tiles that emit pollution
-    public void enablePolluters(){
-        for(int i = 0; i < tileButtons.Length; i++){
-            if(allTileScriptableObjects[i].AnnualCarbonAdded > 0f){
-                disabledPollutionButtons[i] = false;
-            }
-        }
-        visuallyUpdateDisabledButtons();
-        updateActiveTileGraphics();
-    }
+    // //disables all buttons for tiles that emit pollution
+    // public void disablePolluters(){
+    //     for(int i = 0; i < tileButtons.Length; i++){
+    //         if(allTileScriptableObjects[i].AnnualCarbonAdded > 0f){
+    //             disabledPollutionButtons[i] = true;
+    //         }
+    //     }
+    //     visuallyUpdateDisabledButtons();
+    //     updateActiveTileGraphics();
+    // }
+
+    // //enables all buttons for tiles that emit pollution
+    // public void enablePolluters(){
+    //     for(int i = 0; i < tileButtons.Length; i++){
+    //         if(allTileScriptableObjects[i].AnnualCarbonAdded > 0f){
+    //             disabledPollutionButtons[i] = false;
+    //         }
+    //     }
+    //     visuallyUpdateDisabledButtons();
+    //     updateActiveTileGraphics();
+    // }
     
     void updateActiveTileGraphics(){
         GameObject _aciveObject = BuildingSystem.current.activeObject;
@@ -170,7 +175,7 @@ public class TileSelectPanel : ScrollableArea
     //turns disabled buttons red
     void visuallyUpdateDisabledButtons(){
         for(int i = 0; i < tileButtons.Length; i++){
-            if(disabledPollutionButtons[i] || disabledMoneyButtons[i]){
+            if(disabledButtons[i]){
                 tileButtons[i].GetComponent<Image>().color = Color.red;
             } else{
                 tileButtons[i].GetComponent<Image>().color = Color.white;
@@ -184,21 +189,24 @@ public class TileSelectPanel : ScrollableArea
         TrashButtonScript.TBS.trashButtonDeselected();
         //runs if the user clicks a button that isn't currently selected
         if(!buttonIsSelected || clickedButton != selectedButton){
-            //Debug.Log("Ran that button isn't selected");
 
-            //The next three if statements check if the button the user clicked is disabled. If it is, it prevents the user from selecting it.
-            bool doNotSelectButton = false;
-            //Debug.Log("Offensive Index: " + Array.IndexOf(tileButtons, clickedButton));
-            //Debug.Log("Offended Array: " + disabledPollutionButtons);
-            if(disabledPollutionButtons[Array.IndexOf(tileButtons, clickedButton)]){
-                unableToPlaceTileUI._unableToPlaceTileUI.tooMuchCarbon();
-                doNotSelectButton = true;
+
+            // if(disabledPollutionButtons[Array.IndexOf(tileButtons, clickedButton)]){
+            //     unableToPlaceTileUI._unableToPlaceTileUI.tooMuchCarbon();
+            //     doNotSelectButton = true;
+            // }
+            // if(disabledMoneyButtons[Array.IndexOf(tileButtons, clickedButton)]){
+            //     unableToPlaceTileUI._unableToPlaceTileUI.notEnoughMoney();
+            //     doNotSelectButton = true;
+            // }
+
+            //refuses to select button if its disabled
+            int indexOfButtonClicked = Array.IndexOf(tileButtons, clickedButton);
+            if(disabledButtons[indexOfButtonClicked]){
+                allTiles[indexOfButtonClicked].CheckIfTileIsPlaceable(true);
+                return;
             }
-            if(disabledMoneyButtons[Array.IndexOf(tileButtons, clickedButton)]){
-                unableToPlaceTileUI._unableToPlaceTileUI.notEnoughMoney();
-                doNotSelectButton = true;
-            }
-            if(doNotSelectButton) { return;}
+
 
 
             buttonIsSelected = true;
@@ -223,27 +231,8 @@ public class TileSelectPanel : ScrollableArea
     }
 
 
-    //Moved to Another Script in an attempt at modularity
-    // void Update()
-    // {
-    //     //The next two if functions deal with scrolling (Move these to a separate script at some point)
-    //     //They check if the user is scrolling
-    //     float scrollFactor = Input.GetAxis("Mouse ScrollWheel"); 
-    //     if(scrollFactor != 0f){
-    //         //Checks if the user's mouse is over the panel
-    //         if (isMouseOverScrollingPanel()){
-    //             currentlyScrolling = true;
-    //             timeStoppedMovingScrollWheel = Time.time;
-    //             actualScrollOffset -= scrollFactor*scrollSpeed;
-    //         }
-    //     }
-    //     if(currentlyScrolling){
-    //         visiblyScrollButtons();
-    //     }
-    // }
 
     public override void UpdateUIElementsPositions(){
-       //Debug.Log("instance called");
         updateButtonPositions();
         
     }

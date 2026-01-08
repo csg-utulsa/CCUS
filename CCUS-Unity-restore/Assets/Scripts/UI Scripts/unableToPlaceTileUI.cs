@@ -1,7 +1,9 @@
 //To add a new UI Error Graphic:
-//1) Add it to errorGraphics array IN INSPECTOR
-//2) Add the time it should be shown to the timesToShowGraphics array IN INSPECTOR
+//1) IN INSPECTOR: Add it to errorGraphics array 
+//2) IN INSPECTOR: Add the time it should be shown to the timesToShowGraphics array 
 //3) In its function, call ErrorGraphicTimers[x].DisplayErrorGraphic
+
+//FIXME / TODO replace the list of error functions with one function and an enum input
 
 using System.Collections;
 using System.Collections.Generic;
@@ -11,19 +13,6 @@ public class unableToPlaceTileUI : MonoBehaviour
 {
 
     public static unableToPlaceTileUI _unableToPlaceTileUI;
-
-    float carbonGraphicTimer = 0f;
-    float moneyGraphicTimer = 0f;
-    float homesGraphicTimer = 0f;
-    float newTileGraphicTimer = 0f;
-
-    public float timeToShowErrorGraphic = 1.5f;
-    public float timeToShowNewTileGraphic = 2.3f;
-
-    public GameObject tooMuchCarbonGraphic;
-    public GameObject notEnoughMoneyGraphic;
-    public GameObject notEnoughHomesGraphic;
-    public GameObject newTileGraphic;
 
     public GameObject[] errorGraphics;
 
@@ -64,47 +53,38 @@ public class unableToPlaceTileUI : MonoBehaviour
         
     }
 
+
+
     //Displays the error that says: TOO MUCH CARBON!!!
     public void tooMuchCarbon(){
         errorGraphicTimers[0].DisplayErrorGraphic();
-        // carbonGraphicTimer = timeToShowErrorGraphic;
-        // tooMuchCarbonGraphic.SetActive(true);
-        // tooMuchCarbonGraphic.GetComponent<ShakeGraphic>().ShakeItUp();
-        // tooMuchCarbonGraphic.GetComponent<FadeGraphic>().StopFading();
         
     }
 
     //Displays the error that says: NOT ENOUGH MONEY!!!!!
     public void notEnoughMoney(){
         errorGraphicTimers[1].DisplayErrorGraphic();
-        // moneyGraphicTimer = timeToShowErrorGraphic;
-        // notEnoughMoneyGraphic.SetActive(true);
-        // notEnoughMoneyGraphic.GetComponent<ShakeGraphic>().ShakeItUp();
-        // notEnoughMoneyGraphic.GetComponent<FadeGraphic>().StopFading();
     }
 
     //Displays the message that says: NOT ENOUGH HOMES!!!
     public void notEnoughHomes(){
         errorGraphicTimers[2].DisplayErrorGraphic();
-        // homesGraphicTimer = timeToShowErrorGraphic;
-        // notEnoughHomesGraphic.SetActive(true);
-        // notEnoughHomesGraphic.GetComponent<ShakeGraphic>().ShakeItUp();
-        // notEnoughHomesGraphic.GetComponent<FadeGraphic>().StopFading();
     }
 
 
     //Displays the message that says a new tile has appeared
     public void newTile(){
         errorGraphicTimers[3].DisplayErrorGraphic();
-        // newTileGraphicTimer = timeToShowNewTileGraphic;
-        // newTileGraphic.SetActive(true);
-        // newTileGraphic.GetComponent<ShakeGraphic>().ShakeItUp();
-        // newTileGraphic.GetComponent<FadeGraphic>().StopFading();
     }
 
 
     public void mustConnectResidences(){
         errorGraphicTimers[4].DisplayErrorGraphic();
+    }
+
+
+    public void NotEnoughPeople(){
+        errorGraphicTimers[5].DisplayErrorGraphic();
     }
 
     void Update(){

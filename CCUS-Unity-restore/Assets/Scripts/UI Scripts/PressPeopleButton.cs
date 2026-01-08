@@ -14,14 +14,14 @@ public class PressPeopleButton : MonoBehaviour, IPointerDownHandler, IPointerUpH
     //public GameObject peopleCounter;
 
     public float UIFeedbackHeight = 3f;
-    public TemporaryPeopleManager _TPM;
+    public PeopleManager peopleManager;
     public PeoplePanel PeoplePanel;
     private bool enabled = false;
     public static PressPeopleButton PPB;
 
     void Awake(){
-        if(TemporaryPeopleManager.TPM != null){
-          _TPM = TemporaryPeopleManager.TPM;  
+        if(PeopleManager.current != null){
+          peopleManager = PeopleManager.current;  
         }
         if(PPB == null){
             PPB = this;

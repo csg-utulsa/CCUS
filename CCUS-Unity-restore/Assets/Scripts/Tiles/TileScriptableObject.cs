@@ -19,9 +19,10 @@ public class TileScriptableObject : ScriptableObject
     public int AnnualCarbonStored;
     public int AnnualIncome;
     public int MaxPeople;
+    public int RequiredEmployees = 00;
     public bool isResidence;
     public bool isTerrain;
-    public bool allowClickAndDrag = false;
+    public bool allowClickAndDrag = true;
     //public GameObject MyButton;
     public Mesh TileMesh;
     

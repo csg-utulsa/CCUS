@@ -369,6 +369,9 @@ public class BuildingSystem : MonoBehaviour
 
     public bool CanBePlaced(PlaceableObject placeableObject, bool attemptingToPlaceTile)
     {
+        //Guard against null Tile Reference
+        if (activeTile == null) return false;
+
         //Checks if the mouse is over the screen. If not, it can't be placed
         if(!isMouseOverScreen()){
             return false;
@@ -385,12 +388,17 @@ public class BuildingSystem : MonoBehaviour
             return false;
 
 
+        if(attemptingToPlaceTile){
+            return activeTile.CheckIfTileIsPlaceable(true);
+        }else{
+            return activeTile.CheckIfTileIsPlaceable(false);
+        }
 
 
 
         //Checks if trying to place object over same object
-        //Guard against a missing Tile reference and use the GridManager singleton instance
-        if (activeTile == null) return false;
+        //Use the GridManager singleton instance
+        
         foreach (GameObject obj in GridManager.GM.GetGameObjectsInGridCell(activeTile.gameObject))
         {
             Tile tile = obj.GetComponent<Tile>();
@@ -400,18 +408,7 @@ public class BuildingSystem : MonoBehaviour
             }
         }
 
-        //Checks if there is too much carbon to place tile
-        if(placeableObject.GetComponent<Tile>().tooMuchCarbonToPlace() && attemptingToPlaceTile){
-            unableToPlaceTileUI._unableToPlaceTileUI.tooMuchCarbon();
-            return false;
-        }
-
-        //Checks if there is not enough money to place the tile
-        if (placeableObject.GetComponent<Tile>().notEnoughMoneyToPlace() && attemptingToPlaceTile)
-        {
-            unableToPlaceTileUI._unableToPlaceTileUI.notEnoughMoney();
-            return false;
-        }
+        
 
 
         foreach (var b in baseArray)

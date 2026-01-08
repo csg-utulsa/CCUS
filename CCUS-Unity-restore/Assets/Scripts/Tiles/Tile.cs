@@ -99,6 +99,30 @@ public class Tile : MonoBehaviour
         // }
     }
 
+    public virtual bool CheckIfTileIsPlaceable(bool displayErrorMessages){
+        //Checks if there is too much carbon to place tile
+        if(tooMuchCarbonToPlace()){
+            if(displayErrorMessages){
+                unableToPlaceTileUI._unableToPlaceTileUI.tooMuchCarbon();
+            }
+            
+            return false;
+        }
+
+        //Checks if there is not enough money to place the tile
+        if (notEnoughMoneyToPlace())
+        {
+            if(displayErrorMessages){
+                unableToPlaceTileUI._unableToPlaceTileUI.notEnoughMoney();
+            }
+            return false;
+        }
+        
+        return true;
+
+        
+    }
+
 
 
     // This method is pretty bad but I needed to have it to test features. Can be reworked at a later date. ~Coleton
@@ -112,43 +136,6 @@ public class Tile : MonoBehaviour
         state = ts;
     }
 
-    void OnTick()
-    {
-
-        // I split this tick up into a separate pollution tick and money tick
-        // if (state != TileState.Static) return;
-        // if (tileScriptableObject.AnnualIncome != 0)
-        //     dm.AdjustMoney(tileScriptableObject.AnnualIncome);
-        // if (tileScriptableObject.AnnualCost != 0)
-        //     dm.AdjustMoney(-1 * tileScriptableObject.AnnualCost);
-        // if (tileScriptableObject.AnnualCarbonStored != 0)
-        //     dm.AdjustStored(tileScriptableObject.AnnualCarbonStored);
-        // if (tileScriptableObject.AnnualCarbonRemoved != 0)
-        //     dm.AdjustCarbon(-1 * tileScriptableObject.AnnualCarbonRemoved);
-        // if (tileScriptableObject.AnnualCarbonAdded != 0)
-        //     dm.AdjustCarbon(tileScriptableObject.AnnualCarbonAdded);
-    }
-
-    void OnPollutionTick()
-    {
-        if (state != TileState.Static) return;
-        if (tileScriptableObject.AnnualCarbonAdded != 0){
-            //Moved to Level Manager
-            //dm.AdjustCarbon(tileScriptableObject.AnnualCarbonAdded);
-        }
-            
-
-    }
-
-    void OnMoneyTick()
-    {
-        if (state != TileState.Static) return;
-        if (tileScriptableObject.AnnualIncome != 0){
-            dm.AdjustMoney(tileScriptableObject.AnnualIncome);
-        }
-             
-
-    }
 
     public bool tooMuchCarbonToPlace(){
         if(tileScriptableObject.AnnualCarbonAdded <= 0){
@@ -208,9 +195,6 @@ public class Tile : MonoBehaviour
 
     private void Awake()
     {
-        TickManager.TM.Tick.AddListener(OnTick);
-        TickManager.TM.PollutionTick.AddListener(OnPollutionTick);
-        TickManager.TM.MoneyTick.AddListener(OnMoneyTick);
         tileMatHandler = gameObject.GetComponent<TileMaterialHandler>();
         dm = LevelManager.LM;
 

@@ -36,8 +36,9 @@ public class SetObjectMaterialsToDitherShader : EditorWindow
         buttonStyle.fontStyle = FontStyle.Bold;
 
         GUILayout.Label("Switch Object Material Shaders", textStyle, GUILayout.Width(150));
+        GUILayout.Label("Drag in the 3D Model whose materials you want to change:", textStyle, GUILayout.Width(150));
 
-        ObjectToChangeShader = (GameObject)EditorGUILayout.ObjectField("Game Object: ", ObjectToChangeShader, typeof(GameObject), false);
+        ObjectToChangeShader = (GameObject)EditorGUILayout.ObjectField("Model: ", ObjectToChangeShader, typeof(GameObject), false);
 
         if (GUILayout.Button("Set to Dither Shader", buttonStyle)){
             Renderer matRenderer = ObjectToChangeShader.GetComponent<Renderer>();

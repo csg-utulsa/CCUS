@@ -10,13 +10,16 @@ public class PeoplePanel : MonoBehaviour
     public GameObject newPersonUIFeedback;
     public TextMeshProUGUI maxNumberOfPeopleText;
     public TextMeshProUGUI numberOfPeopleText;
+    public TextMeshProUGUI numberUnemployedText;
     public FlowFillAmount flowFillAmountOfPeople;
+    private float percentOfPeopleEmployed = 0f;
     private int maxNumberOfPeople = 0;
     public int MaxNumberOfPeople {
         set{
             maxNumberOfPeople = value;
             UpdateFlowFillAmount();
             maxNumberOfPeopleText.text = "" + maxNumberOfPeople;
+            UpdateEmployeeCounter();
         }
     
     }
@@ -26,6 +29,16 @@ public class PeoplePanel : MonoBehaviour
             numberOfPeople = value;
             UpdateFlowFillAmount();
             numberOfPeopleText.text = "" + numberOfPeople;
+            UpdateEmployeeCounter();
+        }
+    
+    }
+
+    private int numberOfEmployees = 0;
+    public int NumberOfEmployees {
+        set{
+            numberOfEmployees = value;
+            UpdateEmployeeCounter();
         }
     
     }
@@ -45,7 +58,7 @@ public class PeoplePanel : MonoBehaviour
     }
 
     public void PeopleButtonPressed(){
-        if(TemporaryPeopleManager.TPM.CanAddMorePeople()){
+        if(PeopleManager.current.CanAddMorePeople()){
             AddPerson();
             
         }else{
@@ -61,7 +74,7 @@ public class PeoplePanel : MonoBehaviour
     }
 
     public void AddPerson(){
-        TemporaryPeopleManager.TPM.AttemptToAddPerson();
+        PeopleManager.current.AttemptToAddPerson();
         NewPersonUIPopUp();
         UpdateFlowFillAmount();
         
@@ -78,6 +91,12 @@ public class PeoplePanel : MonoBehaviour
         
     }
 
+    public void UpdateEmployeeCounter(){
+        //Calculates number of unemployed people, but if it's less than 0, it just says 0
+        int numberUnemployed = ((numberOfPeople - numberOfEmployees) > (-1))? ((numberOfPeople - numberOfEmployees)) : (0);
+        if(numberUnemployedText != null) numberUnemployedText.text = "" + numberUnemployed;
+    }
+
     public void EnablePeoplePanel(){
         //peopleCounter.SetActive(true);
         PressPeopleButton.PPB.EnablePeopleButton();
@@ -86,7 +105,7 @@ public class PeoplePanel : MonoBehaviour
 
     public void NewPersonUIPopUp(){
         GameObject UIFeedbackObject = Instantiate(newPersonUIFeedback);
-        UIFeedbackObject.GetComponentInChildren<TextMeshProUGUI>().text = "+$" + TemporaryPeopleManager.TPM.incomeOfPerson;
+        UIFeedbackObject.GetComponentInChildren<TextMeshProUGUI>().text = "+$" + PeopleManager.current.incomeOfPerson;
     }
 
     public bool isMouseOverPanel(){

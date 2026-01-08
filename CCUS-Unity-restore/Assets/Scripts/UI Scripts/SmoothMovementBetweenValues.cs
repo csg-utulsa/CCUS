@@ -6,7 +6,6 @@ public class SmoothMovementBetweenValues : MonoBehaviour
         
         float deltaValue = valueTwo - valueOne;
         float currentValue = valueOne + ( deltaValue * (currentTime / totalTime) );
-        Debug.Log("Moved to " + currentValue);
         return currentValue;
     }
 }

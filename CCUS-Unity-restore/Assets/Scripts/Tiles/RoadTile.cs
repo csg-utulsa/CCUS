@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class RoadTile : ActivatableBuilding
+public class RoadTile : ActivatableTile
 {
 
     // //This method displays if this road is connecting two or more residences

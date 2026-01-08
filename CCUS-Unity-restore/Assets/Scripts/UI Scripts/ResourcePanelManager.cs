@@ -76,7 +76,7 @@ public class ResourcePanelManager : MonoBehaviour
         }
 
         if(peopleText != null){
-            peopleText.text = "" + TemporaryPeopleManager.TPM.numberOfPeople;
+            peopleText.text = "" + PeopleManager.current.numberOfPeople;
         }
     }
 

@@ -26,6 +26,7 @@ public class TickManager : MonoBehaviour
     public UnityEvent Tick { get; private set; }
     public UnityEvent PollutionTick { get; private set; }
     public UnityEvent MoneyTick { get; private set; }
+    public UnityEvent EndOfMoneyAndPollutionTicks { get; private set; }
     float timer;
     float separateTickTimer = 0f;
     public float secBetweenYears = 4;//time between ticks in seconds
@@ -37,11 +38,12 @@ public class TickManager : MonoBehaviour
         Tick = new UnityEvent();
         PollutionTick = new UnityEvent();
         MoneyTick = new UnityEvent();
+        EndOfMoneyAndPollutionTicks = new UnityEvent();
     }
 
     private void Update()
     {
-        //Legacy Ticks (REMOVE)
+        //Legacy Ticks (REMOVE EVENTUALLY)
         timer += Time.deltaTime;
         if (timer > secBetweenYears)
         {
@@ -56,14 +58,21 @@ public class TickManager : MonoBehaviour
             if(tickType == 0){
                 tickType++;
                 MoneyTick.Invoke();
+                EndOfMoneyAndPollutionTicks.Invoke();
             } else{
                 tickType = 0;
                 PollutionTick.Invoke();
+                EndOfMoneyAndPollutionTicks.Invoke();
             }
             separateTickTimer = 0f;
         }
 
     }
+
+    // IEnumerator endOfMoneyAndPollutionTicks(){
+    //     yield return null;
+    //     checkPlaceabilityOfTiles();
+    // }
 
     
 }

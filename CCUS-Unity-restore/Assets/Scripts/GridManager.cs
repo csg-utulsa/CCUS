@@ -27,6 +27,7 @@ public class GridManager : MonoBehaviour
     public TileTracker CarbonTileTracker { get; set; }
     public TileTracker RoadTileTracker { get; set; }
     public TileTracker ResidenceTileTracker { get; set; }
+    public TileTracker FactoryTileTracker { get; set; }
 
 
     void Awake(){
@@ -55,7 +56,7 @@ public class GridManager : MonoBehaviour
         }
 
         //Activates all the tile trackers, to keep track of every added tile of each type.
-        tileTrackers = new TileTracker[5];
+        tileTrackers = new TileTracker[6];
 
         AllTileTracker = new AllTileTracker();
         tileTrackers[0] = AllTileTracker;
@@ -71,6 +72,9 @@ public class GridManager : MonoBehaviour
 
         RoadTileTracker = new RoadTileTracker();
         tileTrackers[4] = RoadTileTracker;
+
+        FactoryTileTracker = new FactoryTileTracker();
+        tileTrackers[5] = FactoryTileTracker;
     }
 
 
@@ -192,8 +196,8 @@ public class GridManager : MonoBehaviour
 
             foreach (GameObject obj in GridManager.GM.GetGameObjectsInGridCell(checkWorldPos))
             {
-                //Checks if a neighbor object is either a road or a residential buildings, since those are the only things roads connect to
-                if(obj.GetComponent<RoadConnections>() != null || obj.GetComponent<ResidentialBuilding>()){
+                //Checks if a neighbor object is an activatable tile (like roads, residences, or factories), since those are the only things roads connect to
+                if(obj.GetComponent<ActivatableTile>() != null){
                     tileNeighbors[i] = obj;
                 }
             }
@@ -355,93 +359,93 @@ public class GridManager : MonoBehaviour
         positionsOfCells[(int)positionInGrid.x + (xLengthOfGrid / 2)][(int)positionInGrid.z + (yLengthOfGrid / 2)].RemoveObject(objectToRemove);
     }
 
-    public void UpdateResidenceConnections(GameObject objectToCheck){
+    // public void UpdateResidenceConnections(GameObject objectToCheck){
 
-        if(objectToCheck != null && (objectToCheck.GetComponent<RoadConnections>() != null || objectToCheck.GetComponent<ResidentialBuilding>() != null)){
-            List<int> TilesCheckedAlready = new List<int>();
-            List<GameObject> ConnectedRoads = new List<GameObject>(); 
-            List<GameObject> ConnectedResidences = new List<GameObject>(); 
-            //Goes through each of roads connected to this road. Returns true if it's connected to a residence
-            bool connectedTwoResidences = RecursivelyCheckTileConnections(objectToCheck, ConnectedRoads, ConnectedResidences, TilesCheckedAlready);
+    //     if(objectToCheck != null && (objectToCheck.GetComponent<RoadConnections>() != null || objectToCheck.GetComponent<ResidentialBuilding>() != null)){
+    //         List<int> TilesCheckedAlready = new List<int>();
+    //         List<GameObject> ConnectedRoads = new List<GameObject>(); 
+    //         List<GameObject> ConnectedResidences = new List<GameObject>(); 
+    //         //Goes through each of roads connected to this road. Returns true if it's connected to a residence
+    //         bool connectedTwoResidences = RecursivelyCheckTileConnections(objectToCheck, ConnectedRoads, ConnectedResidences, TilesCheckedAlready);
 
-            //Activates/Deactivates the attached roads depending on if they connect two residences.
-            if(connectedTwoResidences){
-                foreach(GameObject connectedRoad in ConnectedRoads){
-                    //Activate Road
-                    if(connectedRoad.GetComponent<RoadTile>() != null){
-                        //Debug.Log("ACTIVATED A ROAD");
-                        connectedRoad.GetComponent<RoadTile>().ActivateBuilding();
-                    }
-                }
-                foreach(GameObject connectedResidence in ConnectedResidences){
-                    //Activate Residence
-                    if(connectedResidence.GetComponent<ResidentialBuilding>() != null){
-                        //Debug.Log("ACTIVATED A RESIDENCE");
-                        connectedResidence.GetComponent<ResidentialBuilding>().ActivateBuilding();
-                    }
-                }
-            } else{
-                //Deactivates roads and residences
-                foreach(GameObject connectedRoad in ConnectedRoads){
-                    //Deactivate Road
-                    if(connectedRoad.GetComponent<RoadTile>() != null){
-                        //Debug.Log("ACTIVATED A ROAD");
-                        connectedRoad.GetComponent<RoadTile>().DeactivateBuilding();
-                    }
-                }
-                foreach(GameObject connectedResidence in ConnectedResidences){
-                    //Deactivate Residence
-                    if(connectedResidence.GetComponent<ResidentialBuilding>() != null){
-                        //Debug.Log("DEACTIVATED A RESIDENCE");
-                        connectedResidence.GetComponent<ResidentialBuilding>().DeactivateBuilding();
-                    }
-                }
-            }
+    //         //Activates/Deactivates the attached roads depending on if they connect two residences.
+    //         if(connectedTwoResidences){
+    //             foreach(GameObject connectedRoad in ConnectedRoads){
+    //                 //Activate Road
+    //                 if(connectedRoad.GetComponent<RoadTile>() != null){
+    //                     //Debug.Log("ACTIVATED A ROAD");
+    //                     connectedRoad.GetComponent<RoadTile>().ActivateBuilding();
+    //                 }
+    //             }
+    //             foreach(GameObject connectedResidence in ConnectedResidences){
+    //                 //Activate Residence
+    //                 if(connectedResidence.GetComponent<ResidentialBuilding>() != null){
+    //                     //Debug.Log("ACTIVATED A RESIDENCE");
+    //                     connectedResidence.GetComponent<ResidentialBuilding>().ActivateBuilding();
+    //                 }
+    //             }
+    //         } else{
+    //             //Deactivates roads and residences
+    //             foreach(GameObject connectedRoad in ConnectedRoads){
+    //                 //Deactivate Road
+    //                 if(connectedRoad.GetComponent<RoadTile>() != null){
+    //                     //Debug.Log("ACTIVATED A ROAD");
+    //                     connectedRoad.GetComponent<RoadTile>().DeactivateBuilding();
+    //                 }
+    //             }
+    //             foreach(GameObject connectedResidence in ConnectedResidences){
+    //                 //Deactivate Residence
+    //                 if(connectedResidence.GetComponent<ResidentialBuilding>() != null){
+    //                     //Debug.Log("DEACTIVATED A RESIDENCE");
+    //                     connectedResidence.GetComponent<ResidentialBuilding>().DeactivateBuilding();
+    //                 }
+    //             }
+    //         }
 
-        }
-    }
+    //     }
+    // }
 
-    // Recursive function that checks all of the roads connected to an object
-    // Returns true if it's connected to another residence
-    private bool RecursivelyCheckTileConnections(GameObject nextObjectToCheck, List<GameObject> ConnectedRoads, List<GameObject> ConnectedResidences, List<int> TilesCheckedAlready){
+    // // Recursive function that checks all of the roads connected to an object
+    // // Returns true if it's connected to another residence
+    // private bool RecursivelyCheckTileConnections(GameObject nextObjectToCheck, List<GameObject> ConnectedRoads, List<GameObject> ConnectedResidences, List<int> TilesCheckedAlready){
         
-        //Adds roads/residences to the ConnectedRoads and ConnectedResidences lists.
-        if(!TilesCheckedAlready.Contains(nextObjectToCheck.GetInstanceID())){ //&& nextObjectToCheck.GetComponent<RoadConnections>() != null){
-            TilesCheckedAlready.Add(nextObjectToCheck.GetInstanceID());
-            if(nextObjectToCheck.GetComponent<RoadConnections>() != null){
-                ConnectedRoads.Add(nextObjectToCheck);
-            }else if(nextObjectToCheck.GetComponent<ResidentialBuilding>() != null){
-                ConnectedResidences.Add(nextObjectToCheck);
-            }
+    //     //Adds roads/residences to the ConnectedRoads and ConnectedResidences lists.
+    //     if(!TilesCheckedAlready.Contains(nextObjectToCheck.GetInstanceID())){ //&& nextObjectToCheck.GetComponent<RoadConnections>() != null){
+    //         TilesCheckedAlready.Add(nextObjectToCheck.GetInstanceID());
+    //         if(nextObjectToCheck.GetComponent<RoadConnections>() != null){
+    //             ConnectedRoads.Add(nextObjectToCheck);
+    //         }else if(nextObjectToCheck.GetComponent<ResidentialBuilding>() != null){
+    //             ConnectedResidences.Add(nextObjectToCheck);
+    //         }
             
-        }
+    //     }
         
-        GameObject[] neighboringTiles = GM.GetRoadNeighbors(nextObjectToCheck);
-        bool _ConnectedTwoResidences = false;
-        for(int i = 0; i < neighboringTiles.Length; i++){
-            //This if statement checks if the object isn't null, and if it hasn't already checked the object
-            if(neighboringTiles[i] != null && !TilesCheckedAlready.Contains(neighboringTiles[i].GetInstanceID())){
-                //Checks if the neighboring object is a residential building that hasn't already been checked. It also prevents connecting two residences that are sitting next to each other w/o roads
-                if(neighboringTiles[i].GetComponent<ResidentialBuilding>() != null && !ConnectedResidences.Contains(neighboringTiles[i]) && (nextObjectToCheck.GetComponent<ResidentialBuilding>() == null)){
-                    ConnectedResidences.Add(neighboringTiles[i]);
-                    if(ConnectedResidences.Count >= 2){
-                        _ConnectedTwoResidences = true;
-                    }
+    //     GameObject[] neighboringTiles = GM.GetRoadNeighbors(nextObjectToCheck);
+    //     bool _ConnectedTwoResidences = false;
+    //     for(int i = 0; i < neighboringTiles.Length; i++){
+    //         //This if statement checks if the object isn't null, and if it hasn't already checked the object
+    //         if(neighboringTiles[i] != null && !TilesCheckedAlready.Contains(neighboringTiles[i].GetInstanceID())){
+    //             //Checks if the neighboring object is a residential building that hasn't already been checked. It also prevents connecting two residences that are sitting next to each other w/o roads
+    //             if(neighboringTiles[i].GetComponent<ResidentialBuilding>() != null && !ConnectedResidences.Contains(neighboringTiles[i]) && (nextObjectToCheck.GetComponent<ResidentialBuilding>() == null)){
+    //                 ConnectedResidences.Add(neighboringTiles[i]);
+    //                 if(ConnectedResidences.Count >= 2){
+    //                     _ConnectedTwoResidences = true;
+    //                 }
                     
-                }
+    //             }
 
-                //Tells next object to run a recursive check if the neighboring object is a road or residence, but prevents traveling through two residenes sitting next to each other
-                if(neighboringTiles[i].GetComponent<RoadConnections>() != null || (neighboringTiles[i].GetComponent<ResidentialBuilding>() != null && nextObjectToCheck.GetComponent<ResidentialBuilding>() == null)){
-                    //ConnectedRoads.Add(neighboringTiles[i]);
-                    if(RecursivelyCheckTileConnections(neighboringTiles[i], ConnectedRoads, ConnectedResidences, TilesCheckedAlready)){
-                        _ConnectedTwoResidences = true;
-                    }
-                }
-            }
-        }
-        return _ConnectedTwoResidences;
+    //             //Tells next object to run a recursive check if the neighboring object is a road or residence, but prevents traveling through two residenes sitting next to each other
+    //             if(neighboringTiles[i].GetComponent<RoadConnections>() != null || (neighboringTiles[i].GetComponent<ResidentialBuilding>() != null && nextObjectToCheck.GetComponent<ResidentialBuilding>() == null)){
+    //                 //ConnectedRoads.Add(neighboringTiles[i]);
+    //                 if(RecursivelyCheckTileConnections(neighboringTiles[i], ConnectedRoads, ConnectedResidences, TilesCheckedAlready)){
+    //                     _ConnectedTwoResidences = true;
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     return _ConnectedTwoResidences;
 
-    }
+    // }
 
 
 }
@@ -630,6 +634,19 @@ public class ResidenceTileTracker : TileTracker{
     public override void CheckTileForRemoval(Tile tile){
         if(tile is ResidentialBuilding residence){
             base.RemoveTile(residence);
+        }
+    }
+}
+
+public class FactoryTileTracker : TileTracker{
+    public override void CheckTileForAddition(Tile tile){
+        if(tile is FactoryTile factory){
+            base.AddTile(factory);
+        }
+    }
+    public override void CheckTileForRemoval(Tile tile){
+        if(tile is FactoryTile factory){
+            base.RemoveTile(factory);
         }
     }
 }

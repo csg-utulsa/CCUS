@@ -91,7 +91,7 @@ public class LevelManager : MonoBehaviour
 
         
 
-        //The next chunk of code snatches the lists of money & carbon producing tiles from the GridManager.
+        //The next chunk of code gets the lists of money & carbon producing tiles from the GridManager.
         //Then it adds the net Money/Carbon from each of those tiles and adds them to its own count.
         Tile[] moneyTiles = GridManager.GM.MoneyTileTracker.GetAllTiles();
         Tile[] carbonTiles = GridManager.GM.CarbonTileTracker.GetAllTiles();
@@ -101,20 +101,24 @@ public class LevelManager : MonoBehaviour
         int _netCarbon = 0;
 
         foreach(Tile moneyTile in moneyTiles){
-            if(moneyTile.tileScriptableObject != null){
-                _netMoney += moneyTile.tileScriptableObject.AnnualIncome;
+            if(moneyTile is ActivatableTile activatableMoneyTile){
+                if(activatableMoneyTile.IsActivated && moneyTile.tileScriptableObject != null){
+                    _netMoney += moneyTile.tileScriptableObject.AnnualIncome;
+                }
             }
             
         }
         foreach(Tile carbonTile in carbonTiles){
-            if(carbonTile.tileScriptableObject != null){
-                _netCarbon += carbonTile.tileScriptableObject.AnnualCarbonAdded;
+            if(carbonTile is ActivatableTile activatableCarbonTile){
+                if(activatableCarbonTile.IsActivated && carbonTile.tileScriptableObject != null){
+                    _netCarbon += carbonTile.tileScriptableObject.AnnualCarbonAdded;
+                }
             }
         }
 
         //Adds money created by the people
-        if(TemporaryPeopleManager.TPM != null){
-            _netMoney += TemporaryPeopleManager.TPM.NetPeopleIncome;
+        if(PeopleManager.current != null){
+            _netMoney += PeopleManager.current.NetPeopleIncome;
         }
 
         NetCarbon = _netCarbon;
@@ -161,29 +165,30 @@ public class LevelManager : MonoBehaviour
 
     public void OnMoneyTick(){
         GetComponent<UIPopUps>().displayMoneyPopUps();
-        StartCoroutine(endOfMoneyTick());
+        AdjustMoney(NetMoney);
+        //StartCoroutine(endOfMoneyTick());
     }
-    //Runs at the end of each money tick
-    IEnumerator endOfMoneyTick(){
-        yield return null;
-        TileSelectPanel.TSP.checkPricesOfTiles(money);
-    }
+    // //Runs at the end of each money tick
+    // IEnumerator endOfMoneyTick(){
+    //     yield return null;
+    //     TileSelectPanel.TSP.checkPricesOfTiles(money);
+    // }
 
     public void OnPollutionTick(){
         AdjustCarbon(NetCarbon);
         GetComponent<UIPopUps>().displayCarbonPopUps();
-        StartCoroutine(endOfPollutionTick());
+        //StartCoroutine(endOfPollutionTick());
     }
-    //Runs at the end of each money tick
-    IEnumerator endOfPollutionTick(){
-        yield return null;
-        if(carbon >= maxCarbon){
-            TileSelectPanel.TSP.disablePolluters();
-        } else {
-            TileSelectPanel.TSP.enablePolluters();
-        }
+    // //Runs at the end of each money tick
+    // IEnumerator endOfPollutionTick(){
+    //     yield return null;
+    //     if(carbon >= maxCarbon){
+    //         TileSelectPanel.TSP.disablePolluters();
+    //     } else {
+    //         TileSelectPanel.TSP.enablePolluters();
+    //     }
         
-    }
+    // }
 
     public static bool overMaxCarbon(){
         return (LM.carbon >= LM.maxCarbon);
@@ -310,7 +315,7 @@ public class LevelManager : MonoBehaviour
 
     public void SetMoney(int _money){
         money = _money;
-        TileSelectPanel.TSP.checkPricesOfTiles(GetMoney());
+        //TileSelectPanel.TSP.checkPricesOfTiles(GetMoney());
     }
 
     /// <summary>
