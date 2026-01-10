@@ -127,7 +127,7 @@ public class TileSelectPanel : ScrollableArea
             }
         }
         visuallyUpdateDisabledButtons();
-        updateActiveTileGraphics();
+        //updateActiveTileGraphics();
     }
 
     //When called, this function disables the tile buttons above a certain price, and enables the tiles below that price.
@@ -165,12 +165,12 @@ public class TileSelectPanel : ScrollableArea
     //     updateActiveTileGraphics();
     // }
     
-    void updateActiveTileGraphics(){
-        GameObject _aciveObject = BuildingSystem.current.activeObject;
-        if(_aciveObject != null){
-            _aciveObject.GetComponent<ObjectDrag>().updateTileMaterialValidity();
-        }
-    }
+    // void updateActiveTileGraphics(){
+    //     GameObject _aciveObject = BuildingSystem.current.activeObject;
+    //     if(_aciveObject != null){
+    //         _aciveObject.GetComponent<ObjectDrag>().updateTileMaterialValidity();
+    //     }
+    // }
 
     //turns disabled buttons red
     void visuallyUpdateDisabledButtons(){
@@ -213,7 +213,8 @@ public class TileSelectPanel : ScrollableArea
             selectedButton = clickedButton;
             BuildingSystem.current.InitializeWithObject(selectedButton.GetComponent<buttonScript>().tileToPlace);
             selectedButtonGraphic.SetActive(true);
-            selectedButtonGraphic.GetComponent<RectTransform>().anchoredPosition = new Vector2(selectedButton.GetComponent<RectTransform>().anchoredPosition.x, selectedButton.GetComponent<RectTransform>().anchoredPosition.y);
+            //selectedButtonGraphic.GetComponent<RectTransform>().anchoredPosition = new Vector2(selectedButton.GetComponent<RectTransform>().anchoredPosition.x, selectedButton.GetComponent<RectTransform>().anchoredPosition.y);
+            selectedButtonGraphic.transform.position = selectedButton.transform.position;
         } 
         //runs if the user clicks the button that is already selected, and so deselects it.
         else {

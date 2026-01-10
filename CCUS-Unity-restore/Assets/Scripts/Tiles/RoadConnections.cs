@@ -179,7 +179,7 @@ public class RoadConnections : MonoBehaviour
         int[] neighborAlignmentAsArray = new int[_neighbors.Length];
         for(int i = 0; i < _neighbors.Length; i++){
             //Only includes neighbors that aren't residential buildings, so it doesn't connect to them.
-            if( (_neighbors[i] != null) && (visuallyConnectToResidences || !(_neighbors[i].GetComponent<ResidentialBuilding>() != null) ) ){
+            if( (_neighbors[i] != null) && (visuallyConnectToResidences || !(_neighbors[i].GetComponent<ActivatableBuilding>() != null) ) ){
                 neighborAlignmentAsArray[i] = 1;
             }
             else{

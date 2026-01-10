@@ -89,31 +89,41 @@ public class LevelManager : MonoBehaviour
     
     public void UpdateNetCarbonAndMoney(){
 
-        
+        Debug.Log("Updating Net Carbon and Money");
 
         //The next chunk of code gets the lists of money & carbon producing tiles from the GridManager.
         //Then it adds the net Money/Carbon from each of those tiles and adds them to its own count.
-        Tile[] moneyTiles = GridManager.GM.MoneyTileTracker.GetAllTiles();
-        Tile[] carbonTiles = GridManager.GM.CarbonTileTracker.GetAllTiles();
+        Tile[] moneyTiles = TileTypeCounter.current.MoneyTileTracker.GetAllTiles();
+        Tile[] carbonTiles = TileTypeCounter.current.CarbonTileTracker.GetAllTiles();
         
 
         int _netMoney = 0;
         int _netCarbon = 0;
 
         foreach(Tile moneyTile in moneyTiles){
-            if(moneyTile is ActivatableTile activatableMoneyTile){
-                if(activatableMoneyTile.IsActivated && moneyTile.tileScriptableObject != null){
+            if(moneyTile.tileScriptableObject != null){
+                if(moneyTile is ActivatableTile activatableMoneyTile){
+                    if(activatableMoneyTile.IsActivated){
+                        _netMoney += moneyTile.tileScriptableObject.AnnualIncome;
+                    }
+                }else{
                     _netMoney += moneyTile.tileScriptableObject.AnnualIncome;
                 }
             }
             
+            
         }
         foreach(Tile carbonTile in carbonTiles){
-            if(carbonTile is ActivatableTile activatableCarbonTile){
-                if(activatableCarbonTile.IsActivated && carbonTile.tileScriptableObject != null){
+            if(carbonTile.tileScriptableObject != null){
+                if(carbonTile is ActivatableTile activatableCarbonTile){
+                    if(activatableCarbonTile.IsActivated){
+                        _netCarbon += carbonTile.tileScriptableObject.AnnualCarbonAdded;
+                    }
+                } else{
                     _netCarbon += carbonTile.tileScriptableObject.AnnualCarbonAdded;
-                }
+                }  
             }
+            
         }
 
         //Adds money created by the people

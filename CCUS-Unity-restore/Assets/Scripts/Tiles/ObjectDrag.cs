@@ -15,7 +15,7 @@ public class ObjectDrag : MonoBehaviour
     private string GOTag;//tag of the tile
     public TileMaterialHandler tileMaterialHandler;
     private static bool SoundCanBePlayed = false; //Should not call sound at beginning so we're not overwhelmed at startup
-    private Vector3 previousGridPosition = new Vector3(0f, 0f, 0f);
+    public Vector3 PreviousGridPosition {get; set;} = new Vector3(0f, 0f, 0f);
     private Vector3 previousWorldPosition = new Vector3(0f, 0f, 0f);
     
    // private Vector2 previousPosition = new Vector2(0, 0);
@@ -24,14 +24,18 @@ public class ObjectDrag : MonoBehaviour
     {
         GOTag = gameObject.tag;
         tileMaterialHandler = GetComponent<TileMaterialHandler>();
+
+
+        previousWorldPosition = transform.position;
+
+        
     }
     public void Start()
     {
+
         //Sets the previous position to the object's starting position
         Vector3 pos = BuildingSystem.GetMouseWorldPosition();
-        Vector2 previousGridPosition = GridManager.GM.switchToGridIndexCoordinates(pos);
-        previousWorldPosition = transform.position;
-
+        PreviousGridPosition = GridManager.GM.switchToGridIndexCoordinates(pos);
 
         Invoke("EnableSound", 1f);
     }
@@ -49,10 +53,10 @@ public class ObjectDrag : MonoBehaviour
         Vector3 pos = BuildingSystem.GetMouseWorldPosition();
         transform.position = BuildingSystem.current.SnapCoordinateToGrid(pos);
         Vector3 currentGridPosition = GridManager.GM.switchToGridIndexCoordinates(pos);
-        if(previousGridPosition != currentGridPosition){
-            //Debug.Log("moving tile");
+        if(PreviousGridPosition != currentGridPosition){
+            //Debug.Log("Moving Tile From: " + PreviousGridPosition + " to " + currentGridPosition);
             OnMoveTile(previousWorldPosition);
-            previousGridPosition = currentGridPosition;
+            PreviousGridPosition = currentGridPosition;
             previousWorldPosition = transform.position;
         }
         
@@ -73,14 +77,15 @@ public class ObjectDrag : MonoBehaviour
 
     public void Place()
     {   
-        gameObject.GetComponent<Tile>().tilePosition = BuildingSystem.current.SnapCoordinateToGrid(transform.position);//updates tile position of tile
         
+
+        //gameObject.GetComponent<Tile>().tilePosition = BuildingSystem.current.SnapCoordinateToGrid(transform.position);//updates tile position of tile
         dragging = false;//stops object from following mouse
         transform.position = BuildingSystem.current.SnapCoordinateToGrid(transform.position);//locks object in grid
-        this.GetComponent<Tile>().SetTileState(TileState.Static);//Non functional
+        //this.GetComponent<Tile>().SetTileState(TileState.Static);//Non functional
         tileMaterialHandler.MaterialSet(TileMaterialHandler.matState.Placed);
 
-        //FIXME - Update the system that plays the sound. FMOD is a struggle bus :(
+        //FIXME - Update the system that plays the sound. FMOD is causing struggles
         if (SoundCanBePlayed) { FMODUnity.RuntimeManager.PlayOneShot("event:/Tile" + this.GetComponent<Tile>().tileScriptableObject.thisTileClass); } //Gets Tileclass and plays corresponding FMOD event
         
         //Delete overlapping tiles (that can't overlap) on placement
@@ -109,75 +114,19 @@ public class ObjectDrag : MonoBehaviour
         // }
         //LevelManager.tileConnectionReset.Invoke();
         
-        gameObject.GetComponent<Tile>().setInitialIncomeAndCarbon(); //Updates the initial net carbon and net income of tile.
-
-        //visually updates road connections
-        if(GetComponent<RoadConnections>() != null){
-            GetComponent<RoadConnections>().UpdateModelConnections(true);
-        } else{
-            UpdateTileNeighborConnections();
-        }
-
-        //Updates residence connections
-        if(GetComponent<ActivatableTile>() != null){
-            RoadAndResidenceConnectionManager.RARCM.UpdateResidenceConnections(gameObject);
-
-            
-            // foreach(ResidentialBuilding residence in GridManager.GM.GetResidentialTiles()){
-
-            //     //residence.UpdateResidenceConnections();
-            // }
-        }
         
 
-        //Updates the cap on number of people
-        if(PeopleManager.current != null){
-            PeopleManager.current.UpdateMaxPeople();
-        }
+
+        //Alerts the Tile script that this tile was just placed
+        if(this.GetComponent<Tile>() != null) this.GetComponent<Tile>().ThisTileJustPlaced();
 
 
     }
 
     public void DestroyTile(){
 
-        // Removes object from GridManager, 
-        // so when the roads use the GridManager to update their connections, they will ignore this tile
-        GridManager.GM.RemoveObject(gameObject);
-
-        //Updates road connections of neighbors
-        if(GetComponent<RoadConnections>() != null){
-            GetComponent<RoadConnections>().UpdateNeighborConnections();
-        }else{
-            UpdateTileNeighborConnections();
-        }
-
-        //Updates residence/road connections
-        if(GetComponent<RoadConnections>() != null || GetComponent<ResidentialBuilding>() != null){
-
-            // //Deactivates all road connection graphics. They will be reenabled by the residence connection updates, if they're still connected to two houses.
-            // foreach(RoadConnections road in GridManager.GM.GetRoadTiles()){
-            //     road.deactivateConnectedRoad();
-            // }
-
-            // //Updates Connections of Each Residence
-            // foreach(ResidentialBuilding residence in GridManager.GM.GetResidentialTiles()){
-            //     residence.UpdateResidenceConnections();
-            // }
-
-            foreach(GameObject neighboringTile in GridManager.GM.GetRoadNeighbors(gameObject)){
-                RoadAndResidenceConnectionManager.RARCM.UpdateResidenceConnections(neighboringTile);
-            }
-
-            
-
-        }
-        
-        
-        //Updates the cap on number of people
-        if(PeopleManager.current != null){
-            
-            PeopleManager.current.UpdateMaxPeople();
-        }
+        //Alerts the Tile script that this tile is about to be Destroyed
+        if(this.GetComponent<Tile>() != null) this.GetComponent<Tile>().ThisTileAboutToBeDestroyed();
 
         Destroy(gameObject);
     }
@@ -213,7 +162,7 @@ public class ObjectDrag : MonoBehaviour
             foreach(GameObject otherObject in otherObjectsInCell){
                 //FIX ME / TODO / NOT DONE!!!!!!!!!
                 //If we ever want to have multiple objects (More than 1 object & 1 terrain) in a GridCell, this code is toast!
-                //You'll have to make the overlapTerrain and overlapObject variable arrays.
+                //You'll have to make the overlapTerrain and overlapObject Lists.
                 string otherTag = otherObject.gameObject.tag;
                 if (otherTag.Equals("Ground")) { overlapTerrain = otherObject.gameObject; }//checks if a Terrain tile is already where this is
                 if (otherTag.Equals("Object")) { overlapObject = otherObject.gameObject; }//checks if a Object tile is already where this is

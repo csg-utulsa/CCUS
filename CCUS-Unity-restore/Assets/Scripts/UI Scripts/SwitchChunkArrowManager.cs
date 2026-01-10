@@ -6,11 +6,11 @@ public class SwitchChunkArrowManager : MonoBehaviour
     public GameObject rightArrow;
     public GameObject leftArrow;
 
-    public static SwitchChunkArrowManager SCAM;
+    public static SwitchChunkArrowManager current;
 
     void Start(){
-        if(SCAM == null){
-            SCAM = this;
+        if(current == null){
+            current = this;
         }else{
             Destroy(this);
         }

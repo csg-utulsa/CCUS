@@ -30,9 +30,30 @@ public class MouseHoverTransparency : MonoBehaviour
 
             //Disables model directly under mouse
             GameObject[] objectsOnThisCell = GridManager.GM.GetGameObjectsInGridCell(snappedCoordinates);
+
+            int numOfTiles = 0;
+            //Debug.Log("Tile under the mouse: ");
+            foreach(GameObject tile in objectsOnThisCell){
+                numOfTiles++;
+                //Debug.Log(tile);
+            }
+
+            // if(numOfTiles > 1){
+            //     Vector3 currentGridPosition = GridManager.GM.switchToGridIndexCoordinates(snappedCoordinates);
+            //     Debug.LogError("There's more than one tile! on " + currentGridPosition + ". They are: ");
+            //     foreach(GameObject tile in objectsOnThisCell){
+            //         Debug.Log(tile);
+            //     }
+            //     Debug.Log("_______________________________");
+            // }
+            
+
+
             foreach(GameObject tile in objectsOnThisCell){
                 AddNewlyDeactivatedModel(tile);
             }
+            
+
 
             GameObject[] neighbors = GridManager.GM.GetTileNeighbors(snappedCoordinates, neighborsNeeded);
             foreach(GameObject neighbor in neighbors){
@@ -121,7 +142,10 @@ public class MouseHoverTransparency : MonoBehaviour
 
     public void AddNewlyDeactivatedModel(GameObject tile){
         if(ShouldDeactivateModel(tile)){
+            //Debug.Log("SHOULD DEACTIVATE MODEL");
             newlyDeactivatedModels.Add(tile);
+        } else{
+            //Debug.Log("SHOULD NOT DEACTIVATE MODEL");
         }
     }
 

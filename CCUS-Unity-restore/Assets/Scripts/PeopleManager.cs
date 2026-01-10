@@ -51,11 +51,11 @@ public class PeopleManager : MonoBehaviour
         
     }
 
-    //Called from ObjectDrag when a tile is placed or destroyed. It updates the max number of people and the current number of employees.
+    //Called from Tile when a tile is placed or destroyed. It updates the max number of people and the current number of employees.
     public void UpdateMaxPeople(){
 
         int _maxPeople = 0;
-        Tile[] residentialTiles = GridManager.GM.ResidenceTileTracker.GetAllTiles();
+        Tile[] residentialTiles = TileTypeCounter.current.ResidenceTileTracker.GetAllTiles();
         foreach(Tile tile in residentialTiles){
             
             if(tile is ResidentialBuilding residence){
@@ -80,7 +80,7 @@ public class PeopleManager : MonoBehaviour
     public void UpdateNumberOfEmployees(){
 
         int _numOfEmployees = 0;
-        Tile[] factoryTiles = GridManager.GM.FactoryTileTracker.GetAllTiles();
+        Tile[] factoryTiles = TileTypeCounter.current.FactoryTileTracker.GetAllTiles();
         foreach(Tile tile in factoryTiles){
             
             if(tile is FactoryTile factory){

@@ -44,7 +44,7 @@ public class GroundAreaExpansion : MonoBehaviour
         NumberOfGroundChunks++;
 
         //Turns the move arrow to the right on
-        SwitchChunkArrowManager.SCAM.UpdateArrowVisibility(NumberOfGroundChunks, ActiveGroundChunk);
+        SwitchChunkArrowManager.current.UpdateArrowVisibility(NumberOfGroundChunks, ActiveGroundChunk);
     }
 
     public void MoveRight(){
@@ -56,7 +56,7 @@ public class GroundAreaExpansion : MonoBehaviour
             UpdateCameraPosition();
 
             //Updates visibility of left/right arrows
-            SwitchChunkArrowManager.SCAM.UpdateArrowVisibility(NumberOfGroundChunks, ActiveGroundChunk);
+            SwitchChunkArrowManager.current.UpdateArrowVisibility(NumberOfGroundChunks, ActiveGroundChunk);
         }
        
     }
@@ -70,7 +70,7 @@ public class GroundAreaExpansion : MonoBehaviour
             UpdateCameraPosition();
 
             //Updates visibility of left/right arrows
-            SwitchChunkArrowManager.SCAM.UpdateArrowVisibility(NumberOfGroundChunks, ActiveGroundChunk);
+            SwitchChunkArrowManager.current.UpdateArrowVisibility(NumberOfGroundChunks, ActiveGroundChunk);
         }
 
 

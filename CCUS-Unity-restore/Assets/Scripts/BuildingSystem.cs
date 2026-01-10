@@ -53,6 +53,7 @@ public class BuildingSystem : MonoBehaviour
     {
         current = this;
         grid = gridLayout.gameObject.GetComponent<Grid>();
+        TickManager.TM.EndOfMoneyAndPollutionTicks.AddListener(EndOfResourceTicks);
     }
 
     
@@ -74,7 +75,7 @@ public class BuildingSystem : MonoBehaviour
         }
 
         if(Input.GetMouseButtonDown(0) && !preventMultipleObjectPlacement){
-            
+
             attemptToPlaceSelectedTile();
             
         }
@@ -127,10 +128,23 @@ public class BuildingSystem : MonoBehaviour
         }
     }
 
+    //Runs at the end of money and pollution ticks
+    private void EndOfResourceTicks(){
+        //Updates material validity of active tile
+        UpdateActiveTileMaterialValididty();
+    }
+
+    private void UpdateActiveTileMaterialValididty(){
+        if(activeObject != null && activeObject.GetComponent<ObjectDrag>() != null)
+            activeObject.GetComponent<ObjectDrag>().updateTileMaterialValidity();
+    }
+
     public void deselectActiveObject(){
         if (activeObject != null){
             TileSelectPanel.TSP.deselectAllButtons();
+            Debug.Log("Destroyed AGO: " + activeObject);
             Destroy(activeObject);
+
         }
     }
 
@@ -147,8 +161,10 @@ public class BuildingSystem : MonoBehaviour
 
         if (CanBePlaced(objectToPlace, true))
         {
+
             placeSelectedTile();
             preventMultipleObjectPlacement = true;
+            
         } 
         //Moved to CanBePlaced() function
         // else if(objectToPlace.GetComponent<Tile>().tooMuchCarbonToPlace() && isMouseOverScreen()) {
@@ -159,10 +175,12 @@ public class BuildingSystem : MonoBehaviour
 
     }
 
+
     //Places the currently selected tile
     public void placeSelectedTile(){
-        GridManager.GM.AddObject(objectToPlace.gameObject);   
-        objectToPlace.Place();
+
+        objectToPlace.Place(); 
+        
         Vector3Int start = gridLayout.WorldToCell(objectToPlace.GetStartPosition());
         TakeArea(start, objectToPlace.Size);
         int cost = activeTile.tileScriptableObject.BuildCost;
@@ -330,6 +348,7 @@ public class BuildingSystem : MonoBehaviour
         if(activeObject != null){
             //Vector3 tileGridPosition = activeObject.GetComponent<Tile>().tilePosition;
             //GridManager.GM.RemoveObject(activeObject);
+            Debug.Log("Destroyed AGO: " + activeObject);
             Destroy(activeObject);
         }
         
@@ -389,16 +408,19 @@ public class BuildingSystem : MonoBehaviour
 
 
         if(attemptingToPlaceTile){
-            return activeTile.CheckIfTileIsPlaceable(true);
+            if(!activeTile.CheckIfTileIsPlaceable(true)){
+                return false;
+            }
         }else{
-            return activeTile.CheckIfTileIsPlaceable(false);
+            if(!activeTile.CheckIfTileIsPlaceable(false)){
+                return false;
+            }
         }
 
 
 
         //Checks if trying to place object over same object
         //Use the GridManager singleton instance
-        
         foreach (GameObject obj in GridManager.GM.GetGameObjectsInGridCell(activeTile.gameObject))
         {
             Tile tile = obj.GetComponent<Tile>();

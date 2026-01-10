@@ -50,16 +50,18 @@ public class Tile : MonoBehaviour
 
     void Start(){
         //Saves the tile coordinates of this tile
-        if(state == TileState.Static){
-            tilePosition = BuildingSystem.current.SnapCoordinateToGrid(transform.position);
-            //Adds this object to the GridManager's database of all current tiles
-            GridManager.GM.AddObject(this.gameObject);
+        // Debug.Log("Script start tile called");
+        // if(state == TileState.Static){
+        //     tilePosition = BuildingSystem.current.SnapCoordinateToGrid(transform.position);
+        //     //Adds this object to the GridManager's database of all current tiles
+        //     Debug.Log("Added tile from Start of Tile Script");
+        //     GridManager.GM.AddObject(this.gameObject);// "Tile Script of this tile: " + this.gameObject);
 
-            //Adds annual income and annual carbon for tiles that are placed when the game starts
-            setInitialIncomeAndCarbon();
+        //     //Adds annual income and annual carbon for tiles that are placed when the game starts
+        //     setInitialIncomeAndCarbon();
             
             
-        }
+        // }
     }
 
     public void setInitialIncomeAndCarbon(){
@@ -122,6 +124,24 @@ public class Tile : MonoBehaviour
 
         
     }
+
+    public virtual void ThisTileJustPlaced(){
+        //Puts object in the Grid Manager
+        GridManager.GM.AddObject(gameObject);
+        tilePosition = BuildingSystem.current.SnapCoordinateToGrid(transform.position);//updates tile position of tile
+        SetTileState(TileState.Static);//Non functional
+
+        setInitialIncomeAndCarbon();
+
+    }
+
+    public virtual void ThisTileAboutToBeDestroyed(){
+        // Removes object from GridManager, 
+        // so when the roads use the GridManager to update their connections, they will ignore this tile
+        GridManager.GM.RemoveObject(gameObject);
+
+    }
+
 
 
 

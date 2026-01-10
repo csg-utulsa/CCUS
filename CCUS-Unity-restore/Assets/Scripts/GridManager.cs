@@ -15,19 +15,19 @@ public class GridManager : MonoBehaviour
 
     private List<GameObject> allGridObjects = new List<GameObject>();
 
-    public List<Tile> moneyProducingTiles = new List<Tile>();
-    public List<Tile> carbonProducingTiles = new List<Tile>();
-    public List<ResidentialBuilding> residenceTiles = new List<ResidentialBuilding>();
-    public List<RoadConnections> roadTiles = new List<RoadConnections>();
+    // public List<Tile> moneyProducingTiles = new List<Tile>();
+    // public List<Tile> carbonProducingTiles = new List<Tile>();
+    // public List<ResidentialBuilding> residenceTiles = new List<ResidentialBuilding>();
+    // public List<RoadConnections> roadTiles = new List<RoadConnections>();
 
 
-    public TileTracker[] tileTrackers;
-    public TileTracker AllTileTracker { get; set; }
-    public TileTracker MoneyTileTracker { get; set; }
-    public TileTracker CarbonTileTracker { get; set; }
-    public TileTracker RoadTileTracker { get; set; }
-    public TileTracker ResidenceTileTracker { get; set; }
-    public TileTracker FactoryTileTracker { get; set; }
+    // public TileTracker[] tileTrackers;
+    // public TileTracker AllTileTracker { get; set; }
+    // public TileTracker MoneyTileTracker { get; set; }
+    // public TileTracker CarbonTileTracker { get; set; }
+    // public TileTracker RoadTileTracker { get; set; }
+    // public TileTracker ResidenceTileTracker { get; set; }
+    // public TileTracker FactoryTileTracker { get; set; }
 
 
     void Awake(){
@@ -55,26 +55,7 @@ public class GridManager : MonoBehaviour
             Destroy(this);
         }
 
-        //Activates all the tile trackers, to keep track of every added tile of each type.
-        tileTrackers = new TileTracker[6];
 
-        AllTileTracker = new AllTileTracker();
-        tileTrackers[0] = AllTileTracker;
-
-        MoneyTileTracker = new MoneyTileTracker();
-        tileTrackers[1] = MoneyTileTracker;
-
-        CarbonTileTracker = new CarbonTileTracker();
-        tileTrackers[2] = CarbonTileTracker;
-
-        ResidenceTileTracker = new ResidenceTileTracker();
-        tileTrackers[3] = ResidenceTileTracker;
-
-        RoadTileTracker = new RoadTileTracker();
-        tileTrackers[4] = RoadTileTracker;
-
-        FactoryTileTracker = new FactoryTileTracker();
-        tileTrackers[5] = FactoryTileTracker;
     }
 
 
@@ -295,9 +276,6 @@ public class GridManager : MonoBehaviour
     //returns the Grid Cell Object for a given point
     public GridCell GetGridCell(int x, int z)
     {
-        //return positionsOfCells[x ][z ];
-
-        //Used to be
         return positionsOfCells[x + (xLengthOfGrid / 2)][z + (yLengthOfGrid / 2) ];
     }
 
@@ -329,15 +307,32 @@ public class GridManager : MonoBehaviour
     //     positionsOfCells[posX + (xLengthOfGrid / 2)][posY + (yLengthOfGrid / 2)].AddObject(objectToAdd, posX, posY);
     // }
 
+
     public void AddObject(GameObject objectToAdd)
     {
         Vector3 positionInGrid = switchToGridCoordinates(objectToAdd.transform.position);
         int posX = (int)positionInGrid.x + (xLengthOfGrid / 2);
         int posY = (int)positionInGrid.z + (yLengthOfGrid / 2);
 
-        if(positionsOfCells == null)
+        if(positionsOfCells == null){
             Debug.Log("The cell is null");
+        }
+                
+            
+
+
+
         positionsOfCells[posX][posY].AddObject(objectToAdd, posX, posY);
+
+
+        // Debug.Log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+        // Debug.Log("Objects in this cell: ");
+        // GameObject[] allObjectsInCell = GetGameObjectsInGridCell(objectToAdd.transform.position);
+        // foreach(GameObject myObject in allObjectsInCell){
+        //     Debug.Log(myObject);
+        // }
+
+        // Debug.Log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
     }
 
     public Vector2 switchToGridIndexCoordinates(Vector3 positionOfObject){
@@ -470,13 +465,14 @@ public class GridCell
     public void AddObject(GameObject objectToAdd, int x, int y) {
         if (objectsInCell.Length > numberOfObjectsInCell)
         {
-            GridManager gm = GridManager.GM;
+            
+            //GridManager gm = GridManager.GM;
             if(objectToAdd.GetComponent<Tile>() != null && objectToAdd.GetComponent<Tile>().tileScriptableObject != null){
 
                 //Keeps track of different tile types, like money tiles, residences, etc
-                foreach(TileTracker tileTracker in gm.tileTrackers){
-                    tileTracker.CheckTileForAddition(objectToAdd.GetComponent<Tile>());
-                }
+                TileTypeCounter.current.CheckTileTrackersForAddition(objectToAdd);
+
+
                 // Tile tileScript = objectToAdd.GetComponent<Tile>();
                 // if(tileScript.tileScriptableObject.AnnualIncome > 0){
                 //     gm.AddToMoneyTileList(tileScript);
@@ -513,14 +509,13 @@ public class GridCell
         for(int i = 0; i < objectsInCell.Length; i++) {
             if(objectToRemove == objectsInCell[i])
             {
-                GridManager gm = GridManager.GM;
+                //GridManager gm = GridManager.GM;
                 //gm.RemoveGridObjectFromList(objectToRemove);
                 if(objectToRemove.GetComponent<Tile>() != null && objectToRemove.GetComponent<Tile>().tileScriptableObject != null){
 
                     //Keeps track of different tile types, like money tiles, residences, etc
-                    foreach(TileTracker tileTracker in gm.tileTrackers){
-                        tileTracker.CheckTileForRemoval(objectToRemove.GetComponent<Tile>());
-                    }
+                    TileTypeCounter.current.CheckTileTrackersForRemoval(objectToRemove);
+
                     // Tile tileScript = objectToRemove.GetComponent<Tile>();
                     // if(tileScript.tileScriptableObject.AnnualIncome > 0){
                     //     gm.RemoveFromMoneyTileList(tileScript);
@@ -548,105 +543,105 @@ public class GridCell
 }
 
 
-//Base class for each type of Tile Tracker. The Tile Trackers keep a list of each kind of tile.
-public class TileTracker{
+// //Base class for each type of Tile Tracker. The Tile Trackers keep a list of each kind of tile.
+// public class TileTracker{
 
-    public List<Tile> trackedTileList = new List<Tile>();
-    protected void AddTile(Tile tile){
-        trackedTileList.Add(tile);
-    }
+//     public List<Tile> trackedTileList = new List<Tile>();
+//     protected void AddTile(Tile tile){
+//         trackedTileList.Add(tile);
+//     }
     
-    protected void RemoveTile(Tile tile){
-        trackedTileList.Remove(tile);
-    }
+//     protected void RemoveTile(Tile tile){
+//         trackedTileList.Remove(tile);
+//     }
 
-    public virtual void CheckTileForRemoval(Tile tile){
-        Debug.LogError("Base Tile Tracker Class has been accidentally implemented. You need to use one of its derived classes.");
-    }
+//     public virtual void CheckTileForRemoval(Tile tile){
+//         Debug.LogError("Base Tile Tracker Class has been accidentally implemented. You need to use one of its derived classes.");
+//     }
 
-    public virtual void CheckTileForAddition(Tile tile){
-        Debug.LogError("Base Tile Tracker Class has been accidentally implemented. You need to use one of its derived classes.");
-    }
+//     public virtual void CheckTileForAddition(Tile tile){
+//         Debug.LogError("Base Tile Tracker Class has been accidentally implemented. You need to use one of its derived classes.");
+//     }
 
-    public Tile[] GetAllTiles(){
-        Tile[] returnArray = new Tile[trackedTileList.Count];
-        for(int i = 0; i < trackedTileList.Count; i++){
-            returnArray[i] = trackedTileList[i];
-        }
-        return returnArray;
-    }
-}
+//     public Tile[] GetAllTiles(){
+//         Tile[] returnArray = new Tile[trackedTileList.Count];
+//         for(int i = 0; i < trackedTileList.Count; i++){
+//             returnArray[i] = trackedTileList[i];
+//         }
+//         return returnArray;
+//     }
+// }
 
-public class AllTileTracker : TileTracker{
-    public override void CheckTileForAddition(Tile tile){
-        base.AddTile(tile);
-    }
-    public override void CheckTileForRemoval(Tile tile){
-        base.RemoveTile(tile);
-    }
-}
+// public class AllTileTracker : TileTracker{
+//     public override void CheckTileForAddition(Tile tile){
+//         base.AddTile(tile);
+//     }
+//     public override void CheckTileForRemoval(Tile tile){
+//         base.RemoveTile(tile);
+//     }
+// }
 
-public class CarbonTileTracker : TileTracker{
-    public override void CheckTileForAddition(Tile tile){
-        if(tile.tileScriptableObject.AnnualCarbonAdded != 0){
-            base.AddTile(tile);
-        }
-    }
-    public override void CheckTileForRemoval(Tile tile){
-        if(tile.tileScriptableObject.AnnualCarbonAdded != 0){
-            base.RemoveTile(tile);
-        }
-    }
-}
+// public class CarbonTileTracker : TileTracker{
+//     public override void CheckTileForAddition(Tile tile){
+//         if(tile.tileScriptableObject.AnnualCarbonAdded != 0){
+//             base.AddTile(tile);
+//         }
+//     }
+//     public override void CheckTileForRemoval(Tile tile){
+//         if(tile.tileScriptableObject.AnnualCarbonAdded != 0){
+//             base.RemoveTile(tile);
+//         }
+//     }
+// }
 
-public class MoneyTileTracker : TileTracker{
-    public override void CheckTileForAddition(Tile tile){
-        if(tile.tileScriptableObject.AnnualIncome > 0){
-            base.AddTile(tile);
-        }
-    }
-    public override void CheckTileForRemoval(Tile tile){
-        if(tile.tileScriptableObject.AnnualIncome > 0){
-            base.RemoveTile(tile);
-        }
-    }
-}
+// public class MoneyTileTracker : TileTracker{
+//     public override void CheckTileForAddition(Tile tile){
+//         if(tile.tileScriptableObject.AnnualIncome > 0){
+//             base.AddTile(tile);
+//         }
+//     }
+//     public override void CheckTileForRemoval(Tile tile){
+//         if(tile.tileScriptableObject.AnnualIncome > 0){
+//             base.RemoveTile(tile);
+//         }
+//     }
+// }
 
-public class RoadTileTracker : TileTracker{
-    public override void CheckTileForAddition(Tile tile){
-        if(tile is RoadTile road){
-            base.AddTile(road);
-        }
-    }
-    public override void CheckTileForRemoval(Tile tile){
-        if(tile is RoadTile road){
-            base.RemoveTile(road);
-        }
-    }
-}
+// public class RoadTileTracker : TileTracker{
+//     public override void CheckTileForAddition(Tile tile){
+//         if(tile is RoadTile road){
+//             base.AddTile(road);
+//         }
+//     }
+//     public override void CheckTileForRemoval(Tile tile){
+//         if(tile is RoadTile road){
+//             base.RemoveTile(road);
+//         }
+//     }
+// }
 
-public class ResidenceTileTracker : TileTracker{
-    public override void CheckTileForAddition(Tile tile){
-        if(tile is ResidentialBuilding residence){
-            base.AddTile(residence);
-        }
-    }
-    public override void CheckTileForRemoval(Tile tile){
-        if(tile is ResidentialBuilding residence){
-            base.RemoveTile(residence);
-        }
-    }
-}
+// public class ResidenceTileTracker : TileTracker{
+//     public override void CheckTileForAddition(Tile tile){
+//         if(tile is ResidentialBuilding residence){
+//             base.AddTile(residence);
+//         }
+//     }
+//     public override void CheckTileForRemoval(Tile tile){
+//         if(tile is ResidentialBuilding residence){
+//             base.RemoveTile(residence);
+//         }
+//     }
+// }
 
-public class FactoryTileTracker : TileTracker{
-    public override void CheckTileForAddition(Tile tile){
-        if(tile is FactoryTile factory){
-            base.AddTile(factory);
-        }
-    }
-    public override void CheckTileForRemoval(Tile tile){
-        if(tile is FactoryTile factory){
-            base.RemoveTile(factory);
-        }
-    }
-}
+// public class FactoryTileTracker : TileTracker{
+//     public override void CheckTileForAddition(Tile tile){
+//         if(tile is FactoryTile factory){
+//             base.AddTile(factory);
+//         }
+//     }
+//     public override void CheckTileForRemoval(Tile tile){
+//         if(tile is FactoryTile factory){
+//             base.RemoveTile(factory);
+//         }
+//     }
+// }

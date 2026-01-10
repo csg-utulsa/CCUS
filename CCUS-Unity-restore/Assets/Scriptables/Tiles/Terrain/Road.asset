@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: Road
   m_EditorClassIdentifier: 
   Name: Road
-  BuildCost: 30
+  BuildCost: 0
   AnnualCost: 0
   AnnualCarbonRemoved: 0
   AnnualCarbonAdded: 4
   AnnualCarbonStored: 0
   AnnualIncome: 3
   MaxPeople: 0
+  RequiredEmployees: 0
   isResidence: 0
   isTerrain: 1
   allowClickAndDrag: 1

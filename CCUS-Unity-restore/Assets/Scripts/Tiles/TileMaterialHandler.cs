@@ -8,17 +8,31 @@ using UnityEngine;
  * 
  * Edited By: Aidan Pohl
  * Edited: 11/14/2023
+ *
+ * Edited Again By: Graydon B.
+ * Edited: 1/10/2026
  * 
  * Description: Handles the Matrial changes for draggable tiles and objects
  * 
  * NOTE: This requires the model to be a child of the object this is placed in and that the Materials of that model to be transparent
  * Not completely functional.
  *
+ * Later Note from Graydon: To achieve a transparency effect that didn't become increasingly worse with as a model's geometry became
+ * more complex, it now uses a dither transparency shader. It also now supports having multiple children on a tile with Renderer components.
+ *
  */ 
 public class TileMaterialHandler : MonoBehaviour
 {
-    Renderer matRenderer;
-    List<Color> originalColors = new List<Color>();
+    //Stores all of the renderers for each model in the tile's children
+    Renderer[] matRenderers;
+
+    //stores the original colors that all the matRenderers are set to
+    Color[][] originalColorsForEachRenderer;
+
+    //Changes the resolution of the dither transparency shader (Leave at 1)
+    //Note: The dither transparency looks weird in the Unity editor, but is correct in the build versions.
+    //You can probably get an approximation of what it will look like in the editor by using the Scale option
+    //in the Game window and setting it to a 1x scale. That will make it a 1:1 pixel ratio.
     private float ditherTransparencyResolution = 1f;
 
 
@@ -35,19 +49,39 @@ public class TileMaterialHandler : MonoBehaviour
 
     void Awake()
     {   
-        matRenderer = gameObject.GetComponentInChildren<Renderer>();
+        //Stores all the Renderers in the Tile's children
+        matRenderers = gameObject.GetComponentsInChildren<Renderer>();
 
-        foreach(Material mat in matRenderer.materials){
-            if(mat.shader == Shader.Find("Standard")){
-                Color color = mat.GetColor("_Color");
-                originalColors.Add(color);
-            }else if (mat.shader == Shader.Find("Shader Graphs/Dither Shader")){
-                originalColors.Add(mat.GetColor("_BaseColor"));
-            } else{
-                originalColors.Add(new Color(1f, 1f, 1f, 1f));
-            }
+        //A 2D array to store the original material colors of each renderer's materials
+        originalColorsForEachRenderer = new Color[matRenderers.Length][];
+
+        bool modelHasNonDitherShader = false;
+
+        //Stores the original colors for each renderer's list of materials in the array originalColorsForEachRenderer
+        for(int ir = 0; ir < matRenderers.Length; ir++){
+            originalColorsForEachRenderer[ir] = new Color[matRenderers[ir].materials.Length];
+            for(int ic = 0; ic < matRenderers[ir].materials.Length; ic++){
+                //Stores color for materials using the standard Shader
+                if(matRenderers[ir].materials[ic].shader == Shader.Find("Standard")){
+                    Color color = matRenderers[ir].materials[ic].GetColor("_Color");
+                    originalColorsForEachRenderer[ir][ic] = color;
+                    modelHasNonDitherShader = true;
+                }
+                //Stores colors for materials using dither shader
+                else if (matRenderers[ir].materials[ic].shader == Shader.Find("Shader Graphs/Dither Shader")){
+                    originalColorsForEachRenderer[ir][ic] = matRenderers[ir].materials[ic].GetColor("_BaseColor");
+                } else{
+                    originalColorsForEachRenderer[ir][ic] = new Color(1f, 1f, 1f, 1f);
+                    modelHasNonDitherShader = true;
+                }
+            }  
         }
-        //originalColors = new Color[matRenderer.materials.Length];
+        //Debug.Log("Number Of Mesh Renderers: " + matRenderers.Length);
+        
+        if(modelHasNonDitherShader){
+            Debug.LogError("One of the models you're using has a standard transparency shader, rather than a Dither Shader. That will prevent it from being made transparent.");
+            Debug.LogError("To assign the Dither Transparency Shader to your model, use the tool found in the Unity menu under: Tools -> Set Object Material Shaders");
+        }
 
         
 
@@ -68,11 +102,16 @@ public class TileMaterialHandler : MonoBehaviour
         
     }
 
-    void Update(){
 
+    //Sets transparency for all renderers in children
+    public void SetDitherTransparency(float transparency){
+        for(int i = 0; i < matRenderers.Length; i++){
+            SetDitherTransparencyForMaterialRenderer(transparency, matRenderers[i], originalColorsForEachRenderer[i]);
+        }
     }
 
-    public void SetDitherTransparency(float transparency){
+    public void SetDitherTransparencyForMaterialRenderer(float transparency, Renderer matRenderer, Color[] originalColors){
+        
         for (int i = 0; i < matRenderer.materials.Length; i++){
             if(matRenderer.materials[i].shader == Shader.Find("Shader Graphs/Dither Shader")){
                 matRenderer.materials[i].SetColor("_BaseColor", originalColors[i] * new Color(1f, 1f, 1f, transparency));
@@ -80,7 +119,12 @@ public class TileMaterialHandler : MonoBehaviour
         }
     }
 
+    //Returns transparency for first Renderer in children
     public float GetCurrentTransparency(){
+        return GetCurrentTransparencyForMaterialRenderer(matRenderers[0]);
+    }
+
+    public float GetCurrentTransparencyForMaterialRenderer(Renderer matRenderer){
         if(matRenderer.materials[0].shader == Shader.Find("Shader Graphs/Dither Shader")){
             return matRenderer.materials[0].GetColor("_BaseColor").a;
         } else if(matRenderer.materials[0].shader == Shader.Find("Standard")){
@@ -89,8 +133,15 @@ public class TileMaterialHandler : MonoBehaviour
         return 1f;
     }
 
+    //Sets material for each mat renderer component in children
+    public void MaterialSet(matState state){
+        //Debug.Log("Setting material for " + matRenderers.Length + "Renderers");
+        for(int i = 0; i < matRenderers.Length; i++){
+            MaterialSetForMaterialRenderer(state, matRenderers[i], originalColorsForEachRenderer[i]);
+        }
+    }
 
-    public void MaterialSet(matState state)//sets the material to a certain color
+    public void MaterialSetForMaterialRenderer(matState state, Renderer matRenderer, Color[] originalColors)//sets the material to a certain color
     {
         for (int i = 0; i < matRenderer.materials.Length; i++){
             if(matRenderer.materials[i].shader == Shader.Find("Shader Graphs/Dither Shader")){

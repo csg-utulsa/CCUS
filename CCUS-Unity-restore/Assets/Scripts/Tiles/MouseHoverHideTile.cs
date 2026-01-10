@@ -48,7 +48,6 @@ public class MouseHoverHideTile : MonoBehaviour
     }
 
     private void FadeToTransparency(float _targetTransparency){
-
         fadeTimer = 0f;
         previousTransparency =  tileMaterialHandler.GetCurrentTransparency();
         targetTransparency = _targetTransparency;

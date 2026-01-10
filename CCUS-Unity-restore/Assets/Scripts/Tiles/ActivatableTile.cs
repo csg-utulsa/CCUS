@@ -5,6 +5,18 @@ public class ActivatableTile : Tile
     public GameObject buildingActivatedGraphic;
     public bool IsActivated {get; set;} = false;
 
+    public override void ThisTileJustPlaced(){
+        base.ThisTileJustPlaced();
+        
+        //Updates Activatable Tile Connections
+        RoadAndResidenceConnectionManager.RARCM.UpdateResidenceConnections(gameObject);
+
+    }
+
+    public override void ThisTileAboutToBeDestroyed(){
+        base.ThisTileAboutToBeDestroyed();
+    }
+
     public virtual void ActivateBuilding(){
         IsActivated = true;
 
@@ -12,6 +24,7 @@ public class ActivatableTile : Tile
         if(buildingActivatedGraphic != null){
           buildingActivatedGraphic.SetActive(true);  
         }
+        TileActivationSettingChanged();
     }
 
     public virtual void DeactivateBuilding(){
@@ -21,6 +34,11 @@ public class ActivatableTile : Tile
         if(buildingActivatedGraphic != null){
             buildingActivatedGraphic.SetActive(false);
         }
+        TileActivationSettingChanged();
+    }
+    
+    public virtual void TileActivationSettingChanged(){
+        LevelManager.LM.UpdateNetCarbonAndMoney();
     }
 
     public virtual void UpdateBuildingActivation(){

@@ -2,6 +2,16 @@ using UnityEngine;
 
 public class FactoryTile : ActivatableBuilding
 {
+    public override void ThisTileJustPlaced(){
+        base.ThisTileJustPlaced();
+        PeopleManager.current.UpdateMaxPeople();
+    }
+
+    public override void ThisTileAboutToBeDestroyed(){
+        base.ThisTileAboutToBeDestroyed();
+        PeopleManager.current.UpdateMaxPeople();
+    }
+
     public override bool CheckIfTileIsPlaceable(bool displayErrorMessages){
         if(!base.CheckIfTileIsPlaceable(displayErrorMessages)){
             return false;

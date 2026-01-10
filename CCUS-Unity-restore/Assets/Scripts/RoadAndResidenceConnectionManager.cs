@@ -18,7 +18,7 @@ public class RoadAndResidenceConnectionManager : MonoBehaviour
     }
 
     public bool AllResidencesAreConnected(){
-        Tile[] allResidences = GridManager.GM.ResidenceTileTracker.GetAllTiles();
+        Tile[] allResidences = TileTypeCounter.current.ResidenceTileTracker.GetAllTiles();
         bool allResidencesConnected = true;
         foreach(Tile tile in allResidences){
             if(tile is ActivatableBuilding residence){
