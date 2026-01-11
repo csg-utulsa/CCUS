@@ -44,8 +44,11 @@ public class ProgressionManager : MonoBehaviour
         //Event 3: Adds More Ground
         new ProgressEvent(() => LevelManager.LM.NetMoney > 650, () => {GroundAreaExpansion.GAE.AddGroundChunk();}, 0f),
 
-        //Event 4: increases max number of carbon capture systems to 5
-        new ProgressEvent(() => LevelManager.LM.NetMoney > 650, () => {MaxTileTypeCounter.current.SetMaxCarbonCaptureTiles(5);}, 0f),
+        //Event 4: Unlocks carbon capture systems and increases max number of carbon capture systems to 5
+        new ProgressEvent(() => LevelManager.LM.NetMoney > 650, () => {MaxTileTypeCounter.current.SetMaxCarbonCaptureTiles(5); TileSelectPanel.TSP.AddButton(buttons[4]);}, 0f),
+
+        //Event 5: Add Factories
+        new ProgressEvent(() => LevelManager.LM.NetMoney > 800, () => {TileSelectPanel.TSP.AddButton(buttons[5]);}, 0f),
 
         //Event 2: Adds Roads when you fix the maxed out carbon the first time
         //new ProgressEvent(() => progressEventHasOccurred[1] && !LevelManager.overMaxCarbon(), () => {TileSelectPanel.TSP.AddButton(buttons[2]);}, 3f),

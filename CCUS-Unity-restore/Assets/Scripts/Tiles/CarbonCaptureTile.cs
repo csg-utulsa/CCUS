@@ -10,8 +10,7 @@ public class CarbonCaptureTile : Tile
         if (!UnderMaxCarbonCaptureTiles())
         {
             if(displayErrorMessages){
-                //unableToPlaceTileUI._unableToPlaceTileUI.MaxNumberOfCarbonCaptureTilesHit();
-                Debug.LogError("ADD ERROR MESSAGE FOR MAX CARBON CAPTURERERS");
+                unableToPlaceTileUI._unableToPlaceTileUI.MaxCarbonCaptureTilesError();
             }
             return false;
         }

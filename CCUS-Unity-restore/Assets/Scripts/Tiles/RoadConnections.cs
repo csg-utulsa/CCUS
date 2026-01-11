@@ -84,6 +84,12 @@ public class RoadConnections : MonoBehaviour
         3,
         4
     };
+    
+
+    void Start(){
+        //Updates this tile's visual road connections on creation
+        UpdateModelConnections(false);
+    }
 
     // //This method displays if this road is connecting two or more residences
     // public void activateConnectedRoad(){
@@ -104,6 +110,9 @@ public class RoadConnections : MonoBehaviour
             return initialSide - 2;
         }
     }
+
+    
+
 
     //This method updates road's visual connections. 
     //If makeNeighborsCheckConnections = true, it also forces its neighbors to update their connections.

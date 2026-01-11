@@ -1,13 +1,31 @@
+//This script goes on tiles that become partially transparent when the mouse hovers over them
 using UnityEngine;
 
 public class MouseHoverHideTile : MonoBehaviour
 {
+    private GameObject currentUIPopUp;
+    public GameObject CurrentUIPopUp {
+        get{
+            return currentUIPopUp;
+        }
+        set{
+            currentUIPopUp = value;
+            SetVisibilityOfTileUIPopUp();
+        }
+    }
+
     private GameObject tileModel;
     private GameObject activatedTileGraphic;
     private TileMaterialHandler tileMaterialHandler;
     //public float hoverTransparency = .5f;
     public float timeToFade = .1f;
     private float percentageOfActivationGraphicLeftHide = .5f;
+
+    public bool IsHidden{ get; set; } = false;
+
+    public bool UIPopUpsAreHidden {get; set;} = false;
+
+    public float popUpHiddenTransparency = .1f;
 
     void Awake(){
         if(GetComponent<TileMaterialHandler>() != null){
@@ -59,6 +77,7 @@ public class MouseHoverHideTile : MonoBehaviour
     public void HideTile(float hoverTransparency){
         // if(activatedTileGraphic != null)
         //     activatedTileGraphic.SetActive(false);
+        IsHidden = true;
         FadeToTransparency(hoverTransparency);
         if(activatedTileGraphic != null){
             SpriteRenderer[] spriteRenderers = activatedTileGraphic.GetComponentsInChildren<SpriteRenderer>();
@@ -73,6 +92,7 @@ public class MouseHoverHideTile : MonoBehaviour
         //     tileModel.SetActive(false);
     }
     public void UnhideTile(){
+        IsHidden = false;
         // if(GetComponent<ActivatableBuilding>() != null)
         //     GetComponent<ActivatableBuilding>().UpdateBuildingActivation();
         FadeToTransparency(1f);
@@ -88,6 +108,31 @@ public class MouseHoverHideTile : MonoBehaviour
         }
         
         tileMaterialHandler.MaterialSet(TileMaterialHandler.matState.Placed);
+    }
+
+    public void SetVisibilityOfTileUIPopUp(){
+        if(UIPopUpsAreHidden){
+            HideTileUIPopUps(popUpHiddenTransparency);
+        }else{
+            UnHideTileUIPopUps();
+        }
+    }
+    public void HideTileUIPopUps(float hoverTransparencyOfUIPopUps){
+        UIPopUpsAreHidden = true;
+        popUpHiddenTransparency = hoverTransparencyOfUIPopUps;
+        if(CurrentUIPopUp == null) return;
+        UIPopUpHideOnMouseOver popUpHider = CurrentUIPopUp.GetComponent<UIPopUpHideOnMouseOver>();
+        if(popUpHider != null){
+            popUpHider.HidePopUp(hoverTransparencyOfUIPopUps);
+        }
+    }
+    public void UnHideTileUIPopUps(){
+        UIPopUpsAreHidden = false;
+        if(CurrentUIPopUp == null) return;
+        UIPopUpHideOnMouseOver popUpHider = CurrentUIPopUp.GetComponent<UIPopUpHideOnMouseOver>();
+        if(popUpHider != null){
+            popUpHider.UnHidePopUp();
+        }
     }
 
     public GameObject GetFirstActiveMeshRenderer(){

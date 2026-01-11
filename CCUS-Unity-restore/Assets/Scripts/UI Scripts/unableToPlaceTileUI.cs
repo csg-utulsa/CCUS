@@ -87,6 +87,10 @@ public class unableToPlaceTileUI : MonoBehaviour
         errorGraphicTimers[5].DisplayErrorGraphic();
     }
 
+    public void MaxCarbonCaptureTilesError(){
+        errorGraphicTimers[6].DisplayErrorGraphic();
+    }
+
     void Update(){
         
         // //The next two if else structures time how long the graphics should be visible for

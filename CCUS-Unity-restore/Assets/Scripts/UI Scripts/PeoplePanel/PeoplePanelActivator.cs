@@ -69,6 +69,7 @@ public class PeoplePanelActivator : MonoBehaviour
         //Makes Update() begin moving the people panel upwards
         isMovingIntoPlace = true;
         timer = 0f;
+        PeopleManager.current.UpdateMaxPeople();
 
     }
 

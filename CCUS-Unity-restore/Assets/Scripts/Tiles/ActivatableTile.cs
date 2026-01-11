@@ -11,6 +11,8 @@ public class ActivatableTile : Tile
         //Updates Activatable Tile Connections
         RoadAndResidenceConnectionManager.RARCM.UpdateResidenceConnections(gameObject);
 
+        PeopleManager.current.UpdateMaxPeople();
+
     }
 
     public override void ThisTileAboutToBeDestroyed(){

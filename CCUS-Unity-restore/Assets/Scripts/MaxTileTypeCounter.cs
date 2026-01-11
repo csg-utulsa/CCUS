@@ -6,6 +6,8 @@ public class MaxTileTypeCounter : MonoBehaviour
     public static MaxTileTypeCounter current;
     public TextMeshProUGUI NumberOfCarbonCaptureSystemsText;
     public TextMeshProUGUI MaxCarbonCaptureSystemsText;
+    public SlideInAnimation maxCarbonCaptureSystemsSlideInAnimation;
+    private bool carbonCaptureSystemsEnabled = false;
     
     private int numberOfCarbonCaptureSystems = 0;
     public int NumberOfCarbonCaptureSystems {
@@ -29,6 +31,13 @@ public class MaxTileTypeCounter : MonoBehaviour
             maxCarbonCaptureSystems = value;
             if(MaxCarbonCaptureSystemsText != null){
                 MaxCarbonCaptureSystemsText.text = "" + value;
+            }
+            if(!carbonCaptureSystemsEnabled && maxCarbonCaptureSystems > 0){
+                maxCarbonCaptureSystemsSlideInAnimation.SlideIntoView();
+                carbonCaptureSystemsEnabled = true;
+            } else if(carbonCaptureSystemsEnabled && maxCarbonCaptureSystems <= 0){
+                maxCarbonCaptureSystemsSlideInAnimation.SlideOutOfView();
+                carbonCaptureSystemsEnabled = false;
             }
             
         }

@@ -15,16 +15,40 @@ public class UIPopUps : MonoBehaviour
     //This function displays pop ups over the money generating tiles.
     public void displayMoneyPopUps(){
         Tile[] allGridObjects = TileTypeCounter.current.AllTileTracker.GetAllTiles();
+        //Iterates through each tile currently on the grid
         foreach(Tile gridObject in allGridObjects){
-            if(gridObject != null && gridObject is ActivatableBuilding activatableGridObject){
-                if(activatableGridObject.IsActivated){
-                    float tileAnnualIncome = gridObject.tileScriptableObject.AnnualIncome;
-                    if(tileAnnualIncome > 0){
-                        GameObject newDollarSign = Instantiate(dollarSign, gridObject.gameObject.transform.position + new Vector3(0f, heightAboveObject, 0f), dollarSign.transform.rotation);
-                        newDollarSign.GetComponent<UIPopUpSize>().setSize(tileAnnualIncome, LevelManager.LM.getCurrentMaxTileIncome(), maxRangeToIncreaseSize);
-                        
+
+            
+            if(gridObject != null){
+
+                //Only displays money pop ups over activatable tiles if they're activated
+                if(gridObject is ActivatableTile activatableGridObject){
+                    if(!activatableGridObject.IsActivated){
+                        continue;
                     }
                 }
+                
+                float tileAnnualIncome = gridObject.tileScriptableObject.AnnualIncome;
+                if(tileAnnualIncome > 0){
+                    GameObject positionToInstantiatePopUp = FirstChildWithTag(gridObject.gameObject, "ReferencePositionForUIPopUps");
+                    
+                    //Checks if tile has an empty gameObject to use as a reference position for where to instantiate the UI pop ups
+                    GameObject objectAtPositionToInstantiatePopUp = FirstChildWithTag(gridObject.gameObject, "ReferencePositionForUIPopUps");
+                    Vector3 positionToInstantiate;
+                    if(objectAtPositionToInstantiatePopUp != null){
+                        positionToInstantiate = objectAtPositionToInstantiatePopUp.transform.position;
+                    }else{
+                        positionToInstantiate = gridObject.gameObject.transform.position + new Vector3(0f, heightAboveObject, 0f);
+                    }
+
+
+                    GameObject newDollarSign = Instantiate(dollarSign, positionToInstantiate, dollarSign.transform.rotation);
+                    newDollarSign.GetComponent<UIPopUpSize>().setSize(tileAnnualIncome, LevelManager.LM.getCurrentMaxTileIncome(), maxRangeToIncreaseSize);
+                    //if(newDollarSign.GetComponent<UIPopUpHideOnMouseOver>() != null) newDollarSign.GetComponent<UIPopUpHideOnMouseOver>().TileHoveringOver = gridObject;
+                    MouseHoverHideTile tileHider = gridObject.gameObject.GetComponent<MouseHoverHideTile>();
+                    if(tileHider != null) tileHider.CurrentUIPopUp = newDollarSign;
+                }
+                
                 
             }
             
@@ -34,25 +58,54 @@ public class UIPopUps : MonoBehaviour
     //This function displays pop ups over the carbon generating pop ups.
     public void displayCarbonPopUps(){
         Tile[] allGridObjects = TileTypeCounter.current.AllTileTracker.GetAllTiles();
+
+        //Iterates through each object currently on the grid
         foreach(Tile gridObject in allGridObjects){
             if(gridObject != null){
+
+                //If the tile is an activatable tile, it won't put pop ups over them
                 if(gridObject is ActivatableTile activatableGridObject){
-                    //Doesn't display pop-ups for deactivated tiles
                     if(!activatableGridObject.IsActivated) continue;
                 }
 
+                //Checks if tile has an empty gameObject to use as a reference position for where to instantiate the UI pop ups
+                GameObject objectAtPositionToInstantiatePopUp = FirstChildWithTag(gridObject.gameObject, "ReferencePositionForUIPopUps");
+                Vector3 positionToInstantiate;
+                if(objectAtPositionToInstantiatePopUp != null){
+                    positionToInstantiate = objectAtPositionToInstantiatePopUp.transform.position;
+                }else{
+                    positionToInstantiate = gridObject.gameObject.transform.position + new Vector3(0f, heightAboveObject, 0f);
+                }
+
+                //Instantiates carbon and carbon-removal pop ups over objects
                 float tileAnnualCarbon = gridObject.tileScriptableObject.AnnualCarbonAdded;
                 if(tileAnnualCarbon > 0){
-                    GameObject newCarbonCloud = Instantiate(carbonCloud, gridObject.gameObject.transform.position + new Vector3(0f, heightAboveObject, 0f), dollarSign.transform.rotation);
+                    GameObject newCarbonCloud = Instantiate(carbonCloud, positionToInstantiate, dollarSign.transform.rotation);
                     newCarbonCloud.GetComponent<UIPopUpSize>().setSize(tileAnnualCarbon, LevelManager.LM.getCurrentMaxTileCarbon(), maxRangeToIncreaseSize);
+                    //if(newCarbonCloud.GetComponent<UIPopUpHideOnMouseOver>() != null) newCarbonCloud.GetComponent<UIPopUpHideOnMouseOver>().TileHoveringOver = gridObject;
+                    MouseHoverHideTile tileHider = gridObject.gameObject.GetComponent<MouseHoverHideTile>();
+                    if(tileHider != null) tileHider.CurrentUIPopUp = newCarbonCloud;
                 } else if(tileAnnualCarbon < 0){
-                    GameObject newCarbonRemovalCloud = Instantiate(carbonRemovalCloud, gridObject.gameObject.transform.position + new Vector3(0f, heightAboveObject, 0f), dollarSign.transform.rotation);
+                    GameObject newCarbonRemovalCloud = Instantiate(carbonRemovalCloud, positionToInstantiate, dollarSign.transform.rotation);
                     newCarbonRemovalCloud.GetComponent<UIPopUpSize>().setSize(tileAnnualCarbon, LevelManager.LM.getCurrentMinTileCarbon(), maxRangeToIncreaseSize);
+                    //if(newCarbonRemovalCloud.GetComponent<UIPopUpHideOnMouseOver>() != null) newCarbonRemovalCloud.GetComponent<UIPopUpHideOnMouseOver>().TileHoveringOver = gridObject;
+                    MouseHoverHideTile tileHider = gridObject.gameObject.GetComponent<MouseHoverHideTile>();
+                    if(tileHider != null) tileHider.CurrentUIPopUp = newCarbonRemovalCloud;
                 }
                 
             }
             
         }
+    }
+
+    //Returns the first child of a GameObject that has a given tag
+    private GameObject FirstChildWithTag(GameObject parentToCheck, string tagToCheck){
+        foreach(Transform childTransform in parentToCheck.transform){
+            if(childTransform.tag == tagToCheck){
+                return childTransform.gameObject;
+            }
+        }
+        return null;
     }
     
     // //This function displays pop ups over the money generating tiles. (ITS NOT FINISHED AND DOESNT WORK)

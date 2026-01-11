@@ -89,8 +89,6 @@ public class LevelManager : MonoBehaviour
     
     public void UpdateNetCarbonAndMoney(){
 
-        Debug.Log("Updating Net Carbon and Money");
-
         //The next chunk of code gets the lists of money & carbon producing tiles from the GridManager.
         //Then it adds the net Money/Carbon from each of those tiles and adds them to its own count.
         Tile[] moneyTiles = TileTypeCounter.current.MoneyTileTracker.GetAllTiles();

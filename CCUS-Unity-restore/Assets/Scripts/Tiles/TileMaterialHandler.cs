@@ -18,7 +18,7 @@ using UnityEngine;
  * Not completely functional.
  *
  * Later Note from Graydon: To achieve a transparency effect that didn't become increasingly worse with as a model's geometry became
- * more complex, it now uses a dither transparency shader. It also now supports having multiple children on a tile with Renderer components.
+ * more complex, it now uses a dither transparency shader for transparency.
  *
  */ 
 public class TileMaterialHandler : MonoBehaviour

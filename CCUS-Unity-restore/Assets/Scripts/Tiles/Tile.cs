@@ -7,7 +7,8 @@ using System.Linq;
 [SelectionBase]
 public class Tile : MonoBehaviour
 {
-   [SerializeField] TileType tileType;
+    
+    [SerializeField] TileType tileType;
     public TileScriptableObject tileScriptableObject;
     [SerializeField] PlaceableObject po;
 
@@ -132,6 +133,7 @@ public class Tile : MonoBehaviour
         SetTileState(TileState.Static);//Non functional
 
         setInitialIncomeAndCarbon();
+        PeopleManager.current.UpdateMaxPeople();
 
     }
 

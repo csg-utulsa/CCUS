@@ -141,8 +141,15 @@ public class BuildingSystem : MonoBehaviour
 
     public void deselectActiveObject(){
         if (activeObject != null){
+
+            //Makes the tile select panel visually deselect the tile button
             TileSelectPanel.TSP.deselectAllButtons();
-            Debug.Log("Destroyed AGO: " + activeObject);
+            
+            //Makes any roads that might be connected to the active game object update their visual connections
+            if(activeObject.GetComponent<RoadConnections>() != null){
+                activeObject.GetComponent<RoadConnections>().UpdateNeighborConnections();
+            }
+
             Destroy(activeObject);
 
         }
@@ -348,9 +355,9 @@ public class BuildingSystem : MonoBehaviour
         if(activeObject != null){
             //Vector3 tileGridPosition = activeObject.GetComponent<Tile>().tilePosition;
             //GridManager.GM.RemoveObject(activeObject);
-            Debug.Log("Destroyed AGO: " + activeObject);
             Destroy(activeObject);
         }
+
         
         //if (objectToPlace != null) return;
         Vector3 position = SnapCoordinateToGrid(GetMouseWorldPosition());
@@ -359,6 +366,8 @@ public class BuildingSystem : MonoBehaviour
         activeObject = obj;
         objectToPlace = obj.GetComponent<PlaceableObject>();
         activeTile = obj.GetComponent<Tile>();
+
+        
     }
 
     //Called By Tile Select Panel when the user deselects the current tile

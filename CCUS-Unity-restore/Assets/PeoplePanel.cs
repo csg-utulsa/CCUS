@@ -85,8 +85,10 @@ public class PeoplePanel : MonoBehaviour
         //avoids divide by 0 error
         if(maxNumberOfPeople == 0){
             flowFillAmountOfPeople.ChangeFillAmount(0f);
+            //Debug.Log("Updating Flow Fill Amount to 0");
         } else {
             flowFillAmountOfPeople.ChangeFillAmount((float)numberOfPeople / (float)maxNumberOfPeople);
+            //Debug.Log("Updating Flow Fill Amount to " + ((float)numberOfPeople / (float)maxNumberOfPeople));
         }
         
     }

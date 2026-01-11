@@ -269,6 +269,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &461873082038176304
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6166339379478872314}
+  m_Layer: 0
+  m_Name: PositionOfUIPopUps
+  m_TagString: ReferencePositionForUIPopUps
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6166339379478872314
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 461873082038176304}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.107, y: 0.994, z: 0.049}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8859714510574772770}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &711606454191959763
 GameObject:
   m_ObjectHideFlags: 0
@@ -5900,6 +5931,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 6166339379478872314}
   - {fileID: 4063210920634006352}
   - {fileID: 1168607608021026129}
   - {fileID: 8078159987059088695}
@@ -6067,6 +6099,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9089043adfa1cdf4a848a222a38bfd3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  timeToFade: 0.1
 --- !u!1001 &3339841640696085006
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6093,7 +6126,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d4826c23c09fb9045bab9f5d5b427261, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.664
+      value: 0.642
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d4826c23c09fb9045bab9f5d5b427261, type: 3}
       propertyPath: m_LocalPosition.z

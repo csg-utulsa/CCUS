@@ -467,6 +467,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9089043adfa1cdf4a848a222a38bfd3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MouseHoverHideTile
+  timeToFade: 0.1
 --- !u!1001 &3816858629521154248
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -166,7 +166,6 @@ public class CarbonCaptureTileTracker : TileTracker{
     public override void CheckTileForAddition(Tile tile){
         if(tile is CarbonCaptureTile carbonCapturer){
             base.AddTile(carbonCapturer);
-            Debug.Log("added carbon capture tile");
         }
     }
     public override void CheckTileForRemoval(Tile tile){
