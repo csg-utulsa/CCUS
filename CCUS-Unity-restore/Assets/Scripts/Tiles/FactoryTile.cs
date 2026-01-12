@@ -3,8 +3,9 @@ using UnityEngine;
 public class FactoryTile : ActivatableBuilding
 {
     public override void ThisTileJustPlaced(){
-        base.ThisTileJustPlaced();
+        
         PeopleManager.current.UpdateMaxPeople();
+        base.ThisTileJustPlaced();
     }
 
     public override void ThisTileAboutToBeDestroyed(){

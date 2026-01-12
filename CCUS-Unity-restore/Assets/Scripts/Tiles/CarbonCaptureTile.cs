@@ -18,8 +18,9 @@ public class CarbonCaptureTile : Tile
         return true;
     }
     public override void ThisTileJustPlaced(){
-        base.ThisTileJustPlaced();
+        
         MaxTileTypeCounter.current.UpdateNumberOfCarbonCaptureSystems();
+        base.ThisTileJustPlaced();
     }
 
     public override void ThisTileAboutToBeDestroyed(){

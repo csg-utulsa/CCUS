@@ -48,6 +48,7 @@ public class PeopleManager : MonoBehaviour
         NumberOfPeople++;
         NetPeopleIncome = NumberOfPeople * incomeOfPerson;
         LevelManager.LM.UpdateNetCarbonAndMoney();
+        GameEventManager.current.PersonJustAdded.Invoke();
         
     }
 

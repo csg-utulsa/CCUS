@@ -8,12 +8,14 @@ public class ResidentialBuilding : ActivatableBuilding
     public bool IsConnectedToOtherResidences {get; set;} = false;
 
     public override void ThisTileJustPlaced(){
-        base.ThisTileJustPlaced();
+        
 
         //Updates the cap on number of people
         if(PeopleManager.current != null){
             PeopleManager.current.UpdateMaxPeople();
         }
+
+        base.ThisTileJustPlaced();
 
     }
 

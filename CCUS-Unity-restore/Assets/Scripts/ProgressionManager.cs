@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ProgressionManager : MonoBehaviour
@@ -28,9 +29,14 @@ public class ProgressionManager : MonoBehaviour
         The final input is the Delay Until Excecution, which tells the program how long to wait to excecute the
         action after the condition is met.
 
-
+        ALSO BE SURE TO UPDATE the enum ProgressEventType WHEN YOU ADD A NEW PROGRESS EVENT.
     */
     public ProgressEvent[] progressEvents => new ProgressEvent[]{
+
+        //DO NOT REARRANGE ORDER OF PROGRESS EVENTS OR DELETE THEM
+        // Their exact position in the array is referenced several other places.
+        // If you need to add a new one, add it to the end of the array.
+        // If you need to disable one, replace the first parameter with "() => false"
 
         //Event 0: Enables the people button when you fix the maxed out carbon the first time
         new ProgressEvent(() => progressEventHasOccurred[1] && !LevelManager.overMaxCarbon(), () => {PeoplePanel._peoplePanel.EnablePeoplePanel();}, 6f),
@@ -41,20 +47,31 @@ public class ProgressionManager : MonoBehaviour
         //Event 2: Adds apartment
         new ProgressEvent(() => LevelManager.LM.NetMoney > 80, () => {TileSelectPanel.TSP.AddButton(buttons[3]);}, 1.5f),
 
-        //Event 3: Adds More Ground
-        new ProgressEvent(() => LevelManager.LM.NetMoney > 650, () => {GroundAreaExpansion.GAE.AddGroundChunk();}, 0f),
-
-        //Event 4: Unlocks carbon capture systems and increases max number of carbon capture systems to 5
+        //Event 3: Unlocks carbon capture systems and increases max number of carbon capture systems to 5
         new ProgressEvent(() => LevelManager.LM.NetMoney > 650, () => {MaxTileTypeCounter.current.SetMaxCarbonCaptureTiles(5); TileSelectPanel.TSP.AddButton(buttons[4]);}, 0f),
 
-        //Event 5: Add Factories
+        //Event 4: Add Factories
         new ProgressEvent(() => LevelManager.LM.NetMoney > 800, () => {TileSelectPanel.TSP.AddButton(buttons[5]);}, 0f),
+
+        //Event 5: Adds More Ground
+        new ProgressEvent(() => LevelManager.LM.NetMoney > 650, () => {GroundAreaExpansion.GAE.AddGroundChunk();}, 0f),
 
         //Event 2: Adds Roads when you fix the maxed out carbon the first time
         //new ProgressEvent(() => progressEventHasOccurred[1] && !LevelManager.overMaxCarbon(), () => {TileSelectPanel.TSP.AddButton(buttons[2]);}, 3f),
     
         
     };
+
+    public enum ProgressEventType
+    {
+        PeopleUnlocked,
+        TreesAndGrassUnlocked,
+        ApartmentsUnlocked,
+        CarbonCaptureSystemsUnlocked,
+        FactoriesUnlocked,
+        NewGroundUnlocked,
+        
+    }
 
     
     
@@ -82,6 +99,7 @@ public class ProgressionManager : MonoBehaviour
     }
 
     public void CallProgressEvents(int[] progressEventsToCall){
+        
         foreach(int progressEventToCall in progressEventsToCall){
             if(progressEventToCall < progressEvents.Length){
                 progressEvents[progressEventToCall].ProgressionAction();
@@ -97,19 +115,27 @@ public class ProgressionManager : MonoBehaviour
             if(!progressEventHasOccurred[i] && progressEvents[i].ProgressionCondition()){
                 float delayTime = progressEvents[i].TimeTillExcecution;
                 if(delayTime > 0){
-                    StartCoroutine(delayProgressionEvent(progressEvents[i].TimeTillExcecution, progressEvents[i].ProgressionAction));
+                    StartCoroutine(delayProgressionEvent(progressEvents[i].TimeTillExcecution, i));
                     
                 }else{
-                    progressEvents[i].ProgressionAction();
+                    CallAProgressEvent(i);
                 }
                 progressEventHasOccurred[i] = true;
             }
         }
     }
 
-    private IEnumerator delayProgressionEvent(float delayTime, Action progressAction){
+    private IEnumerator delayProgressionEvent(float delayTime, int progressEventToCall){
         yield return new WaitForSeconds(delayTime);
-        progressAction();
+        CallAProgressEvent(progressEventToCall);
+    }
+
+    private void CallAProgressEvent(int progressEventToCall){
+        //Debug.Log("Called progress event number " + Array.IndexOf(progressEvents, progressEvent));
+        progressEvents[progressEventToCall].ProgressionAction();
+        GameEventManager.current.TypeOfLastProgressEventCalled =  (ProgressEventType) progressEventToCall;
+        GameEventManager.current.ProgressEventJustCalled.Invoke();
+
     }
 
 

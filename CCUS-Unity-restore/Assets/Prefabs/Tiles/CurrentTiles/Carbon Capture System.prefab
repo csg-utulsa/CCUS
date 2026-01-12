@@ -477,7 +477,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9171035400571233729}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 11ef500f045088c4dbac90fff211c63c, type: 3}
   m_Name: 
@@ -503,6 +503,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MouseHoverHideTile
   timeToFade: 0.1
+  popUpHiddenTransparency: 0.1
 --- !u!1001 &3282633359232512079
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -611,6 +612,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1a611f525e91f74fa6fc624ad0082b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpinObject
+  rotateOnXAxis: 0
   speedToSpin: 200
 --- !u!1 &2491579467525148392 stripped
 GameObject:
@@ -629,6 +631,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1a611f525e91f74fa6fc624ad0082b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpinObject
+  rotateOnXAxis: 0
   speedToSpin: 200
 --- !u!4 &3027818458619041700 stripped
 Transform:
@@ -652,6 +655,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1a611f525e91f74fa6fc624ad0082b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpinObject
+  rotateOnXAxis: 0
   speedToSpin: 200
 --- !u!1 &6832198611286842247 stripped
 GameObject:
@@ -670,6 +674,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1a611f525e91f74fa6fc624ad0082b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpinObject
+  rotateOnXAxis: 0
   speedToSpin: 200
 --- !u!1 &7781713911063844908 stripped
 GameObject:
@@ -688,6 +693,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1a611f525e91f74fa6fc624ad0082b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpinObject
+  rotateOnXAxis: 0
   speedToSpin: 200
 --- !u!1 &9163468188250083716 stripped
 GameObject:
@@ -706,6 +712,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1a611f525e91f74fa6fc624ad0082b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpinObject
+  rotateOnXAxis: 0
   speedToSpin: 200
 --- !u!1001 &3816858629521154248
 PrefabInstance:
@@ -921,6 +928,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1a611f525e91f74fa6fc624ad0082b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpinObject
+  rotateOnXAxis: 0
   speedToSpin: 200
 --- !u!4 &3467998957938421481 stripped
 Transform:
@@ -944,6 +952,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1a611f525e91f74fa6fc624ad0082b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpinObject
+  rotateOnXAxis: 0
   speedToSpin: 200
 --- !u!1 &5381973489682672273 stripped
 GameObject:
@@ -962,6 +971,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1a611f525e91f74fa6fc624ad0082b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpinObject
+  rotateOnXAxis: 0
   speedToSpin: 200
 --- !u!1 &5633216320591489638 stripped
 GameObject:
@@ -980,6 +990,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1a611f525e91f74fa6fc624ad0082b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpinObject
+  rotateOnXAxis: 0
   speedToSpin: 200
 --- !u!1 &6068529106251613226 stripped
 GameObject:
@@ -998,6 +1009,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1a611f525e91f74fa6fc624ad0082b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpinObject
+  rotateOnXAxis: 0
   speedToSpin: 200
 --- !u!1 &6802179258848650749 stripped
 GameObject:
@@ -1016,6 +1028,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1a611f525e91f74fa6fc624ad0082b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpinObject
+  rotateOnXAxis: 0
   speedToSpin: 200
 --- !u!1001 &5792753286686237721
 PrefabInstance:

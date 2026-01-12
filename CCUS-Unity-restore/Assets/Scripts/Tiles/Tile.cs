@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.Events;
 
 //using UnityEngine.WSA;
 [SelectionBase]
@@ -127,13 +128,12 @@ public class Tile : MonoBehaviour
     }
 
     public virtual void ThisTileJustPlaced(){
-        //Puts object in the Grid Manager
-        GridManager.GM.AddObject(gameObject);
-        tilePosition = BuildingSystem.current.SnapCoordinateToGrid(transform.position);//updates tile position of tile
-        SetTileState(TileState.Static);//Non functional
+        
 
         setInitialIncomeAndCarbon();
         PeopleManager.current.UpdateMaxPeople();
+
+        GameEventManager.current.TileJustPlaced.Invoke();
 
     }
 

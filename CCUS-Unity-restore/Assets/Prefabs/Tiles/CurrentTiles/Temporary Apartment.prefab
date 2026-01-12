@@ -7348,7 +7348,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9171035400571233729}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 11ef500f045088c4dbac90fff211c63c, type: 3}
   m_Name: 
@@ -7374,6 +7374,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MouseHoverHideTile
   timeToFade: 0.1
+  popUpHiddenTransparency: 0.1
 --- !u!1001 &496773761343131842
 PrefabInstance:
   m_ObjectHideFlags: 0

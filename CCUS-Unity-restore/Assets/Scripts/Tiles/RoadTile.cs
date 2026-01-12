@@ -3,7 +3,7 @@ using UnityEngine;
 public class RoadTile : ActivatableTile
 {
     public override void ThisTileJustPlaced(){
-        base.ThisTileJustPlaced();
+        
         
         //visually updates road connections
         if(GetComponent<RoadConnections>() != null){
@@ -11,6 +11,8 @@ public class RoadTile : ActivatableTile
         } else{
             UpdateTileNeighborConnections();
         }
+
+        base.ThisTileJustPlaced();
 
     }
 

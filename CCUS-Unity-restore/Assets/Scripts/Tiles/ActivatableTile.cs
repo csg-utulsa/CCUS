@@ -6,12 +6,14 @@ public class ActivatableTile : Tile
     public bool IsActivated {get; set;} = false;
 
     public override void ThisTileJustPlaced(){
-        base.ThisTileJustPlaced();
+        
         
         //Updates Activatable Tile Connections
         RoadAndResidenceConnectionManager.RARCM.UpdateResidenceConnections(gameObject);
 
         PeopleManager.current.UpdateMaxPeople();
+
+        base.ThisTileJustPlaced();
 
     }
 

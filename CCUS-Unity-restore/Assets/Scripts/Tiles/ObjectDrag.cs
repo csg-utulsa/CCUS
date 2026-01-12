@@ -77,7 +77,10 @@ public class ObjectDrag : MonoBehaviour
 
     public void Place()
     {   
-        
+        //Puts object in the Grid Manager
+        GridManager.GM.AddObject(gameObject);
+        GetComponent<Tile>().tilePosition = BuildingSystem.current.SnapCoordinateToGrid(transform.position);//updates tile position of tile
+        GetComponent<Tile>().SetTileState(TileState.Static);//Non functional
 
         //gameObject.GetComponent<Tile>().tilePosition = BuildingSystem.current.SnapCoordinateToGrid(transform.position);//updates tile position of tile
         dragging = false;//stops object from following mouse
@@ -173,7 +176,7 @@ public class ObjectDrag : MonoBehaviour
             if(GetComponent<RoadConnections>() != null){
                 //Updates connections of new surrounding road tiles
                 GetComponent<RoadConnections>().UpdateModelConnections(true);
-                Debug.Log("Updated active object model connections");
+
 
                 //Updates connections of the surrounding road tiles just moved away from
                 GameObject[] oldNeighbors = GridManager.GM.GetRoadNeighbors(previousPosition);
