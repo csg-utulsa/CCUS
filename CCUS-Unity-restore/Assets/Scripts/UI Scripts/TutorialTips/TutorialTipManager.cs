@@ -4,17 +4,18 @@
 *  Basically, you just have to make a new tutorial tip text object, then create a corresponding class that defines
 *  when it should activate & deactivate. Here are the specifics:
 *
-* 1) In the Editor, under the Tutorial Tip Manager -> TutorialTipTextObjects, make the new text object
-*    a) IN THE INSPECTOR, add that text object to the tutorialTipTextObjects array of this script.
-*    b) IN THE INSPECTOR, also input the time to wait before activating & deactivating the tutorial tips on this script.
+* 1) In the Editor, under the Tutorial Tip Manager -> TutorialTipTextObjects, make the new TextMeshPro text object
+*      a) IN THE INSPECTOR, add that text object to the tutorialTipTextObjects array of this script.
+*      b) IN THE INSPECTOR, also input the time to wait before activating & deactivating the tutorial tips on this script.
 *
-* 2) IN  THE TutorialTip.cs file, Create a new tutorial Tip class that inherits from the parent TutorialTip class. Add it it the bottom of the TutorialTip.cs file
-*    a) Further instructions for creating the new class in the TutorialTip script
+* 2) Using the base class found in the TutorialTip.cs file, Create a new tutorial Tip class that inherits from the parent TutorialTip class. 
+*    Put it in a new script in the folder found at Assets/Scripts/UI Scripts/TutorialTips/TutorialTipTypes
+*      a) Further instructions for creating the new class in the TutorialTip script
 *
 * 3) In the Start() function of this script, create an instance of the new TutorialTip child class you just made. 
-*    a) Do so by editing this line: new ConnectHousesTutorialTip( 0, this, timesToWaitBeforeActivating[0], timesToWaitBeforeDeactivating[0]);
-*       i) Update to the name of the new class you created
-*        ii) Update the numbers from 0
+*      a) Do so by editing this line: new ConnectHousesTutorialTip( 0, this, timesToWaitBeforeActivating[0], timesToWaitBeforeDeactivating[0]);
+*         i) Update to the name of the new class you created
+*         ii) Update the numbers from 0
 *
 *
 */

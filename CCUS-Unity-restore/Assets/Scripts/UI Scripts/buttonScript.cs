@@ -18,9 +18,10 @@ public class buttonScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             TileScriptableObject scriptableObject = tileToPlace.GetComponent<Tile>().tileScriptableObject;
             money = scriptableObject.AnnualIncome;
             carbon = scriptableObject.AnnualCarbonAdded;
+            ToolTipManager.TTM.activateToolTip(tileToPlace.GetComponent<Tile>(), gameObject);
         }
         
-        ToolTipManager.TTM.activateToolTip(money, carbon, gameObject);
+        
     }
     
 

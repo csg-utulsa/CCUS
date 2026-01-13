@@ -212,6 +212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MouseHoverHideTile
   timeToFade: 0.1
+  popUpHiddenTransparency: 0.1
 --- !u!1001 &620602910271166720
 PrefabInstance:
   m_ObjectHideFlags: 0

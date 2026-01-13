@@ -83,10 +83,12 @@ public class PeopleManager : MonoBehaviour
         int _numOfEmployees = 0;
         Tile[] factoryTiles = TileTypeCounter.current.FactoryTileTracker.GetAllTiles();
         foreach(Tile tile in factoryTiles){
-            
-            if(tile is FactoryTile factory){
-                _numOfEmployees += factory.gameObject.GetComponent<Tile>().tileScriptableObject.RequiredEmployees;
+            if(tile is ActivatableTile activatableTile && activatableTile.IsActivated){
+                if(activatableTile is FactoryTile factory){
+                    _numOfEmployees += factory.gameObject.GetComponent<Tile>().tileScriptableObject.RequiredEmployees;
+                }
             }
+            
         }
 
         NumberOfEmployees = _numOfEmployees;

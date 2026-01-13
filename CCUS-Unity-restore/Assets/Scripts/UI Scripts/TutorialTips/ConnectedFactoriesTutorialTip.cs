@@ -7,18 +7,19 @@ public class ConnectedFactoriesTutorialTip : TutorialTip
 {
     //Constructor passes values to base class
     public ConnectedFactoriesTutorialTip(int _tutorialTipTextID, TutorialTipManager _TTM, float _timeToWaitBeforeActivating, float _timeToWaitBeforeDeactivating) : base(_tutorialTipTextID, _TTM, _timeToWaitBeforeActivating, _timeToWaitBeforeDeactivating){
-        //Checks if tip should be activated every time a progress event is called
-        GameEventManager.current.ProgressEventJustCalled.AddListener(CheckIfTipShouldBeActivated);
+        
+        //Checks if tip should be activated every time a tile is placed
+        GameEventManager.current.TileJustPlaced.AddListener(CheckIfTipShouldBeActivated);
 
         //Checks if tip should be deactivated every time a tile is placed
         GameEventManager.current.TileJustPlaced.AddListener(CheckIfTipShouldBeDeactivated);
     }
 
     public void CheckIfTipShouldBeActivated(){
-        //Checks that the progress event was factories being unlocked
-        if(GameEventManager.current.TypeOfLastProgressEventCalled == ProgressionManager.ProgressEventType.FactoriesUnlocked){
+        //Checks that factories have been unlocked
+        if(ProgressionManager.PM.progressEventHasOccurred[(int)ProgressionManager.ProgressEventType.FactoriesUnlocked]){
             //Activates tutorial tip if no factories are connected
-            if(!FactoriesAreConnected()){
+            if(FactoriesArePlaced() && !FactoriesAreConnected()){
                 ActivateTutorialTip();
             }
         }
@@ -43,6 +44,18 @@ public class ConnectedFactoriesTutorialTip : TutorialTip
             }
         }
         return factoryIsConnected;
+    }
+
+    //Checks if any factories are placed
+    private bool FactoriesArePlaced(){
+        //Checks if any factories are placed
+        bool factoryIsPlaced = false;
+        foreach(Tile tile in TileTypeCounter.current.FactoryTileTracker.GetAllTiles()){
+            if(tile is FactoryTile factoryTile){
+                return true;
+            }
+        }
+        return false;
     }
 
 }

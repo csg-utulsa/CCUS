@@ -33,13 +33,14 @@ public class ProgressionManager : MonoBehaviour
     */
     public ProgressEvent[] progressEvents => new ProgressEvent[]{
 
-        //DO NOT REARRANGE ORDER OF PROGRESS EVENTS OR DELETE THEM
-        // Their exact position in the array is referenced several other places.
+        //DO NOT DELETE A PROGRESS EVENT
+        // Several other places are dependant on their exact position in the array.
         // If you need to add a new one, add it to the end of the array.
         // If you need to disable one, replace the first parameter with "() => false"
+        // If you need to rearrange them, just also rearrange the enum ProgressEventType
 
         //Event 0: Enables the people button when you fix the maxed out carbon the first time
-        new ProgressEvent(() => progressEventHasOccurred[1] && !LevelManager.overMaxCarbon(), () => {PeoplePanel._peoplePanel.EnablePeoplePanel();}, 6f),
+        new ProgressEvent(() => progressEventHasOccurred[1] && !LevelManager.overMaxCarbon(), () => {PeoplePanel._peoplePanel.EnablePeoplePanel();}, 15f),
         
         //Event 1: Adds the tree and grass buttons the first time you max out on carbon.
         new ProgressEvent(() => LevelManager.overMaxCarbon(), () => {TileSelectPanel.TSP.AddButton(buttons[0]); TileSelectPanel.TSP.AddButton(buttons[1]);}, 4.5f),
@@ -48,13 +49,16 @@ public class ProgressionManager : MonoBehaviour
         new ProgressEvent(() => LevelManager.LM.NetMoney > 80, () => {TileSelectPanel.TSP.AddButton(buttons[3]);}, 1.5f),
 
         //Event 3: Unlocks carbon capture systems and increases max number of carbon capture systems to 5
-        new ProgressEvent(() => LevelManager.LM.NetMoney > 650, () => {MaxTileTypeCounter.current.SetMaxCarbonCaptureTiles(5); TileSelectPanel.TSP.AddButton(buttons[4]);}, 0f),
+        new ProgressEvent(() => LevelManager.LM.NetMoney > 1300, () => {MaxTileTypeCounter.current.SetMaxCarbonCaptureTiles(5); TileSelectPanel.TSP.AddButton(buttons[4]);}, 0f),
 
         //Event 4: Add Factories
         new ProgressEvent(() => LevelManager.LM.NetMoney > 800, () => {TileSelectPanel.TSP.AddButton(buttons[5]);}, 0f),
 
         //Event 5: Adds More Ground
         new ProgressEvent(() => LevelManager.LM.NetMoney > 650, () => {GroundAreaExpansion.GAE.AddGroundChunk();}, 0f),
+
+        //Event 6: Unlock Wind Turbines
+        new ProgressEvent(() => LevelManager.LM.NetMoney > 1700, () => {TileSelectPanel.TSP.AddButton(buttons[6]);}, 0f),
 
         //Event 2: Adds Roads when you fix the maxed out carbon the first time
         //new ProgressEvent(() => progressEventHasOccurred[1] && !LevelManager.overMaxCarbon(), () => {TileSelectPanel.TSP.AddButton(buttons[2]);}, 3f),
