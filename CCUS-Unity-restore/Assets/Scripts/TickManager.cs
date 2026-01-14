@@ -26,11 +26,14 @@ public class TickManager : MonoBehaviour
     public UnityEvent Tick { get; private set; }
     public UnityEvent PollutionTick { get; private set; }
     public UnityEvent MoneyTick { get; private set; }
+    public UnityEvent EndOfMoneyTick { get; private set; }
+    public UnityEvent EndOfPollutionTick { get; private set; }
     public UnityEvent EndOfMoneyAndPollutionTicks { get; private set; }
     float timer;
     float separateTickTimer = 0f;
     public float secBetweenYears = 4;//time between ticks in seconds
     int tickType = 0;
+
 
     private void Awake()
     {
@@ -38,6 +41,8 @@ public class TickManager : MonoBehaviour
         Tick = new UnityEvent();
         PollutionTick = new UnityEvent();
         MoneyTick = new UnityEvent();
+        EndOfMoneyTick = new UnityEvent();
+        EndOfPollutionTick = new UnityEvent();
         EndOfMoneyAndPollutionTicks = new UnityEvent();
     }
 
@@ -59,10 +64,12 @@ public class TickManager : MonoBehaviour
                 tickType++;
                 MoneyTick.Invoke();
                 EndOfMoneyAndPollutionTicks.Invoke();
+                EndOfMoneyTick.Invoke();
             } else{
                 tickType = 0;
                 PollutionTick.Invoke();
                 EndOfMoneyAndPollutionTicks.Invoke();
+                EndOfPollutionTick.Invoke();
             }
             separateTickTimer = 0f;
         }

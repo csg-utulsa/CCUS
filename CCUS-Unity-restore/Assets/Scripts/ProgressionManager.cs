@@ -13,6 +13,9 @@ public class ProgressionManager : MonoBehaviour
 
     public bool[] progressEventHasOccurred;
 
+    //Stores the type of the last progress event that was called
+    public ProgressEventType TypeOfLastProgressEventCalled {get; set;}
+
     //progressEvents defines all the progress events
     /*
     Instructions for use:
@@ -43,7 +46,7 @@ public class ProgressionManager : MonoBehaviour
         new ProgressEvent(() => progressEventHasOccurred[1] && !LevelManager.overMaxCarbon(), () => {PeoplePanel._peoplePanel.EnablePeoplePanel();}, 15f),
         
         //Event 1: Adds the tree and grass buttons the first time you max out on carbon.
-        new ProgressEvent(() => LevelManager.overMaxCarbon(), () => {TileSelectPanel.TSP.AddButton(buttons[0]); TileSelectPanel.TSP.AddButton(buttons[1]);}, 4.5f),
+        new ProgressEvent(() => LevelManager.overMaxCarbon(), () => {TileSelectPanel.TSP.AddButton(buttons[0]); TileSelectPanel.TSP.AddButton(buttons[1]);}, 5f),
 
         //Event 2: Adds apartment
         new ProgressEvent(() => LevelManager.LM.NetMoney > 80, () => {TileSelectPanel.TSP.AddButton(buttons[3]);}, 1.5f),
@@ -59,6 +62,9 @@ public class ProgressionManager : MonoBehaviour
 
         //Event 6: Unlock Wind Turbines
         new ProgressEvent(() => LevelManager.LM.NetMoney > 1700, () => {TileSelectPanel.TSP.AddButton(buttons[6]);}, 0f),
+
+        //Event 7: Unhides the Carbon Dial when you max out the carbon
+        new ProgressEvent(() => LevelManager.overMaxCarbon(), () => {CarbonDial.current.UnhideCarbonDial();}, 0f),
 
         //Event 2: Adds Roads when you fix the maxed out carbon the first time
         //new ProgressEvent(() => progressEventHasOccurred[1] && !LevelManager.overMaxCarbon(), () => {TileSelectPanel.TSP.AddButton(buttons[2]);}, 3f),
@@ -137,7 +143,7 @@ public class ProgressionManager : MonoBehaviour
     private void CallAProgressEvent(int progressEventToCall){
         //Debug.Log("Called progress event number " + Array.IndexOf(progressEvents, progressEvent));
         progressEvents[progressEventToCall].ProgressionAction();
-        GameEventManager.current.TypeOfLastProgressEventCalled =  (ProgressEventType) progressEventToCall;
+        TypeOfLastProgressEventCalled =  (ProgressEventType) progressEventToCall;
         GameEventManager.current.ProgressEventJustCalled.Invoke();
 
     }

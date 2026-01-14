@@ -19,7 +19,7 @@ public class LevelManager : MonoBehaviour
     #endregion
     [Header("Initial Stats")]
     [SerializeField] private int maxCarbon = 200;
-    [SerializeField] public int carbonCapPastMax {get; set;} = 100;
+    [SerializeField] private int carbonCapPastMax = 0;
     [SerializeField] int startingMoney;
     [SerializeField] int startingCarbon;
     [SerializeField] int startingYear;
@@ -34,9 +34,30 @@ public class LevelManager : MonoBehaviour
     [SerializeField] int stored;
 
 
-
-    [SerializeField] public int NetCarbon {get; set;} = 0;
-    [SerializeField] public int NetMoney {get; set;} = 0;
+    private int netCarbon = 0;
+    [SerializeField] public int NetCarbon {
+        get{
+            return netCarbon;
+        }
+        set{
+            if(netCarbon != value){
+                netCarbon = value;
+                GameEventManager.current.NetCarbonUpdated.Invoke();
+            }
+        }
+    }
+    private int netMoney = 0;
+    [SerializeField] public int NetMoney {
+        get{
+            return netMoney;
+        }
+        set{
+            if(netMoney != value){
+                netMoney = value;
+                GameEventManager.current.NetMoneyUpdated.Invoke();
+            }
+        }
+    }
 
     
 
@@ -133,8 +154,8 @@ public class LevelManager : MonoBehaviour
         NetMoney = _netMoney;
 
         //These update the Net Money and Net Carbon counter texts
-        NetMoneyCounter.NMC.UpdateNetMoneyCounter();
-        NetCarbonCounter.NCC.UpdateNetCarbonCounter();
+        //NetMoneyCounter.NMC.UpdateNetMoneyCounter();
+        //NetCarbonCounter.NCC.UpdateNetCarbonCounter();
     }
 
     private void Awake()
@@ -244,6 +265,7 @@ public class LevelManager : MonoBehaviour
         if(carbon >= (carbonCapPastMax + maxCarbon)){
             if(value < 0){
                 carbon += value;
+                if (carbon < 0) carbon = 0;
             }
         } else{
             

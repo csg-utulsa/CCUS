@@ -19,6 +19,7 @@ public class TutorialTip
     private int tutorialTipTextID = 0;
     protected float timeToWaitBeforeActivating = 0f;
     protected float timeToWaitBeforeDeactivating = 0f;
+    protected bool tutorialTipConditionMet = false;
     TutorialTipManager TTM;
 
     //In child classes, do something like this: "public ConnectHousesTutorialTip(_tutorialTipTextID, _TTM, _timeToWaitBeforeActivating, _timeToWaitBeforeDeactivating) : base(int _tutorialTipTextID, TutorialTipManager _TTM, float _timeToWaitBeforeActivating, float _timeToWaitBeforeDeactivating){}
@@ -53,24 +54,27 @@ public class TutorialTip
     }
 
     protected void ActivateTutorialTip(){
+        tutorialTipConditionMet = true;
         ActionDelayer.DelayAction(DelayedActivateTutorialTip, timeToWaitBeforeActivating);
     }
 
     private void DelayedActivateTutorialTip(){
-        if((!displayOnce || !alreadyDisplayed) && !tutorialTipIsActivated){
+        if((!displayOnce || !alreadyDisplayed) && !tutorialTipIsActivated && tutorialTipConditionMet){
             tutorialTipIsActivated = true;
             TTM.ActivateTutorialTip(tutorialTipTextID);
         }
     }
     protected void DeactivateTutorialTip(){
+        tutorialTipConditionMet = false;
         ActionDelayer.DelayAction(DelayedDeactivateTutorialTip, timeToWaitBeforeDeactivating);
     }
 
     private void DelayedDeactivateTutorialTip(){
-        if(tutorialTipIsActivated){
+        if(tutorialTipIsActivated && !tutorialTipConditionMet){
             tutorialTipIsActivated = false;
             TTM.DeactivateTutorialTip(tutorialTipTextID);
             if(displayOnce){
+
                 //Destroy(this);
             }
         }

@@ -66,14 +66,14 @@ public class ResourcePanelManager : MonoBehaviour
             storageText.text = "Carbon Storage: " + dm.GetStored();
         }
         */
-        if(carbonDial != null)
-        {
-            carbonDial.UpdateCarbon(dm.GetCarbon()); //Updates the Dial
-            float carbonPercentage = (dm.GetCarbon() / dm.getMaxCarbon()); //Transforms the carbon number into a percent
-            carbonDialGreenImageGraphic.SetOpacity(1f - carbonPercentage);
+        // if(carbonDial != null)
+        // {
+        //     carbonDial.UpdateCarbon(dm.GetCarbon()); //Updates the Dial
+        //     float carbonPercentage = (dm.GetCarbon() / dm.getMaxCarbon()); //Transforms the carbon number into a percent
+        //     carbonDialGreenImageGraphic.SetOpacity(1f - carbonPercentage);
 
-            //carbonText.text = (carbonPercentage).ToString() + "%"; //Changes component to match current carbon percent
-        }
+        //     //carbonText.text = (carbonPercentage).ToString() + "%"; //Changes component to match current carbon percent
+        // }
 
         if(peopleText != null){
             peopleText.text = "" + PeopleManager.current.numberOfPeople;

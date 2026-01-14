@@ -16,9 +16,9 @@ MonoBehaviour:
   BuildCost: 0
   AnnualCost: 0
   AnnualCarbonRemoved: 0
-  AnnualCarbonAdded: 4
+  AnnualCarbonAdded: 0
   AnnualCarbonStored: 0
-  AnnualIncome: 3
+  AnnualIncome: 0
   MaxPeople: 0
   RequiredEmployees: 0
   isResidence: 0

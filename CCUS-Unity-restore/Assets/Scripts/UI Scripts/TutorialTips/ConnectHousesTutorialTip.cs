@@ -9,9 +9,10 @@ public class ConnectHousesTutorialTip : TutorialTip
     public ConnectHousesTutorialTip(int _tutorialTipTextID, TutorialTipManager _TTM, float _timeToWaitBeforeActivating, float _timeToWaitBeforeDeactivating) : base(_tutorialTipTextID, _TTM, _timeToWaitBeforeActivating, _timeToWaitBeforeDeactivating){
         //Checks if houses are connected every time a tile is placed
         GameEventManager.current.TileJustPlaced.AddListener(CheckIfTipShouldBeDeactivated);
-        ActionDelayer.DelayAction(CheckIfTipShouldBeActivated, 1f);
+        ActionDelayer.DelayAction(CheckIfTipShouldBeActivated, 1f); 
     }
     
+
 
     public void CheckIfTipShouldBeActivated(){
         if(!HousesAreConnected()){

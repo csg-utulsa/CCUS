@@ -17,7 +17,7 @@ public class TreesRemoveCarbonTutorialTip : TutorialTip
     public void CheckIfTipShouldBeActivated(){
 
         //Checks that the progress event was trees and grass being unlocked
-        if(GameEventManager.current.TypeOfLastProgressEventCalled == ProgressionManager.ProgressEventType.TreesAndGrassUnlocked){
+        if(ProgressionManager.PM.TypeOfLastProgressEventCalled == ProgressionManager.ProgressEventType.TreesAndGrassUnlocked){
             //Activates tutorial tip if no net-negative carbon tiles are placed
             if(!NetNegativeCarbonTilePlaced()){
                 ActivateTutorialTip();
@@ -26,7 +26,7 @@ public class TreesRemoveCarbonTutorialTip : TutorialTip
     }
 
     public void CheckIfTipShouldBeDeactivated(){
-        if(tutorialTipIsActivated && NetNegativeCarbonTilePlaced()){
+        if(NetNegativeCarbonTilePlaced()){
             DeactivateTutorialTip();
         }
     }

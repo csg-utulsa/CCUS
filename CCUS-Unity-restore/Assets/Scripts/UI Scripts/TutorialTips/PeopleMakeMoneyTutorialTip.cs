@@ -20,7 +20,7 @@ public class PeopleMakeMoneyTutorialTip : TutorialTip
     public void CheckIfTipShouldBeActivated(){
         //Checks that the progress event was people being unlocked
 
-        if(GameEventManager.current.TypeOfLastProgressEventCalled == ProgressionManager.ProgressEventType.PeopleUnlocked){
+        if(ProgressionManager.PM.TypeOfLastProgressEventCalled == ProgressionManager.ProgressEventType.PeopleUnlocked){
 
             //Activates tutorial tip if no people have been added 
             if(!AtLeastOnePersonAdded()){
@@ -31,7 +31,10 @@ public class PeopleMakeMoneyTutorialTip : TutorialTip
     }
 
     public void CheckIfTipShouldBeDeactivated(){
-        DeactivateTutorialTip();
+        if(AtLeastOnePersonAdded()){
+            DeactivateTutorialTip();
+        }
+        
     }
 
     //Checks if at least one person has been added
