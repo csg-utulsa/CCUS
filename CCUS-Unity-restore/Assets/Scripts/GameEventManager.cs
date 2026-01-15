@@ -13,6 +13,8 @@ public class GameEventManager : MonoBehaviour
     public UnityEvent NetCarbonUpdated {get; set;}
     public UnityEvent NetMoneyUpdated {get; set;}
 
+    public UnityEvent MoneyAmountUpdated {get; set;}
+
     public static GameEventManager current;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -22,6 +24,7 @@ public class GameEventManager : MonoBehaviour
         PersonJustAdded = new UnityEvent();
         NetCarbonUpdated = new UnityEvent();
         NetMoneyUpdated = new UnityEvent();
+        MoneyAmountUpdated = new UnityEvent();
 
         if(current == null){
             current = this;

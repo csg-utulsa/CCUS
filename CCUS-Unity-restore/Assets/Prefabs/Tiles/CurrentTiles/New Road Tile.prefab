@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 3566317316941334756}
   - component: {fileID: 5484643323090204880}
   - component: {fileID: 2472129894610347500}
+  - component: {fileID: 6274289564387809550}
   m_Layer: 0
   m_Name: New Road Tile
   m_TagString: Ground
@@ -207,6 +208,21 @@ MonoBehaviour:
   neighborAlignments: 00000000010000000a0000000b00000064000000650000006e0000006f000000e8030000e9030000f2030000f30300004c0400004d0400005604000057040000
   arrangementOrientationAngles: 01000000030000000200000002000000010000000100000001000000020000000000000003000000020000000300000000000000000000000100000000000000
   arrangementModels: 00000000010000000100000002000000010000000100000002000000030000000100000002000000010000000300000002000000030000000300000004000000
+--- !u!114 &6274289564387809550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 671960825420794531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9089043adfa1cdf4a848a222a38bfd3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MouseHoverHideTile
+  fadeThisTilesTransparency: 0
+  timeToFade: 0.1
+  popUpHiddenTransparency: 0.1
 --- !u!1 &5145472264364763080
 GameObject:
   m_ObjectHideFlags: 0

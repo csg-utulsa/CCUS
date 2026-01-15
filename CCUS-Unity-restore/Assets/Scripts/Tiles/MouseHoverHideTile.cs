@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class MouseHoverHideTile : MonoBehaviour
 {
+    public bool fadeThisTilesTransparency = true;
     private GameObject currentUIPopUp;
     public GameObject CurrentUIPopUp {
         get{
@@ -49,16 +50,16 @@ public class MouseHoverHideTile : MonoBehaviour
     void Update(){
         if(isFading){
             fadeTimer += Time.deltaTime;
-        float percentageFaded = fadeTimer/timeToFade;
-        float newTransparency = previousTransparency + (percentageFaded * (targetTransparency - previousTransparency));
-        if(percentageFaded < 1f){
-            tileMaterialHandler.SetDitherTransparency(newTransparency);
-        } else{
-            tileMaterialHandler.SetDitherTransparency(targetTransparency);
-            isFading = false;
-            fadeTimer = 0;
-            previousTransparency = targetTransparency;
-        }
+            float percentageFaded = fadeTimer/timeToFade;
+            float newTransparency = previousTransparency + (percentageFaded * (targetTransparency - previousTransparency));
+            if(percentageFaded < 1f){
+                tileMaterialHandler.SetDitherTransparency(newTransparency);
+            } else{
+                tileMaterialHandler.SetDitherTransparency(targetTransparency);
+                isFading = false;
+                fadeTimer = 0;
+                previousTransparency = targetTransparency;
+            }
         }
         
         
@@ -66,15 +67,22 @@ public class MouseHoverHideTile : MonoBehaviour
     }
 
     private void FadeToTransparency(float _targetTransparency){
-        fadeTimer = 0f;
-        previousTransparency =  tileMaterialHandler.GetCurrentTransparency();
-        targetTransparency = _targetTransparency;
-        isFading = true;
+        if(fadeThisTilesTransparency){
+            fadeTimer = 0f;
+            previousTransparency =  tileMaterialHandler.GetCurrentTransparency();
+            targetTransparency = _targetTransparency;
+            isFading = true;
+        }else{
+            tileMaterialHandler.SetDitherTransparency(_targetTransparency);
+        }
+        
         
     }
 
     
     public void HideTile(float hoverTransparency){
+        string tileName = GetComponent<Tile>().tileScriptableObject.Name;
+        Debug.Log("hiding tile of type: " + tileName);
         // if(activatedTileGraphic != null)
         //     activatedTileGraphic.SetActive(false);
         IsHidden = true;
@@ -92,6 +100,9 @@ public class MouseHoverHideTile : MonoBehaviour
         //     tileModel.SetActive(false);
     }
     public void UnhideTile(){
+        string tileName = GetComponent<Tile>().tileScriptableObject.Name;
+        Debug.Log("UNhiding tile of type: " + tileName);
+
         IsHidden = false;
         // if(GetComponent<ActivatableBuilding>() != null)
         //     GetComponent<ActivatableBuilding>().UpdateBuildingActivation();

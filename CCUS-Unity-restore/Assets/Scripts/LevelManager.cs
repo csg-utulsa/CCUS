@@ -339,12 +339,17 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     /// <returns></returns>
     
+    public int GetStartingMoney(){
+        return startingMoney;
+    }
+
     public int GetMoney(){
         return money;
     }
 
     public void SetMoney(int _money){
         money = _money;
+        GameEventManager.current.MoneyAmountUpdated.Invoke();
         //TileSelectPanel.TSP.checkPricesOfTiles(GetMoney());
     }
 

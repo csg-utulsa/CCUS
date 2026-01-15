@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 7179006374254638101}
   - component: {fileID: 36975342046767057}
   - component: {fileID: 7494702538914327106}
+  - component: {fileID: 2981873079491518979}
   m_Layer: 0
   m_Name: Grass Tile
   m_TagString: Ground
@@ -179,6 +180,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bce17a9110adcc439bb188c35b4ff50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2981873079491518979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6203246308946112635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9089043adfa1cdf4a848a222a38bfd3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MouseHoverHideTile
+  fadeThisTilesTransparency: 0
+  timeToFade: 0.1
+  popUpHiddenTransparency: 0.1
 --- !u!1001 &2164353554004521867
 PrefabInstance:
   m_ObjectHideFlags: 0

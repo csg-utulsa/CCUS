@@ -27,7 +27,7 @@ public class BuildingSystem : MonoBehaviour
     [HideInInspector]
     public GameObject activeObject;
     private PlaceableObject objectToPlace;
-    private Tile activeTile;
+    public Tile activeTile;
 
     public LayerMask groundLayer;
 
@@ -53,7 +53,12 @@ public class BuildingSystem : MonoBehaviour
     {
         current = this;
         grid = gridLayout.gameObject.GetComponent<Grid>();
+        
+    }
+
+    private void Start(){
         TickManager.TM.EndOfMoneyAndPollutionTicks.AddListener(EndOfResourceTicks);
+        GameEventManager.current.MoneyAmountUpdated.AddListener(MoneyAmountUpdated);
     }
 
     
@@ -134,6 +139,11 @@ public class BuildingSystem : MonoBehaviour
         UpdateActiveTileMaterialValididty();
     }
 
+    //Updates tile material validity when the amount of money changes
+    private void MoneyAmountUpdated(){
+        UpdateActiveTileMaterialValididty();
+    }
+
     private void UpdateActiveTileMaterialValididty(){
         if(activeObject != null && activeObject.GetComponent<ObjectDrag>() != null)
             activeObject.GetComponent<ObjectDrag>().updateTileMaterialValidity();
@@ -183,8 +193,11 @@ public class BuildingSystem : MonoBehaviour
     }
 
 
+
     //Places the currently selected tile
     public void placeSelectedTile(){
+
+        activeObject.SetActive(true);
 
         objectToPlace.Place(); 
         
@@ -408,14 +421,13 @@ public class BuildingSystem : MonoBehaviour
         BoundsInt area = new BoundsInt();
         area.position = gridLayout.WorldToCell(objectToPlace.GetStartPosition());
         area.size = new Vector3Int(area.size.x + 1, area.size.y + 1, area.size.z);
-
         TileBase[] baseArray = GetTilesBlock(area, TerrainTilemap);
 
         //Checks if object is over void
         if (isObjectOverVoid()==true)
             return false;
 
-
+        //Checks if there's enough money and carbon isn't maxed out
         if(attemptingToPlaceTile){
             if(!activeTile.CheckIfTileIsPlaceable(true)){
                 return false;
@@ -463,7 +475,14 @@ public class BuildingSystem : MonoBehaviour
         //     }
         // }
 
-        if (!activeTile.gameObject.GetComponent<ObjectDrag>().IsValidOverlap()) { return false; }//makes sure tile is not placed with invalid tiles
+
+        //Decides if a tile can destroy the tile it is being placed on top of
+        if (!activeTile.gameObject.GetComponent<ObjectDrag>().CanBePlacedOnOverlappingTile()){
+            if(attemptingToPlaceTile && !TrashButtonScript.TBS.HasBeenSelectedAtLeastOnce){
+                unableToPlaceTileUI._unableToPlaceTileUI.UseTrashButtonToRemoveTiles();
+            }
+            return false;
+        }
 
         return true;
     }

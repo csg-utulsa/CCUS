@@ -4,6 +4,7 @@ using TMPro;
 
 public class CarbonDial : MonoBehaviour
 {
+    public bool percentTextSmoothMove = true;
     public TextMeshProUGUI carbonPercentText;
     public TextMeshProUGUI netCarbonText;
     public RotateBetweenValues pointerRotate;
@@ -53,7 +54,10 @@ public class CarbonDial : MonoBehaviour
             
 
         //Updates carbon capacity percent text
-        carbonPercentText.text = (int)(percentOfCarbonCapacityFilled * 100f) + "%";
+        if(!percentTextSmoothMove){
+            carbonPercentText.text = (int)(percentOfCarbonCapacityFilled * 100f) + "%";
+        }
+        
         
 
     }
@@ -71,6 +75,10 @@ public class CarbonDial : MonoBehaviour
         carbonDialColor.SetColorAsPercent(percent);
         pointerRotate.SetRotationAsPercent(percent);
         carbonDialOuterRing.SetFillAsPercent(percent);
+
+        if(percentTextSmoothMove){
+            carbonPercentText.text = (int)(percent * 100f) + "%";
+        }
     }
 
 

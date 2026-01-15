@@ -91,6 +91,10 @@ public class unableToPlaceTileUI : MonoBehaviour
         errorGraphicTimers[6].DisplayErrorGraphic();
     }
 
+    public void UseTrashButtonToRemoveTiles(){
+        errorGraphicTimers[7].DisplayErrorGraphic();
+    }
+
     void Update(){
         
         // //The next two if else structures time how long the graphics should be visible for

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a5987a142a40cc4fa0c05b204dd415a, type: 3}
   m_Name: Oak Tree
   m_EditorClassIdentifier: 
-  Name: Oak Tree
+  Name: Tree
   BuildCost: 10
   AnnualCost: 0
   AnnualCarbonRemoved: 0

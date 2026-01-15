@@ -163,7 +163,6 @@ public class ObjectDrag : MonoBehaviour
 
             GameObject[] otherObjectsInCell = GridManager.GM.GetGameObjectsInGridCell(this.gameObject);
             foreach(GameObject otherObject in otherObjectsInCell){
-                //FIX ME / TODO / NOT DONE!!!!!!!!!
                 //If we ever want to have multiple objects (More than 1 object & 1 terrain) in a GridCell, this code is toast!
                 //You'll have to make the overlapTerrain and overlapObject Lists.
                 string otherTag = otherObject.gameObject.tag;
@@ -253,12 +252,15 @@ public class ObjectDrag : MonoBehaviour
         if(GetComponent<PlaceableObject>().placed){
             tileMaterialHandler.MaterialSet(TileMaterialHandler.matState.Placed);
         }else{
-           if ((!BuildingSystem.current.CanBePlaced(GetComponent<PlaceableObject>(), false)) && dragging)//changes material based on if it's somewhere it can be placed
-            {
+        //    if ((!BuildingSystem.current.CanBePlaced(GetComponent<PlaceableObject>(), false)))//changes material based on if it's somewhere it can be placed
+        //     {
+        //         tileMaterialHandler.MaterialSet(TileMaterialHandler.matState.HoveringValid);
+        //     }
+
+        //Turns object red if it cannot be placed in position
+            if(!CanBePlacedOnOverlappingTile()){
                 tileMaterialHandler.MaterialSet(TileMaterialHandler.matState.HoveringInvalid);
-            }
-            else
-            {
+            }else {
                 tileMaterialHandler.MaterialSet(TileMaterialHandler.matState.HoveringValid);
             } 
         }
@@ -270,25 +272,28 @@ public class ObjectDrag : MonoBehaviour
 
     //Updated overlap function check
     public bool AllowObjectOverlap(GameObject otherTile){
+        if(otherTile == null) return true;
         if(GetComponent<Tile>() != null && GetComponent<Tile>().tileScriptableObject != null && otherTile.GetComponent<Tile>() != null){
             
+            //Overlap is valid if the overlapping object is the same type as this object
+            if(GetComponent<Tile>().tileScriptableObject == otherTile.GetComponent<Tile>().tileScriptableObject){
+                return true;
+            }
+
+            //Checks this tile's overlap list to see if it's a valid overlap
             TileScriptableObject[] validOverlaps = GetComponent<Tile>().tileScriptableObject.AllowOverlapList;
             TileScriptableObject otherTileScriptableObject = otherTile.GetComponent<Tile>().tileScriptableObject;
             foreach(TileScriptableObject validOverlap in validOverlaps){
-                //Debug.Log("Other SCriptable= " + otherTileScriptableObject);
-                //Debug.Log("My scriptable=  " + validOverlap);
-                //Debug.Log("There are some valid overlaps");
                 if(otherTileScriptableObject == validOverlap){
-                    //Debug.Log("Allowing overlap");
                     return true;
                 }
             }
 
+            //Checks overlapping tile's overlap list to see if this is a valid overlap
             TileScriptableObject[] otherTileValidOverlaps = otherTile.GetComponent<Tile>().tileScriptableObject.AllowOverlapList;
             TileScriptableObject tileScriptableObject = GetComponent<Tile>().tileScriptableObject;
             foreach(TileScriptableObject validOverlap in otherTileValidOverlaps){
                 if(tileScriptableObject == validOverlap){
-                    //Debug.Log("Allowing overlap");
                     return true;
                 }
             }
@@ -298,50 +303,95 @@ public class ObjectDrag : MonoBehaviour
     }
 
 
-    /*
-     * Ensures that the tile is not being placed over an invalid tile
-     */
-    public bool IsValidOverlap(GameObject otherTile)
+    //Decides when a tile can destroy a tile it will be placed on top of
+    public bool CanBePlacedOnOverlappingTile(GameObject otherTile)
     {   
-        if(GOTag == "UI") { return true; }
-        if(GOTag == "Ground") { return true; }//dont care FOR NOW if this is a terrain tile, or otherTile is a object, the object above gets deleted anyways
-        if(otherTile == null) { return true;}//if object, check if there is a ground tile its overlapping
-        if( otherTile.tag =="Object"){return true;}
-        else
-        {
-            
-
-
-            if (otherTile == null) return false;//if nothing to overlap, then object shouldnt be placed
-
-
-            TileScriptableObject thisTSO = this.gameObject.GetComponent<Tile>().tileScriptableObject;
-            TileScriptableObject otherTSO = otherTile.GetComponent<Tile>().tileScriptableObject;
-
-            if (thisTSO.OverlapWhiteList.Length > 0)
-            {
-                if (Array.IndexOf(thisTSO.OverlapWhiteList, otherTSO.name) >= 0) { return true; }//if this has a whitelist and the overlap is on said whitelist, return true
-                
-                else { return false; }
-            }
-            
-            if (Array.IndexOf(thisTSO.OverlapBlackList, otherTSO.name) >= 0)
-            { //if the tile is in the blacklist, not valid
-                return false;
-            }
-            else { return true; }//if otherTile is not in the blacklist, return true
+        if(otherTile == null){
+            return true;
         }
+
+        //Objects can always be placed onto and destroy terrain, but terrain can't destroy objects.
+        Tile thisTile = GetComponent<Tile>();
+        Tile otherTileScript = otherTile.GetComponent<Tile>();
+        if(!thisTile.tileScriptableObject.isTerrain){
+            if(otherTile != null){
+                if(otherTileScript.tileScriptableObject.isTerrain){
+                    return true;
+                }
+            }
+        }else{
+            if(otherTile != null){
+                if(otherTileScript.tileScriptableObject.isTerrain){
+                    return true;
+                }
+            }
+        }
+
+        return false;
+
+
+
+        // if(GOTag == "UI") { return true; }
+        // if(GOTag == "Ground") { return true; }//dont care FOR NOW if this is a terrain tile, or otherTile is a object, the object above gets deleted anyways
+        // if(otherTile == null) { return true;}//if object, check if there is a ground tile its overlapping
+        // if( otherTile.tag == "Object"){return true;}
+        // else
+        // {
+            
+
+
+        //     // if (otherTile == null) return false;//if nothing to overlap, then object shouldnt be placed
+
+
+        //     // TileScriptableObject thisTSO = this.gameObject.GetComponent<Tile>().tileScriptableObject;
+        //     // TileScriptableObject otherTSO = otherTile.GetComponent<Tile>().tileScriptableObject;
+
+        //     // if (thisTSO.OverlapWhiteList.Length > 0)
+        //     // {
+        //     //     if (Array.IndexOf(thisTSO.OverlapWhiteList, otherTSO.name) >= 0) { return true; }//if this has a whitelist and the overlap is on said whitelist, return true
+                
+        //     //     else { return false; }
+        //     // }
+            
+        //     // if (Array.IndexOf(thisTSO.OverlapBlackList, otherTSO.name) >= 0)
+        //     // { //if the tile is in the blacklist, not valid
+        //     //     return false;
+        //     // }
+        //     // else { return true; }//if otherTile is not in the blacklist, return true
+        // }
     }
 
     public bool IsValidOverlap()
     {
-        if (IsValidOverlap(overlapTerrain) && IsValidOverlap(overlapObject))//if BOTH terrain and object is valid, it's valid
+        //Debug.Log("Overlap terrain: " + overlapTerrain);
+        //Debug.Log("Overlap Object: "+ overlapObject);
+        if (AllowObjectOverlap(overlapTerrain) && AllowObjectOverlap(overlapObject))//if BOTH terrain and object is valid, it's valid
         {
             return true;
         }
         return false;
  
     }
+    
+
+    //Checks if this tile can be placed on the overlapping tiles, even if the overlap is invalid
+    //Will destroy invalid overlapping tiles
+    public bool CanBePlacedOnOverlappingTile()
+    {
+        if(IsValidOverlap()){
+            return true;
+        }else{
+            Debug.Log("not valid overlap");
+        }
+
+        if (CanBePlacedOnOverlappingTile(overlapTerrain) && CanBePlacedOnOverlappingTile(overlapObject))
+        {
+            return true;
+        }
+        return false;
+ 
+    }
+
     void EnableSound()
     {
         SoundCanBePlayed = true;

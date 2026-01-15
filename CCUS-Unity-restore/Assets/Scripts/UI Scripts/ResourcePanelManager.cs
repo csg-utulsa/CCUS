@@ -35,13 +35,13 @@ public class ResourcePanelManager : MonoBehaviour
         }
 
 
-        if(dm.GetMoney() > previousMoney){
-            OnMoneyIncrease(dm.GetMoney() - previousMoney);
-            previousMoney = dm.GetMoney();
+        // if(dm.GetMoney() > previousMoney){
+        //     OnMoneyIncrease(dm.GetMoney() - previousMoney);
+        //     previousMoney = dm.GetMoney();
             
-        } else if(dm.GetMoney() != previousMoney){
-            previousMoney = dm.GetMoney();
-        }
+        // } else if(dm.GetMoney() != previousMoney){
+        //     previousMoney = dm.GetMoney();
+        // }
         
 
         if(moneyText != null)
@@ -53,11 +53,11 @@ public class ResourcePanelManager : MonoBehaviour
             // previousMoney = dm.GetMoney();
 
             //Updates Cash Text
-            for(int i = 0; i < 6 - dm.GetMoney().ToString().Length; i++)
-            {
-                spacing += "0";
-            }
-            moneyText.text = "$" + dm.GetMoney().ToString();
+            // for(int i = 0; i < 6 - dm.GetMoney().ToString().Length; i++)
+            // {
+            //     spacing += "0";
+            // }
+            // moneyText.text = "$" + dm.GetMoney().ToString();
         }
         spacing = "";
 
@@ -75,22 +75,22 @@ public class ResourcePanelManager : MonoBehaviour
         //     //carbonText.text = (carbonPercentage).ToString() + "%"; //Changes component to match current carbon percent
         // }
 
-        if(peopleText != null){
-            peopleText.text = "" + PeopleManager.current.numberOfPeople;
-        }
+        // if(peopleText != null){
+        //     peopleText.text = "" + PeopleManager.current.numberOfPeople;
+        // }
     }
 
-    public void OnMoneyIncrease(int amountMoneyIncreased){
+    // public void OnMoneyIncrease(int amountMoneyIncreased){
         
-        //Shakes the money when it increases
-        if(moneyText != null){
-           moneyText.GetComponent<ShakeGraphic>().ShakeItUp(); 
-        }
+    //     //Shakes the money when it increases
+    //     if(moneyText != null){
+    //        moneyText.GetComponent<ShakeGraphic>().ShakeItUp(); 
+    //     }
 
-        //Adds alert when money increases
-        GameObject UIFeedbackObject = Instantiate(NewMoneyUIFeedbackPrefab);
-        UIFeedbackObject.GetComponentInChildren<TextMeshProUGUI>().text = "$" + amountMoneyIncreased;
+    //     //Adds alert when money increases
+    //     GameObject UIFeedbackObject = Instantiate(NewMoneyUIFeedbackPrefab);
+    //     UIFeedbackObject.GetComponentInChildren<TextMeshProUGUI>().text = "$" + amountMoneyIncreased;
         
         
-    }
+    // }
 }

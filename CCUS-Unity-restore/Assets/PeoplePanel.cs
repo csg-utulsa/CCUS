@@ -107,7 +107,7 @@ public class PeoplePanel : MonoBehaviour
 
     public void NewPersonUIPopUp(){
         GameObject UIFeedbackObject = Instantiate(newPersonUIFeedback);
-        UIFeedbackObject.GetComponentInChildren<TextMeshProUGUI>().text = "+$" + PeopleManager.current.incomeOfPerson;
+        UIFeedbackObject.GetComponentInChildren<TextMeshProUGUI>().text = "$" + PeopleManager.current.incomeOfPerson + " per hour";
     }
 
     public bool isMouseOverPanel(){

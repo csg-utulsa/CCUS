@@ -99,6 +99,7 @@ public class MouseHoverTransparency : MonoBehaviour
             }
         }
 
+
             
 
         //Unhides models not being hovered over 
@@ -262,14 +263,25 @@ public class MouseHoverTransparency : MonoBehaviour
 
     //Only disables models of tiles that are placed, aren't terrain, and don't have the delete box over them
     public bool ShouldDeactivateModel(GameObject model){
+
+        Tile modelTile = model.GetComponent<Tile>();
         
-        if(model.GetComponent<Tile>() == null) return false;
+        if(modelTile == null) return false;
 
         if(!model.GetComponent<PlaceableObject>().placed) return false;
 
-        if(model.GetComponent<Tile>().tileScriptableObject.isTerrain) return false;
+        //Only Deactivates terrain tiles if it's under the mouse and another terrain tile is selected by the Building System
+        if(modelTile.tileScriptableObject.isTerrain){
+            bool activeTileIsTerrain = BuildingSystem.current.activeTile != null && BuildingSystem.current.activeTile.tileScriptableObject.isTerrain;
+            if(!(activeTileIsTerrain && modelTile.MouseIsOnTile())){
+                Debug.Log("Shouldn't deactivate terrain");
+                return false;
+            }else{
+                Debug.Log("should deactivate terrain boi");
+            }
+        }
 
-        if(TrashButtonScript.TBS.isSelected && model.GetComponent<Tile>().MouseIsOnTile()){
+        if(TrashButtonScript.TBS.isSelected && modelTile.MouseIsOnTile()){
 
             return false;
 

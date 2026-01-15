@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a5987a142a40cc4fa0c05b204dd415a, type: 3}
   m_Name: Temporary Apartment
   m_EditorClassIdentifier: 
-  Name: Temporary Apartment
+  Name: Apartment
   BuildCost: 1000
   AnnualCost: 0
   AnnualCarbonRemoved: 0
@@ -20,6 +20,9 @@ MonoBehaviour:
   AnnualCarbonStored: 0
   AnnualIncome: 50
   MaxPeople: 10
+  RequiredEmployees: 0
+  isResidence: 0
+  isTerrain: 0
   allowClickAndDrag: 1
   TileMesh: {fileID: 0}
   thisTileClass: 6

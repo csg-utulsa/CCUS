@@ -50,7 +50,7 @@ public class TileSelectPanel : ScrollableArea
     
     void Awake(){
         TSP = this;
-        TickManager.TM.EndOfMoneyAndPollutionTicks.AddListener(EndOfTicks);
+
     }
 
     void Start()
@@ -76,11 +76,14 @@ public class TileSelectPanel : ScrollableArea
             }
 
         }else{
-            Debug.LogError("There ain't no buttons attached to the tile select panel! We kinda need those, dude.");
+            Debug.LogError("No buttons attached to the tile select panel! (uh oh)");
         }
         //Moves all the buttons to their proper position;
         updateButtonPositions();
         CheckPlaceabilityOfTiles();
+
+        TickManager.TM.EndOfMoneyAndPollutionTicks.AddListener(EndOfTicks);
+        GameEventManager.current.MoneyAmountUpdated.AddListener(MoneyAmountUpdated);
     }
 
 
@@ -114,7 +117,12 @@ public class TileSelectPanel : ScrollableArea
     }
 
     //Runs at the end of each money and pollution tick
-    public void EndOfTicks(){
+    private void EndOfTicks(){
+        CheckPlaceabilityOfTiles();
+    }
+
+    //Runs whenever the amount of money has been changed
+    private void MoneyAmountUpdated(){
         CheckPlaceabilityOfTiles();
     }
 

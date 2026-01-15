@@ -42,8 +42,8 @@ public class ProgressionManager : MonoBehaviour
         // If you need to disable one, replace the first parameter with "() => false"
         // If you need to rearrange them, just also rearrange the enum ProgressEventType
 
-        //Event 0: Enables the people button when you fix the maxed out carbon the first time
-        new ProgressEvent(() => progressEventHasOccurred[1] && !LevelManager.overMaxCarbon(), () => {PeoplePanel._peoplePanel.EnablePeoplePanel();}, 15f),
+        //Event 0: Enables the people panel when you fix the maxed out carbon the first time
+        new ProgressEvent(() => progressEventHasOccurred[1] && !LevelManager.overMaxCarbon(), () => {PeoplePanel._peoplePanel.EnablePeoplePanel();}, 25f),
         
         //Event 1: Adds the tree and grass buttons the first time you max out on carbon.
         new ProgressEvent(() => LevelManager.overMaxCarbon(), () => {TileSelectPanel.TSP.AddButton(buttons[0]); TileSelectPanel.TSP.AddButton(buttons[1]);}, 5f),

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TrashButtonScript : MonoBehaviour
 {
+    
     public GameObject selectedButtonGraphic;
 
     public GameObject redDeleteCubePrefab;
@@ -18,6 +19,8 @@ public class TrashButtonScript : MonoBehaviour
 
     public bool isSelected {get; set;} = false;
 
+    public bool HasBeenSelectedAtLeastOnce {get; set;} = false;
+
     bool hasMoved = false;
 
     public void Start(){
@@ -28,6 +31,7 @@ public class TrashButtonScript : MonoBehaviour
     }
 
     public void trashButtonClicked(){
+        HasBeenSelectedAtLeastOnce = true;
         if(isSelected){
             trashButtonDeselected();
             return;
@@ -58,7 +62,10 @@ public class TrashButtonScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //Deselects the trash button if you right click
+        if(Input.GetMouseButtonDown(1)){
+            trashButtonDeselected();
+        }
 
         if(isSelected && currentRedDeleteCube != null && BuildingSystem.isMouseOverScreen()){
             currentRedDeleteCube.SetActive(true);
@@ -89,11 +96,24 @@ public class TrashButtonScript : MonoBehaviour
     public void deleteTile(){
         if(!isDeleteCubeOverVoid()){
             GameObject[] gameObjectsToDelete =  GridManager.GM.GetGameObjectsInGridCell(currentRedDeleteCube);
-            foreach(GameObject gameObjectToDelete in gameObjectsToDelete){
-                if(gameObjectToDelete.GetComponent<Tile>() != null){
-                    gameObjectToDelete.GetComponent<Tile>().DeleteThisTile();
+            //Deletes the objects on top of terrain first, before deleting the terrain
+            if(gameObjectsToDelete.Length > 1){
+                foreach(GameObject gameObjectToDelete in gameObjectsToDelete){
+                    Tile gameObjectToDeleteTile = gameObjectToDelete.GetComponent<Tile>();
+                    if(gameObjectToDeleteTile != null && !gameObjectToDeleteTile.tileScriptableObject.isTerrain){
+                        gameObjectToDeleteTile.DeleteThisTile();
+                    }
                 }
+            }else{
+                //if only one object on tile, deletes just that tile
+                foreach(GameObject gameObjectToDelete in gameObjectsToDelete){
+                    Tile gameObjectToDeleteTile = gameObjectToDelete.GetComponent<Tile>();
+                    if(gameObjectToDeleteTile != null){
+                        gameObjectToDeleteTile.DeleteThisTile();
+                    }
+                } 
             }
+            
         }
         LevelManager.LM.UpdateNetCarbonAndMoney();
     }
