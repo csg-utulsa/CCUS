@@ -5,7 +5,9 @@ public class PeopleManager : MonoBehaviour
     public int numberOfPeople = 0;
     public int NumberOfPeople{
         set{
+            int previousPeople = numberOfPeople;
             numberOfPeople = value;
+            LevelManager.LM.AdjustNetMoney((numberOfPeople-previousPeople)*incomeOfPerson);
             PeoplePanel._peoplePanel.NumberOfPeople = numberOfPeople;
         }
         get{
@@ -47,26 +49,26 @@ public class PeopleManager : MonoBehaviour
     private void AddAPerson(){
         NumberOfPeople++;
         NetPeopleIncome = NumberOfPeople * incomeOfPerson;
-        LevelManager.LM.UpdateNetCarbonAndMoney();
+        //LevelManager.LM.UpdateNetCarbonAndMoney();
         GameEventManager.current.PersonJustAdded.Invoke();
         
     }
 
     //Called from Tile when a tile is placed or destroyed. It updates the max number of people and the current number of employees.
-    public void UpdateMaxPeople(){
+    public void AdjustMaxPeople(int _maxPeopleIncrement){
 
-        int _maxPeople = 0;
-        Tile[] residentialTiles = TileTypeCounter.current.ResidenceTileTracker.GetAllTiles();
-        foreach(Tile tile in residentialTiles){
+        // int _maxPeople = 0;
+        // Tile[] residentialTiles = TileTypeCounter.current.ResidenceTileTracker.GetAllTiles();
+        // foreach(Tile tile in residentialTiles){
             
-            if(tile is ResidentialBuilding residence){
-                if(residence.IsActivated){
-                    _maxPeople += residence.gameObject.GetComponent<Tile>().tileScriptableObject.MaxPeople;
-                }
+        //     if(tile is ResidentialBuilding residence){
+        //         if(residence.IsActivated){
+        //             _maxPeople += residence.gameObject.GetComponent<Tile>().tileScriptableObject.MaxPeople;
+        //         }
                 
-            }
-        }
-        maxPeople = _maxPeople;
+        //     }
+        // }
+        maxPeople += _maxPeopleIncrement;
 
         if(NumberOfPeople > maxPeople){
             NumberOfPeople = maxPeople;
@@ -74,24 +76,24 @@ public class PeopleManager : MonoBehaviour
 
         peoplePanel.MaxNumberOfPeople = maxPeople;
 
-        UpdateNumberOfEmployees();
+        //UpdateNumberOfEmployees();
         
     }
 
-    public void UpdateNumberOfEmployees(){
+    public void AdjustNumberOfEmployees(int _adjustNumOfEmployees){
 
-        int _numOfEmployees = 0;
-        Tile[] factoryTiles = TileTypeCounter.current.FactoryTileTracker.GetAllTiles();
-        foreach(Tile tile in factoryTiles){
-            if(tile is ActivatableTile activatableTile && activatableTile.IsActivated){
-                if(activatableTile is FactoryTile factory){
-                    _numOfEmployees += factory.gameObject.GetComponent<Tile>().tileScriptableObject.RequiredEmployees;
-                }
-            }
+        // int _numOfEmployees = 0;
+        // Tile[] factoryTiles = TileTypeCounter.current.FactoryTileTracker.GetAllTiles();
+        // foreach(Tile tile in factoryTiles){
+        //     if(tile is ActivatableTile activatableTile && activatableTile.IsActivated){
+        //         if(activatableTile is FactoryTile factory){
+        //             _numOfEmployees += factory.gameObject.GetComponent<Tile>().tileScriptableObject.RequiredEmployees;
+        //         }
+        //     }
             
-        }
+        // }
 
-        NumberOfEmployees = _numOfEmployees;
+        NumberOfEmployees += _adjustNumOfEmployees;
 
         
     }

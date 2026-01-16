@@ -117,7 +117,7 @@ public class RoadConnections : MonoBehaviour
     //This method updates road's visual connections. 
     //If makeNeighborsCheckConnections = true, it also forces its neighbors to update their connections.
     public void UpdateModelConnections(bool makeNeighborsCheckConnections){
-        GameObject[] neighborGameObjects = GridManager.GM.GetRoadNeighbors(gameObject);
+        GameObject[] neighborGameObjects = RoadAndResidenceConnectionManager.current.GetRoadNeighbors(gameObject);
 
         neighbors = neighborGameObjects;
         int currentAlignment = Array.IndexOf(neighborAlignments, neighborsAsBits(neighborGameObjects));
@@ -145,7 +145,7 @@ public class RoadConnections : MonoBehaviour
     //Overload method that passes an extra neighbor that isn't listed in the Grid Manager.
     //Allows roads to connect to floating objects that the user hasn't placed yet.
     public void UpdateConnectionsWithExtraNeighbor(int whichNeighborToAdd, GameObject extraNeighbor){
-        GameObject[] neighborGameObjects = GridManager.GM.GetRoadNeighbors(gameObject);
+        GameObject[] neighborGameObjects = RoadAndResidenceConnectionManager.current.GetRoadNeighbors(gameObject);
         neighborGameObjects[whichNeighborToAdd] = extraNeighbor;
         neighbors = neighborGameObjects;
         int currentAlignment = Array.IndexOf(neighborAlignments, neighborsAsBits(neighborGameObjects));
@@ -171,7 +171,7 @@ public class RoadConnections : MonoBehaviour
     }
 
     public void UpdateNeighborConnections(){
-        GameObject[] neighborGameObjects = GridManager.GM.GetRoadNeighbors(gameObject);
+        GameObject[] neighborGameObjects = RoadAndResidenceConnectionManager.current.GetRoadNeighbors(gameObject);
         neighbors = neighborGameObjects;
         foreach(GameObject _neighbor in neighborGameObjects){
 

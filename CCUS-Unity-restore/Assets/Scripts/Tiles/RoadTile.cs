@@ -39,8 +39,8 @@ public class RoadTile : ActivatableTile
             //     residence.UpdateResidenceConnections();
             // }
 
-            foreach(GameObject neighboringTile in GridManager.GM.GetRoadNeighbors(gameObject)){
-                RoadAndResidenceConnectionManager.RARCM.UpdateResidenceConnections(neighboringTile);
+            foreach(GameObject neighboringTile in RoadAndResidenceConnectionManager.current.GetRoadNeighbors(gameObject)){
+                RoadAndResidenceConnectionManager.current.UpdateResidenceConnections(neighboringTile);
             }
 
             

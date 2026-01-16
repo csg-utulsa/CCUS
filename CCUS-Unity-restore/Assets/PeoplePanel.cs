@@ -63,7 +63,7 @@ public class PeoplePanel : MonoBehaviour
             
         }else{
             //Displays the "Can only add people to houses connected by roads" Error
-            if(!RoadAndResidenceConnectionManager.RARCM.AllResidencesAreConnected()){
+            if(!RoadAndResidenceConnectionManager.current.AllResidencesAreConnected()){
                 unableToPlaceTileUI._unableToPlaceTileUI.mustConnectResidences();
             }else{
                 //Displays the "Not Enough Homes" Error

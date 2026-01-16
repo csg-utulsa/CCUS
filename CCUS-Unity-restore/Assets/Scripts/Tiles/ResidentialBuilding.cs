@@ -10,10 +10,7 @@ public class ResidentialBuilding : ActivatableBuilding
     public override void ThisTileJustPlaced(){
         
 
-        //Updates the cap on number of people
-        if(PeopleManager.current != null){
-            PeopleManager.current.UpdateMaxPeople();
-        }
+       
 
         base.ThisTileJustPlaced();
 
@@ -21,13 +18,27 @@ public class ResidentialBuilding : ActivatableBuilding
 
     public override void ThisTileAboutToBeDestroyed(){
         base.ThisTileAboutToBeDestroyed();
-
-        //Updates the cap on number of people
-        if(PeopleManager.current != null){
-            PeopleManager.current.UpdateMaxPeople();
-        }
+        
+        
 
     }
+
+    public override void ActivateBuilding(){
+        //Updates the cap on number of people
+        if(!IsActivated && PeopleManager.current != null){
+            PeopleManager.current.AdjustMaxPeople(tileScriptableObject.MaxPeople);
+        }
+        base.ActivateBuilding();
+    }
+
+    public override void DeactivateBuilding(){
+        //Updates the cap on number of people
+        if(IsActivated && PeopleManager.current != null){
+            PeopleManager.current.AdjustMaxPeople(-tileScriptableObject.MaxPeople);
+        }
+        base.DeactivateBuilding();
+    }
+
 
     //public bool IsActivated {get; set;} = false;
     //List<int> GameObjectsCheckedSoFar = new List<int>();

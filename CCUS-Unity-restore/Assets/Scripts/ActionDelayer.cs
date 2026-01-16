@@ -21,7 +21,7 @@ public class ActionDelayer : MonoBehaviour
         current.StartCoroutine(current.DelayActionCoroutine(delayedAction, secondsToWait));
     }
 
-    private IEnumerator DelayActionCoroutine(Action delayedAction, float secondsToWait){
+    IEnumerator DelayActionCoroutine(Action delayedAction, float secondsToWait){
         yield return new WaitForSeconds(secondsToWait);
         delayedAction();
     }

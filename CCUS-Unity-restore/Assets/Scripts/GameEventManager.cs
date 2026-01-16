@@ -15,6 +15,12 @@ public class GameEventManager : MonoBehaviour
 
     public UnityEvent MoneyAmountUpdated {get; set;}
 
+    public UnityEvent SwitchedCurrentGroundChunk {get; set;}
+
+    public UnityEvent PurchasedCurrentGroundChunk {get; set;}
+
+    public UnityEvent BeginSwitchingCurrentGroundChunk {get; set;}
+
     public static GameEventManager current;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -25,6 +31,9 @@ public class GameEventManager : MonoBehaviour
         NetCarbonUpdated = new UnityEvent();
         NetMoneyUpdated = new UnityEvent();
         MoneyAmountUpdated = new UnityEvent();
+        SwitchedCurrentGroundChunk = new UnityEvent();
+        PurchasedCurrentGroundChunk = new UnityEvent();
+        BeginSwitchingCurrentGroundChunk = new UnityEvent();
 
         if(current == null){
             current = this;

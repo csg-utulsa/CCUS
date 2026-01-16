@@ -15,7 +15,7 @@ public class ObjectDrag : MonoBehaviour
     private string GOTag;//tag of the tile
     public TileMaterialHandler tileMaterialHandler;
     private static bool SoundCanBePlayed = false; //Should not call sound at beginning so we're not overwhelmed at startup
-    public Vector3 PreviousGridPosition {get; set;} = new Vector3(0f, 0f, 0f);
+    public Vector2Int PreviousGridPosition {get; set;} = new Vector2Int(0, 0);
     private Vector3 previousWorldPosition = new Vector3(0f, 0f, 0f);
     
    // private Vector2 previousPosition = new Vector2(0, 0);
@@ -35,7 +35,7 @@ public class ObjectDrag : MonoBehaviour
 
         //Sets the previous position to the object's starting position
         Vector3 pos = BuildingSystem.GetMouseWorldPosition();
-        PreviousGridPosition = GridManager.GM.switchToGridIndexCoordinates(pos);
+        PreviousGridPosition = GridManager.GM.SwitchToGridCoordinates(pos);
 
         Invoke("EnableSound", 1f);
     }
@@ -52,7 +52,7 @@ public class ObjectDrag : MonoBehaviour
         
         Vector3 pos = BuildingSystem.GetMouseWorldPosition();
         transform.position = BuildingSystem.current.SnapCoordinateToGrid(pos);
-        Vector3 currentGridPosition = GridManager.GM.switchToGridIndexCoordinates(pos);
+        Vector2Int currentGridPosition = GridManager.GM.SwitchToGridCoordinates(pos);
         if(PreviousGridPosition != currentGridPosition){
             //Debug.Log("Moving Tile From: " + PreviousGridPosition + " to " + currentGridPosition);
             OnMoveTile(previousWorldPosition);
@@ -78,7 +78,7 @@ public class ObjectDrag : MonoBehaviour
     public void Place()
     {   
         //Puts object in the Grid Manager
-        GridManager.GM.AddObject(gameObject);
+        GridManager.GM.AddObject(gameObject, false);
         GetComponent<Tile>().tilePosition = BuildingSystem.current.SnapCoordinateToGrid(transform.position);//updates tile position of tile
         GetComponent<Tile>().SetTileState(TileState.Static);//Non functional
 
@@ -126,6 +126,14 @@ public class ObjectDrag : MonoBehaviour
 
     }
 
+    //Used to load data chunks
+    public void LoadedTile(){
+        GetComponent<Tile>().SetTileState(TileState.Static);
+        GetComponent<PlaceableObject>().placed = true;
+        dragging = false;
+        tileMaterialHandler.MaterialSet(TileMaterialHandler.matState.Placed);
+    }
+
     public void DestroyTile(){
 
         //Alerts the Tile script that this tile is about to be Destroyed
@@ -136,7 +144,7 @@ public class ObjectDrag : MonoBehaviour
 
     //Updates the road connection graphics of any surrounding roads
     public void UpdateTileNeighborConnections(){
-        GameObject[] neighborGameObjects = GridManager.GM.GetRoadNeighbors(gameObject);
+        GameObject[] neighborGameObjects = RoadAndResidenceConnectionManager.current.GetRoadNeighbors(gameObject);
         for(int i = 0; i < neighborGameObjects.Length; i++){
             GameObject _neighbor = neighborGameObjects[i];
             if(_neighbor != null && _neighbor.GetComponent<RoadConnections>() != null){
@@ -178,7 +186,7 @@ public class ObjectDrag : MonoBehaviour
 
 
                 //Updates connections of the surrounding road tiles just moved away from
-                GameObject[] oldNeighbors = GridManager.GM.GetRoadNeighbors(previousPosition);
+                GameObject[] oldNeighbors = RoadAndResidenceConnectionManager.current.GetRoadNeighbors(previousPosition);
                 foreach(GameObject oldNeighbor in oldNeighbors){
                     if(oldNeighbor != null && oldNeighbor.GetComponent<RoadConnections>() != null){
                         oldNeighbor.GetComponent<RoadConnections>().UpdateModelConnections(false);
@@ -380,8 +388,6 @@ public class ObjectDrag : MonoBehaviour
     {
         if(IsValidOverlap()){
             return true;
-        }else{
-            Debug.Log("not valid overlap");
         }
 
         if (CanBePlacedOnOverlappingTile(overlapTerrain) && CanBePlacedOnOverlappingTile(overlapObject))

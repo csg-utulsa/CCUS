@@ -7,7 +7,7 @@ public class GridVisualizer : MonoBehaviour
     public void ActivateGridVisualization(){
         GridCell[] allGridCells = GridManager.GM.GetAllGridCells();
         foreach(GridCell gridCell in allGridCells){
-            Instantiate(cubePrefab, new Vector3(gridCell.xLocation, 0f, gridCell.yLocation), Quaternion.identity);
+            Instantiate(cubePrefab, GridManager.GM.SwitchFromArrayToWorldCoordinates(new Vector2Int((int)gridCell.xArrayLocation, (int)gridCell.yArrayLocation)), Quaternion.identity);
         }
     }
 }

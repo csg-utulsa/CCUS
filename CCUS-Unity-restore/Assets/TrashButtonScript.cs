@@ -96,6 +96,7 @@ public class TrashButtonScript : MonoBehaviour
     public void deleteTile(){
         if(!isDeleteCubeOverVoid()){
             GameObject[] gameObjectsToDelete =  GridManager.GM.GetGameObjectsInGridCell(currentRedDeleteCube);
+            Debug.Log("Game object num in cell: " + gameObjectsToDelete.Length);
             //Deletes the objects on top of terrain first, before deleting the terrain
             if(gameObjectsToDelete.Length > 1){
                 foreach(GameObject gameObjectToDelete in gameObjectsToDelete){
@@ -115,7 +116,7 @@ public class TrashButtonScript : MonoBehaviour
             }
             
         }
-        LevelManager.LM.UpdateNetCarbonAndMoney();
+        //LevelManager.LM.UpdateNetCarbonAndMoney();
     }
 
     //This function raycasts straight down over a tile to find out what's on it. TODO FIXME: Make & use a Grid System function for this

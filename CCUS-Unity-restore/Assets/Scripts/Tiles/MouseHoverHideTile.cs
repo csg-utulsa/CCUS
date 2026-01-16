@@ -82,7 +82,6 @@ public class MouseHoverHideTile : MonoBehaviour
     
     public void HideTile(float hoverTransparency){
         string tileName = GetComponent<Tile>().tileScriptableObject.Name;
-        Debug.Log("hiding tile of type: " + tileName);
         // if(activatedTileGraphic != null)
         //     activatedTileGraphic.SetActive(false);
         IsHidden = true;
@@ -101,7 +100,6 @@ public class MouseHoverHideTile : MonoBehaviour
     }
     public void UnhideTile(){
         string tileName = GetComponent<Tile>().tileScriptableObject.Name;
-        Debug.Log("UNhiding tile of type: " + tileName);
 
         IsHidden = false;
         // if(GetComponent<ActivatableBuilding>() != null)

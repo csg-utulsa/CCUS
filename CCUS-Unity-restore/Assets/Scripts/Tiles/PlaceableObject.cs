@@ -58,8 +58,8 @@ public class PlaceableObject : MonoBehaviour
     {
         
         
-        
-        if (placed) { drag.Place(); }//For Tiles that start out placed, activates them
+        //Causes trouble with the Grid Chunk Loader
+        //if (placed) { drag.Place(); }//For Tiles that start out placed, activates them
     }
 
 

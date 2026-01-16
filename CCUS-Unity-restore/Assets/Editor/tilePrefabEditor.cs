@@ -41,6 +41,7 @@ public class tilePrefabEditor : EditorWindow
             //Print the title area
             GUILayout.BeginArea(new Rect(150, 50, 500, 500)); // 1
             GUILayout.Label("     TILE EDITOR   ", titleStyle, GUILayout.Width(150));
+            GUILayout.Label("DO NOT USE AT THE MOMENT -- BREAKS STUFF A LITTLE", subtextStyle, GUILayout.Width(300));
             GUILayout.Label("Click On A Tile To Edit Its Properties", subtextStyle, GUILayout.Width(300));
             GUILayout.EndArea(); //
 

@@ -88,6 +88,7 @@ public class MouseHoverTransparency : MonoBehaviour
         foreach(GameObject tile in neighboringTilesToHide){
             if (tile != null) {
                 AddNewlyDeactivatedModel(tile);        
+            }else{
             }
         }
 
@@ -110,8 +111,9 @@ public class MouseHoverTransparency : MonoBehaviour
         }
         //Hides models being hovered over
         foreach(GameObject model in newlyDeactivatedModels){
-            if(model != null)
+            if(model != null){
                 DisableObject(model);
+            }   
         }
         deactivatedModels.Clear();
         deactivatedModels.AddRange(newlyDeactivatedModels);
@@ -140,7 +142,11 @@ public class MouseHoverTransparency : MonoBehaviour
 
         //Adds the model directly under the mouse
         GameObject[] objectsOnThisCell = GridManager.GM.GetGameObjectsInGridCell(coordinatesOfThisCell);
+        //Debug.Log("Number of tiles under the mouse: " + objectsOnThisCell.Length);
         foreach(GameObject objectOnThisCell in objectsOnThisCell){
+            if(objectOnThisCell == null){
+                //Debug.Log("But this one is null");
+            }
             tileTransparencyNeighbors.Add(objectOnThisCell);
         }
             
@@ -152,6 +158,7 @@ public class MouseHoverTransparency : MonoBehaviour
                 tileTransparencyNeighbors.Add(neighbor);        
             }
         }
+
 
         return tileTransparencyNeighbors.ToArray();
     }
@@ -223,10 +230,8 @@ public class MouseHoverTransparency : MonoBehaviour
 
     public void AddNewlyDeactivatedModel(GameObject tile){
         if(ShouldDeactivateModel(tile)){
-            //Debug.Log("SHOULD DEACTIVATE MODEL");
             newlyDeactivatedModels.Add(tile);
         } else{
-            //Debug.Log("SHOULD NOT DEACTIVATE MODEL");
         }
     }
 
@@ -274,10 +279,7 @@ public class MouseHoverTransparency : MonoBehaviour
         if(modelTile.tileScriptableObject.isTerrain){
             bool activeTileIsTerrain = BuildingSystem.current.activeTile != null && BuildingSystem.current.activeTile.tileScriptableObject.isTerrain;
             if(!(activeTileIsTerrain && modelTile.MouseIsOnTile())){
-                Debug.Log("Shouldn't deactivate terrain");
                 return false;
-            }else{
-                Debug.Log("should deactivate terrain boi");
             }
         }
 

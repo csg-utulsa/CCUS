@@ -8,6 +8,8 @@ public class GridManager : MonoBehaviour
 
     public GridCell[][] positionsOfCells;
 
+    public Vector3 gridManagerCenter = new Vector3(0f, 0f, 0f);
+
     public static GridManager GM;
 
     private int xLengthOfGrid = 100;
@@ -15,124 +17,58 @@ public class GridManager : MonoBehaviour
 
     private List<GameObject> allGridObjects = new List<GameObject>();
 
-    // public List<Tile> moneyProducingTiles = new List<Tile>();
-    // public List<Tile> carbonProducingTiles = new List<Tile>();
-    // public List<ResidentialBuilding> residenceTiles = new List<ResidentialBuilding>();
-    // public List<RoadConnections> roadTiles = new List<RoadConnections>();
-
-
-    // public TileTracker[] tileTrackers;
-    // public TileTracker AllTileTracker { get; set; }
-    // public TileTracker MoneyTileTracker { get; set; }
-    // public TileTracker CarbonTileTracker { get; set; }
-    // public TileTracker RoadTileTracker { get; set; }
-    // public TileTracker ResidenceTileTracker { get; set; }
-    // public TileTracker FactoryTileTracker { get; set; }
-
+    #region Unity Functions
 
     void Awake(){
-        GM = this;
 
-        //Declares new 100 by 100 fragmented array of grid cells
-        positionsOfCells = new GridCell[100][];
-        for(int i = 0; i < 100; i++)
-        {
-            positionsOfCells[i] = new GridCell[100];
-            for (int q = 0; q < 100; q++) {
-                positionsOfCells[i][q] = new GridCell();
-                positionsOfCells[i][q].xLocation = i - (xLengthOfGrid / 2) + .5f;
-                positionsOfCells[i][q].yLocation = q - (yLengthOfGrid / 2) + .5f;
-            }
-        }
-
-
-    }
-    
-    void Start(){
         if(GM == null){
            GM = this; 
         }else{
-            Destroy(this);
+            //Destroy(this);
         }
-
-
     }
 
 
+    void Start(){
 
-    // public Tile[] GetMoneyProducingTiles(){
-    //     Tile[] returnArray = new Tile[moneyProducingTiles.Count];
-    //     for(int i = 0; i < moneyProducingTiles.Count; i++){
-    //         returnArray[i] = moneyProducingTiles[i];
+        //Declares new 100 by 100 fragmented array of grid cells
+        //Sets up the Grid Manager
+        positionsOfCells = new GridCell[xLengthOfGrid][];
+        for(int i = 0; i < xLengthOfGrid; i++)
+        {
+            positionsOfCells[i] = new GridCell[yLengthOfGrid];
+            for (int q = 0; q < yLengthOfGrid; q++) {
+                positionsOfCells[i][q] = new GridCell();
+                positionsOfCells[i][q].xArrayLocation = i; //i - (xLengthOfGrid / 2) + .5f
+                positionsOfCells[i][q].yArrayLocation = q; //q - (yLengthOfGrid / 2) + .5f
+            }
+        }
+
+    }
+
+    // public void SetGridCellPositions(){
+    //     for(int i = 0; i < xLengthOfGrid; i++)
+    //     {
+    //         for (int q = 0; q < yLengthOfGrid; q++) {
+    //             Vector2Int gridPosition = SwitchToGridCoordinates(new Vector3((float) i, 0f, (float) q));
+    //             //Debug.Log("Converted " + q + ", " + i + " to " + gridPosition.x + ", " + gridPosition.y);
+    //             positionsOfCells[i][q].xArrayLocation = gridPosition.x;//i - (xLengthOfGrid / 2) + .5f;
+    //             positionsOfCells[i][q].yArrayLocation = gridPosition.y;//q - (yLengthOfGrid / 2) + .5f;
+    //         }
     //     }
-    //     return returnArray;
     // }
 
-    // public Tile[] GetCarbonProducingTiles(){
-    //     Tile[] returnArray = new Tile[carbonProducingTiles.Count];
-    //     for(int i = 0; i < carbonProducingTiles.Count; i++){
-    //         returnArray[i] = carbonProducingTiles[i];
-    //     }
-    //     return returnArray;
-    // }
+    
 
-    // public RoadConnections[] GetRoadTiles(){
-    //     RoadConnections[] returnArray = new RoadConnections[roadTiles.Count];
-    //     for(int i = 0; i < roadTiles.Count; i++){
-    //         returnArray[i] = roadTiles[i];
-    //     }
-    //     return returnArray;
-    // }
+    void Update(){
+        //Debug.Log("Grid center is " + gridManagerCenter);
+    }
 
-    // public ResidentialBuilding[] GetResidentialTiles(){
-    //     ResidentialBuilding[] returnArray = new ResidentialBuilding[residenceTiles.Count];
-    //     for(int i = 0; i < residenceTiles.Count; i++){
-    //         returnArray[i] = residenceTiles[i];
-    //     }
-    //     return returnArray;
-    // }
-
-    // public void AddToMoneyTileList(Tile tileToAdd){
-    //     moneyProducingTiles.Add(tileToAdd);
-    // }    
-
-    // public void AddToCarbonTileList(Tile tileToAdd){
-    //     carbonProducingTiles.Add(tileToAdd);
-    // } 
-
-    // public void AddToResidenceTileList(ResidentialBuilding residenceToAdd){
-    //     residenceTiles.Add(residenceToAdd);
-    // }    
-
-    // public void AddToRoadTileList(RoadConnections tileToAdd){
-    //     roadTiles.Add(tileToAdd);
-    // }
-
-    // public void RemoveFromMoneyTileList(Tile tileToAdd){
-    //     moneyProducingTiles.Remove(tileToAdd);
-    // }    
-
-    // public void RemoveFromCarbonTileList(Tile tileToAdd){
-    //     carbonProducingTiles.Remove(tileToAdd);
-    // }    
-
-    // public void RemoveFromResidenceTileList(ResidentialBuilding residenceToAdd){
-    //     residenceTiles.Remove(residenceToAdd);
-    // }
-
-    // public void RemoveFromRoadTileList(RoadConnections tileToRemove){
-    //     roadTiles.Add(tileToRemove);
-    // }
+    #endregion
 
 
-    // public void AddGridObjectToList(GameObject objectToAdd){
-    //     allGridObjects.Add(objectToAdd);
-    // }
-
-    // public void RemoveGridObjectFromList(GameObject objectToRemove){
-    //     allGridObjects.Remove(objectToRemove);
-    // }
-
+    #region Get Functions
+    //Only used by grid visualizer utility
     public GridCell[] GetAllGridCells(){
         GridCell[] allGridCells = new GridCell[xLengthOfGrid * yLengthOfGrid];
         for(int i = 0; i < xLengthOfGrid; i++){
@@ -143,48 +79,40 @@ public class GridManager : MonoBehaviour
         return allGridCells;
     }
 
-    public GridCell GetGridCellAtGridCoordinate(int x, int y){
-        return positionsOfCells[x + (xLengthOfGrid / 2)][y + (yLengthOfGrid / 2)];
-    }
+    public Tile[] GetAllTilesInRange(Vector2Int bottomLeftGridPoint, Vector2Int topRightGridPoint){
+        List<Tile> allTiles = new List<Tile>();
 
 
-    
+        //Gets all grid cells in the given range
+        int widthOfSelection = topRightGridPoint.x - bottomLeftGridPoint.x;
+        int heightOfSelection = topRightGridPoint.y - bottomLeftGridPoint.y;
+        GridCell[] allGridCells = new GridCell[widthOfSelection * heightOfSelection];
+        for(int i = bottomLeftGridPoint.x; i < topRightGridPoint.y; i++){
+            for(int j = bottomLeftGridPoint.y; j < topRightGridPoint.y; j++){
+                int adjustedXArrayCoordinate = (widthOfSelection/2) + i;
+                int adjustedYArrayCoordinate = (heightOfSelection/2) + j;
 
+                
 
-    public GameObject[] GetRoadNeighbors(GameObject _tile){
-        return GetRoadNeighbors(_tile.transform.position);
-    }
+                allGridCells[(widthOfSelection * adjustedXArrayCoordinate) + adjustedYArrayCoordinate] = GetGridCell(new Vector2Int(i, j));
+            }
+        }
 
-    //returns all road & residential neighbors of input tile
-    public GameObject[] GetRoadNeighbors(Vector3 tileLocation){
-
-        BuildingSystem currentBuildingSystem = BuildingSystem.current;
-        Vector3Int tileCell = currentBuildingSystem.gridLayout.WorldToCell(tileLocation);
-        GameObject[] tileNeighbors = new GameObject[4];
-
-        Vector3Int[] directions = new Vector3Int[]
-        {
-            new Vector3Int(0, 1, 0),  // North
-            new Vector3Int(1, 0, 0),  // East
-            new Vector3Int(0, -1, 0), // South
-            new Vector3Int(-1, 0, 0)  // West
-        };
-
-        for (int i = 0; i < directions.Length; i++)
-        {
-            Vector3Int checkCell = tileCell + directions[i];
-            Vector3 checkWorldPos = currentBuildingSystem.grid.GetCellCenterWorld(checkCell);
-
-            foreach (GameObject obj in GridManager.GM.GetGameObjectsInGridCell(checkWorldPos))
-            {
-                //Checks if a neighbor object is an activatable tile (like roads, residences, or factories), since those are the only things roads connect to
-                if(obj.GetComponent<ActivatableTile>() != null){
-                    tileNeighbors[i] = obj;
+        //Gets all the Tiles on each cell
+        foreach(GridCell gridCell in allGridCells){
+            GameObject[] allObjectsInCell = GetGameObjectsInGridCell(gridCell);
+            foreach(GameObject objectInCell in allObjectsInCell){
+                Tile tile = objectInCell.GetComponent<Tile>();
+                if(tile != null){
+                    allTiles.Add(tile);
                 }
             }
         }
-        return tileNeighbors;
+
+        return allTiles.ToArray();
+
     }
+
 
     //returns all neighbors of input tile
     public GameObject[] GetTileNeighbors(Vector3 tilePosition, int[] neighborsToReturn){
@@ -225,19 +153,16 @@ public class GridManager : MonoBehaviour
         return returnArray;
     }
     
-    public GameObject[] GetAllGridObjects(){
-        GameObject[] allGridObjectsArray = new GameObject[allGridObjects.Count];
-        for(int i = 0; i < allGridObjects.Count; i++){
-            allGridObjectsArray[i] = allGridObjects[i];
-        }
-        return allGridObjectsArray;
-    }
+    // public GameObject[] GetAllGridObjects(){
+    //     GameObject[] allGridObjectsArray = new GameObject[allGridObjects.Count];
+    //     for(int i = 0; i < allGridObjects.Count; i++){
+    //         allGridObjectsArray[i] = allGridObjects[i];
+    //     }
+    //     return allGridObjectsArray;
+    // }
 
     //returns all the objects sitting in a cell
-    public GameObject[] GetGameObjectsInGridCell(int x, int z){
-        
-        GridCell currentGridCell = GetGridCell(x, z);
-        
+    public GameObject[] GetGameObjectsInGridCell(GridCell currentGridCell){
         GameObject[] allObjectsInCell = currentGridCell.GetObjectsInCell();
         int numberOfObjectsInCell = 0;
         foreach(GameObject objectInCell in allObjectsInCell){
@@ -251,208 +176,104 @@ public class GridManager : MonoBehaviour
         return notNullObjectsInCell;
     }
 
-    public GameObject[] GetGameObjectsInGridCell(Vector3 worldPositionOfGridCell){
-        Vector3 gridPositionOfGridcell = switchToGridCoordinates(worldPositionOfGridCell);
-        //Debug.Log("Well this ran");
-        //Debug.Log("Positions: " + gridPositionOfGridcell.x + ", " + gridPositionOfGridcell.z);
-        //GridCell myGridCell = GetGridCell((int)gridPositionOfGridcell.x, (int)gridPositionOfGridcell.z);
-        //return myGridCell.GetObjectsInCell();
-        //return GetGridCell((int)gridPositionOfGridcell.x , (int)gridPositionOfGridcell.z).GetObjectsInCell();
-        
-        return GetGameObjectsInGridCell((int)gridPositionOfGridcell.x , (int)gridPositionOfGridcell.z);
+
+    public GameObject[] GetGameObjectsInGridCell(Vector2Int gridPosition){
+        GridCell currentGridCell = GetGridCell(gridPosition);
+        return GetGameObjectsInGridCell(currentGridCell);
+    }
+
+    public GameObject[] GetGameObjectsInGridCell(Vector3 worldPosition){
+        Vector2Int gridPosition = SwitchToGridCoordinates(worldPosition);
+        return GetGameObjectsInGridCell(gridPosition);
     }
 
     public GameObject[] GetGameObjectsInGridCell(GameObject gameObjectInGridCell){
         return GetGameObjectsInGridCell(gameObjectInGridCell.transform.position);
     }
 
-    public Vector3 switchToGridCoordinates(Vector3 worldCoordinates) {
-        Vector3 gridCoordinates = BuildingSystem.current.SnapCoordinateToGrid(worldCoordinates);
-        //Debug.Log("Snapped given coordinates: " + gridCoordinates.x + ", " + gridCoordinates.z);
-        return new Vector3(gridCoordinates.x - .5f, gridCoordinates.y - .01f, gridCoordinates.z - .5f);
-    }
-
-
     //returns the Grid Cell Object for a given point
-    public GridCell GetGridCell(int x, int z)
+    public GridCell GetGridCell(Vector2Int gridPosition)
     {
-        return positionsOfCells[x + (xLengthOfGrid / 2)][z + (yLengthOfGrid / 2) ];
+        Vector2Int arrayPosition = SwitchFromGridToArrayCoordinates(gridPosition);
+        Debug.Log("current array position: " + arrayPosition.x + ", " + arrayPosition.y);
+        return positionsOfCells[arrayPosition.x][arrayPosition.y];
+        //return positionsOfCells[x + (xLengthOfGrid / 2)][z + (yLengthOfGrid / 2) ];
     }
 
-    //returns the Grid Cell Object for a given world point.
-    //I think there's a glitch with this one
-    public GridCell GetGridCellFromWorldPoint(Vector3 worldPointPosition)
+    #endregion
+
+    #region Edit GridCells
+
+    public void AddObject(GameObject objectToAdd, bool isLoading)
     {
-        Vector3 positionInGrid = switchToGridCoordinates(worldPointPosition);
-        //Debug.Log("Got Grid Cell #" + ((int)positionInGrid.x + (xLengthOfGrid / 2)) + "" + ((int)positionInGrid.y + (yLengthOfGrid / 2)) + " at " + worldPointPosition);
-        return positionsOfCells[(int)positionInGrid.x + (xLengthOfGrid / 2)][(int)positionInGrid.y + (yLengthOfGrid / 2)];
+        Vector2Int gridPosition = SwitchToGridCoordinates(objectToAdd.transform.position);
+        Vector2Int arrayPosition = SwitchFromGridToArrayCoordinates(gridPosition);
+
+
+        GetGridCell(gridPosition).AddObject(objectToAdd, arrayPosition.x, arrayPosition.y, isLoading);
+
+
     }
 
 
-    // //returns the world position for a Given grid cell
-    // public Vector3 GetWorldPointFromGridCoordinate()
-    // {
-    //     Vector3 positionInGrid = switchToGridCoordinates(new Vector3(worldPointPosition.x, worldPointPosition.y, 0f));
-    //     return positionsOfCells[(int)positionInGrid.x + (xLengthOfGrid / 2)][(int)positionInGrid.y + (yLengthOfGrid / 2)];
-    // }
-
-    // public GridCell GetGridCellObject(int x, int y){
-    //     return positionsOfCells[x + (xLengthOfGrid / 2)][y + (yLengthOfGrid / 2)];
-    // }
-    
-    //Adds a new object to the fragmented array positionsOfCells
-    // public void AddObject(GameObject objectToAdd, int posX, int posY)
-    // {
-    //     //Vector3 positionInGrid = BuildingSystem.current.SnapCoordinateToGrid(new Vector3(worldPointPosition.x, worldPointPosition.y, 0f));
-    //     positionsOfCells[posX + (xLengthOfGrid / 2)][posY + (yLengthOfGrid / 2)].AddObject(objectToAdd, posX, posY);
-    // }
-
-
-    public void AddObject(GameObject objectToAdd)
+    public void RemoveObject(GameObject objectToRemove, bool isUnloading)
     {
-        Vector3 positionInGrid = switchToGridCoordinates(objectToAdd.transform.position);
-        int posX = (int)positionInGrid.x + (xLengthOfGrid / 2);
-        int posY = (int)positionInGrid.z + (yLengthOfGrid / 2);
+        Vector2Int positionInGrid = SwitchToGridCoordinates(objectToRemove.transform.position);
+        Vector2Int arrayPosition = SwitchFromGridToArrayCoordinates(positionInGrid);
 
-        if(positionsOfCells == null){
-            Debug.Log("The cell is null");
-        }
-                
-            
-
-
-
-        positionsOfCells[posX][posY].AddObject(objectToAdd, posX, posY);
-
-
-        // Debug.Log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-        // Debug.Log("Objects in this cell: ");
-        // GameObject[] allObjectsInCell = GetGameObjectsInGridCell(objectToAdd.transform.position);
-        // foreach(GameObject myObject in allObjectsInCell){
-        //     Debug.Log(myObject);
-        // }
-
-        // Debug.Log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+        positionsOfCells[arrayPosition.x][arrayPosition.y].RemoveObject(objectToRemove, isUnloading);
     }
 
-    public Vector2 switchToGridIndexCoordinates(Vector3 positionOfObject){
-        Vector3 positionInGrid = switchToGridCoordinates(positionOfObject);
-        int posX = (int)positionInGrid.x + (xLengthOfGrid / 2);
-        int posY = (int)positionInGrid.z + (yLengthOfGrid / 2);
-        return new Vector2(posX, posY);
+
+    #endregion
+
+    #region Switch Coords
+
+
+    public Vector2Int SwitchToGridCoordinates(Vector3 worldCoordinates) {
+        Vector3 adjustedWorldCoordinates = worldCoordinates - gridManagerCenter;
+        Vector3 gridCoordinates = BuildingSystem.current.SnapCoordinateToGrid(adjustedWorldCoordinates);
+        //Debug.Log("Snapped given coordinates: " + gridCoordinates.x + ", " + gridCoordinates.z);
+        return new Vector2Int((int)(gridCoordinates.x - .5f), (int)(gridCoordinates.z - .5f));
     }
 
-    //Removes an object from the fragmented array positionsOfCells
-    // public void RemoveObject(GameObject objectToRemove, int posX, int posY)
-    // {
-    //     positionsOfCells[posX + (xLengthOfGrid / 2)][posY + (yLengthOfGrid / 2)].RemoveObject(objectToRemove);
-    // }
+    public Vector3 SwitchFromArrayToWorldCoordinates(Vector2Int arrayCoordinates) {
+        int gridPosX = arrayCoordinates.x - (xLengthOfGrid / 2);
+        int gridPosY = arrayCoordinates.y - (yLengthOfGrid / 2);
 
-    public void RemoveObject(GameObject objectToRemove)
-    {
-        Vector3 positionInGrid = switchToGridCoordinates(objectToRemove.transform.position);
-        positionsOfCells[(int)positionInGrid.x + (xLengthOfGrid / 2)][(int)positionInGrid.z + (yLengthOfGrid / 2)].RemoveObject(objectToRemove);
+        Vector3 AsWorldCoordinates = new Vector3((gridPosX - .5f), 0f, gridPosY - .5f);
+        Vector3 adjustedWorldCoordinates = AsWorldCoordinates + gridManagerCenter;
+        Debug.Log("returning " + adjustedWorldCoordinates + " rather than " + AsWorldCoordinates);
+        Debug.Log("Grid center is " + gridManagerCenter);
+        return adjustedWorldCoordinates;
     }
 
-    // public void UpdateResidenceConnections(GameObject objectToCheck){
+    //Switches to array from grid coordinates
+    private Vector2Int SwitchFromGridToArrayCoordinates(Vector2Int gridCoordinates){
+        int posX = gridCoordinates.x + (xLengthOfGrid / 2);
+        int posY = gridCoordinates.y + (yLengthOfGrid / 2);
+        return new Vector2Int(posX, posY);
+    }
 
-    //     if(objectToCheck != null && (objectToCheck.GetComponent<RoadConnections>() != null || objectToCheck.GetComponent<ResidentialBuilding>() != null)){
-    //         List<int> TilesCheckedAlready = new List<int>();
-    //         List<GameObject> ConnectedRoads = new List<GameObject>(); 
-    //         List<GameObject> ConnectedResidences = new List<GameObject>(); 
-    //         //Goes through each of roads connected to this road. Returns true if it's connected to a residence
-    //         bool connectedTwoResidences = RecursivelyCheckTileConnections(objectToCheck, ConnectedRoads, ConnectedResidences, TilesCheckedAlready);
+    public void SwitchCenter(Vector3 newWorldCenter){
+        gridManagerCenter = newWorldCenter;
+    }
 
-    //         //Activates/Deactivates the attached roads depending on if they connect two residences.
-    //         if(connectedTwoResidences){
-    //             foreach(GameObject connectedRoad in ConnectedRoads){
-    //                 //Activate Road
-    //                 if(connectedRoad.GetComponent<RoadTile>() != null){
-    //                     //Debug.Log("ACTIVATED A ROAD");
-    //                     connectedRoad.GetComponent<RoadTile>().ActivateBuilding();
-    //                 }
-    //             }
-    //             foreach(GameObject connectedResidence in ConnectedResidences){
-    //                 //Activate Residence
-    //                 if(connectedResidence.GetComponent<ResidentialBuilding>() != null){
-    //                     //Debug.Log("ACTIVATED A RESIDENCE");
-    //                     connectedResidence.GetComponent<ResidentialBuilding>().ActivateBuilding();
-    //                 }
-    //             }
-    //         } else{
-    //             //Deactivates roads and residences
-    //             foreach(GameObject connectedRoad in ConnectedRoads){
-    //                 //Deactivate Road
-    //                 if(connectedRoad.GetComponent<RoadTile>() != null){
-    //                     //Debug.Log("ACTIVATED A ROAD");
-    //                     connectedRoad.GetComponent<RoadTile>().DeactivateBuilding();
-    //                 }
-    //             }
-    //             foreach(GameObject connectedResidence in ConnectedResidences){
-    //                 //Deactivate Residence
-    //                 if(connectedResidence.GetComponent<ResidentialBuilding>() != null){
-    //                     //Debug.Log("DEACTIVATED A RESIDENCE");
-    //                     connectedResidence.GetComponent<ResidentialBuilding>().DeactivateBuilding();
-    //                 }
-    //             }
-    //         }
-
-    //     }
-    // }
-
-    // // Recursive function that checks all of the roads connected to an object
-    // // Returns true if it's connected to another residence
-    // private bool RecursivelyCheckTileConnections(GameObject nextObjectToCheck, List<GameObject> ConnectedRoads, List<GameObject> ConnectedResidences, List<int> TilesCheckedAlready){
-        
-    //     //Adds roads/residences to the ConnectedRoads and ConnectedResidences lists.
-    //     if(!TilesCheckedAlready.Contains(nextObjectToCheck.GetInstanceID())){ //&& nextObjectToCheck.GetComponent<RoadConnections>() != null){
-    //         TilesCheckedAlready.Add(nextObjectToCheck.GetInstanceID());
-    //         if(nextObjectToCheck.GetComponent<RoadConnections>() != null){
-    //             ConnectedRoads.Add(nextObjectToCheck);
-    //         }else if(nextObjectToCheck.GetComponent<ResidentialBuilding>() != null){
-    //             ConnectedResidences.Add(nextObjectToCheck);
-    //         }
-            
-    //     }
-        
-    //     GameObject[] neighboringTiles = GM.GetRoadNeighbors(nextObjectToCheck);
-    //     bool _ConnectedTwoResidences = false;
-    //     for(int i = 0; i < neighboringTiles.Length; i++){
-    //         //This if statement checks if the object isn't null, and if it hasn't already checked the object
-    //         if(neighboringTiles[i] != null && !TilesCheckedAlready.Contains(neighboringTiles[i].GetInstanceID())){
-    //             //Checks if the neighboring object is a residential building that hasn't already been checked. It also prevents connecting two residences that are sitting next to each other w/o roads
-    //             if(neighboringTiles[i].GetComponent<ResidentialBuilding>() != null && !ConnectedResidences.Contains(neighboringTiles[i]) && (nextObjectToCheck.GetComponent<ResidentialBuilding>() == null)){
-    //                 ConnectedResidences.Add(neighboringTiles[i]);
-    //                 if(ConnectedResidences.Count >= 2){
-    //                     _ConnectedTwoResidences = true;
-    //                 }
-                    
-    //             }
-
-    //             //Tells next object to run a recursive check if the neighboring object is a road or residence, but prevents traveling through two residenes sitting next to each other
-    //             if(neighboringTiles[i].GetComponent<RoadConnections>() != null || (neighboringTiles[i].GetComponent<ResidentialBuilding>() != null && nextObjectToCheck.GetComponent<ResidentialBuilding>() == null)){
-    //                 //ConnectedRoads.Add(neighboringTiles[i]);
-    //                 if(RecursivelyCheckTileConnections(neighboringTiles[i], ConnectedRoads, ConnectedResidences, TilesCheckedAlready)){
-    //                     _ConnectedTwoResidences = true;
-    //                 }
-    //             }
-    //         }
-    //     }
-    //     return _ConnectedTwoResidences;
-
-    // }
+    #endregion
 
 
 }
 
+
+#region GridCell Class
 
 //Container to hold everything a single Cell on the grid could need to know
 public class GridCell 
 {
 
     GameObject[] objectsInCell = new GameObject[5];
-    public float xLocation { get; set; }
-    public float yLocation { get; set; }
+    public float xArrayLocation { get; set; }
+    public float yArrayLocation { get; set; }
     public int numberOfObjectsInCell = 0;
     public bool isOverGround = false;
 
@@ -462,72 +283,36 @@ public class GridCell
     }
 
     //Adds an object to the array of objects that are sitting on the cell
-    public void AddObject(GameObject objectToAdd, int x, int y) {
+    public void AddObject(GameObject objectToAdd, int x, int y, bool isLoading) {
         if (objectsInCell.Length > numberOfObjectsInCell)
         {
             
-            //GridManager gm = GridManager.GM;
-            if(objectToAdd.GetComponent<Tile>() != null && objectToAdd.GetComponent<Tile>().tileScriptableObject != null){
+            if(!isLoading && objectToAdd.GetComponent<Tile>() != null && objectToAdd.GetComponent<Tile>().tileScriptableObject != null){
 
                 //Keeps track of different tile types, like money tiles, residences, etc
                 TileTypeCounter.current.CheckTileTrackersForAddition(objectToAdd);
 
-
-                // Tile tileScript = objectToAdd.GetComponent<Tile>();
-                // if(tileScript.tileScriptableObject.AnnualIncome > 0){
-                //     gm.AddToMoneyTileList(tileScript);
-                // }
-                // if(tileScript.tileScriptableObject.AnnualCarbonAdded != 0){
-                //     gm.AddToCarbonTileList(tileScript);
-                // }
-                // if(objectToAdd.GetComponent<ResidentialBuilding>() != null){
-                //     gm.AddToResidenceTileList(objectToAdd.GetComponent<ResidentialBuilding>());
-                // } else if(objectToAdd.GetComponent<RoadConnections>() != null){
-                //     gm.AddToRoadTileList(objectToAdd.GetComponent<RoadConnections>());
-                // }
             }
-            //xLocation = x;
-            //yLocation = y;
+
             objectsInCell[numberOfObjectsInCell] = objectToAdd;
             
             Tile tile = objectToAdd.GetComponent<Tile>();
             if(tile != null)
                 tile.gridCell = this;
-            // Debug.Log("objects in cell: ");
-            // for(int i = 0; i < objectsInCell.Length; i++){
-            //     Debug.Log(objectsInCell[i]);
-            // }
-            
-            //Debug.Log("objects in cell: " + objectsInCell);
+
             numberOfObjectsInCell++;
         }
     }
 
 
     //Removes an object from the array of objects that are sitting on the cell
-    public void RemoveObject(GameObject objectToRemove) {
+    public void RemoveObject(GameObject objectToRemove, bool isUnloading) {
         for(int i = 0; i < objectsInCell.Length; i++) {
             if(objectToRemove == objectsInCell[i])
             {
-                //GridManager gm = GridManager.GM;
-                //gm.RemoveGridObjectFromList(objectToRemove);
-                if(objectToRemove.GetComponent<Tile>() != null && objectToRemove.GetComponent<Tile>().tileScriptableObject != null){
-
+                if(!isUnloading && objectToRemove.GetComponent<Tile>() != null && objectToRemove.GetComponent<Tile>().tileScriptableObject != null){
                     //Keeps track of different tile types, like money tiles, residences, etc
                     TileTypeCounter.current.CheckTileTrackersForRemoval(objectToRemove);
-
-                    // Tile tileScript = objectToRemove.GetComponent<Tile>();
-                    // if(tileScript.tileScriptableObject.AnnualIncome > 0){
-                    //     gm.RemoveFromMoneyTileList(tileScript);
-                    // }
-                    // if(tileScript.tileScriptableObject.AnnualCarbonAdded != 0){
-                    //     gm.RemoveFromCarbonTileList(tileScript);
-                    // }
-                    // if(objectToRemove.GetComponent<ResidentialBuilding>() != null){
-                    //     gm.RemoveFromResidenceTileList(objectToRemove.GetComponent<ResidentialBuilding>());
-                    // } else if(objectToRemove.GetComponent<RoadConnections>() != null){
-                    //     gm.RemoveFromRoadTileList(objectToRemove.GetComponent<RoadConnections>());
-                    // }
                 }
                 objectsInCell[i] = null;
                 for(int b=i; b < objectsInCell.Length-1; b++) {
@@ -542,106 +327,6 @@ public class GridCell
 
 }
 
+#endregion
 
-// //Base class for each type of Tile Tracker. The Tile Trackers keep a list of each kind of tile.
-// public class TileTracker{
 
-//     public List<Tile> trackedTileList = new List<Tile>();
-//     protected void AddTile(Tile tile){
-//         trackedTileList.Add(tile);
-//     }
-    
-//     protected void RemoveTile(Tile tile){
-//         trackedTileList.Remove(tile);
-//     }
-
-//     public virtual void CheckTileForRemoval(Tile tile){
-//         Debug.LogError("Base Tile Tracker Class has been accidentally implemented. You need to use one of its derived classes.");
-//     }
-
-//     public virtual void CheckTileForAddition(Tile tile){
-//         Debug.LogError("Base Tile Tracker Class has been accidentally implemented. You need to use one of its derived classes.");
-//     }
-
-//     public Tile[] GetAllTiles(){
-//         Tile[] returnArray = new Tile[trackedTileList.Count];
-//         for(int i = 0; i < trackedTileList.Count; i++){
-//             returnArray[i] = trackedTileList[i];
-//         }
-//         return returnArray;
-//     }
-// }
-
-// public class AllTileTracker : TileTracker{
-//     public override void CheckTileForAddition(Tile tile){
-//         base.AddTile(tile);
-//     }
-//     public override void CheckTileForRemoval(Tile tile){
-//         base.RemoveTile(tile);
-//     }
-// }
-
-// public class CarbonTileTracker : TileTracker{
-//     public override void CheckTileForAddition(Tile tile){
-//         if(tile.tileScriptableObject.AnnualCarbonAdded != 0){
-//             base.AddTile(tile);
-//         }
-//     }
-//     public override void CheckTileForRemoval(Tile tile){
-//         if(tile.tileScriptableObject.AnnualCarbonAdded != 0){
-//             base.RemoveTile(tile);
-//         }
-//     }
-// }
-
-// public class MoneyTileTracker : TileTracker{
-//     public override void CheckTileForAddition(Tile tile){
-//         if(tile.tileScriptableObject.AnnualIncome > 0){
-//             base.AddTile(tile);
-//         }
-//     }
-//     public override void CheckTileForRemoval(Tile tile){
-//         if(tile.tileScriptableObject.AnnualIncome > 0){
-//             base.RemoveTile(tile);
-//         }
-//     }
-// }
-
-// public class RoadTileTracker : TileTracker{
-//     public override void CheckTileForAddition(Tile tile){
-//         if(tile is RoadTile road){
-//             base.AddTile(road);
-//         }
-//     }
-//     public override void CheckTileForRemoval(Tile tile){
-//         if(tile is RoadTile road){
-//             base.RemoveTile(road);
-//         }
-//     }
-// }
-
-// public class ResidenceTileTracker : TileTracker{
-//     public override void CheckTileForAddition(Tile tile){
-//         if(tile is ResidentialBuilding residence){
-//             base.AddTile(residence);
-//         }
-//     }
-//     public override void CheckTileForRemoval(Tile tile){
-//         if(tile is ResidentialBuilding residence){
-//             base.RemoveTile(residence);
-//         }
-//     }
-// }
-
-// public class FactoryTileTracker : TileTracker{
-//     public override void CheckTileForAddition(Tile tile){
-//         if(tile is FactoryTile factory){
-//             base.AddTile(factory);
-//         }
-//     }
-//     public override void CheckTileForRemoval(Tile tile){
-//         if(tile is FactoryTile factory){
-//             base.RemoveTile(factory);
-//         }
-//     }
-// }

@@ -8,7 +8,8 @@ public class CameraMove : MonoBehaviour
     private Vector3 moveDestination;
     private Vector3 moveOrigin;
 
-    public void MoveCamera(Vector3 _moveDestination){
+    public void MoveCamera(Vector3 _moveDestination, float _cameraMoveTime){
+        cameraMoveTime = _cameraMoveTime;
         isMoving = true;
         moveTimer = 0f;
         moveDestination = _moveDestination;

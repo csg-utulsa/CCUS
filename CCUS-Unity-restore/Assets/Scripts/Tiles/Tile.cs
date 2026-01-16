@@ -31,7 +31,7 @@ public class Tile : MonoBehaviour
         }
         set {
             _currentTileNetMoney = value;
-            LevelManager.LM.UpdateNetCarbonAndMoney();
+            //LevelManager.LM.UpdateNetCarbonAndMoney();
         }
     }
 
@@ -41,7 +41,7 @@ public class Tile : MonoBehaviour
         }
         set {
             _currentTileNetCarbon = value;
-            LevelManager.LM.UpdateNetCarbonAndMoney();
+            //LevelManager.LM.UpdateNetCarbonAndMoney();
         }
     }
 
@@ -71,8 +71,10 @@ public class Tile : MonoBehaviour
             currentTileNetMoney =  tileScriptableObject.AnnualIncome;
             currentTileNetCarbon = tileScriptableObject.AnnualCarbonAdded; 
         }
-        LevelManager.LM.UpdateNetCarbonAndMoney();
+        //LevelManager.LM.UpdateNetCarbonAndMoney();
     }
+
+
 
 
 
@@ -131,16 +133,25 @@ public class Tile : MonoBehaviour
         
 
         setInitialIncomeAndCarbon();
-        PeopleManager.current.UpdateMaxPeople();
+
+        if(!(this is ActivatableTile activatableTile)){
+            LevelManager.LM.AdjustNetMoney(tileScriptableObject.AnnualIncome);
+            LevelManager.LM.AdjustCarbon(tileScriptableObject.AnnualCarbonAdded);
+        }
+        //PeopleManager.current.UpdateMaxPeople();
 
         GameEventManager.current.TileJustPlaced.Invoke();
 
     }
 
     public virtual void ThisTileAboutToBeDestroyed(){
+        if(!(this is ActivatableTile activatableTile)){
+            LevelManager.LM.AdjustNetMoney(-tileScriptableObject.AnnualIncome);
+            LevelManager.LM.AdjustCarbon(-tileScriptableObject.AnnualCarbonAdded);
+        }
         // Removes object from GridManager, 
         // so when the roads use the GridManager to update their connections, they will ignore this tile
-        GridManager.GM.RemoveObject(gameObject);
+        GridManager.GM.RemoveObject(gameObject, false);
 
     }
 
@@ -201,7 +212,7 @@ public class Tile : MonoBehaviour
 
     //Updates the road connection graphics of any surrounding roads
     public void UpdateTileNeighborConnections(){
-        GameObject[] neighborGameObjects = GridManager.GM.GetRoadNeighbors(gameObject);
+        GameObject[] neighborGameObjects = RoadAndResidenceConnectionManager.current.GetRoadNeighbors(gameObject);
         for(int i = 0; i < neighborGameObjects.Length; i++){
             GameObject _neighbor = neighborGameObjects[i];
             if(_neighbor != null && _neighbor.GetComponent<RoadConnections>() != null){

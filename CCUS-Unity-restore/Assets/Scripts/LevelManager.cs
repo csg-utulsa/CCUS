@@ -108,50 +108,54 @@ public class LevelManager : MonoBehaviour
         currentMinTileCarbon = _currentMinTileCarbon;
     }
     
-    public void UpdateNetCarbonAndMoney(){
+    public void AdjustNetMoney(int _adjustNetMoney){
+        NetMoney += _adjustNetMoney;
+    }
+
+    public void AdjustNetCarbon(int _adjustNetCarbon){
 
         //The next chunk of code gets the lists of money & carbon producing tiles from the GridManager.
         //Then it adds the net Money/Carbon from each of those tiles and adds them to its own count.
-        Tile[] moneyTiles = TileTypeCounter.current.MoneyTileTracker.GetAllTiles();
-        Tile[] carbonTiles = TileTypeCounter.current.CarbonTileTracker.GetAllTiles();
+        // Tile[] moneyTiles = TileTypeCounter.current.MoneyTileTracker.GetAllTiles();
+        // Tile[] carbonTiles = TileTypeCounter.current.CarbonTileTracker.GetAllTiles();
         
 
-        int _netMoney = 0;
-        int _netCarbon = 0;
+        // int _netMoney = 0;
+        // int _netCarbon = 0;
 
-        foreach(Tile moneyTile in moneyTiles){
-            if(moneyTile.tileScriptableObject != null){
-                if(moneyTile is ActivatableTile activatableMoneyTile){
-                    if(activatableMoneyTile.IsActivated){
-                        _netMoney += moneyTile.tileScriptableObject.AnnualIncome;
-                    }
-                }else{
-                    _netMoney += moneyTile.tileScriptableObject.AnnualIncome;
-                }
-            }
+        // foreach(Tile moneyTile in moneyTiles){
+        //     if(moneyTile.tileScriptableObject != null){
+        //         if(moneyTile is ActivatableTile activatableMoneyTile){
+        //             if(activatableMoneyTile.IsActivated){
+        //                 _netMoney += moneyTile.tileScriptableObject.AnnualIncome;
+        //             }
+        //         }else{
+        //             _netMoney += moneyTile.tileScriptableObject.AnnualIncome;
+        //         }
+        //     }
             
             
-        }
-        foreach(Tile carbonTile in carbonTiles){
-            if(carbonTile.tileScriptableObject != null){
-                if(carbonTile is ActivatableTile activatableCarbonTile){
-                    if(activatableCarbonTile.IsActivated){
-                        _netCarbon += carbonTile.tileScriptableObject.AnnualCarbonAdded;
-                    }
-                } else{
-                    _netCarbon += carbonTile.tileScriptableObject.AnnualCarbonAdded;
-                }  
-            }
+        // }
+        // foreach(Tile carbonTile in carbonTiles){
+        //     if(carbonTile.tileScriptableObject != null){
+        //         if(carbonTile is ActivatableTile activatableCarbonTile){
+        //             if(activatableCarbonTile.IsActivated){
+        //                 _netCarbon += carbonTile.tileScriptableObject.AnnualCarbonAdded;
+        //             }
+        //         } else{
+        //             _netCarbon += carbonTile.tileScriptableObject.AnnualCarbonAdded;
+        //         }  
+        //     }
             
-        }
+        // }
 
         //Adds money created by the people
-        if(PeopleManager.current != null){
-            _netMoney += PeopleManager.current.NetPeopleIncome;
-        }
+        // if(PeopleManager.current != null){
+        //     _netMoney += PeopleManager.current.NetPeopleIncome;
+        // }
 
-        NetCarbon = _netCarbon;
-        NetMoney = _netMoney;
+        //NetCarbon = _netCarbon;
+        NetCarbon += _adjustNetCarbon;
 
         //These update the Net Money and Net Carbon counter texts
         //NetMoneyCounter.NMC.UpdateNetMoneyCounter();

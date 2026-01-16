@@ -4,13 +4,27 @@ public class FactoryTile : ActivatableBuilding
 {
     public override void ThisTileJustPlaced(){
         
-        PeopleManager.current.UpdateMaxPeople();
         base.ThisTileJustPlaced();
     }
 
     public override void ThisTileAboutToBeDestroyed(){
         base.ThisTileAboutToBeDestroyed();
-        PeopleManager.current.UpdateMaxPeople();
+    }
+
+    public override void ActivateBuilding(){
+        //Updates the cap on number of people
+        if(!IsActivated && PeopleManager.current != null){
+            PeopleManager.current.AdjustNumberOfEmployees(tileScriptableObject.RequiredEmployees);
+        }
+        base.ActivateBuilding();
+    }
+
+    public override void DeactivateBuilding(){
+        //Updates the cap on number of people
+        if(IsActivated && PeopleManager.current != null){
+            PeopleManager.current.AdjustNumberOfEmployees(-tileScriptableObject.RequiredEmployees);
+        }
+        base.DeactivateBuilding();
     }
 
     public override bool CheckIfTileIsPlaceable(bool displayErrorMessages){

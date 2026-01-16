@@ -95,6 +95,10 @@ public class unableToPlaceTileUI : MonoBehaviour
         errorGraphicTimers[7].DisplayErrorGraphic();
     }
 
+    public void MustPurchaseAreaError(){
+        Debug.LogError("Add an error message for purchasing a chunk");
+    }
+
     void Update(){
         
         // //The next two if else structures time how long the graphics should be visible for

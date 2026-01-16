@@ -424,10 +424,23 @@ public class BuildingSystem : MonoBehaviour
         TileBase[] baseArray = GetTilesBlock(area, TerrainTilemap);
 
         //Checks if object is over void
-        if (isObjectOverVoid()==true)
+        if (isObjectOverVoid()){
             return false;
+        }
+            
+        //Checks if the active chunk is purchased
+        if(!ChunkPurchaseManager.current.ActiveChunkIsPurchased){
 
-        //Checks if there's enough money and carbon isn't maxed out
+            //displays "Must Purchase Area" if attempting to place tile
+            if(attemptingToPlaceTile){
+                unableToPlaceTileUI._unableToPlaceTileUI.MustPurchaseAreaError();
+            }
+            
+            return false;
+        }
+
+
+        //Checks if there's enough money and that the carbon isn't maxed out
         if(attemptingToPlaceTile){
             if(!activeTile.CheckIfTileIsPlaceable(true)){
                 return false;
