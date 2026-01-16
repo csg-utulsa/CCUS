@@ -195,7 +195,6 @@ public class GridManager : MonoBehaviour
     public GridCell GetGridCell(Vector2Int gridPosition)
     {
         Vector2Int arrayPosition = SwitchFromGridToArrayCoordinates(gridPosition);
-        Debug.Log("current array position: " + arrayPosition.x + ", " + arrayPosition.y);
         return positionsOfCells[arrayPosition.x][arrayPosition.y];
         //return positionsOfCells[x + (xLengthOfGrid / 2)][z + (yLengthOfGrid / 2) ];
     }

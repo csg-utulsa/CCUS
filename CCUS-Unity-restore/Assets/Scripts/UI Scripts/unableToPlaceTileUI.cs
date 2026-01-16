@@ -96,7 +96,7 @@ public class unableToPlaceTileUI : MonoBehaviour
     }
 
     public void MustPurchaseAreaError(){
-        Debug.LogError("Add an error message for purchasing a chunk");
+        errorGraphicTimers[8].DisplayErrorGraphic();
     }
 
     void Update(){

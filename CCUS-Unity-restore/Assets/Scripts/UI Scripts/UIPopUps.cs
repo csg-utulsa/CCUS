@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class UIPopUps : MonoBehaviour
 {
+    public bool changeUIPopUpSize = false;
     public float heightAboveObject = 5f;
 
     public GameObject dollarSign;
@@ -43,8 +44,9 @@ public class UIPopUps : MonoBehaviour
 
 
                     GameObject newDollarSign = Instantiate(dollarSign, positionToInstantiate, dollarSign.transform.rotation);
-                    newDollarSign.GetComponent<UIPopUpSize>().setSize(tileAnnualIncome, LevelManager.LM.getCurrentMaxTileIncome(), maxRangeToIncreaseSize);
-                    //if(newDollarSign.GetComponent<UIPopUpHideOnMouseOver>() != null) newDollarSign.GetComponent<UIPopUpHideOnMouseOver>().TileHoveringOver = gridObject;
+                    if(changeUIPopUpSize){
+                        newDollarSign.GetComponent<UIPopUpSize>().setSize(tileAnnualIncome, LevelManager.LM.getCurrentMaxTileIncome(), maxRangeToIncreaseSize);
+                    }
                     MouseHoverHideTile tileHider = gridObject.gameObject.GetComponent<MouseHoverHideTile>();
                     if(tileHider != null) tileHider.CurrentUIPopUp = newDollarSign;
                 }
@@ -81,14 +83,18 @@ public class UIPopUps : MonoBehaviour
                 float tileAnnualCarbon = gridObject.tileScriptableObject.AnnualCarbonAdded;
                 if(tileAnnualCarbon > 0){
                     GameObject newCarbonCloud = Instantiate(carbonCloud, positionToInstantiate, dollarSign.transform.rotation);
-                    newCarbonCloud.GetComponent<UIPopUpSize>().setSize(tileAnnualCarbon, LevelManager.LM.getCurrentMaxTileCarbon(), maxRangeToIncreaseSize);
-                    //if(newCarbonCloud.GetComponent<UIPopUpHideOnMouseOver>() != null) newCarbonCloud.GetComponent<UIPopUpHideOnMouseOver>().TileHoveringOver = gridObject;
+                    if(changeUIPopUpSize){
+                        newCarbonCloud.GetComponent<UIPopUpSize>().setSize(tileAnnualCarbon, LevelManager.LM.getCurrentMaxTileCarbon(), maxRangeToIncreaseSize);
+                    }
+                    
                     MouseHoverHideTile tileHider = gridObject.gameObject.GetComponent<MouseHoverHideTile>();
                     if(tileHider != null) tileHider.CurrentUIPopUp = newCarbonCloud;
                 } else if(tileAnnualCarbon < 0){
                     GameObject newCarbonRemovalCloud = Instantiate(carbonRemovalCloud, positionToInstantiate, dollarSign.transform.rotation);
-                    newCarbonRemovalCloud.GetComponent<UIPopUpSize>().setSize(tileAnnualCarbon, LevelManager.LM.getCurrentMinTileCarbon(), maxRangeToIncreaseSize);
-                    //if(newCarbonRemovalCloud.GetComponent<UIPopUpHideOnMouseOver>() != null) newCarbonRemovalCloud.GetComponent<UIPopUpHideOnMouseOver>().TileHoveringOver = gridObject;
+                    if(changeUIPopUpSize){
+                        newCarbonRemovalCloud.GetComponent<UIPopUpSize>().setSize(tileAnnualCarbon, LevelManager.LM.getCurrentMinTileCarbon(), maxRangeToIncreaseSize);
+                    }
+                    
                     MouseHoverHideTile tileHider = gridObject.gameObject.GetComponent<MouseHoverHideTile>();
                     if(tileHider != null) tileHider.CurrentUIPopUp = newCarbonRemovalCloud;
                 }

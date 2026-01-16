@@ -21,7 +21,12 @@ public class GroundAreaExpansion : MonoBehaviour
     public List<Vector3> positionsOfGroundChunks = new List<Vector3>();
     public float timeToSwitchChunks = .2f;
 
-    
+    public int MaxNumberOfChunks {
+        get{
+            return maxNumberOfChunks;
+        }
+    }
+    [SerializeField] private int maxNumberOfChunks = 7;
     [SerializeField] private int widthOfGrid = 10;
     [SerializeField] private int distanceBetweenGroundChunks = 3;
 
@@ -69,6 +74,10 @@ public class GroundAreaExpansion : MonoBehaviour
 
 
     public void AddGroundChunk(){
+
+        //Doesn't add a new ground chunk if the number of ground chunks is maxed out.
+        if(NumberOfGroundChunks >= MaxNumberOfChunks) return;
+
 
         //Creates a new ground chunk object to the right
         Vector3 currentFarRightChunk = positionsOfGroundChunks[positionsOfGroundChunks.Count - 1];
@@ -122,8 +131,7 @@ public class GroundAreaExpansion : MonoBehaviour
 
     public void SwitchToGroundChunk(int targetGroundChunk){
 
-        //Calls event for when chunk is switched
-        GameEventManager.current.BeginSwitchingCurrentGroundChunk.Invoke();
+        
 
         isSwitchingGroundChunks = true;
 
@@ -144,6 +152,8 @@ public class GroundAreaExpansion : MonoBehaviour
         //Load new chunk (also switches grid manager center)
         GridDataLoader.current.SwitchToGridChunk(targetGroundChunk, positionsOfGroundChunks[targetGroundChunk], timeToSwitchChunks);
 
+        //Calls event for when chunk is switched
+        GameEventManager.current.BeginSwitchingCurrentGroundChunk.Invoke();
 
         StartCoroutine(WaitToFinishSwitchingChunks());
     }

@@ -136,7 +136,7 @@ public class Tile : MonoBehaviour
 
         if(!(this is ActivatableTile activatableTile)){
             LevelManager.LM.AdjustNetMoney(tileScriptableObject.AnnualIncome);
-            LevelManager.LM.AdjustCarbon(tileScriptableObject.AnnualCarbonAdded);
+            LevelManager.LM.AdjustNetCarbon(tileScriptableObject.AnnualCarbonAdded);
         }
         //PeopleManager.current.UpdateMaxPeople();
 

@@ -1,10 +1,14 @@
 using UnityEngine;
+using System;
+using TMPro;
 
 public class ActivateChunkPurchaseUI : MonoBehaviour
 {
     public static ActivateChunkPurchaseUI current;
 
     public GameObject purchaseUIObject;
+
+    public TextMeshProUGUI purchasePriceText;
     
     void Start(){
         if(current == null){
@@ -12,15 +16,20 @@ public class ActivateChunkPurchaseUI : MonoBehaviour
         }else{
             Destroy(this);
         }
+        purchasePriceText = GetComponentInChildren<TextMeshProUGUI>(true);
         GameEventManager.current.SwitchedCurrentGroundChunk.AddListener(SwitchedGroundChunk);
-        GameEventManager.current.BeginSwitchingCurrentGroundChunk.AddListener(SwitchedGroundChunk);
+        GameEventManager.current.BeginSwitchingCurrentGroundChunk.AddListener(BeganSwitchingGroundChunk);
         GameEventManager.current.PurchasedCurrentGroundChunk.AddListener(GroundChunkJustPurchased);
     }
 
     private void SwitchedGroundChunk(){
         if(!ChunkPurchaseManager.current.ActiveChunkIsPurchased){
             Activate();
-        }else{
+        }
+    }
+
+    private void BeganSwitchingGroundChunk(){
+        if(ChunkPurchaseManager.current.ActiveChunkIsPurchased){
             Deactivate();
         }
     }
@@ -29,7 +38,9 @@ public class ActivateChunkPurchaseUI : MonoBehaviour
         Deactivate();
     }
     
+    //TODO: Add an animation to move the Chunk Purchase UI in with the ground
     private void Activate(){
+        purchasePriceText.text = "$" + ChunkPurchaseManager.current.AvailableChunkPrice.ToString("N0");
         purchaseUIObject.SetActive(true);
     }
 

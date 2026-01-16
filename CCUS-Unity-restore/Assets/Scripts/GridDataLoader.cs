@@ -85,6 +85,7 @@ public class GridDataLoader : MonoBehaviour
         Vector3[] allTilePositions = new Vector3[allTiles.Length];
         GameObject[] allTilePrefabs = new GameObject[allTiles.Length];
         GameObject[] allTileObjects = new GameObject[allTiles.Length];
+        bool[] activatedTiles = new bool[allTiles.Length];
 
         for(int i = 0; i < allTiles.Length; i++){
 
@@ -94,8 +95,17 @@ public class GridDataLoader : MonoBehaviour
             //saves position of tile
             allTilePositions[i] = allTiles[i].transform.position;
 
-            //Saves prefab of tile
+            
             Tile tile = allTiles[i].GetComponent<Tile>();
+
+            //saved the activation state of the tile
+            if(tile is ActivatableTile activatableTile && activatableTile.IsActivated){
+                activatedTiles[i] = true;
+            }else{
+                activatedTiles[i] = false;
+            }
+
+            //Saves prefab of tile
             if(tile != null){
  
                 if(tileScriptables.Contains(tile.tileScriptableObject)){
@@ -106,7 +116,7 @@ public class GridDataLoader : MonoBehaviour
             }
         }
 
-        gridChunks[currentGridChunk].SetChunkData(allTilePositions, allTilePrefabs, allTileObjects);
+        gridChunks[currentGridChunk].SetChunkData(allTilePositions, allTilePrefabs, allTileObjects, activatedTiles);
     }
 
     public void CreateNewGridChunk(){
@@ -121,19 +131,35 @@ public class GridDataLoader : MonoBehaviour
         GameObject[] tilePrefabs = gridChunks[gridChunkNum].PrefabsOfTiles;
         
         Vector3[] tilePositions = gridChunks[gridChunkNum].PositionsOfTiles;
+
+        bool[] tileIsActivated = gridChunks[gridChunkNum].activatedTiles;
+
         GameObject[] instantiatedTiles = new GameObject[tilePrefabs.Length];
         //Instantiates each tile stored in the Grid Chunk
         for(int i = 0; i < tilePrefabs.Length; i++){
             instantiatedTiles[i] = Instantiate(tilePrefabs[i], tilePositions[i], tilePrefabs[i].transform.rotation);
         }
-        foreach(GameObject instantiatedTile in instantiatedTiles){
+        for(int i = 0; i < instantiatedTiles.Length; i++){
+            GameObject instantiatedTile = instantiatedTiles[i];
             GridManager.GM.AddObject(instantiatedTile, true);
             instantiatedTile.GetComponent<ObjectDrag>().LoadedTile();
             // RoadConnections roadConnections = instantiatedTile.GetComponent<RoadConnections>();
             // if(roadConnections != null){
             //     roadConnections.UpdateModelConnections(false);
             // }
-            RoadAndResidenceConnectionManager.current.LoadResidenceConnections(instantiatedTile);
+
+            //Sets tile activation
+            ActivatableTile activatableTile = instantiatedTile.GetComponent<ActivatableTile>();
+            if(activatableTile != null){
+                if(tileIsActivated[i]){
+                    activatableTile.LoadActivatedBuilding();
+                }else{
+                    activatableTile.LoadDeactivatedBuilding();
+                }
+            }
+
+            //Recalculates residence connections. -- Causing lag
+            //RoadAndResidenceConnectionManager.current.LoadResidenceConnections(instantiatedTile);
         }
     }
 
@@ -166,10 +192,13 @@ public class GridChunkData{
 
     public GameObject[] TileObjects = new GameObject[0];
 
-    public void SetChunkData(Vector3[] _positionsOfTiles, GameObject[] _prefabsOfTiles, GameObject[] _tileObjects){
+    public bool[] activatedTiles = new bool[0];
+
+    public void SetChunkData(Vector3[] _positionsOfTiles, GameObject[] _prefabsOfTiles, GameObject[] _tileObjects, bool[] _activatedTiles){
         PositionsOfTiles = _positionsOfTiles;
         PrefabsOfTiles = _prefabsOfTiles;
         TileObjects = _tileObjects;
+        activatedTiles = _activatedTiles;
 
     }
 

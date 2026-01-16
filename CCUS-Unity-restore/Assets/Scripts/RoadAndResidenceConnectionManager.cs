@@ -33,11 +33,15 @@ public class RoadAndResidenceConnectionManager : MonoBehaviour
         return allResidencesConnected;
     }
 
+    private int NumberOfTilesChecked = 0;
     public void UpdateResidenceConnections(GameObject objectToCheck){
 
         if(objectToCheck != null && (objectToCheck.GetComponent<ActivatableTile>() != null)){
             List<ActivatableTile> connectedTiles = new List<ActivatableTile>();
+
+            NumberOfTilesChecked = 0;
             bool connectedTwoTiles = GetTilesToActivateOrDeactivate(objectToCheck, connectedTiles);
+            Debug.Log("Number of tiles recursively checked: " + NumberOfTilesChecked);
             if(connectedTwoTiles){
                 foreach(ActivatableTile connectedTile in connectedTiles){
                     connectedTile.ActivateBuilding();
@@ -150,13 +154,17 @@ public class RoadAndResidenceConnectionManager : MonoBehaviour
                 ConnectedResidences.Add(nextObjectToCheck);
             }
             
+        }else{
+            return false;
         }
+
+        NumberOfTilesChecked++;
         
         GameObject[] neighboringTiles = RoadAndResidenceConnectionManager.current.GetRoadNeighbors(nextObjectToCheck);
         bool _ConnectedTwoResidences = false;
         for(int i = 0; i < neighboringTiles.Length; i++){
-            //This if statement checks if the object isn't null, and if it hasn't already checked the object
-            if(neighboringTiles[i] != null && !TilesCheckedAlready.Contains(neighboringTiles[i].GetInstanceID())){
+            //This if statement checks if the object isn't null
+            if(neighboringTiles[i] != null){
                 //Checks if the neighboring object is an activatable building that hasn't already been checked. It also prevents connecting two residences that are sitting next to each other w/o roads
                 if(neighboringTiles[i].GetComponent<ActivatableBuilding>() != null && !ConnectedResidences.Contains(neighboringTiles[i]) && (nextObjectToCheck.GetComponent<ActivatableBuilding>() == null)){
                     ConnectedResidences.Add(neighboringTiles[i]);
