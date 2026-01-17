@@ -7,6 +7,10 @@ public class TreesRemoveCarbonTutorialTip : TutorialTip
 {
     //Constructor passes values to base class
     public TreesRemoveCarbonTutorialTip(int _tutorialTipTextID, TutorialTipManager _TTM, float _timeToWaitBeforeActivating, float _timeToWaitBeforeDeactivating) : base(_tutorialTipTextID, _TTM, _timeToWaitBeforeActivating, _timeToWaitBeforeDeactivating){
+        
+    }
+
+    public override void InitializeThisTutorialTip(){
         //Checks if "trees remove carbon" should be activated every time a progress event is called
         GameEventManager.current.ProgressEventJustCalled.AddListener(CheckIfTipShouldBeActivated);
 

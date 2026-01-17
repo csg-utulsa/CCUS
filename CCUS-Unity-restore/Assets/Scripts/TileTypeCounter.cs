@@ -1,3 +1,5 @@
+//Keeps track of each tile of a certain type
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +8,8 @@ public class TileTypeCounter : MonoBehaviour
 {
     public static TileTypeCounter current;
 
+
+    //Only returns all of the tiles for a given type within the active chunk
     public TileTracker[] TileTrackers { get; set; }
     public TileTracker AllTileTracker { get; set; }
     public TileTracker MoneyTileTracker { get; set; }
@@ -14,6 +18,39 @@ public class TileTypeCounter : MonoBehaviour
     public TileTracker ResidenceTileTracker { get; set; }
     public TileTracker FactoryTileTracker { get; set; }
     public TileTracker CarbonCaptureTileTracker { get; set; }
+    
+    // public int[] TileTrackers { get; set; }
+    // public int AllTileTracker { get; set; }
+    // public int MoneyTileTracker { get; set; }
+    // public int CarbonTileTracker { get; set; }
+    // public int RoadTileTracker { get; set; }
+    // public int ResidenceTileTracker { get; set; }
+    // public int FactoryTileTracker { get; set; }
+    // public int CarbonCaptureTileTracker { get; set; }
+
+    //Test of tile trackers
+    void Update(){
+        // if(Input.GetKeyDown(KeyCode.E)){
+        //     int numberOfTiles = TileTrackers[1].GetAllTiles().Length; //GridManager.GM.GetAllTilesOnActiveChunk().Length;
+        //     Debug.Log("Number of Residences: " + numberOfTiles);
+        // }
+        // if(Input.GetKeyDown(KeyCode.Y)){
+        //     int numberOfTiles = TileTrackers[2].GetAllTiles().Length; //GridManager.GM.GetAllTilesOnActiveChunk().Length;
+        //     Debug.Log("Number of Road: " + numberOfTiles);
+        // }
+        // if(Input.GetKeyDown(KeyCode.U)){
+        //     int numberOfTiles = TileTrackers[3].GetAllTiles().Length; //GridManager.GM.GetAllTilesOnActiveChunk().Length;
+        //     Debug.Log("Number of Factory: " + numberOfTiles);
+        // }
+        // if(Input.GetKeyDown(KeyCode.I)){
+        //     int numberOfTiles = TileTrackers[4].GetAllTiles().Length; //GridManager.GM.GetAllTilesOnActiveChunk().Length;
+        //     Debug.Log("Number of Carbon Capturerers: " + numberOfTiles);
+        // }
+        // if(Input.GetKeyDown(KeyCode.R)){
+        //     int numberOfTiles = TileTrackers[0].GetAllTiles().Length; //GridManager.GM.GetAllTilesOnActiveChunk().Length;
+        //     Debug.Log("Number of CarbonTiles: " + numberOfTiles);
+        // }
+    }
 
     void Start()
     {
@@ -22,44 +59,76 @@ public class TileTypeCounter : MonoBehaviour
         }else{
             Destroy(this);
         }
-        //Activates all the tile trackers, to keep track of every added tile of each type.
-        TileTrackers = new TileTracker[7];
+        //Activates all the tile trackers, to keep track of the number of every tile type.
+        TileTrackers = new TileTracker[5];
 
-        AllTileTracker = new AllTileTracker();
-        TileTrackers[0] = AllTileTracker;
+        // AllTileTracker = new AllTileTracker();
+        // TileTrackers[0] = AllTileTracker;
 
-        MoneyTileTracker = new MoneyTileTracker();
-        TileTrackers[1] = MoneyTileTracker;
+        // MoneyTileTracker = new MoneyTileTracker();
+        // TileTrackers[1] = MoneyTileTracker;
 
         CarbonTileTracker = new CarbonTileTracker();
-        TileTrackers[2] = CarbonTileTracker;
+        TileTrackers[0] = CarbonTileTracker;
 
         ResidenceTileTracker = new ResidenceTileTracker();
-        TileTrackers[3] = ResidenceTileTracker;
+        TileTrackers[1] = ResidenceTileTracker;
 
         RoadTileTracker = new RoadTileTracker();
-        TileTrackers[4] = RoadTileTracker;
+        TileTrackers[2] = RoadTileTracker;
 
         FactoryTileTracker = new FactoryTileTracker();
-        TileTrackers[5] = FactoryTileTracker;
+        TileTrackers[3] = FactoryTileTracker;
 
         CarbonCaptureTileTracker = new CarbonCaptureTileTracker();
-        TileTrackers[6] = CarbonCaptureTileTracker;
+        TileTrackers[4] = CarbonCaptureTileTracker;
+
+        
     }
 
     public void CheckTileTrackersForRemoval(GameObject objectToCheck){
         foreach(TileTracker tileTracker in TileTrackers){
-            tileTracker.CheckTileForRemoval(objectToCheck.GetComponent<Tile>());
+            if(tileTracker != null && objectToCheck != null && objectToCheck.GetComponent<Tile>() != null){
+                tileTracker.CheckTileForRemoval(objectToCheck.GetComponent<Tile>());
+            }
         }
     }
+
     public void CheckTileTrackersForAddition(GameObject objectToCheck){
         foreach(TileTracker tileTracker in TileTrackers){
-            tileTracker.CheckTileForAddition(objectToCheck.GetComponent<Tile>());
+            if(tileTracker != null && objectToCheck != null && objectToCheck.GetComponent<Tile>() != null){
+                tileTracker.CheckTileForAddition(objectToCheck.GetComponent<Tile>());
+            }
+            
         }
     }
+
+    public void ClearTileTrackers(){
+        //Clears the previous list of tile trackers
+        foreach(TileTracker tileTracker in TileTrackers){
+            tileTracker.ClearAllTiles();
+        }
+    }
+
+
+    // public void SwitchedGroundChunk(){
+
+    //     //Clears the previous list of tile trackers
+    //     foreach(TileTracker tileTracker in tileTrackers){
+    //         tileTracker.Clear();
+    //     }
+        
+    //     //Loads the new tile trackers
+    //     TileTracker newChunkTileTrackers = GridDataLoader.currentGridChunk.tileTrackers;
+    //     for(int i = 0; i < newChunkTileTrackers.Length; i++){
+    //         tileTrackers.Add(newChunkTileTrackers[i]);
+    //     }
+
+    // }
+
 }
 
-//Base class for each type of Tile Tracker. The Tile Trackers keep a list of each kind of tile.
+//Base class for each type of Tile Tracker. The Tile Trackers keep the number of each kind of tile in the current Grid Chunk
 public class TileTracker{
 
     public List<Tile> trackedTileList = new List<Tile>();
@@ -71,6 +140,10 @@ public class TileTracker{
         trackedTileList.Remove(tile);
     }
 
+    public void ClearAllTiles(){
+        trackedTileList.Clear();
+    }
+
     public virtual void CheckTileForRemoval(Tile tile){
         Debug.LogError("Base Tile Tracker Class has been accidentally implemented. You need to use one of its derived classes.");
     }
@@ -79,7 +152,7 @@ public class TileTracker{
         Debug.LogError("Base Tile Tracker Class has been accidentally implemented. You need to use one of its derived classes.");
     }
 
-    public Tile[] GetAllTiles(){
+    public virtual Tile[] GetAllTiles(){
         Tile[] returnArray = new Tile[trackedTileList.Count];
         for(int i = 0; i < trackedTileList.Count; i++){
             returnArray[i] = trackedTileList[i];

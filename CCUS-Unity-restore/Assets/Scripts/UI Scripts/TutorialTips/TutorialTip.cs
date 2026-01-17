@@ -11,7 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TutorialTip
+public class TutorialTip : MonoBehaviour
 {
     protected bool tutorialTipIsActivated = false;
     private bool displayOnce = true;
@@ -31,6 +31,23 @@ public class TutorialTip
         timeToWaitBeforeActivating = _timeToWaitBeforeActivating;
         timeToWaitBeforeDeactivating = _timeToWaitBeforeDeactivating;
         
+    }
+
+    public void InitializeValues(int _tutorialTipTextID, TutorialTipManager _TTM, float _timeToWaitBeforeActivating, float _timeToWaitBeforeDeactivating){
+        //By default, the tutorial tips display only once
+        displayOnce = true;
+        tutorialTipTextID = _tutorialTipTextID;
+        TTM = _TTM;
+        timeToWaitBeforeActivating = _timeToWaitBeforeActivating;
+        timeToWaitBeforeDeactivating = _timeToWaitBeforeDeactivating;
+
+        InitializeThisTutorialTip();
+
+        
+    }
+
+    public virtual void InitializeThisTutorialTip(){
+
     }
 
     //Checks if the Tutorial Tip Should be activated. Create overrid method in child classes

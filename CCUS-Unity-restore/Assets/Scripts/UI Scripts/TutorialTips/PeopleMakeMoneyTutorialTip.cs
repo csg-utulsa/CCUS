@@ -8,6 +8,10 @@ public class PeopleMakeMoneyTutorialTip : TutorialTip
 {
     //Constructor passes values to base class
     public PeopleMakeMoneyTutorialTip(int _tutorialTipTextID, TutorialTipManager _TTM, float _timeToWaitBeforeActivating, float _timeToWaitBeforeDeactivating) : base(_tutorialTipTextID, _TTM, _timeToWaitBeforeActivating, _timeToWaitBeforeDeactivating){
+        
+    }
+
+    public override void InitializeThisTutorialTip(){
         //Checks if tip should be activated every time a progress event is called
         GameEventManager.current.ProgressEventJustCalled.AddListener(CheckIfTipShouldBeActivated);
 

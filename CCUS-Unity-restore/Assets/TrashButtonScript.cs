@@ -96,7 +96,7 @@ public class TrashButtonScript : MonoBehaviour
     public void deleteTile(){
         if(!isDeleteCubeOverVoid()){
             GameObject[] gameObjectsToDelete =  GridManager.GM.GetGameObjectsInGridCell(currentRedDeleteCube);
-            Debug.Log("Game object num in cell: " + gameObjectsToDelete.Length);
+            //Debug.Log("Game object num in cell: " + gameObjectsToDelete.Length);
             //Deletes the objects on top of terrain first, before deleting the terrain
             if(gameObjectsToDelete.Length > 1){
                 foreach(GameObject gameObjectToDelete in gameObjectsToDelete){

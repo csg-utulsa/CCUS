@@ -52,7 +52,7 @@ public class ProgressionManager : MonoBehaviour
         new ProgressEvent(() => LevelManager.LM.NetMoney > 80, () => {TileSelectPanel.TSP.AddButton(buttons[3]);}, 1.5f),
 
         //Event 3: Unlocks carbon capture systems and increases max number of carbon capture systems to 5
-        new ProgressEvent(() => LevelManager.LM.NetMoney > 1300, () => {MaxTileTypeCounter.current.SetMaxCarbonCaptureTiles(5); TileSelectPanel.TSP.AddButton(buttons[4]);}, 0f),
+        new ProgressEvent(() => LevelManager.LM.NetMoney > 1300, () => {TileSelectPanel.TSP.AddButton(buttons[4]);}, 0f),
 
         //Event 4: Add Factories
         new ProgressEvent(() => LevelManager.LM.NetMoney > 800, () => {TileSelectPanel.TSP.AddButton(buttons[5]);}, 0f),

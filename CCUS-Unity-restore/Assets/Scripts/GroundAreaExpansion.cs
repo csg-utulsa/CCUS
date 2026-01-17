@@ -33,6 +33,7 @@ public class GroundAreaExpansion : MonoBehaviour
     public int ActiveGroundChunk {get; set;} = 0;
     public int NumberOfGroundChunks { get; set; } = 1;
 
+
     private bool isSwitchingGroundChunks = false;
     
 

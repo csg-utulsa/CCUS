@@ -15,7 +15,7 @@ public class GridManager : MonoBehaviour
     private int xLengthOfGrid = 100;
     private int yLengthOfGrid = 100;
 
-    private List<GameObject> allGridObjects = new List<GameObject>();
+    private List<Tile> allTilesOnActiveChunk = new List<Tile>();
 
     #region Unity Functions
 
@@ -43,6 +43,8 @@ public class GridManager : MonoBehaviour
                 positionsOfCells[i][q].yArrayLocation = q; //q - (yLengthOfGrid / 2) + .5f
             }
         }
+
+        GameEventManager.current.SwitchedCurrentGroundChunk.AddListener(SwitchedGridChunks);
 
     }
 
@@ -112,6 +114,7 @@ public class GridManager : MonoBehaviour
         return allTiles.ToArray();
 
     }
+
 
 
     //returns all neighbors of input tile
@@ -226,6 +229,49 @@ public class GridManager : MonoBehaviour
 
     #endregion
 
+    #region Chunk Functions
+
+    private void SwitchedGridChunks(){
+        ReCalculateAllTilesOnActiveChunk();
+    }
+
+    public void ReCalculateAllTilesOnActiveChunk(){
+
+        
+        //Gets all the tiles on top of the active grid chunk
+        int halfOfGridChunkSize = GridDataLoader.current.gridChunkSize / 2;
+        Vector2Int bottomLeftGridPoint = new Vector2Int(-halfOfGridChunkSize, -halfOfGridChunkSize);
+        Vector2Int topRightGridPoint = new Vector2Int(halfOfGridChunkSize, halfOfGridChunkSize);
+
+        //Adds all tiles on the active chunk to the list
+        allTilesOnActiveChunk.Clear();
+        allTilesOnActiveChunk.AddRange(GridManager.GM.GetAllTilesInRange(bottomLeftGridPoint, topRightGridPoint));
+
+        //Clears tile counters and recalculates them
+        TileTypeCounter.current.ClearTileTrackers();
+        foreach(Tile tile in allTilesOnActiveChunk){
+            TileTypeCounter.current.CheckTileTrackersForAddition(tile.gameObject);
+        }
+    }
+
+    public Tile[] GetAllTilesOnActiveChunk(){
+        return allTilesOnActiveChunk.ToArray();
+    }
+
+    #endregion
+
+    #region Set Functions
+
+    public void AddTileToActiveChunk(Tile tile){
+        allTilesOnActiveChunk.Add(tile);
+    }
+
+    public void RemoveTileFromActiveChunk(Tile tile){
+        allTilesOnActiveChunk.Remove(tile);
+    }
+
+    #endregion
+
     #region Switch Coords
 
 
@@ -288,8 +334,12 @@ public class GridCell
             
             if(!isLoading && objectToAdd.GetComponent<Tile>() != null && objectToAdd.GetComponent<Tile>().tileScriptableObject != null){
 
-                //Keeps track of different tile types, like money tiles, residences, etc
+                //Keeps list of tiles on active chunk
+                GridManager.GM.AddTileToActiveChunk(objectToAdd.GetComponent<Tile>());
+
+                //Tracks different types of tiles
                 TileTypeCounter.current.CheckTileTrackersForAddition(objectToAdd);
+               
 
             }
 
@@ -310,7 +360,9 @@ public class GridCell
             if(objectToRemove == objectsInCell[i])
             {
                 if(!isUnloading && objectToRemove.GetComponent<Tile>() != null && objectToRemove.GetComponent<Tile>().tileScriptableObject != null){
-                    //Keeps track of different tile types, like money tiles, residences, etc
+                    //Keeps list of tiles on active chunk
+                    GridManager.GM.RemoveTileFromActiveChunk(objectToRemove.GetComponent<Tile>());
+                    //Tracks different types of tiles
                     TileTypeCounter.current.CheckTileTrackersForRemoval(objectToRemove);
                 }
                 objectsInCell[i] = null;

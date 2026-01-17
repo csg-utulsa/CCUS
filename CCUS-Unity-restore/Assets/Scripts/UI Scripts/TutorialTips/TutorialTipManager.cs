@@ -12,10 +12,7 @@
 *    Put it in a new script in the folder found at Assets/Scripts/UI Scripts/TutorialTips/TutorialTipTypes
 *      a) Further instructions for creating the new class in the TutorialTip script
 *
-* 3) In the Start() function of this script, create an instance of the new TutorialTip child class you just made. 
-*      a) Do so by editing this line: new ConnectHousesTutorialTip( 0, this, timesToWaitBeforeActivating[0], timesToWaitBeforeDeactivating[0]);
-*         i) Update to the name of the new class you created
-*         ii) Update the numbers from 0
+* 3) Attach the new script you created to the associated text object you created.
 *
 *
 */
@@ -28,6 +25,7 @@ using System;
 public class TutorialTipManager : MonoBehaviour
 {
     public TutorialTipGraphicsActivationManager backgroundActivator;
+    public TutorialTip[] tutorialTips;
     public GameObject[] tutorialTipTextObjects;
     public float[] timesToWaitBeforeActivating;
     public float[] timesToWaitBeforeDeactivating;
@@ -39,10 +37,19 @@ public class TutorialTipManager : MonoBehaviour
     {
         backgroundActivator = GetComponent<TutorialTipGraphicsActivationManager>();
 
-        new ConnectHousesTutorialTip( 0, this, timesToWaitBeforeActivating[0], timesToWaitBeforeDeactivating[0]);
-        new TreesRemoveCarbonTutorialTip( 1, this, timesToWaitBeforeActivating[1], timesToWaitBeforeDeactivating[1]);
-        new PeopleMakeMoneyTutorialTip( 2, this, timesToWaitBeforeActivating[2], timesToWaitBeforeDeactivating[2]);
-        new ConnectedFactoriesTutorialTip( 3, this, timesToWaitBeforeActivating[3], timesToWaitBeforeDeactivating[3]);
+        tutorialTips = new TutorialTip[tutorialTipTextObjects.Length];
+        for(int i = 0; i < tutorialTips.Length; i++){
+            tutorialTips[i] = tutorialTipTextObjects[i].GetComponent<TutorialTip>();
+            if(tutorialTips[i] != null){
+                tutorialTips[i].InitializeValues(i, this, timesToWaitBeforeActivating[i], timesToWaitBeforeDeactivating[i]);
+            }
+        }
+
+        // new ConnectHousesTutorialTip( 0, this, timesToWaitBeforeActivating[0], timesToWaitBeforeDeactivating[0]);
+        // new TreesRemoveCarbonTutorialTip( 1, this, timesToWaitBeforeActivating[1], timesToWaitBeforeDeactivating[1]);
+        // new PeopleMakeMoneyTutorialTip( 2, this, timesToWaitBeforeActivating[2], timesToWaitBeforeDeactivating[2]);
+        // new ConnectedFactoriesTutorialTip( 3, this, timesToWaitBeforeActivating[3], timesToWaitBeforeDeactivating[3]);
+        // new MoreAreaAvailableTutorialTip(4, this, timesToWaitBeforeActivating[4], timesToWaitBeforeDeactivating[4]);
 
     }
 

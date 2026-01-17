@@ -4,50 +4,51 @@ using TMPro;
 public class MaxTileTypeCounter : MonoBehaviour
 {
     public static MaxTileTypeCounter current;
-    public TextMeshProUGUI NumberOfCarbonCaptureSystemsText;
-    public TextMeshProUGUI MaxCarbonCaptureSystemsText;
-    public SlideInAnimation maxCarbonCaptureSystemsSlideInAnimation;
+    //public TextMeshProUGUI NumberOfCarbonCaptureSystemsText;
+    //public TextMeshProUGUI MaxCarbonCaptureSystemsText;
+    //public SlideInAnimation maxCarbonCaptureSystemsSlideInAnimation;
     private bool carbonCaptureSystemsEnabled = false;
     
-    private int numberOfCarbonCaptureSystems = 0;
+    //private int numberOfCarbonCaptureSystems = 0;
     public int NumberOfCarbonCaptureSystems {
         get{
-            return numberOfCarbonCaptureSystems;
+            return TileTypeCounter.current.CarbonCaptureTileTracker.GetAllTiles().Length;
         }
         set{
-            numberOfCarbonCaptureSystems = value;
-            if(NumberOfCarbonCaptureSystemsText != null){
-                NumberOfCarbonCaptureSystemsText.text = "" +  value;
-            }
+            // numberOfCarbonCaptureSystems = value;
+            // if(NumberOfCarbonCaptureSystemsText != null){
+            //     NumberOfCarbonCaptureSystemsText.text = "" +  value;
+            // }
         }
     }
 
-    private int maxCarbonCaptureSystems = 0;
+    public int maxCarbonCaptureTilesPerArea = 5;
+    //private int maxCarbonCaptureSystems = 0;
     public int MaxCarbonCaptureSystems {
         get{
-            return maxCarbonCaptureSystems;
+            return maxCarbonCaptureTilesPerArea;
         }
-        set{
-            maxCarbonCaptureSystems = value;
-            if(MaxCarbonCaptureSystemsText != null){
-                MaxCarbonCaptureSystemsText.text = "" + value;
-            }
-            if(!carbonCaptureSystemsEnabled && maxCarbonCaptureSystems > 0){
-                maxCarbonCaptureSystemsSlideInAnimation.SlideIntoView();
-                carbonCaptureSystemsEnabled = true;
-            } else if(carbonCaptureSystemsEnabled && maxCarbonCaptureSystems <= 0){
-                maxCarbonCaptureSystemsSlideInAnimation.SlideOutOfView();
-                carbonCaptureSystemsEnabled = false;
-            }
+        //set{
+            // maxCarbonCaptureSystems = value;
+            // if(MaxCarbonCaptureSystemsText != null){
+            //     MaxCarbonCaptureSystemsText.text = "" + value;
+            // }
+            // if(!carbonCaptureSystemsEnabled && maxCarbonCaptureSystems > 0){
+            //     maxCarbonCaptureSystemsSlideInAnimation.SlideIntoView();
+            //     carbonCaptureSystemsEnabled = true;
+            // } else if(carbonCaptureSystemsEnabled && maxCarbonCaptureSystems <= 0){
+            //     maxCarbonCaptureSystemsSlideInAnimation.SlideOutOfView();
+            //     carbonCaptureSystemsEnabled = false;
+            // }
             
-        }
+        //}
     }
 
-    void Awake(){
+    void Start(){
         if(current == null){
             current = this;
         }else{
-            Destroy(this);
+            //Destroy(this);
         }
     }
 
@@ -59,11 +60,11 @@ public class MaxTileTypeCounter : MonoBehaviour
         }
     }
 
-    public void UpdateNumberOfCarbonCaptureSystems(){
-        NumberOfCarbonCaptureSystems = TileTypeCounter.current.CarbonCaptureTileTracker.GetAllTiles().Length;
-    }
+    // public void UpdateNumberOfCarbonCaptureSystems(){
+    //     NumberOfCarbonCaptureSystems = TileTypeCounter.current.CarbonCaptureTileTracker.GetAllTiles().Length;
+    // }
 
-    public void SetMaxCarbonCaptureTiles(int maxNumber){
-        MaxCarbonCaptureSystems = maxNumber;
-    }
+    // public void SetMaxCarbonCaptureTiles(int maxNumber){
+    //     MaxCarbonCaptureSystems = maxNumber;
+    // }
 }

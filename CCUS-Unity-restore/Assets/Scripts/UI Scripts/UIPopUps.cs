@@ -15,7 +15,7 @@ public class UIPopUps : MonoBehaviour
 
     //This function displays pop ups over the money generating tiles.
     public void displayMoneyPopUps(){
-        Tile[] allGridObjects = TileTypeCounter.current.AllTileTracker.GetAllTiles();
+        Tile[] allGridObjects = GridManager.GM.GetAllTilesOnActiveChunk();
         //Iterates through each tile currently on the grid
         foreach(Tile gridObject in allGridObjects){
 
@@ -59,7 +59,7 @@ public class UIPopUps : MonoBehaviour
 
     //This function displays pop ups over the carbon generating pop ups.
     public void displayCarbonPopUps(){
-        Tile[] allGridObjects = TileTypeCounter.current.AllTileTracker.GetAllTiles();
+        Tile[] allGridObjects = GridManager.GM.GetAllTilesOnActiveChunk();
 
         //Iterates through each object currently on the grid
         foreach(Tile gridObject in allGridObjects){

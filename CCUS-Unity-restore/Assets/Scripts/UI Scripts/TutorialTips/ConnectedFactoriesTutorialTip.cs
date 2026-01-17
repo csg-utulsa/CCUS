@@ -8,6 +8,10 @@ public class ConnectedFactoriesTutorialTip : TutorialTip
     //Constructor passes values to base class
     public ConnectedFactoriesTutorialTip(int _tutorialTipTextID, TutorialTipManager _TTM, float _timeToWaitBeforeActivating, float _timeToWaitBeforeDeactivating) : base(_tutorialTipTextID, _TTM, _timeToWaitBeforeActivating, _timeToWaitBeforeDeactivating){
         
+        
+    }
+
+    public override void InitializeThisTutorialTip(){
         //Checks if tip should be activated every time a tile is placed
         GameEventManager.current.TileJustPlaced.AddListener(CheckIfTipShouldBeActivated);
 

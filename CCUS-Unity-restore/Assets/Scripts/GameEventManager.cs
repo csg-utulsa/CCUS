@@ -11,6 +11,7 @@ public class GameEventManager : MonoBehaviour
     public UnityEvent PersonJustAdded {get; set;}
 
     public UnityEvent NetCarbonUpdated {get; set;}
+    
     public UnityEvent NetMoneyUpdated {get; set;}
 
     public UnityEvent MoneyAmountUpdated {get; set;}

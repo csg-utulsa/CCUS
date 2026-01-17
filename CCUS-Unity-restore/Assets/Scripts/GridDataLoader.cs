@@ -18,6 +18,12 @@ public class GridDataLoader : MonoBehaviour
     public GameObject[] tilePrefabs;
     private TileScriptableObject[] tileScriptables;
 
+    public GridChunkData currentGridChunkData{
+        get{
+            return gridChunks[currentGridChunk];
+        }
+    }
+
     void Awake(){
         if(current == null){
             current = this;
@@ -70,10 +76,11 @@ public class GridDataLoader : MonoBehaviour
 
 
         //Gets all the tiles on top of the active grid chunk
-        int halfOfGridChunkSize = gridChunkSize / 2;
-        Vector2Int bottomLeftGridPoint = new Vector2Int(-halfOfGridChunkSize, -halfOfGridChunkSize);
-        Vector2Int topRightGridPoint = new Vector2Int(halfOfGridChunkSize, halfOfGridChunkSize);
-        Tile[] allTileScripts = GridManager.GM.GetAllTilesInRange(bottomLeftGridPoint, topRightGridPoint);
+        // int halfOfGridChunkSize = gridChunkSize / 2;
+        // Vector2Int bottomLeftGridPoint = new Vector2Int(-halfOfGridChunkSize, -halfOfGridChunkSize);
+        // Vector2Int topRightGridPoint = new Vector2Int(halfOfGridChunkSize, halfOfGridChunkSize);
+        // Tile[] allTileScripts = GridManager.GM.GetAllTilesInRange(bottomLeftGridPoint, topRightGridPoint);
+        Tile[] allTileScripts = GridManager.GM.GetAllTilesOnActiveChunk();
 
 
         GameObject[] allTiles = new GameObject[allTileScripts.Length];
@@ -194,11 +201,13 @@ public class GridChunkData{
 
     public bool[] activatedTiles = new bool[0];
 
+
     public void SetChunkData(Vector3[] _positionsOfTiles, GameObject[] _prefabsOfTiles, GameObject[] _tileObjects, bool[] _activatedTiles){
         PositionsOfTiles = _positionsOfTiles;
         PrefabsOfTiles = _prefabsOfTiles;
         TileObjects = _tileObjects;
         activatedTiles = _activatedTiles;
+
 
     }
 

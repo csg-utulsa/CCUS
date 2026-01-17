@@ -23,7 +23,7 @@ public class RoadAndResidenceConnectionManager : MonoBehaviour
         Tile[] allResidences = TileTypeCounter.current.ResidenceTileTracker.GetAllTiles();
         bool allResidencesConnected = true;
         foreach(Tile tile in allResidences){
-            if(tile is ActivatableBuilding residence){
+            if(tile is ResidentialBuilding residence){
                 if(residence.IsActivated == false){
                     allResidencesConnected = false;
                 }
@@ -41,7 +41,6 @@ public class RoadAndResidenceConnectionManager : MonoBehaviour
 
             NumberOfTilesChecked = 0;
             bool connectedTwoTiles = GetTilesToActivateOrDeactivate(objectToCheck, connectedTiles);
-            Debug.Log("Number of tiles recursively checked: " + NumberOfTilesChecked);
             if(connectedTwoTiles){
                 foreach(ActivatableTile connectedTile in connectedTiles){
                     connectedTile.ActivateBuilding();

@@ -7,10 +7,15 @@ public class ConnectHousesTutorialTip : TutorialTip
 {
     //Constructor passes values to base class
     public ConnectHousesTutorialTip(int _tutorialTipTextID, TutorialTipManager _TTM, float _timeToWaitBeforeActivating, float _timeToWaitBeforeDeactivating) : base(_tutorialTipTextID, _TTM, _timeToWaitBeforeActivating, _timeToWaitBeforeDeactivating){
+        
+    }
+
+    public override void InitializeThisTutorialTip(){
         //Checks if houses are connected every time a tile is placed
         GameEventManager.current.TileJustPlaced.AddListener(CheckIfTipShouldBeDeactivated);
         ActionDelayer.DelayAction(CheckIfTipShouldBeActivated, 1f); 
     }
+    
     
 
 

@@ -74,6 +74,9 @@ public class ChunkPurchaseManager : MonoBehaviour
         //Checks if there's enough money to purchase the available chunk
         bool chunkIsPurchaseable = CheckIfChunkIsPurchaseable(true);
 
+        //Quits if there's not enough money
+        if(!chunkIsPurchaseable) return;
+
 
         //Spends price of chunk
         LevelManager.LM.AdjustMoney(-AvailableChunkPrice);
@@ -83,13 +86,12 @@ public class ChunkPurchaseManager : MonoBehaviour
            purchasedChunks[groundAreaManager.ActiveGroundChunk] = true; 
         }
         
+        //Adds a new ground chunk to replace the old one
+        groundAreaManager.AddGroundChunk();
 
+        //Purchases the chunk
+        GameEventManager.current.PurchasedCurrentGroundChunk.Invoke();
 
-        //If there's enough money, it will purchase the chunk
-        if(chunkIsPurchaseable){
-            groundAreaManager.AddGroundChunk();
-            GameEventManager.current.PurchasedCurrentGroundChunk.Invoke();
-        }
 
     }
 
