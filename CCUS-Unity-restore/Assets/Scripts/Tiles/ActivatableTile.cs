@@ -13,6 +13,8 @@ public class ActivatableTile : Tile
 
         base.ThisTileJustPlaced();
 
+        GameEventManager.current.ActivatableTileJustPlaced.Invoke();
+
     }
 
     public override void ThisTileAboutToBeDestroyed(){

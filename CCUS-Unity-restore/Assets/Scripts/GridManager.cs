@@ -288,8 +288,13 @@ public class GridManager : MonoBehaviour
 
         Vector3 AsWorldCoordinates = new Vector3((gridPosX - .5f), 0f, gridPosY - .5f);
         Vector3 adjustedWorldCoordinates = AsWorldCoordinates + gridManagerCenter;
-        Debug.Log("returning " + adjustedWorldCoordinates + " rather than " + AsWorldCoordinates);
-        Debug.Log("Grid center is " + gridManagerCenter);
+        return adjustedWorldCoordinates;
+    }
+
+    public Vector3 SwitchFromGridToWorldCoordinates(Vector2Int gridCoordinates) {
+
+        Vector3 AsWorldCoordinates = new Vector3((gridCoordinates.x - .5f), 0f, gridCoordinates.y - .5f);
+        Vector3 adjustedWorldCoordinates = AsWorldCoordinates + gridManagerCenter;
         return adjustedWorldCoordinates;
     }
 
@@ -302,6 +307,10 @@ public class GridManager : MonoBehaviour
 
     public void SwitchCenter(Vector3 newWorldCenter){
         gridManagerCenter = newWorldCenter;
+    }
+    
+    public Vector3 GetCenter(){
+        return gridManagerCenter;
     }
 
     #endregion
@@ -319,6 +328,8 @@ public class GridCell
     GameObject[] objectsInCell = new GameObject[5];
     public float xArrayLocation { get; set; }
     public float yArrayLocation { get; set; }
+
+
     public int numberOfObjectsInCell = 0;
     public bool isOverGround = false;
 

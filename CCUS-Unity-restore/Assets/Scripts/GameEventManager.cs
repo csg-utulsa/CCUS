@@ -11,7 +11,7 @@ public class GameEventManager : MonoBehaviour
     public UnityEvent PersonJustAdded {get; set;}
 
     public UnityEvent NetCarbonUpdated {get; set;}
-    
+
     public UnityEvent NetMoneyUpdated {get; set;}
 
     public UnityEvent MoneyAmountUpdated {get; set;}
@@ -21,6 +21,8 @@ public class GameEventManager : MonoBehaviour
     public UnityEvent PurchasedCurrentGroundChunk {get; set;}
 
     public UnityEvent BeginSwitchingCurrentGroundChunk {get; set;}
+
+     public UnityEvent ActivatableTileJustPlaced {get; set;}
 
     public static GameEventManager current;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -35,6 +37,7 @@ public class GameEventManager : MonoBehaviour
         SwitchedCurrentGroundChunk = new UnityEvent();
         PurchasedCurrentGroundChunk = new UnityEvent();
         BeginSwitchingCurrentGroundChunk = new UnityEvent();
+        ActivatableTileJustPlaced = new UnityEvent();
 
         if(current == null){
             current = this;

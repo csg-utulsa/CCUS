@@ -18,6 +18,8 @@ public class TileTypeCounter : MonoBehaviour
     public TileTracker ResidenceTileTracker { get; set; }
     public TileTracker FactoryTileTracker { get; set; }
     public TileTracker CarbonCaptureTileTracker { get; set; }
+    public TileTracker ActivatableBuildingTileTracker { get; set; }
+    public TileTracker ActivatableTileTracker { get; set; }
     
     // public int[] TileTrackers { get; set; }
     // public int AllTileTracker { get; set; }
@@ -60,7 +62,7 @@ public class TileTypeCounter : MonoBehaviour
             Destroy(this);
         }
         //Activates all the tile trackers, to keep track of the number of every tile type.
-        TileTrackers = new TileTracker[5];
+        TileTrackers = new TileTracker[7];
 
         // AllTileTracker = new AllTileTracker();
         // TileTrackers[0] = AllTileTracker;
@@ -82,6 +84,14 @@ public class TileTypeCounter : MonoBehaviour
 
         CarbonCaptureTileTracker = new CarbonCaptureTileTracker();
         TileTrackers[4] = CarbonCaptureTileTracker;
+        
+        ActivatableBuildingTileTracker = new ActivatableBuildingTileTracker();
+        TileTrackers[5] = ActivatableBuildingTileTracker;
+
+        ActivatableTileTracker = new ActivatableTileTracker();
+        TileTrackers[6] = ActivatableTileTracker;
+
+
 
         
     }
@@ -247,3 +257,30 @@ public class CarbonCaptureTileTracker : TileTracker{
         }
     }
 }
+
+public class ActivatableBuildingTileTracker : TileTracker{
+    public override void CheckTileForAddition(Tile tile){
+        if(tile is ActivatableBuilding activatableBuilding){
+            base.AddTile(activatableBuilding);
+        }
+    }
+    public override void CheckTileForRemoval(Tile tile){
+        if(tile is ActivatableBuilding activatableBuilding){
+            base.RemoveTile(activatableBuilding);
+        }
+    }
+}
+
+public class ActivatableTileTracker : TileTracker{
+    public override void CheckTileForAddition(Tile tile){
+        if(tile is ActivatableTile activatableTile){
+            base.AddTile(activatableTile);
+        }
+    }
+    public override void CheckTileForRemoval(Tile tile){
+        if(tile is ActivatableTile activatableTile){
+            base.RemoveTile(activatableTile);
+        }
+    }
+}
+
