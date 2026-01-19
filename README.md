@@ -1,4 +1,4 @@
-# Untitled CCUS Project 
+# Clean World 
 ![Untitled CCUS Project ](https://raw.githubusercontent.com/csg-utulsa/CCUS/refs/heads/main/Documentation/imgs/csg-ccus-game.png)
 
 ## Project Summary 
