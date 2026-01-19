@@ -2,7 +2,7 @@
 ![Untitled CCUS Project ](https://raw.githubusercontent.com/csg-utulsa/CCUS/refs/heads/main/Documentation/imgs/csg-ccus-game.png)
 
 ## Project Summary 
-The **Untitled CCUS Project** is an educational simulation game designed to teach players about **carbon emissions** and **climate change** solutions through **engaging gameplay**. 
+**Clean World** is an educational simulation game designed to teach fifth grade players about **carbon emissions** and **climate change** solutions through **engaging gameplay**. 
 
 Developed by **[Computer Simulation & Gaming (CSG)](https://github.com/csg-utulsa)** majors at the **[University of Tulsa](http://utulsa.edu/gaming)**, this game aims to **raise awareness** and **inspiring sustainable action**, all within a quick, **impactful learning** module.
 
