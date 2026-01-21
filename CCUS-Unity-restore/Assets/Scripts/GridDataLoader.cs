@@ -1,5 +1,5 @@
 /*
-*   GridLoader: stores and loads the tiles held in the GridManager into 
+*   GridLoader: stores and loads the tiles held in the GridManager into the gridChunks array
 *
 */
 using UnityEngine;

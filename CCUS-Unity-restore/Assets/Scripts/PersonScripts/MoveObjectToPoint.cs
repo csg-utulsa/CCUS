@@ -15,6 +15,11 @@ public class MoveObjectToPoint : MonoBehaviour
     float timer = 0f;
     float timeToMove = 1f;
 
+    void Awake(){
+        previousLocation = transform.position;
+        currentLocation = transform.position;
+    }
+
     void Update()
     {
         if(isMoving){

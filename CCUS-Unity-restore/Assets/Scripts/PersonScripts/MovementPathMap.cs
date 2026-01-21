@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class MovementPathMap : MonoBehaviour
 {
@@ -27,7 +29,8 @@ public class MovementPathMap : MonoBehaviour
 
         //Adds listeners for whenever the arrangement of Activatable Tiles changes
         GameEventManager.current.ActivatableTileJustPlaced.AddListener(ActivatableTileMapChanged);
-        GameEventManager.current.BeginSwitchingCurrentGroundChunk.AddListener(ActivatableTileMapChanged);
+        GameEventManager.current.ActivatableTileJustDestroyed.AddListener(ActivatableTileMapChanged);
+        GameEventManager.current.BeginSwitchingCurrentGroundChunk.AddListener(SwitchedGroundChunk);
     }
 
     private void SetPathMapToEmpty(){
@@ -36,6 +39,12 @@ public class MovementPathMap : MonoBehaviour
                 movementPathMap[i][j] = MapTileType.Empty;
             }
         }
+    }
+
+
+    //Delays updating the tile map after a grid chunk switch to give the Tile Counter time to update
+    private void SwitchedGroundChunk(){
+        ActivatableTileMapChanged();
     }
 
     //Every time an activatable tile is placed or the grid chunk switches, it updates its tile map
@@ -52,6 +61,7 @@ public class MovementPathMap : MonoBehaviour
                 if(roadTile != null && activatableRoad != null && activatableRoad.IsActivated){
                     Vector2Int roadArrayCoordinates = SwitchToPathMapArrayCoordinates(roadTile.transform.position);
                     //Stores that there's a road at this position
+
                     movementPathMap[roadArrayCoordinates.x][roadArrayCoordinates.y] = MapTileType.Road;
                 }
             }
@@ -122,7 +132,7 @@ public class MovementPathMap : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.B)){
             Vector3 mouseWorldPosition = BuildingSystem.GetMouseWorldPosition();
             Vector2Int arrayCoordinates = SwitchToPathMapArrayCoordinates(mouseWorldPosition);
-            Debug.Log("Tile at point: " +  GetTileForPoint(arrayCoordinates));
+
 
         }
     }
@@ -130,6 +140,7 @@ public class MovementPathMap : MonoBehaviour
     //Switches to movementPathMap array coordinates from world coordinates
     private Vector2Int SwitchToPathMapArrayCoordinates(Vector3 worldCoordinates){
         Vector2Int gridCoords = GridManager.GM.SwitchToGridCoordinates(worldCoordinates);
+
         return SwitchToPathMapArrayCoordinates(gridCoords);
     }
 

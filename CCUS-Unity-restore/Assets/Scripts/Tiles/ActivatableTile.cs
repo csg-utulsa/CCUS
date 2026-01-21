@@ -13,6 +13,7 @@ public class ActivatableTile : Tile
 
         base.ThisTileJustPlaced();
 
+        //Alerts game event manager that an activatable tile was placed
         GameEventManager.current.ActivatableTileJustPlaced.Invoke();
 
     }
@@ -20,6 +21,9 @@ public class ActivatableTile : Tile
     public override void ThisTileAboutToBeDestroyed(){
         base.ThisTileAboutToBeDestroyed();
         DeactivateBuilding();
+
+        //Alerts the game manager that an activatable tile was just destroyed
+        GameEventManager.current.ActivatableTileJustDestroyed.Invoke();
     }
 
     public virtual void ActivateBuilding(){
@@ -34,10 +38,11 @@ public class ActivatableTile : Tile
         if(!IsActivated){
             LevelManager.LM.AdjustNetCarbon(tileScriptableObject.AnnualCarbonAdded);
             LevelManager.LM.AdjustNetMoney(tileScriptableObject.AnnualIncome);
+            TileActivationSettingChanged();
         }
 
         IsActivated = true;
-        TileActivationSettingChanged();
+        
     }
 
     public virtual void DeactivateBuilding(){
@@ -53,10 +58,11 @@ public class ActivatableTile : Tile
         if(IsActivated){
             LevelManager.LM.AdjustNetCarbon(-tileScriptableObject.AnnualCarbonAdded);
             LevelManager.LM.AdjustNetMoney(-tileScriptableObject.AnnualIncome);
+            TileActivationSettingChanged();
         }
 
         IsActivated = false;
-        TileActivationSettingChanged();
+        
     }
 
 

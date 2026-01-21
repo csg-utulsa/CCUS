@@ -40,7 +40,12 @@ public class RandomTileGenerator : MonoBehaviour
             System.Random randNumberGen = new System.Random();
             int randomBuildingIndex = randNumberGen.Next(0, activatedBuildings.Count);
             //Debug.Log("Activated Building coords: " + activatedBuildings[randomBuildingIndex].gameObject.transform.position);
-            return activatedBuildings[randomBuildingIndex].gameObject;
+            
+            if(activatedBuildings[randomBuildingIndex].gameObject != null){
+                return activatedBuildings[randomBuildingIndex].gameObject;
+            } else{
+                return null;
+            }
         }else{
             return null; //if no activated buildings, return null
         }

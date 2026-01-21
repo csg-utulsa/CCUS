@@ -140,6 +140,8 @@ public class ObjectDrag : MonoBehaviour
         if(this.GetComponent<Tile>() != null) this.GetComponent<Tile>().ThisTileAboutToBeDestroyed();
 
         Destroy(gameObject);
+
+        GameEventManager.current.TileJustDestroyed.Invoke();
     }
 
     //Updates the road connection graphics of any surrounding roads

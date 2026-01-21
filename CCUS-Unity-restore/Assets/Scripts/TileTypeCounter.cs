@@ -120,6 +120,34 @@ public class TileTypeCounter : MonoBehaviour
         }
     }
 
+    public Tile[] GetAllActivatedBuildings(){
+        Tile[] activatableBuildings = TileTypeCounter.current.ActivatableBuildingTileTracker.GetAllTiles();
+        //Tracks all the buildings that are activated
+        List<Tile> activatedBuildings = new List<Tile>();
+        foreach(Tile activatableBuilding in activatableBuildings){
+            //Checks if the tile is activated
+            if(activatableBuilding is ActivatableTile activatableTile && activatableTile.IsActivated){
+                activatedBuildings.Add(activatableBuilding);
+            }
+        }
+        return activatedBuildings.ToArray();
+    }
+
+    public Tile[] GetAllActivatedRoads(){
+        //Gets a list of all roads
+        Tile[] roads = TileTypeCounter.current.RoadTileTracker.GetAllTiles();
+
+        //Tracks all the roads that are activaed
+        List<Tile> activatedRoads = new List<Tile>();
+        foreach(Tile road in roads){
+            //Checks if the tile is activated
+            if(road is ActivatableTile activatableTile && activatableTile.IsActivated){
+                activatedRoads.Add(road);
+            }
+        }
+        return activatedRoads.ToArray();
+    }
+
 
     // public void SwitchedGroundChunk(){
 
@@ -205,6 +233,7 @@ public class MoneyTileTracker : TileTracker{
         }
     }
 }
+
 
 public class RoadTileTracker : TileTracker{
     public override void CheckTileForAddition(Tile tile){

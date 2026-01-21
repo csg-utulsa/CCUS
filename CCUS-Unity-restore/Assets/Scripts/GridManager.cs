@@ -298,12 +298,19 @@ public class GridManager : MonoBehaviour
         return adjustedWorldCoordinates;
     }
 
+    public Vector3 AdjustCoordinatesByGridCenter(Vector2 gridCoordinates) {
+        Vector3 adjustedWorldCoordinates = new Vector3(gridCoordinates.x, 0f, gridCoordinates.y) + gridManagerCenter;
+        return adjustedWorldCoordinates;
+    }
+
+
     //Switches to array from grid coordinates
     private Vector2Int SwitchFromGridToArrayCoordinates(Vector2Int gridCoordinates){
         int posX = gridCoordinates.x + (xLengthOfGrid / 2);
         int posY = gridCoordinates.y + (yLengthOfGrid / 2);
         return new Vector2Int(posX, posY);
     }
+
 
     public void SwitchCenter(Vector3 newWorldCenter){
         gridManagerCenter = newWorldCenter;
@@ -348,11 +355,13 @@ public class GridCell
                 //Keeps list of tiles on active chunk
                 GridManager.GM.AddTileToActiveChunk(objectToAdd.GetComponent<Tile>());
 
-                //Tracks different types of tiles
-                TileTypeCounter.current.CheckTileTrackersForAddition(objectToAdd);
+                
                
 
             }
+
+            //Tracks different types of tiles
+            TileTypeCounter.current.CheckTileTrackersForAddition(objectToAdd);
 
             objectsInCell[numberOfObjectsInCell] = objectToAdd;
             
@@ -373,9 +382,11 @@ public class GridCell
                 if(!isUnloading && objectToRemove.GetComponent<Tile>() != null && objectToRemove.GetComponent<Tile>().tileScriptableObject != null){
                     //Keeps list of tiles on active chunk
                     GridManager.GM.RemoveTileFromActiveChunk(objectToRemove.GetComponent<Tile>());
-                    //Tracks different types of tiles
-                    TileTypeCounter.current.CheckTileTrackersForRemoval(objectToRemove);
+                    
                 }
+                //Tracks different types of tiles
+                TileTypeCounter.current.CheckTileTrackersForRemoval(objectToRemove);
+
                 objectsInCell[i] = null;
                 for(int b=i; b < objectsInCell.Length-1; b++) {
                     objectsInCell[b] = objectsInCell[b + 1];

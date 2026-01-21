@@ -1,67 +1,127 @@
 using UnityEngine;
 using System;
+using System.Collections.Generic;
+using System.Collections;
 
 public class PeopleMovementManager : MonoBehaviour
 {
     public static PeopleMovementManager current;
     public GameObject personPrefab;
-    public GameObject peopleSpawnPoint;
+    public Vector3 peopleSpawnPoint = new Vector3(0f, 0f, 0f);
     public MovementPathGenerator pathGenerator;
 
+    //Keeps a list of the people that shouldn't be destroyed when they enter a house (the indestructible people)
+    //Basically, it's all the people that aren't spawned in when the "Add Person" button is pressed
+    public List<PersonWalk> allIndestructiblePeople = new List<PersonWalk>();
+
+    public List<PersonWalk> allPeopleOnCurrentGridChunk = new List<PersonWalk>();
+
+    //Returns the number of people that should be wandering between houses along roads at any moment
+    private int CorrectNumberOfIndestructiblePeople{
+        get{
+            //Max, there should be as many people as activated buildings
+            int numberOfBuildings = TileTypeCounter.current.GetAllActivatedBuildings().Length;
+            int maxNumOfPeople = numberOfBuildings;
+            // if(numberOfBuildings == 1){
+            //     maxNumOfPeople = 1;
+            // }else{
+            //     maxNumOfPeople = numberOfBuildings / 2;
+            // }
+            
+            float percentOfMaxPeopleAdded = ((float)PeopleManager.current.NumberOfPeople / (float)PeopleManager.current.maxPeople);
+            float correctNumOfPeople = (float)maxNumOfPeople * percentOfMaxPeopleAdded;
+            //Debug.Log("Correct num of people: " + (int)Mathf.Round(correctNumOfPeople));
+            return (int)Mathf.Round(correctNumOfPeople);
+        }
+    }
+
     void Start(){
-        GameEventManager.current.BeginSwitchingCurrentGroundChunk.AddListener(SwitchedChunk);
-        GameEventManager.current.PersonJustAdded.AddListener(NewPersonAdded);
+        //GameEventManager.current.BeginSwitchingCurrentGroundChunk.AddListener(SwitchedChunk);
+        GameEventManager.current.BuildingActivationStateChanged.AddListener(BuildingActivationChanged);
+        //GameEventManager.current.PersonJustAdded.AddListener(NewPersonAdded);
         if(current == null){
             current = this;
         }
 
         //Sets the person prefab position
-        peopleSpawnPoint.transform.position = GridManager.GM.GetCenter();
+        peopleSpawnPoint = GridManager.GM.GetCenter();
     }
 
-    //For a test. Delete before build
-    void Update(){
-        if(Input.GetKeyDown(KeyCode.Q)){
-            NewPersonAdded();
+
+    //Returns true if there are too many indestructible people
+    public bool TooManyIndestructiblePeople(){
+        if(CorrectNumberOfIndestructiblePeople < allIndestructiblePeople.Count){
+            return true;
+        }else{
+            return false;
         }
     }
 
-    private void SwitchedChunk(){
-        peopleSpawnPoint.transform.position = GridManager.GM.GetCenter();
+
+    public void SetSpawnPoint(Vector3 newSpawnPoint){
+        peopleSpawnPoint = newSpawnPoint;
     }
 
+
+    //Updates the number of indestructible people when the number of activatable buildings changes
+    // private void ActivatableBuildingCountChanged(){
+    //     UpdateIndestructiblePeopleCount();
+    // }
+
+    public void BuildingActivationChanged(){
+        UpdateIndestructiblePeopleCount(true);
+    }
+
+    //Adds the correct number of new people
+    public void UpdateIndestructiblePeopleCount(bool createPeopleInHouses){
+        Debug.Log("UpdateIndestructiblePeopleCount");
+        int previousIndestructiblePeopleCount = allIndestructiblePeople.Count;
+        int maxTimesToRunFailsafe = 0;
+
+        while(allIndestructiblePeople.Count < CorrectNumberOfIndestructiblePeople && maxTimesToRunFailsafe < 100){
+            CreatePersonAtRandomLocation(createPeopleInHouses);
+
+            //If it fails to increment the number of indestructible people, it breaks
+            if(previousIndestructiblePeopleCount == allIndestructiblePeople.Count){
+                break;
+            }
+
+            //Increments the max times to run failsafe
+            maxTimesToRunFailsafe++;
+        }
+    }
     
-
-
-    //Creates a new person and sends them to a random activated building
-    public void NewPersonAdded(){
-        GameObject newPerson = Instantiate(personPrefab, peopleSpawnPoint.transform.position, personPrefab.transform.rotation);
-        PersonWalk newPersonWalk = newPerson.GetComponent<PersonWalk>();
-        
-        if(newPersonWalk != null){
-            SendPersonToActivatedBuilding(newPersonWalk);
-        }
-        
-    }
 
     public void PersonFinishedPath(PersonWalk person){
 
         //If person finishes path on a building, teleports them to a different building.
         //Unless there's too many people or no activated buildings. In that case, it destroys them
         bool personIsOnBuilding = person.PersonIsOnActivatableBuilding();
-        if(personIsOnBuilding){
+
+        if(personIsOnBuilding){ //Person finished path on building
             GameObject randomBuilding = RandomTileGenerator.current.GetRandomActivatedBuilding();
             if(randomBuilding != null){
-                person.TeleportPersonToLocation(RandomTileGenerator.current.GetRandomActivatedBuilding().transform.position); 
-                SendPersonAlongRoadPath(person);
-                // MovementPath randomRoadPath = pathGenerator.MakeRandomPathAlongRoads(person.gameObject.transform.position);
-                // person.RunAlongPath(randomRoadPath);
+                //Debug.Log("finished path on building");
+                
+                //Checks if person should be destroyed;
+                if(!ShouldDestroyPerson(person)){
+                    person.TeleportPersonToLocation(RandomTileGenerator.current.GetRandomActivatedBuilding().transform.position); 
+                    SendPersonAlongRoadPath(person);
+                } else{
+                    DestroyPerson(person);
+
+                    //Checks if new person should be created after destroying person
+                    UpdateIndestructiblePeopleCount(true);
+                }
+
+                
             } else{
                 DestroyPerson(person);
             }
         
            //If person finishes their path on a road, it gives them a new path along the road
         } else if(pathGenerator.PointIsOnPath(person.gameObject.transform.position)) { 
+            Debug.Log("finished path on road");
             SendPersonAlongRoadPath(person);
             //MovementPath randomRoadPath = pathGenerator.MakeRandomPathAlongRoads(person.gameObject.transform.position);
             //If their's no connected roads
@@ -122,7 +182,7 @@ public class PeopleMovementManager : MonoBehaviour
 
     private void SendPersonAlongRoadPath(PersonWalk person){
             MovementPath randomRoadPath = pathGenerator.MakeRandomPathAlongRoads(person.gameObject.transform.position);
-            //If their's no connected roads
+            //If there's no connected roads
             if(randomRoadPath.GetPathLength() <= 0){
                 Debug.Log("No road paths, destroyed person");
                 DestroyPerson(person);
@@ -130,12 +190,97 @@ public class PeopleMovementManager : MonoBehaviour
             person.RunAlongPath(randomRoadPath);
     }
 
-    private void DestroyPerson(PersonWalk person){
-        if(person.gameObject != null){
-            Destroy(person.gameObject);
+
+    public void RemovePersonFromMemory(PersonWalk person){
+        if(allIndestructiblePeople.Contains(person)){
+                allIndestructiblePeople.Remove(person);
+            }
+        if(allPeopleOnCurrentGridChunk.Contains(person)){
+            allPeopleOnCurrentGridChunk.Remove(person);
         }
     }
 
+    public void RemoveAllPeopleFromMemory(){
+        allIndestructiblePeople.Clear();
+        allPeopleOnCurrentGridChunk.Clear();
+    }
+
+    private void DestroyPerson(PersonWalk person){
+        if(person.gameObject != null){
+            RemovePersonFromMemory(person);
+            Destroy(person.gameObject);
+        }
+
+        //Upon destroying person, checks if a new person should be created
+        //UpdateIndestructiblePeopleCount(true);
+    }
+
+    private bool ShouldDestroyPerson(PersonWalk person){
+        if(person.PreventDestruction){
+            if(TooManyIndestructiblePeople()){
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return true;
+        }
+    }
+
+    //Creates a new person and sends them to a random activated building.
+    public void NewPersonAdded(){
+        //Debug.Log("New person added");
+        Vector3 newPersonPosition = new Vector3(peopleSpawnPoint.x, personPrefab.transform.position.y, peopleSpawnPoint.z);
+        GameObject newPerson = Instantiate(personPrefab, newPersonPosition, personPrefab.transform.rotation);
+        PersonWalk newPersonWalk = newPerson.GetComponent<PersonWalk>();
+        
+        if(newPersonWalk != null){
+            newPersonWalk.PreventDestruction = false;
+            SendPersonToActivatedBuilding(newPersonWalk);
+            allPeopleOnCurrentGridChunk.Add(newPersonWalk);
+        }
+        
+    }
+
+    //Creates a person at a random location.
+    //If onlyInstantiateInHouses is true, they can only be created in a house.
+    //If it's false, they will be instantiated on a road.
+    private void CreatePersonAtRandomLocation(bool instantiateInHouse){
+
+        Debug.Log("Random location");
+
+        Vector3 spawnLocation;
+
+        
+        
+        if(instantiateInHouse){ //Makes spawn location on a random house
+            //Debug.Log("Adding person to random building");
+            GameObject randomBuilding = RandomTileGenerator.current.GetRandomActivatedBuilding();
+            spawnLocation = randomBuilding.transform.position;
+            
+        } else{ //Spawn location on a random road
+            //Debug.Log("Adding person to random road");
+            GameObject randomRoad = RandomTileGenerator.current.GetRandomActivatedRoad();
+            spawnLocation = randomRoad.transform.position;
+        }
+
+       
+
+        //Creates the new person and sends them along the road path
+        Vector3 newPersonPosition = new Vector3(spawnLocation.x, personPrefab.transform.position.y, spawnLocation.z);
+        //Debug.Log("New Random location: " + newPersonPosition);
+        GameObject newPerson = Instantiate(personPrefab, newPersonPosition, personPrefab.transform.rotation);
+        PersonWalk newPersonWalk = newPerson.GetComponent<PersonWalk>();
+
+        allIndestructiblePeople.Add(newPersonWalk);
+        allPeopleOnCurrentGridChunk.Add(newPersonWalk);
+
+        if(newPersonWalk != null){
+            newPersonWalk.PreventDestruction = true;
+            SendPersonAlongRoadPath(newPersonWalk);
+        }
+        
+    }
 
 
 }

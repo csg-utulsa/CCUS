@@ -6,9 +6,9 @@ using System.Collections.Generic;
 
 public class MovementPathGenerator : MonoBehaviour
 {
-    public float Aup = .75f;
-    public float Adown = .25f;
-    //The bigger this number is, the less often movement paths are generated, which is more efficience.
+    public float shiftUpAmount = .75f;
+    public float shiftDownAmount = .25f;
+    //The bigger this number is, the less often movement paths are generated, which is more efficienct.
     //The smaller this number is, the more often the people will update where they think the roads are.
     public int LengthOfMovementPathToGenerate = 20;
 
@@ -39,8 +39,12 @@ public class MovementPathGenerator : MonoBehaviour
         return true;
     }
 
+
     //Makes a random path along the roads. Ends path if person goes into a building
     public MovementPath MakeRandomPathAlongRoads(Vector3 worldStartLocation){
+
+        //Makes a list to store directions in
+        List<int> directions = new List<int>();
 
         //Vector2Int gridStartLocation = GridManager.GM.SwitchToGridCoordinates(worldStartLocation);
         List<Vector2> pathPoints = new List<Vector2>();
@@ -61,12 +65,13 @@ public class MovementPathGenerator : MonoBehaviour
             //Gets neighbors for current point
             neighbors = movementPathMap.GetNeighborsForPoint(currentWorldLocation);
 
+            
 
             //Makes sure that the tile has neighbors
             if(neighbors.Length > 0){
                 
                 //Decides which direction to go next and stores it
-                int nextRoadTileDirection = PickNextRoadTile(neighbors, currentDirection);
+                int nextRoadTileDirection = PickNextRoadTile(neighbors, currentDirection, i);
 
                 //Debug.Log("Current Direction: " + currentDirection);
 
@@ -81,42 +86,51 @@ public class MovementPathGenerator : MonoBehaviour
                 Vector2Int currentGridLocation = GridManager.GM.SwitchToGridCoordinates(currentWorldLocation);
                 Vector2 shiftedLocation;
 
-                //Shifts location to upper right of cell if traveling up or right
-                if(currentDirection == 0 || currentDirection == 3){
+                
+                if(currentDirection == 0){ //Shifts location to right of cell if traveling up
+                    shiftedLocation = ShiftPointToRightOfCell((Vector2)currentGridLocation);
 
-                    //if switching direction of travel, adds a copy of the previos point, but shifted
-                    // if(!travelingPositively && pathPoints.Count >= 1){
-                    //     travelingPositively = !travelingPositively;
-                    //     Vector2 previousLocation = pathPoints[pathPoints.Count - 1];
-                    //     Vector2 previousLocationShifted = ShiftPointToTopRightOfCell((Vector2)currentGridLocation);
-                    //     AddGridPointToPathPoints(pathPoints, previousLocationShifted);
-                    // }  
-                    shiftedLocation = ShiftPointToTopRightOfCell((Vector2)currentGridLocation);
-                } else{ //Shifts location to lower left of cell if traveling down or left
-                    // if(travelingPositively && pathPoints.Count >= 1){
-                    //     //if switching direction of travel, adds a copy of the previos point, but shifted
-                    //     travelingPositively = !travelingPositively;
-                    //     Vector2 previousLocation = pathPoints[pathPoints.Count - 1];
-                    //     Vector2 previousLocationShifted = ShiftPointToBottomLeftOfCell((Vector2)currentGridLocation);
-                    //     AddGridPointToPathPoints(pathPoints, previousLocationShifted);
-                    // }
-                    shiftedLocation = ShiftPointToBottomLeftOfCell((Vector2)currentGridLocation);
+                } else if(currentDirection == 1){ //Shifts location to bottom of cell if traveling right
+
+                    shiftedLocation = ShiftPointToBottomOfCell((Vector2)currentGridLocation);
+                    
+                } else if(currentDirection == 2){ //Shifts location to left of cell if travelling down
+
+                    shiftedLocation = ShiftPointToLeftOfCell((Vector2)currentGridLocation);
+
+                } else{ //Shifts location to top of cell if travelling left
+
+                    shiftedLocation = ShiftPointToTopOfCell((Vector2)currentGridLocation);
                 }
 
-                AddGridPointToPathPoints(pathPoints, shiftedLocation);
+                //if this tile is a building, it stops adding points
+                if(movementPathMap.GetTileForPoint(currentWorldLocation) == MovementPathMap.MapTileType.Building){
+                    
+                    //Shifts last point to cell center
+                    AddGridPointToPathPoints(pathPoints, ShiftPointToCellCenter((Vector2)currentGridLocation));
+                    //Stores current direction in array
+                    directions.Add(currentDirection);
+                    
+                    break;
+
+                } else{
+
+                    AddGridPointToPathPoints(pathPoints, shiftedLocation);
+                    //Stores current direction in array
+                    directions.Add(currentDirection);
+                }
+
+                
                 
 
             }
 
-            //if this tile is a building, it stops adding points
-            if(movementPathMap.GetTileForPoint(currentWorldLocation) == MovementPathMap.MapTileType.Building){
-                break;
-            }
+            
             
         }
 
         //returns the created path
-        MovementPath roadPath = new MovementPath(pathPoints.ToArray());
+        MovementPath roadPath = new MovementPath(pathPoints.ToArray(), directions.ToArray());
         roadPath.isCenteredOnTile = true;
         return roadPath;
     }
@@ -126,6 +140,9 @@ public class MovementPathGenerator : MonoBehaviour
 
         //Makes list to store path points in
         List<Vector2> pathPoints = new List<Vector2>();
+        
+        //Makes a list to store directions in
+        List<int> directions = new List<int>();
 
         //Switches start and end location to grid coordinates
         Vector2Int gridStartLocation = GridManager.GM.SwitchToGridCoordinates(worldStartLocation);
@@ -166,38 +183,68 @@ public class MovementPathGenerator : MonoBehaviour
                 movingVertically = !movingVertically;
             }
 
+
+            //Calculates and stores current direction to array
+            int direction;
+            if(movingVertically){
+                if(directionY.y > 0){
+                    direction = 0;
+                }else{
+                    direction = 2;
+                }
+            }else{
+                if(directionX.x > 0){
+                    direction = 1;
+                }else{
+                    direction = 3;
+                }
+            }
+            directions.Add(direction);
+
+
             if(currentPathPosition.x == gridEndLocation.x){ //path is already at the max value for x
                 //moves path in y direction
                 currentPathPosition += directionY;
-                AddGridPointToPathPoints(pathPoints, ShiftPointToCellCenter((Vector2)currentPathPosition));
+                //AddGridPointToPathPoints(pathPoints, ShiftPointToCellCenter((Vector2)currentPathPosition));
 
             } else if(currentPathPosition.y == gridEndLocation.y){ //path is already at the max value for y
                 //moves path in x direction
                 currentPathPosition += directionX;
-                AddGridPointToPathPoints(pathPoints, ShiftPointToCellCenter((Vector2)currentPathPosition));
+                //AddGridPointToPathPoints(pathPoints, ShiftPointToCellCenter((Vector2)currentPathPosition));
 
             } else if(movingVertically){ //path is traveling vertically
                 //moves path in y direction
                 currentPathPosition += directionY;
-                AddGridPointToPathPoints(pathPoints, ShiftPointToCellCenter((Vector2)currentPathPosition));
+                //AddGridPointToPathPoints(pathPoints, ShiftPointToCellCenter((Vector2)currentPathPosition));
 
             } else{ //path is traveling horizontally
                 //moves path in x direction
                 currentPathPosition += directionX;
+                
+            }
+
+            //If not on the last move, doesn't center the movement path on the tile
+            if(i != (numberOfMoves - 1)){
+                AddGridPointToPathPoints(pathPoints, (Vector2)currentPathPosition);
+            }
+            //If on the last move, shifts the last point to the center of the tile
+            else{
                 AddGridPointToPathPoints(pathPoints, ShiftPointToCellCenter((Vector2)currentPathPosition));
             }
+            
 
         }
 
-        MovementPath directMovementPath = new MovementPath(pathPoints.ToArray());
+        MovementPath directMovementPath = new MovementPath(pathPoints.ToArray(), directions.ToArray());
         directMovementPath.isCenteredOnTile = true;
         return directMovementPath;
     }
 
-    //TODO: remove points that aren't at turns
+    //Shifts points by grid manager center
     private void AddGridPointToPathPoints(List<Vector2> pathPoints, Vector2 gridPoint){
-        pathPoints.Add((Vector2)gridPoint);
-        Debug.Log("Point added: " + gridPoint);
+        Vector3 adjustedPosition = GridManager.GM.AdjustCoordinatesByGridCenter(gridPoint);
+        Vector2 adjustedPosition2D = new Vector2(adjustedPosition.x, adjustedPosition.z);
+        pathPoints.Add(adjustedPosition2D);
     }
 
     //Moves Grid Points to the center of the cell
@@ -206,16 +253,22 @@ public class MovementPathGenerator : MonoBehaviour
         return centered2DCoords;
     }
 
-    //Moves Grid Point to the upper right part of the cell
-    private Vector2 ShiftPointToTopRightOfCell(Vector2 UnshiftedPoint){
-        Vector2 upRightCoords = new Vector2(UnshiftedPoint.x + Aup, UnshiftedPoint.y + Aup);
-        return upRightCoords;
+    //Moves Grid Point to different parts of the cell
+    private Vector2 ShiftPointToRightOfCell(Vector2 UnshiftedPoint){
+        Vector2 rightCoords = new Vector2(UnshiftedPoint.x + shiftUpAmount, UnshiftedPoint.y);
+        return rightCoords;
     }
-
-    //Moves Grid Point to the lower left part of the cell
-    private Vector2 ShiftPointToBottomLeftOfCell(Vector2 UnshiftedPoint){
-        Vector2 bottomLeftCoords = new Vector2(UnshiftedPoint.x + +Adown, UnshiftedPoint.y + Adown);
-        return bottomLeftCoords;
+    private Vector2 ShiftPointToLeftOfCell(Vector2 UnshiftedPoint){
+        Vector2 leftCoords = new Vector2(UnshiftedPoint.x + shiftDownAmount, UnshiftedPoint.y);
+        return leftCoords;
+    }
+    private Vector2 ShiftPointToTopOfCell(Vector2 UnshiftedPoint){
+        Vector2 topCoords = new Vector2(UnshiftedPoint.x, UnshiftedPoint.y + shiftUpAmount);
+        return topCoords;
+    }
+    private Vector2 ShiftPointToBottomOfCell(Vector2 UnshiftedPoint){
+        Vector2 bottomCoords = new Vector2(UnshiftedPoint.x, UnshiftedPoint.y + shiftDownAmount);
+        return bottomCoords;
     }
 
 
@@ -245,7 +298,7 @@ public class MovementPathGenerator : MonoBehaviour
 
     //Decides which tile a path should go down
     //TODO: make it more likely to decide to go to houses
-    private int PickNextRoadTile(MovementPathMap.MapTileType[] tileOptions, int currentDirection){
+    private int PickNextRoadTile(MovementPathMap.MapTileType[] tileOptions, int currentDirection, int pointAlongPath){
 
         int chanceOfTurningAround = 1;
         int chanceOfTurningToSide = 12;
@@ -260,15 +313,14 @@ public class MovementPathGenerator : MonoBehaviour
         };
 
         //Reorients the chancesOfEachDirection array in whatever direction the path is currently going
-        Debug.Log("reorienting directions array");
         int[] reorientedChancesOfTurning = ReorientDirectionArray(chancesOfEachDirection, currentDirection);
 
         int[] chancesOfTurning = new int[4];
 
         for(int i = 0; i < tileOptions.Length; i++){
-            //if tile isn't empty, it adds the chances of turning that way
-            //Debug.Log("Tile map contains: " + tileOptions[i]);
-            if(tileOptions[i] != MovementPathMap.MapTileType.Empty){
+            //if tile isn't empty, it adds the chances of turning that way, unless it's the first move and there's a house there
+            bool isFirstMoveAndOptionIsHouse = pointAlongPath == 0 && tileOptions[i] == MovementPathMap.MapTileType.Building;
+            if(tileOptions[i] != MovementPathMap.MapTileType.Empty && !isFirstMoveAndOptionIsHouse){
                 chancesOfTurning[i] = reorientedChancesOfTurning[i];
             }else{ //tile is empty, and so it has no chance of going that way
                 chancesOfTurning[i] = 0;

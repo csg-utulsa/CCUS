@@ -5,6 +5,8 @@ public class PersonWalk : MonoBehaviour
 {
     public MovementPathMap.MapTileType Destination {get; set;}
 
+    public bool PreventDestruction {get; set;} = true;
+
     public float personSpeed = 3f;
     
     public MoveObjectToPoint objectMover;
@@ -13,8 +15,11 @@ public class PersonWalk : MonoBehaviour
     
     private int currentPointOnPath = 0;
 
+    public bool IsFrozen {get; set;} = false;
+
     void Awake(){
         objectMover = GetComponent<MoveObjectToPoint>();
+        Debug.Log("My new position: " + transform.position);
     }
 
     //Returns true if the person is currently on an activatable building
@@ -46,10 +51,14 @@ public class PersonWalk : MonoBehaviour
     }
 
     public void TeleportPersonToLocation(Vector3 teleportLocation){
+        //Debug.Log("Teleporting to location" + teleportLocation);
         objectMover.TeleportTo(teleportLocation);
     }
 
     private void MoveToPathPoint(int indexOfPathPoint){
+
+        //Doesn't move if the person is frozen
+        if(IsFrozen) return;
 
         if(indexOfPathPoint >= walkingPath.GetPathLength()){
             Debug.LogError("walkingPath doesn't contain indexOfPathPoint");
@@ -74,7 +83,9 @@ public class PersonWalk : MonoBehaviour
         }
     }
 
-    private void TurnToDirection(Vector2 direction){
-        
+    //Turns person in the direction of travel
+    private void TurnToDirection(int direction){
+        float rotationalAngle = 90f * direction;
+        transform.eulerAngles = new Vector3(0f, rotationalAngle, 0f);
     }
 }
