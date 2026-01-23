@@ -46,6 +46,15 @@ public class ConnectHousesTutorialTip : TutorialTip
         return houseIsConnected;
     }
 
+    //Checks if the unlock houses progress event has occurred
+    // private bool HousesAreUnlocked(){
+    //     if(ProgressionManager.PM.progressEventHasOccurred[(int)ProgressionManager.ProgressEventType.HouseAndRoadUnlocked]){
+    //         return true;
+    //     }else{
+    //         return true;
+    //     }
+    // }
+
 }
 
 

@@ -17,6 +17,10 @@ public class GridManager : MonoBehaviour
 
     private List<Tile> allTilesOnActiveChunk = new List<Tile>();
 
+    public bool AtLeastOneTileIsOnChunk() {
+        return allTilesOnActiveChunk.Count > 0;
+    }
+
     #region Unity Functions
 
     void Awake(){
@@ -200,6 +204,24 @@ public class GridManager : MonoBehaviour
         Vector2Int arrayPosition = SwitchFromGridToArrayCoordinates(gridPosition);
         return positionsOfCells[arrayPosition.x][arrayPosition.y];
         //return positionsOfCells[x + (xLengthOfGrid / 2)][z + (yLengthOfGrid / 2) ];
+    }
+
+    //Checks if the grid cell at the given point contains a terrain tile
+    public bool TileIsOverGround(Vector3 tilePosition){
+
+        GameObject[] tilesInCell = GetGameObjectsInGridCell(tilePosition);
+
+        foreach(GameObject tileObject in tilesInCell){
+
+            Tile tile = tileObject.GetComponent<Tile>();
+            if(tile != null){
+                if(tile.tileScriptableObject.isTerrain){
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     #endregion

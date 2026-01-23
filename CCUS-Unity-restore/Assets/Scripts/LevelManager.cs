@@ -155,6 +155,7 @@ public class LevelManager : MonoBehaviour
         // }
 
         //NetCarbon = _netCarbon;
+
         NetCarbon += _adjustNetCarbon;
 
         //These update the Net Money and Net Carbon counter texts

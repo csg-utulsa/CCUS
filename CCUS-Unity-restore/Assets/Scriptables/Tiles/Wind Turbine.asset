@@ -20,7 +20,7 @@ MonoBehaviour:
   AnnualCarbonStored: 0
   AnnualIncome: 100
   MaxPeople: 0
-  RequiredEmployees: 0
+  RequiredEmployees: 15
   isResidence: 0
   isTerrain: 0
   allowClickAndDrag: 1

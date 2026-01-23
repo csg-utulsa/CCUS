@@ -3,7 +3,7 @@
 *
 * 1) In the child class's constructor, pass the constructor values to the base class
 * 2) In the child class, create override methods for CheckIfTipShouldBeActivated() and CheckIfTipShouldBeDeactivated()
-        a) In the override functions, you can turn the tips off an on using ActivateTutorialTip() and DeactivateTutorialTip()
+        a) In the override functions, you can turn the tips off and on using ActivateTutorialTip() and DeactivateTutorialTip()
 *
 */
 
@@ -16,6 +16,7 @@ public class TutorialTip : MonoBehaviour
     protected bool tutorialTipIsActivated = false;
     private bool displayOnce = true;
     private bool alreadyDisplayed = false;
+    private bool activationEventAlreadyOccured = false;
     private int tutorialTipTextID = 0;
     protected float timeToWaitBeforeActivating = 0f;
     protected float timeToWaitBeforeDeactivating = 0f;
@@ -50,29 +51,14 @@ public class TutorialTip : MonoBehaviour
 
     }
 
-    //Checks if the Tutorial Tip Should be activated. Create overrid method in child classes
-    // public virtual void CheckIfTipShouldBeActivated(){
-
-    // }
-
-    //Checks if the Tutorial Tip Should be activated. Create overrid method in child classes
-    // public virtual void CheckIfTipShouldBeActivated(){
-
-    // }
-
-    //Checks if the Tip should be deactivated. Create Override method in child classes
-    // public virtual void CheckIfTipShouldBeDeactivated(){
-
-    // }
-    
-    //Removes any Unity event listeners on object
-    public virtual void RemoveAllListeners(){
-
-    }
 
     protected void ActivateTutorialTip(){
-        tutorialTipConditionMet = true;
-        ActionDelayer.DelayAction(DelayedActivateTutorialTip, timeToWaitBeforeActivating);
+        if(!activationEventAlreadyOccured){
+            activationEventAlreadyOccured = true;
+            tutorialTipConditionMet = true;
+            ActionDelayer.DelayAction(DelayedActivateTutorialTip, timeToWaitBeforeActivating); 
+        }
+        
     }
 
     private void DelayedActivateTutorialTip(){

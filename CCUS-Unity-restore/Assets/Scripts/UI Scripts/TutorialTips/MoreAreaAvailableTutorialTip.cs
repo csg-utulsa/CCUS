@@ -21,7 +21,7 @@ public class MoreAreaAvailableTutorialTip : TutorialTip
 
     public void CheckIfTipShouldBeActivated(){
         //Checks if the second unlockable chunk has been unlocked
-        if(ChunkOfIndexIsViewable(2)){
+        if(ChunkOfIndexIsViewable(2) && !ChunkTwoHasBeenLookedAt()){
             //Activates tutorial tip if no factories are connected
             ActivateTutorialTip();
         }
@@ -29,7 +29,7 @@ public class MoreAreaAvailableTutorialTip : TutorialTip
 
     //Deactivates tip if the second chunk is being looked at
     public void CheckIfTipShouldBeDeactivated(){
-        if(ChunkOfIndexHasBeenLookedAt(2)){
+        if(ChunkTwoHasBeenLookedAt()){
             DeactivateTutorialTip();
         }
     }
@@ -44,9 +44,9 @@ public class MoreAreaAvailableTutorialTip : TutorialTip
     }
 
     //Checks if the chunk at a given index has been looked at
-    private bool ChunkOfIndexHasBeenLookedAt(int indexNum){
+    private bool ChunkTwoHasBeenLookedAt(){
         if(chunkTwoHasBeenLookedAt) return true;
-        if(GroundAreaExpansion.GAE.ActiveGroundChunk == indexNum){
+        if(GroundAreaExpansion.GAE.ActiveGroundChunk == 2){
             chunkTwoHasBeenLookedAt = true;
             return true;
         }

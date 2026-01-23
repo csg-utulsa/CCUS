@@ -42,7 +42,7 @@ public class PeopleManager : MonoBehaviour
     }
 
     void OnMoneyTick(){
-        LevelManager.LM.AdjustMoney(NumberOfPeople * incomeOfPerson);
+        //LevelManager.LM.AdjustMoney(NumberOfPeople * incomeOfPerson);
     }
     
 

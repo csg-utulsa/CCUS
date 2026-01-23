@@ -18,7 +18,7 @@ public class MoneyPanel : MonoBehaviour
         totalCashTextTMPro = totalCashText.GetComponent<TextMeshProUGUI>();
         previousMoney = LevelManager.LM.GetStartingMoney();
         if(totalCashTextTMPro != null){
-            totalCashTextTMPro.text = "$" + previousMoney;
+            totalCashTextTMPro.text = "$" + previousMoney.ToString("N0");
         }
         GameEventManager.current.MoneyAmountUpdated.AddListener(MoneyAmountUpdated);
         GameEventManager.current.NetMoneyUpdated.AddListener(NetMoneyUpdated);
@@ -26,13 +26,13 @@ public class MoneyPanel : MonoBehaviour
 
     private void NetMoneyUpdated(){
         if(netMoneyText != null){
-            netMoneyText.text = "$" + LevelManager.LM.NetMoney + " PER HOUR";
+            netMoneyText.text = "$" + LevelManager.LM.NetMoney.ToString("N0") + " PER HOUR";
         }
     }
 
     private void MoneyAmountUpdated(){
         int currentMoney = LevelManager.LM.GetMoney();
-        totalCashTextTMPro.text = "$" + currentMoney;
+        totalCashTextTMPro.text = "$" + currentMoney.ToString("N0");
 
         if(currentMoney > previousMoney){
             OnMoneyIncrease(currentMoney - previousMoney);

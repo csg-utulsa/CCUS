@@ -11,37 +11,38 @@ public class FactoryTile : ActivatableBuilding
         base.ThisTileAboutToBeDestroyed();
     }
 
-    public override void ActivateBuilding(){
-        //Updates the cap on number of people
-        if(!IsActivated && PeopleManager.current != null){
-            PeopleManager.current.AdjustNumberOfEmployees(tileScriptableObject.RequiredEmployees);
-        }
-        base.ActivateBuilding();
-    }
+    // public override void ActivateBuilding(){
+    //     //Updates the cap on number of people
+    //     if(!IsActivated && PeopleManager.current != null){
+    //         PeopleManager.current.AdjustNumberOfEmployees(tileScriptableObject.RequiredEmployees);
+    //     }
+    //     base.ActivateBuilding();
+    // }
 
-    public override void DeactivateBuilding(){
-        //Updates the cap on number of people
-        if(IsActivated && PeopleManager.current != null){
-            PeopleManager.current.AdjustNumberOfEmployees(-tileScriptableObject.RequiredEmployees);
-        }
-        base.DeactivateBuilding();
-    }
+    // public override void DeactivateBuilding(){
+    //     //Updates the cap on number of people
+    //     if(IsActivated && PeopleManager.current != null){
+    //         PeopleManager.current.AdjustNumberOfEmployees(-tileScriptableObject.RequiredEmployees);
+    //     }
+    //     base.DeactivateBuilding();
+    // }
 
-    public override bool CheckIfTileIsPlaceable(bool displayErrorMessages){
-        if(!base.CheckIfTileIsPlaceable(displayErrorMessages)){
-            return false;
-        }
-        //Checks if there aren't enough people to place the factory
-        if (!EnoughEmployeesToPlace())
-        {
-            if(displayErrorMessages){
-                unableToPlaceTileUI._unableToPlaceTileUI.NotEnoughPeople();
-            }
-            return false;
-        }
+    // public override bool CheckIfTileIsPlaceable(bool displayErrorMessages){
+    //     if(!base.CheckIfTileIsPlaceable(displayErrorMessages)){
+    //         return false;
+    //     }
+    //     //Checks if there aren't enough people to place the factory
+    //     if (!EnoughEmployeesToPlace())
+    //     {
+    //         if(displayErrorMessages){
+    //             unableToPlaceTileUI._unableToPlaceTileUI.NotEnoughPeople();
+    //         }
+    //         return false;
+    //     }
 
-        return true;
-    }
+    //     return true;
+    // }
+
     public bool EnoughEmployeesToPlace(){
         int numberOfAvailablePeople = PeopleManager.current.NumberOfPeople - PeopleManager.current.NumberOfEmployees;
         if(tileScriptableObject.RequiredEmployees <= numberOfAvailablePeople){

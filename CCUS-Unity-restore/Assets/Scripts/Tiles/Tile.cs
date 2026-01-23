@@ -106,6 +106,14 @@ public class Tile : MonoBehaviour
     }
 
     public virtual bool CheckIfTileIsPlaceable(bool displayErrorMessages){
+
+        //Requires non-Terrain tiles to be placed on terrain
+        // if(!tileScriptableObject.isTerrain){
+        //     if(!GridManager.GM.TileIsOverGround(transform.position)){
+        //         return false;
+        //     }
+        // }
+
         //Checks if there is too much carbon to place tile
         if(tooMuchCarbonToPlace()){
             if(displayErrorMessages){
@@ -123,7 +131,17 @@ public class Tile : MonoBehaviour
             }
             return false;
         }
-        
+
+        //Checks if there aren't enough people to place the factory
+        if (!EnoughEmployeesToPlace())
+        {
+            if(displayErrorMessages){
+                unableToPlaceTileUI._unableToPlaceTileUI.NotEnoughPeople();
+            }
+            return false;
+        }
+
+        //If none of the other conditions return false, it returns true        
         return true;
 
         
@@ -134,20 +152,29 @@ public class Tile : MonoBehaviour
 
         setInitialIncomeAndCarbon();
 
+        //Updates the carbon, money, and employees for tile if it's not an activatable tile
         if(!(this is ActivatableTile activatableTile)){
             LevelManager.LM.AdjustNetMoney(tileScriptableObject.AnnualIncome);
             LevelManager.LM.AdjustNetCarbon(tileScriptableObject.AnnualCarbonAdded);
+            if(PeopleManager.current != null){
+                PeopleManager.current.AdjustNumberOfEmployees(tileScriptableObject.RequiredEmployees);
+            }
         }
-        //PeopleManager.current.UpdateMaxPeople();
+
 
         GameEventManager.current.TileJustPlaced.Invoke();
 
     }
 
     public virtual void ThisTileAboutToBeDestroyed(){
+
+        //Updates the carbon, money, and employees for tile if it's not an activatable tile
         if(!(this is ActivatableTile activatableTile)){
             LevelManager.LM.AdjustNetMoney(-tileScriptableObject.AnnualIncome);
-            LevelManager.LM.AdjustCarbon(-tileScriptableObject.AnnualCarbonAdded);
+            LevelManager.LM.AdjustNetCarbon(-tileScriptableObject.AnnualCarbonAdded);
+            if(PeopleManager.current != null){
+                PeopleManager.current.AdjustNumberOfEmployees(-tileScriptableObject.RequiredEmployees);
+            }
         }
         // Removes object from GridManager, 
         // so when the roads use the GridManager to update their connections, they will ignore this tile
@@ -219,6 +246,20 @@ public class Tile : MonoBehaviour
                 _neighbor.GetComponent<RoadConnections>().UpdateModelConnections(false);
             }    
         }
+    }
+
+    public bool EnoughEmployeesToPlace(){
+        if(PeopleManager.current != null){
+            int numberOfAvailablePeople = PeopleManager.current.NumberOfPeople - PeopleManager.current.NumberOfEmployees;
+            if(tileScriptableObject.RequiredEmployees <= numberOfAvailablePeople){
+                return true;
+            } else{
+                return false;
+            }
+        } else{
+            return true;
+        }
+        
     }
 
 

@@ -28,6 +28,10 @@ public class ActivatableTile : Tile
 
     public virtual void ActivateBuilding(){
         
+        //Updates the cap on number of people
+        if(!IsActivated && PeopleManager.current != null){
+            PeopleManager.current.AdjustNumberOfEmployees(tileScriptableObject.RequiredEmployees);
+        }
 
         //Change a graphic to make it clear the house is activated.
         if(buildingActivatedGraphic != null){
@@ -47,7 +51,11 @@ public class ActivatableTile : Tile
 
     public virtual void DeactivateBuilding(){
 
-
+        //Updates the cap on number of people
+        if(IsActivated && PeopleManager.current != null){
+            PeopleManager.current.AdjustNumberOfEmployees(-tileScriptableObject.RequiredEmployees);
+        }
+        
         //Change a graphic to make it clear the house is NOT activated.
         if(buildingActivatedGraphic != null){
             buildingActivatedGraphic.SetActive(false);

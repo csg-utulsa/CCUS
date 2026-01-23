@@ -141,15 +141,17 @@ public class TileMaterialHandler : MonoBehaviour
         }
     }
 
+    //Sets all materials to a certain color
     public void MaterialSetForMaterialRenderer(matState state, Renderer matRenderer, Color[] originalColors)//sets the material to a certain color
     {
         for (int i = 0; i < matRenderer.materials.Length; i++){
+            //Sets color for dither shader
             if(matRenderer.materials[i].shader == Shader.Find("Shader Graphs/Dither Shader")){
                 switch (state){
                     case matState.Placed:
                         matRenderer.materials[i].SetColor("_BaseColor", originalColors[i]); break;//material is fully colored
                     case matState.HoveringValid:
-                        matRenderer.materials[i].SetColor("_BaseColor", originalColors[i] * new Color(1f, 1f, 1f, 1f)); break; //Material is 50% transparent
+                        matRenderer.materials[i].SetColor("_BaseColor", originalColors[i] * new Color(1.2f, 1.2f, 1.2f, 1f)); break; //Material shifts slightly green
                     case matState.HoveringInvalid:
                         matRenderer.materials[i].SetColor("_BaseColor", new Color(1f, .1f, .1f, 1f));  break;//material is 50% transparent and also red
                     case matState.PartiallyTransparentPlaced:
@@ -157,12 +159,14 @@ public class TileMaterialHandler : MonoBehaviour
                     default:
                         matRenderer.materials[i].SetColor("_BaseColor", originalColors[i]); break;//material is fully colored
                 }
+
+                //Sets color for standard shader
             } else if(matRenderer.materials[i].shader == Shader.Find("Standard")){
                 switch (state){
                     case matState.Placed:
                         matRenderer.materials[i].color = originalColors[i]; break;//material is fully colored
                     case matState.HoveringValid:
-                        matRenderer.materials[i].color = originalColors[i] * new Color(1f, 1f, 1f, 1f); break; //Material is 50% transparent
+                        matRenderer.materials[i].color = originalColors[i] * new Color(.1f, 1f, .3f, 1f); break; //Material shifts slightly green
                     case matState.HoveringInvalid:
                         matRenderer.materials[i].color = new Color(1f, .1f, .1f, 1f); break;//material is 50% transparent and also red
                     case matState.PartiallyTransparentPlaced:

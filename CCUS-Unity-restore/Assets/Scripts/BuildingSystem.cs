@@ -304,17 +304,25 @@ public class BuildingSystem : MonoBehaviour
             return false;
         }
 
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if(Physics.Raycast(ray, out RaycastHit raycastHit))
-        {
-            //BuildingSystem.current.mouseOverScreen = true;
+        //Checks if mouse is within screen bounds
+        if(MouseScreenPosition.MouseIsOverScreen()){
             return true;
-        }
-        else 
-        {
-            //BuildingSystem.current.mouseOverScreen = false;
+        } else{
             return false;
         }
+
+
+        // Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        // if(Physics.Raycast(ray, out RaycastHit raycastHit))
+        // {
+        //     //BuildingSystem.current.mouseOverScreen = true;
+        //     return true;
+        // }
+        // else 
+        // {
+        //     //BuildingSystem.current.mouseOverScreen = false;
+        //     return false;
+        // }
     }
 
     //gets cell center's world position

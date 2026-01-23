@@ -1,0 +1,65 @@
+using UnityEngine;
+using System.Collections.Generic;
+using System.Collections;
+
+public class GrassUnderBuildingsTutorialTip : TutorialTip
+{
+    //Stores whether terrain has ever been placed under a building
+    private bool terrainHasBeenUnderBuilding = false;
+
+    //Constructor passes values to base class
+    public GrassUnderBuildingsTutorialTip(int _tutorialTipTextID, TutorialTipManager _TTM, float _timeToWaitBeforeActivating, float _timeToWaitBeforeDeactivating) : base(_tutorialTipTextID, _TTM, _timeToWaitBeforeActivating, _timeToWaitBeforeDeactivating){
+        
+    }
+
+    public override void InitializeThisTutorialTip(){
+        //Checks if any grass is under a building every time a tile is placed
+        GameEventManager.current.TileJustPlaced.AddListener(CheckIfTipShouldBeDeactivated);
+        GameEventManager.current.TileJustPlaced.AddListener(CheckIfTipShouldBeActivated); 
+    }
+    
+    //Checks if tip should be activated; runs at every tile placement
+    public void CheckIfTipShouldBeActivated(){
+        if(GrassTilesUnlocked() && !TerrainIsUnderBuilding()){
+            ActivateTutorialTip();
+        }
+    }
+
+    //Checks if the Tip should be deactivated. Runs every time a tile is placed
+    public void CheckIfTipShouldBeDeactivated(){
+        if(TerrainIsUnderBuilding()){
+            DeactivateTutorialTip();
+        }
+    }
+
+    //Checks if the grid cell under the mouse has a terrain and placeable object
+    private bool TerrainIsUnderBuilding(){
+        if(terrainHasBeenUnderBuilding){
+            Debug.Log("terrain is under building");
+            return true;
+        }
+
+
+        Vector3 mousePos = BuildingSystem.GetMouseWorldPosition();
+        GameObject[] gameObjectsOnCell = GridManager.GM.GetGameObjectsInGridCell(mousePos);
+        if(gameObjectsOnCell.Length > 1){
+            Debug.Log("terrain is under building");
+            terrainHasBeenUnderBuilding = true;
+            return true;
+        }else {
+            Debug.Log("No terrain under building");
+            return false;
+        }
+    }
+
+    private bool GrassTilesUnlocked(){
+        if(ProgressionManager.PM.progressEventHasOccurred[(int)ProgressionManager.ProgressEventType.TreesAndGrassUnlocked]){
+            return true;
+        } else{
+            return false;
+        }
+
+    }
+
+
+}

@@ -320,16 +320,13 @@ public class ObjectDrag : MonoBehaviour
             return true;
         }
 
-        //Objects can always be placed onto and destroy terrain, but terrain can't destroy objects.
+        //Terrain can be placed onto and destroy other terrain, but nothing else can destroy each other
         Tile thisTile = GetComponent<Tile>();
         Tile otherTileScript = otherTile.GetComponent<Tile>();
-        if(!thisTile.tileScriptableObject.isTerrain){
-            if(otherTile != null){
-                if(otherTileScript.tileScriptableObject.isTerrain){
-                    return true;
-                }
-            }
-        }else{
+        if(!thisTile.tileScriptableObject.isTerrain){ // If this tile is a placeable object, can't destroy other tiles
+            return false;
+
+        }else{ //If this tile is a terrain tile, it can destroy other terrain tiles
             if(otherTile != null){
                 if(otherTileScript.tileScriptableObject.isTerrain){
                     return true;
@@ -373,8 +370,9 @@ public class ObjectDrag : MonoBehaviour
 
     public bool IsValidOverlap()
     {
-        //Debug.Log("Overlap terrain: " + overlapTerrain);
-        //Debug.Log("Overlap Object: "+ overlapObject);
+        
+        
+
         if (AllowObjectOverlap(overlapTerrain) && AllowObjectOverlap(overlapObject))//if BOTH terrain and object is valid, it's valid
         {
             return true;

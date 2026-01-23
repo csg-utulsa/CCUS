@@ -37,7 +37,7 @@ public class ProgressionManager : MonoBehaviour
     public ProgressEvent[] progressEvents => new ProgressEvent[]{
 
         //DO NOT DELETE A PROGRESS EVENT
-        // Several other places are dependant on their exact position in the array.
+        // Several other bits of code are dependant on their exact position in the array.
         // If you need to add a new one, add it to the end of the array.
         // If you need to disable one, replace the first parameter with "() => false"
         // If you need to rearrange them, just also rearrange the enum ProgressEventType
@@ -45,7 +45,7 @@ public class ProgressionManager : MonoBehaviour
         //Event 0: Enables the people panel when you fix the maxed out carbon the first time
         new ProgressEvent(() => progressEventHasOccurred[1] && !LevelManager.overMaxCarbon(), () => {PeoplePanel._peoplePanel.EnablePeoplePanel();}, 25f),
         
-        //Event 1: Adds the tree and grass buttons the first time you max out on carbon.
+        //Event 1: Adds the tree and grass the first time you max out on carbon.
         new ProgressEvent(() => LevelManager.overMaxCarbon(), () => {TileSelectPanel.TSP.AddButton(buttons[0]); TileSelectPanel.TSP.AddButton(buttons[1]);}, 5f),
 
         //Event 2: Adds apartment
@@ -66,6 +66,9 @@ public class ProgressionManager : MonoBehaviour
         //Event 7: Unhides the Carbon Dial when you max out the carbon
         new ProgressEvent(() => LevelManager.overMaxCarbon(), () => {CarbonDial.current.UnhideCarbonDial();}, 0f),
 
+        //Event 8: Adds the house and road the first time you place a tile.
+        //new ProgressEvent(() => GridManager.GM.AtLeastOneTileIsOnChunk(), () => {TileSelectPanel.TSP.AddButton(buttons[2]); TileSelectPanel.TSP.AddButton(buttons[7]);}, 5.5f),
+
         //Event 2: Adds Roads when you fix the maxed out carbon the first time
         //new ProgressEvent(() => progressEventHasOccurred[1] && !LevelManager.overMaxCarbon(), () => {TileSelectPanel.TSP.AddButton(buttons[2]);}, 3f),
     
@@ -80,6 +83,9 @@ public class ProgressionManager : MonoBehaviour
         CarbonCaptureSystemsUnlocked,
         FactoriesUnlocked,
         NewGroundUnlocked,
+        UnlockWindTurbines,
+        EnabledCarbonDial,
+        //HouseAndRoadUnlocked
         
     }
 

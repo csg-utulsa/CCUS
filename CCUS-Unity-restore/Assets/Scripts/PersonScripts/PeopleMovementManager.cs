@@ -74,7 +74,6 @@ public class PeopleMovementManager : MonoBehaviour
 
     //Adds the correct number of new people
     public void UpdateIndestructiblePeopleCount(bool createPeopleInHouses){
-        Debug.Log("UpdateIndestructiblePeopleCount");
         int previousIndestructiblePeopleCount = allIndestructiblePeople.Count;
         int maxTimesToRunFailsafe = 0;
 
