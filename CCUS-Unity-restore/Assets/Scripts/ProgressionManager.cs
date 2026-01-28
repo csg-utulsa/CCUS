@@ -57,7 +57,7 @@ public class ProgressionManager : MonoBehaviour
         //Event 4: Add Factories
         new ProgressEvent(() => LevelManager.LM.NetMoney > 800, () => {TileSelectPanel.TSP.AddButton(buttons[5]);}, 0f),
 
-        //Event 5: Adds More Ground
+        //Event 5: Unlocks The Ability To Buy New Area
         new ProgressEvent(() => LevelManager.LM.NetMoney > 650, () => {GroundAreaExpansion.GAE.AddGroundChunk();}, 0f),
 
         //Event 6: Unlock Wind Turbines
@@ -118,8 +118,9 @@ public class ProgressionManager : MonoBehaviour
         
         foreach(int progressEventToCall in progressEventsToCall){
             if(progressEventToCall < progressEvents.Length){
-                progressEvents[progressEventToCall].ProgressionAction();
-                progressEventHasOccurred[progressEventToCall] = true;
+                CallAProgressEvent(progressEventToCall);
+                // progressEventHasOccurred[progressEventToCall] = true;
+                // progressEvents[progressEventToCall].ProgressionAction();
             }
         }
         
@@ -130,13 +131,15 @@ public class ProgressionManager : MonoBehaviour
         for(int i = 0; i < progressEvents.Length; i++){
             if(!progressEventHasOccurred[i] && progressEvents[i].ProgressionCondition()){
                 float delayTime = progressEvents[i].TimeTillExcecution;
+
+
                 if(delayTime > 0){
                     StartCoroutine(delayProgressionEvent(progressEvents[i].TimeTillExcecution, i));
                     
                 }else{
                     CallAProgressEvent(i);
                 }
-                progressEventHasOccurred[i] = true;
+                
             }
         }
     }
@@ -148,6 +151,7 @@ public class ProgressionManager : MonoBehaviour
 
     private void CallAProgressEvent(int progressEventToCall){
         //Debug.Log("Called progress event number " + Array.IndexOf(progressEvents, progressEvent));
+        progressEventHasOccurred[progressEventToCall] = true;
         progressEvents[progressEventToCall].ProgressionAction();
         TypeOfLastProgressEventCalled =  (ProgressEventType) progressEventToCall;
         GameEventManager.current.ProgressEventJustCalled.Invoke();

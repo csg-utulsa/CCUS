@@ -549,4 +549,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   resizeAnimationTimePercentage: 0.35
-  resizeAnimationSize: 4
+  resizeAnimationSize: 7

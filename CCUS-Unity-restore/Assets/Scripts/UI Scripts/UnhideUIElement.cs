@@ -9,9 +9,11 @@ public class UnhideUIElement : MonoBehaviour
     public float timeToMoveUIElementIntoPlace = .8f;
     public float depthToMoveUIElementFromAsPercentOfBackground = 1.5f;
 
-    private float originalYPosition;
+    public bool movingOnYAxis = true;
 
-    private float loweredYPostion;
+    private float originalPosition;
+
+    private float loweredPostion;
 
     private bool isMovingIntoPlace = false;
     private float timer = 0f;
@@ -20,13 +22,21 @@ public class UnhideUIElement : MonoBehaviour
 
         //Turns on the dotted outline around the UI Element
         ElementHiddenGraphic.SetActive(true);
-        originalYPosition = UIElementObject.transform.position.y;
+        if(movingOnYAxis){
+            originalPosition = UIElementObject.transform.position.y;
+        } else{
+            originalPosition = UIElementObject.transform.position.x;
+        }
+        
 
 
         //Moves the UI Element out of sight
-        float depthToMovePeoplePanelFrom = uiElementBackgroundForScale.rect.height * depthToMoveUIElementFromAsPercentOfBackground;
-        loweredYPostion = originalYPosition - depthToMovePeoplePanelFrom;
-        UpdateObjectYPosition(UIElementObject, loweredYPostion);
+        float depthToMoveUIElementFrom = uiElementBackgroundForScale.rect.height * depthToMoveUIElementFromAsPercentOfBackground;
+        loweredPostion = originalPosition - depthToMoveUIElementFrom;
+
+        UpdateObjectPosition(UIElementObject, loweredPostion);
+
+        
     }
 
     void Update(){
@@ -36,14 +46,17 @@ public class UnhideUIElement : MonoBehaviour
             if(timer > timeToMoveUIElementIntoPlace){
                 timer = 0f;
                 isMovingIntoPlace = false;
-                UpdateObjectYPosition(UIElementObject, originalYPosition);
+
+                UpdateObjectPosition(UIElementObject, originalPosition);
+
+                
 
                 //Turns off the dotted outline around the element
                 ElementHiddenGraphic.SetActive(false);
                 
             }else {
                 //Moves the panel smoothly upwards
-                UpdateObjectYPosition(UIElementObject, SmoothMovementBetweenValues.StepMovement(loweredYPostion, originalYPosition, timeToMoveUIElementIntoPlace, timer));
+                UpdateObjectPosition(UIElementObject, SmoothMovementBetweenValues.StepMovement(loweredPostion, originalPosition, timeToMoveUIElementIntoPlace, timer));
             }
         }
     }
@@ -57,8 +70,12 @@ public class UnhideUIElement : MonoBehaviour
 
     }
 
-    //Function to change a GameObject's y position
-    public void UpdateObjectYPosition(GameObject objectToMove, float yPosition){
-        objectToMove.transform.position = new Vector3(objectToMove.transform.position.x, yPosition, objectToMove.transform.position.z);
+    //Function to change a GameObject's x or y position
+    public void UpdateObjectPosition(GameObject objectToMove, float newPosition){
+        if(movingOnYAxis){
+            objectToMove.transform.position = new Vector3(objectToMove.transform.position.x, newPosition, objectToMove.transform.position.z);
+        } else{
+            objectToMove.transform.position = new Vector3(newPosition, objectToMove.transform.position.y, objectToMove.transform.position.z);
+        }
     }
 }

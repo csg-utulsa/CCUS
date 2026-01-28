@@ -9,6 +9,10 @@ public class ActivateChunkPurchaseUI : MonoBehaviour
     public GameObject purchaseUIObject;
 
     public TextMeshProUGUI purchasePriceText;
+
+    public MouseOverImage areaPriceImage;
+
+    private bool isActivated = false;
     
     void Start(){
         if(current == null){
@@ -17,6 +21,11 @@ public class ActivateChunkPurchaseUI : MonoBehaviour
             Destroy(this);
         }
         purchasePriceText = GetComponentInChildren<TextMeshProUGUI>(true);
+
+        if(purchaseUIObject.GetComponentInChildren<MouseOverImage>() != null){
+           areaPriceImage = purchaseUIObject.GetComponentInChildren<MouseOverImage>(); 
+        }
+        
         GameEventManager.current.SwitchedCurrentGroundChunk.AddListener(SwitchedGroundChunk);
         GameEventManager.current.BeginSwitchingCurrentGroundChunk.AddListener(BeganSwitchingGroundChunk);
         GameEventManager.current.PurchasedCurrentGroundChunk.AddListener(GroundChunkJustPurchased);
@@ -42,10 +51,22 @@ public class ActivateChunkPurchaseUI : MonoBehaviour
     private void Activate(){
         purchasePriceText.text = "$" + ChunkPurchaseManager.current.AvailableChunkPrice.ToString("N0");
         purchaseUIObject.SetActive(true);
+        isActivated = true;
     }
 
     private void Deactivate(){
         purchaseUIObject.SetActive(false);
+        isActivated = false;
+    }
+
+
+    //Detects if mouse is over the price button
+    public bool IsMouseOverAreaPrice(){
+        if(isActivated && areaPriceImage != null && areaPriceImage.IsMouseOverImage()){
+            return true;
+        } else{
+            return false;
+        }
     }
     
     

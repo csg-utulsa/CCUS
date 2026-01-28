@@ -288,7 +288,9 @@ public class BuildingSystem : MonoBehaviour
     }
 
 
+    //Move this function to a separate class
     public static bool isMouseOverScreen(){
+
         //Checks if mouse is over a scrollable area, like the tile select panel
         if(ScrollingUI.mouseIsOverScrollableArea){
             return false;
@@ -301,6 +303,11 @@ public class BuildingSystem : MonoBehaviour
 
         //Checks if the mouse is over the people panel
         if(PeoplePanel._peoplePanel != null && PeoplePanel._peoplePanel.isMouseOverPanel()){
+            return false;
+        }
+
+        //Checks if mouse is over the new chunk purchase UI
+        if(ActivateChunkPurchaseUI.current.IsMouseOverAreaPrice()){
             return false;
         }
 

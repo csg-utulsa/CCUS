@@ -35,7 +35,6 @@ public class GrassUnderBuildingsTutorialTip : TutorialTip
     //Checks if the grid cell under the mouse has a terrain and placeable object
     private bool TerrainIsUnderBuilding(){
         if(terrainHasBeenUnderBuilding){
-            Debug.Log("terrain is under building");
             return true;
         }
 
@@ -43,15 +42,14 @@ public class GrassUnderBuildingsTutorialTip : TutorialTip
         Vector3 mousePos = BuildingSystem.GetMouseWorldPosition();
         GameObject[] gameObjectsOnCell = GridManager.GM.GetGameObjectsInGridCell(mousePos);
         if(gameObjectsOnCell.Length > 1){
-            Debug.Log("terrain is under building");
             terrainHasBeenUnderBuilding = true;
             return true;
         }else {
-            Debug.Log("No terrain under building");
             return false;
         }
     }
 
+    //Detects whether or not grass tiles have been unlocked
     private bool GrassTilesUnlocked(){
         if(ProgressionManager.PM.progressEventHasOccurred[(int)ProgressionManager.ProgressEventType.TreesAndGrassUnlocked]){
             return true;

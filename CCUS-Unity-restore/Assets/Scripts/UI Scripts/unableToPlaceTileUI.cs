@@ -99,6 +99,10 @@ public class unableToPlaceTileUI : MonoBehaviour
         errorGraphicTimers[8].DisplayErrorGraphic();
     }
 
+    public void NewAreaUnlockedNotification(){
+        errorGraphicTimers[9].DisplayErrorGraphic();
+    }
+
     void Update(){
         
         // //The next two if else structures time how long the graphics should be visible for

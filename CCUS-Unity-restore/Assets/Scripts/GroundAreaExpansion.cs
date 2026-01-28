@@ -79,6 +79,12 @@ public class GroundAreaExpansion : MonoBehaviour
         //Doesn't add a new ground chunk if the number of ground chunks is maxed out.
         if(NumberOfGroundChunks >= MaxNumberOfChunks) return;
 
+        //If this is the first new ground chunk, it alerts the user
+        if(NumberOfGroundChunks == 1){
+            unableToPlaceTileUI._unableToPlaceTileUI.NewAreaUnlockedNotification();
+        }
+        
+
 
         //Creates a new ground chunk object to the right
         Vector3 currentFarRightChunk = positionsOfGroundChunks[positionsOfGroundChunks.Count - 1];

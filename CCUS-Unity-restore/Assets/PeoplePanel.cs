@@ -14,6 +14,9 @@ public class PeoplePanel : MonoBehaviour
     public FlowFillAmount flowFillAmountOfPeople;
     private float percentOfPeopleEmployed = 0f;
     private int maxNumberOfPeople = 0;
+
+    private bool peoplePanelEnabled = false;
+
     public int MaxNumberOfPeople {
         set{
             maxNumberOfPeople = value;
@@ -101,8 +104,12 @@ public class PeoplePanel : MonoBehaviour
 
     public void EnablePeoplePanel(){
         //peopleCounter.SetActive(true);
-        PressPeopleButton.PPB.EnablePeopleButton();
-        GetComponent<PeoplePanelActivator>().ActivatePeoplePanel();
+        if(!peoplePanelEnabled){
+            PressPeopleButton.PPB.EnablePeopleButton();
+            GetComponent<PeoplePanelActivator>().ActivatePeoplePanel();
+            peoplePanelEnabled = true;
+        }
+        
     }
 
     public void NewPersonUIPopUp(){

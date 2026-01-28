@@ -36,7 +36,11 @@ public class MovementPathGenerator : MonoBehaviour
 
     //Checks if point is on road
     public bool PointIsOnPath(Vector3 pointToCheck){
-        return true;
+        //Checks if the tile at the point checking is a road
+        if(movementPathMap.GetTileForPoint(pointToCheck) != MovementPathMap.MapTileType.Empty){
+            return true;
+        }
+        return false;
     }
 
 
@@ -86,26 +90,33 @@ public class MovementPathGenerator : MonoBehaviour
                 Vector2Int currentGridLocation = GridManager.GM.SwitchToGridCoordinates(currentWorldLocation);
                 Vector2 shiftedLocation;
 
-                
-                if(currentDirection == 0){ //Shifts location to right of cell if traveling up
-                    shiftedLocation = ShiftPointToRightOfCell((Vector2)currentGridLocation);
+                Vector2 shiftDirection;
 
-                } else if(currentDirection == 1){ //Shifts location to bottom of cell if traveling right
+                shiftDirection = ShiftPointByCurrentDirection(currentDirection);
+                shiftedLocation = (Vector2)currentGridLocation + shiftDirection;
 
-                    shiftedLocation = ShiftPointToBottomOfCell((Vector2)currentGridLocation);
+                //If this isn't the first path point and the direction has changed, it shifts the previous path point
+                //to the correct position
+                // if(currentDirection == 0){ //Shifts location to right of cell if traveling up
+                //     shiftDirection = ShiftPointToRightOfCell();
+                //     shiftedLocation = (Vector2)currentGridLocation + shiftDirection;
+
+                // } else if(currentDirection == 1){ //Shifts location to bottom of cell if traveling right
+                //     shiftDirection = ShiftPointToBottomOfCell();
+                //     shiftedLocation = (Vector2)currentGridLocation + shiftDirection;
                     
-                } else if(currentDirection == 2){ //Shifts location to left of cell if travelling down
+                // } else if(currentDirection == 2){ //Shifts location to left of cell if travelling down
+                //     shiftDirection = ShiftPointToLeftOfCell();
+                //     shiftedLocation = (Vector2)currentGridLocation + shiftDirection;
 
-                    shiftedLocation = ShiftPointToLeftOfCell((Vector2)currentGridLocation);
+                // } else{ //Shifts location to top of cell if travelling left
+                //     shiftDirection = ShiftPointToTopOfCell();
+                //     shiftedLocation = (Vector2)currentGridLocation + shiftDirection;
+                // }
 
-                } else{ //Shifts location to top of cell if travelling left
-
-                    shiftedLocation = ShiftPointToTopOfCell((Vector2)currentGridLocation);
-                }
 
                 //if this tile is a building, it stops adding points
                 if(movementPathMap.GetTileForPoint(currentWorldLocation) == MovementPathMap.MapTileType.Building){
-                    
                     //Shifts last point to cell center
                     AddGridPointToPathPoints(pathPoints, ShiftPointToCellCenter((Vector2)currentGridLocation));
                     //Stores current direction in array
@@ -113,8 +124,7 @@ public class MovementPathGenerator : MonoBehaviour
                     
                     break;
 
-                } else{
-
+                } else{ //If this tile's not a building, it adds it to the pathPoints array.
                     AddGridPointToPathPoints(pathPoints, shiftedLocation);
                     //Stores current direction in array
                     directions.Add(currentDirection);
@@ -148,6 +158,7 @@ public class MovementPathGenerator : MonoBehaviour
         Vector2Int gridStartLocation = GridManager.GM.SwitchToGridCoordinates(worldStartLocation);
         Vector2Int gridEndLocation = GridManager.GM.SwitchToGridCoordinates(worldEndLocation);
 
+        //Adds start location to path
         AddGridPointToPathPoints(pathPoints, gridStartLocation);
 
         //Calculates the number of moves that will need to be made
@@ -254,20 +265,53 @@ public class MovementPathGenerator : MonoBehaviour
     }
 
     //Moves Grid Point to different parts of the cell
-    private Vector2 ShiftPointToRightOfCell(Vector2 UnshiftedPoint){
-        Vector2 rightCoords = new Vector2(UnshiftedPoint.x + shiftUpAmount, UnshiftedPoint.y);
+    // private Vector2 ShiftPointToRightOfCell(Vector2 UnshiftedPoint){
+    //     Vector2 rightCoords = new Vector2(UnshiftedPoint.x + shiftUpAmount, UnshiftedPoint.y);
+    //     return rightCoords;
+    // }
+    // private Vector2 ShiftPointToLeftOfCell(Vector2 UnshiftedPoint){
+    //     Vector2 leftCoords = new Vector2(UnshiftedPoint.x + shiftDownAmount, UnshiftedPoint.y);
+    //     return leftCoords;
+    // }
+    // private Vector2 ShiftPointToTopOfCell(Vector2 UnshiftedPoint){
+    //     Vector2 topCoords = new Vector2(UnshiftedPoint.x, UnshiftedPoint.y + shiftUpAmount);
+    //     return topCoords;
+    // }
+    // private Vector2 ShiftPointToBottomOfCell(Vector2 UnshiftedPoint){
+    //     Vector2 bottomCoords = new Vector2(UnshiftedPoint.x, UnshiftedPoint.y + shiftDownAmount);
+    //     return bottomCoords;
+    // }
+
+    //Returns the offsets needed to shift grid cells to different parts of the cells.
+    private Vector2 ShiftPointByCurrentDirection(int directionToShift){
+        if(directionToShift == 0){ //Shifts location to right of cell if traveling up
+            return ShiftPointToRightOfCell() + ShiftPointToBottomOfCell();
+
+        } else if(directionToShift == 1){ //Shifts location to bottom of cell if traveling right
+            return ShiftPointToBottomOfCell() + ShiftPointToLeftOfCell();
+            
+        } else if(directionToShift == 2){ //Shifts location to left of cell if travelling down
+            return ShiftPointToLeftOfCell() + ShiftPointToTopOfCell();
+
+        } else{ //Shifts location to top of cell if travelling left
+            return ShiftPointToTopOfCell() + ShiftPointToRightOfCell();
+        }
+    }
+    
+    private Vector2 ShiftPointToRightOfCell(){
+        Vector2 rightCoords = new Vector2(shiftUpAmount, 0);
         return rightCoords;
     }
-    private Vector2 ShiftPointToLeftOfCell(Vector2 UnshiftedPoint){
-        Vector2 leftCoords = new Vector2(UnshiftedPoint.x + shiftDownAmount, UnshiftedPoint.y);
+    private Vector2 ShiftPointToLeftOfCell(){
+        Vector2 leftCoords = new Vector2(shiftDownAmount, 0);
         return leftCoords;
     }
-    private Vector2 ShiftPointToTopOfCell(Vector2 UnshiftedPoint){
-        Vector2 topCoords = new Vector2(UnshiftedPoint.x, UnshiftedPoint.y + shiftUpAmount);
+    private Vector2 ShiftPointToTopOfCell(){
+        Vector2 topCoords = new Vector2(0, shiftUpAmount);
         return topCoords;
     }
-    private Vector2 ShiftPointToBottomOfCell(Vector2 UnshiftedPoint){
-        Vector2 bottomCoords = new Vector2(UnshiftedPoint.x, UnshiftedPoint.y + shiftDownAmount);
+    private Vector2 ShiftPointToBottomOfCell(){
+        Vector2 bottomCoords = new Vector2(0, shiftDownAmount);
         return bottomCoords;
     }
 
