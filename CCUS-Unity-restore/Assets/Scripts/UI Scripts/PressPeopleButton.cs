@@ -18,6 +18,12 @@ public class PressPeopleButton : MonoBehaviour, IPointerDownHandler, IPointerUpH
     public PeoplePanel PeoplePanel;
     private bool enabled = false;
     public static PressPeopleButton PPB;
+    public float minTimeBetweenButtonClicks = .05f;
+    public float timeToInitiateClickAndHold = .25f;
+
+    private bool buttonIsCurrentlyPressedDown = false;
+    private float buttonClickTimer = 0f;
+    private bool buttonHoldAndClickInitiated = false;
 
     void Awake(){
         if(PeopleManager.current != null){
@@ -31,10 +37,27 @@ public class PressPeopleButton : MonoBehaviour, IPointerDownHandler, IPointerUpH
         
     }
 
+    //When the button is being held down, it clicks down repeatedly, waiting minTimeBetweenButtonClicks between each click.
+    void Update(){
+        if(buttonIsCurrentlyPressedDown){
+
+            buttonClickTimer += Time.deltaTime;
+            if(buttonClickTimer > timeToInitiateClickAndHold){
+                buttonHoldAndClickInitiated = true;
+            }
+            if(buttonHoldAndClickInitiated && buttonClickTimer > minTimeBetweenButtonClicks){
+                buttonClickTimer = 0f;
+                PeoplePanel._peoplePanel.PeopleButtonPressed();
+            }
+        }
+    }
+
 
     //Called when button is pressed down
     public void OnPointerDown(PointerEventData eventData) {
         if(!enabled) return;
+        buttonIsCurrentlyPressedDown = true;
+        buttonClickTimer = 0f;
         buttonPressedGraphic.SetActive(true);
         buttonUnpressedGraphic.SetActive(false);
 
@@ -59,6 +82,8 @@ public class PressPeopleButton : MonoBehaviour, IPointerDownHandler, IPointerUpH
     //Called when button is released
     public void OnPointerUp(PointerEventData eventData) {
         if(!enabled) return;
+        buttonIsCurrentlyPressedDown = false;
+        buttonHoldAndClickInitiated = false;
         buttonPressedGraphic.SetActive(false);
         buttonUnpressedGraphic.SetActive(true);
     }

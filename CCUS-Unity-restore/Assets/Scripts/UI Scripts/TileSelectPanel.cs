@@ -84,6 +84,7 @@ public class TileSelectPanel : ScrollableArea
 
         TickManager.TM.EndOfMoneyAndPollutionTicks.AddListener(EndOfTicks);
         GameEventManager.current.MoneyAmountUpdated.AddListener(MoneyAmountUpdated);
+        GameEventManager.current.PersonJustAdded.AddListener(PersonAdded);
     }
 
 
@@ -123,6 +124,11 @@ public class TileSelectPanel : ScrollableArea
 
     //Runs whenever the amount of money has been changed
     private void MoneyAmountUpdated(){
+        CheckPlaceabilityOfTiles();
+    }
+
+    //Runs whenever a new person is added
+    private void PersonAdded(){
         CheckPlaceabilityOfTiles();
     }
 

@@ -26,7 +26,7 @@ public class DisplayButtonPrices : MonoBehaviour
             if(newButtonPriceObject.GetComponentInChildren<Image>() != null)
                 //newButtonPriceObject.GetComponentInChildren<Image>().gameObject.transform.position = button.gameObject.transform.position + buttonPriceLocationOffset;
             if(button.tileToPlace != null && button.tileToPlace.GetComponent<Tile>() != null){
-                newButtonPriceObject.GetComponentInChildren<TextMeshProUGUI>().text = "$" + button.tileToPlace.GetComponent<Tile>().tileScriptableObject.BuildCost;
+                newButtonPriceObject.GetComponentInChildren<TextMeshProUGUI>().text = "$" + button.tileToPlace.GetComponent<Tile>().tileScriptableObject.BuildCost.ToString("N0");
             }
             
         }

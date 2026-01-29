@@ -152,17 +152,20 @@ public class PeopleMovementManager : MonoBehaviour
 
         //If there are any activated buildings, sends the person to one of them
         if(randomBuilding != null){
-            MovementPath movePath = pathGenerator.MakeDirectPath(person.gameObject.transform.position, randomBuilding.transform.position);
+            MovementPath movePath = pathGenerator.MakeDirectPath(person.gameObject.transform.position, randomBuilding.transform.position, true);
             person.RunAlongPath(movePath);
         }else{
             //If there's no activated buildings, sends the person to the point on the far left of the active chunk of the grid
             //Gets bottom left point on grid
             int halfOfGridChunkSize = GridDataLoader.current.gridChunkSize / 2;
-            Vector2Int bottomLeftGridPoint = new Vector2Int(-halfOfGridChunkSize, -halfOfGridChunkSize);
+            Vector2Int bottomLeftGridPoint = new Vector2Int(-halfOfGridChunkSize + 1, -halfOfGridChunkSize + 1);
             Vector3 bottomLeftWorldPoint = GridManager.GM.SwitchFromGridToWorldCoordinates(bottomLeftGridPoint);
-            MovementPath movePath = pathGenerator.MakeDirectPath(person.gameObject.transform.position, bottomLeftWorldPoint);
+            //Vector3 bottomLeftWorldPointShifted = new Vector3(bottomLeftWorldPoint.x + .5f, bottomLeftWorldPoint.y, bottomLeftWorldPoint.z + .5f);
+            MovementPath movePath = pathGenerator.MakeDirectPath(person.gameObject.transform.position, bottomLeftWorldPoint, false);
+            person.RunAlongPath(movePath);
         }
         
+
     }
 
     //Sends person to random activated road when they're off the road system
@@ -170,7 +173,7 @@ public class PeopleMovementManager : MonoBehaviour
 
         GameObject randomRoad = RandomTileGenerator.current.GetRandomActivatedRoad();
         if(randomRoad != null){
-            MovementPath randomRoadPath = pathGenerator.MakeDirectPath(person.gameObject.transform.position, randomRoad.transform.position);
+            MovementPath randomRoadPath = pathGenerator.MakeDirectPath(person.gameObject.transform.position, randomRoad.transform.position, true);
             person.RunAlongPath(randomRoadPath);
         }else{
             //If there's no activated roads, destroys the person
@@ -226,7 +229,7 @@ public class PeopleMovementManager : MonoBehaviour
         }
     }
 
-    //Creates a new person and sends them to a random activated building.
+    //Creates a new person and sends them to a random activated building. Called when people button is pressed.
     public void NewPersonAdded(){
         //Debug.Log("New person added");
         Vector3 newPersonPosition = new Vector3(peopleSpawnPoint.x, personPrefab.transform.position.y, peopleSpawnPoint.z);

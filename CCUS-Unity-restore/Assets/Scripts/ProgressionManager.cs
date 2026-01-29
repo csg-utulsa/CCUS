@@ -43,29 +43,34 @@ public class ProgressionManager : MonoBehaviour
         // If you need to rearrange them, just also rearrange the enum ProgressEventType
 
         //Event 0: Enables the people panel when you fix the maxed out carbon the first time
-        new ProgressEvent(() => progressEventHasOccurred[1] && !LevelManager.overMaxCarbon(), () => {PeoplePanel._peoplePanel.EnablePeoplePanel();}, 25f),
+        new ProgressEvent(() => progressEventHasOccurred[(int)ProgressEventType.TreesAndGrassUnlocked] && !LevelManager.overMaxCarbon(), () => {PeoplePanel._peoplePanel.EnablePeoplePanel();}, 25f),
         
-        //Event 1: Adds the tree and grass the first time you max out on carbon.
+        //Event 1: Adds the saplings and grass the first time you max out on carbon.
         new ProgressEvent(() => LevelManager.overMaxCarbon(), () => {TileSelectPanel.TSP.AddButton(buttons[0]); TileSelectPanel.TSP.AddButton(buttons[1]);}, 5f),
 
-        //Event 2: Adds apartment
-        new ProgressEvent(() => LevelManager.LM.NetMoney > 80, () => {TileSelectPanel.TSP.AddButton(buttons[3]);}, 1.5f),
+        //Event 2: Adds apartment && Ups max carbon to 500
+        new ProgressEvent(() => LevelManager.LM.NetMoney > 80, () => {TileSelectPanel.TSP.AddButton(buttons[3]); LevelManager.LM.setMaxCarbon(500);}, 1.5f),
 
-        //Event 3: Unlocks carbon capture systems and increases max number of carbon capture systems to 5
-        new ProgressEvent(() => LevelManager.LM.NetMoney > 1300, () => {TileSelectPanel.TSP.AddButton(buttons[4]);}, 0f),
+        //Event 3: Unlocks carbon capture systems when you purchase the 5th area
+        new ProgressEvent(() => GroundAreaExpansion.GAE.NumberOfGroundChunks >= 6, () => {TileSelectPanel.TSP.AddButton(buttons[4]);}, 6f),
 
-        //Event 4: Add Factories
-        new ProgressEvent(() => LevelManager.LM.NetMoney > 800, () => {TileSelectPanel.TSP.AddButton(buttons[5]);}, 0f),
+        //Event 4: Add Factories after the net income is over 1400 && Ups max carbon to 1500
+        new ProgressEvent(() => LevelManager.LM.NetMoney > 1400, () => {TileSelectPanel.TSP.AddButton(buttons[5]); LevelManager.LM.setMaxCarbon(1500);}, 0f),
 
         //Event 5: Unlocks The Ability To Buy New Area
         new ProgressEvent(() => LevelManager.LM.NetMoney > 650, () => {GroundAreaExpansion.GAE.AddGroundChunk();}, 0f),
 
-        //Event 6: Unlock Wind Turbines
-        new ProgressEvent(() => LevelManager.LM.NetMoney > 1700, () => {TileSelectPanel.TSP.AddButton(buttons[6]);}, 0f),
+        //Event 6: Unlock Wind Turbines when there's 4 purchased ground areas
+        new ProgressEvent(() => GroundAreaExpansion.GAE.NumberOfGroundChunks >= 5, () => {TileSelectPanel.TSP.AddButton(buttons[6]);}, 10f),
 
         //Event 7: Unhides the Carbon Dial when you max out the carbon
         new ProgressEvent(() => LevelManager.overMaxCarbon(), () => {CarbonDial.current.UnhideCarbonDial();}, 0f),
 
+        //Event 8: Unlocks the adult trees after you unlock the coal plant
+        new ProgressEvent(() => progressEventHasOccurred[(int)ProgressEventType.FactoriesUnlocked], () => {TileSelectPanel.TSP.AddButton(buttons[8]);}, 20f),
+
+        
+        
         //Event 8: Adds the house and road the first time you place a tile.
         //new ProgressEvent(() => GridManager.GM.AtLeastOneTileIsOnChunk(), () => {TileSelectPanel.TSP.AddButton(buttons[2]); TileSelectPanel.TSP.AddButton(buttons[7]);}, 5.5f),
 
@@ -135,7 +140,7 @@ public class ProgressionManager : MonoBehaviour
 
                 if(delayTime > 0){
                     StartCoroutine(delayProgressionEvent(progressEvents[i].TimeTillExcecution, i));
-                    
+                    progressEventHasOccurred[i] = true;
                 }else{
                     CallAProgressEvent(i);
                 }

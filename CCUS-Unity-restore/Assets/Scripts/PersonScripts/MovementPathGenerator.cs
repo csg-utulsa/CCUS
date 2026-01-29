@@ -146,7 +146,7 @@ public class MovementPathGenerator : MonoBehaviour
     }
 
     //Makes a random path between two points, ignoring all placed tiles. Used when people spawn in over the world.
-    public MovementPath MakeDirectPath(Vector3 worldStartLocation, Vector3 worldEndLocation){
+    public MovementPath MakeDirectPath(Vector3 worldStartLocation, Vector3 worldEndLocation, bool centerEndPathOnCell){
 
         //Makes list to store path points in
         List<Vector2> pathPoints = new List<Vector2>();
@@ -239,7 +239,7 @@ public class MovementPathGenerator : MonoBehaviour
                 AddGridPointToPathPoints(pathPoints, (Vector2)currentPathPosition);
             }
             //If on the last move, shifts the last point to the center of the tile
-            else{
+            else if(centerEndPathOnCell){
                 AddGridPointToPathPoints(pathPoints, ShiftPointToCellCenter((Vector2)currentPathPosition));
             }
             

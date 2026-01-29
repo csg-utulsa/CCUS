@@ -328,8 +328,17 @@ public class ObjectDrag : MonoBehaviour
 
         }else{ //If this tile is a terrain tile, it can destroy other terrain tiles
             if(otherTile != null){
+
+                
                 if(otherTileScript.tileScriptableObject.isTerrain){
-                    return true;
+
+                    //Terrain that removes carbon can't destroy terrain that doesn't remove carbon
+                    if(otherTileScript.tileScriptableObject.AnnualCarbonAdded >= 0 && thisTile.tileScriptableObject.AnnualCarbonAdded < 0){
+                        return false;
+                    }else{
+                        return true;
+                    }
+                    
                 }
             }
         }

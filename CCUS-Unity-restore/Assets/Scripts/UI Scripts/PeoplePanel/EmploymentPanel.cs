@@ -33,7 +33,6 @@ public class EmploymentPanel : MonoBehaviour
         UnhideUIElement unhideEmploymentPanel = GetComponent<UnhideUIElement>();
 
         if(unhideEmploymentPanel != null){
-            Debug.Log("Activating people panel");
             unhideEmploymentPanel.ActivateUIElement();
             EmploymentPanelActivated = true;
         }
