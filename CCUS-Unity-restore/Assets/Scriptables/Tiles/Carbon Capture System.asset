@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Carbon Capture System
   m_EditorClassIdentifier: Assembly-CSharp::TileScriptableObject
   Name: Carbon Capture
-  BuildCost: 5000
+  BuildCost: 50000
   AnnualCost: 0
   AnnualCarbonRemoved: 0
   AnnualCarbonAdded: -450
