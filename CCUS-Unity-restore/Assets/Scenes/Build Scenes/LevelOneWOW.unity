@@ -23203,7 +23203,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   groundAreaManager: {fileID: 0}
-  pricesOfChunks: 00000000e02e0000409c0000a086010090d0030060ae0a0040420f00
+  pricesOfChunks: 00000000e02e000060ea0000400d030020a1070060ae0a0040420f00
   purchasedChunks: 
 --- !u!114 &1883222659710237040
 MonoBehaviour:

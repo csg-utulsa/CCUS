@@ -16,7 +16,7 @@ MonoBehaviour:
   BuildCost: 40
   AnnualCost: 0
   AnnualCarbonRemoved: 0
-  AnnualCarbonAdded: -60
+  AnnualCarbonAdded: -70
   AnnualCarbonStored: 0
   AnnualIncome: 0
   MaxPeople: 0

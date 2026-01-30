@@ -3,7 +3,162 @@ guid: 259e4ef7ac636e8418f8c15203c1fb4c
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.CarbonTank
+    second: {fileID: 2100000, guid: 43e6b8c7f0bf3f448b5762b9984d1967, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.Fan
+    second: {fileID: 2100000, guid: e52c4834e881f424c891fa8f08382274, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.Fan.002
+    second: {fileID: 2100000, guid: 2ff42845de44370489f18dd0eba6eb1b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.Fan.003
+    second: {fileID: 2100000, guid: 62ecb0246cb51df408f5b7a619eb982f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.Fan.004
+    second: {fileID: 2100000, guid: ced61d26bfa8155438ebb619c8e47513, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.Fan.005
+    second: {fileID: 2100000, guid: 2c36a92b8aa186746bfd9b676dda4d64, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.Fan.006
+    second: {fileID: 2100000, guid: 751f96d4cadfc8f4abb54845b9f9f55a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.FanBacking
+    second: {fileID: 2100000, guid: a220bc67912fe7a41b5ef79a32e9219c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.FanRing
+    second: {fileID: 2100000, guid: cd032e4bd4031654082f5a1525820d44, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.FanSectionBack
+    second: {fileID: 2100000, guid: e6793fbafe4ced346a8a25b87a99d5c1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.FanSectionBack.001
+    second: {fileID: 2100000, guid: 261c3cec949a7fe4096e1a04230e2800, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.FanSectionBack.002
+    second: {fileID: 2100000, guid: b5b7e7e0f6a48bb4a9d1d0596c951dfb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.FanSectionBack.003
+    second: {fileID: 2100000, guid: 081c2da5b4dc352459e1c92e15637fa5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.FanSectionControlPanel
+    second: {fileID: 2100000, guid: dcf8424bd6b4691419d3f41e338d193b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.FanSectionRim
+    second: {fileID: 2100000, guid: 79f5acd5441d5a24da5741de908c1355, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.Feet
+    second: {fileID: 2100000, guid: 794b7bf41076e46478783ca4657175a3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.Feet.001
+    second: {fileID: 2100000, guid: 8995d643665aa1048aec030a7d1fc9af, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.Feet.002
+    second: {fileID: 2100000, guid: 9fd295e0dd0cec349a2cc9afba6c5c72, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.FeetBottomLevel
+    second: {fileID: 2100000, guid: 5a2ede69e57634f469d1c10bc88343be, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.FeetBottomLevel.001
+    second: {fileID: 2100000, guid: 38680dc487255f8429fdcc504d1872bc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.FeetBottomLevel.002
+    second: {fileID: 2100000, guid: 4c17e8e32775af44d8544e13ba620e26, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.FeetLight
+    second: {fileID: 2100000, guid: e156cb09bbaa8b34586c43909304438b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.FeetLight.001
+    second: {fileID: 2100000, guid: a3963819124643443b759753ee0300d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.FeetLight.002
+    second: {fileID: 2100000, guid: c75daa1c88440224a916e8e78636f627, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.Ladder
+    second: {fileID: 2100000, guid: 530c488d01f4f154dab4b9339063b34e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.TankCap
+    second: {fileID: 2100000, guid: a378a2e1a8d27364fb90304be8ad3549, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.TankControlPanel
+    second: {fileID: 2100000, guid: 5e23f81c1853041428a24afaf77f52eb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.TankFeet
+    second: {fileID: 2100000, guid: 43c1259831a5fb744a76e2060450a8db, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.TankPiping
+    second: {fileID: 2100000, guid: 46258ecbaab21554ca3e0f8c12a7da75, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.TankRing
+    second: {fileID: 2100000, guid: ab5fc6ee28ee3674e9e6dba257e8e4ad, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.TankTopRing
+    second: {fileID: 2100000, guid: 12b741fcca6137348a522c015c964d60, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

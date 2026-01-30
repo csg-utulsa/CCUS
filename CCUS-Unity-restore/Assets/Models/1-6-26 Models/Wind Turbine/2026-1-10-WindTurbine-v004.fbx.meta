@@ -3,7 +3,22 @@ guid: 0b77feccbf9eb7e49b9d07560ea5dd7e
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.DarkHighlights
+    second: {fileID: 2100000, guid: 603f744805e886e429376a32b263eacf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.RedHighlights
+    second: {fileID: 2100000, guid: 7ea4d5a34658ae54db78876313f42695, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.WindTurbine
+    second: {fileID: 2100000, guid: dceaa8c5582f9da48b39b10a698d0fc6, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

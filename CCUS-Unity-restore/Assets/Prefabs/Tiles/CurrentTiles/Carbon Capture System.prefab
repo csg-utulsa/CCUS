@@ -339,8 +339,8 @@ Transform:
   - {fileID: 3467998957938421481}
   - {fileID: 3027818458619041700}
   - {fileID: 3707181359396243235}
-  - {fileID: 4063210920634006352}
   - {fileID: 1168607608021026129}
+  - {fileID: 4063210920634006352}
   - {fileID: 6334672490200400882}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -502,6 +502,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9089043adfa1cdf4a848a222a38bfd3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MouseHoverHideTile
+  fadeThisTilesTransparency: 1
   timeToFade: 0.1
   popUpHiddenTransparency: 0.1
 --- !u!1001 &3282633359232512079

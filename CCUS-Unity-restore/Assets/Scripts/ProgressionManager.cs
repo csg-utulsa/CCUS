@@ -54,8 +54,8 @@ public class ProgressionManager : MonoBehaviour
         //Event 3: Unlocks carbon capture systems when you purchase the 5th area
         new ProgressEvent(() => GroundAreaExpansion.GAE.NumberOfGroundChunks >= 6, () => {TileSelectPanel.TSP.AddButton(buttons[4]);}, 6f),
 
-        //Event 4: Add Factories after the net income is over 1400 && Ups max carbon to 1500
-        new ProgressEvent(() => LevelManager.LM.NetMoney > 1400, () => {TileSelectPanel.TSP.AddButton(buttons[5]); LevelManager.LM.setMaxCarbon(1500);}, 0f),
+        //Event 4: Add Factories after the net income is over 2000 && Ups max carbon to 1500
+        new ProgressEvent(() => LevelManager.LM.NetMoney > 2000, () => {TileSelectPanel.TSP.AddButton(buttons[5]); LevelManager.LM.setMaxCarbon(1500);}, 0f),
 
         //Event 5: Unlocks The Ability To Buy New Area
         new ProgressEvent(() => LevelManager.LM.NetMoney > 650, () => {GroundAreaExpansion.GAE.AddGroundChunk();}, 0f),
