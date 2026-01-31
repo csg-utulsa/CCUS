@@ -22,6 +22,17 @@ public class ActivatableTile : Tile
         base.ThisTileAboutToBeDestroyed();
         DeactivateBuilding();
 
+        //Updates Activatable Tile Connections
+        
+        //Updates residence/road connections
+        if(GetComponent<ActivatableTile>() != null){
+
+            foreach(GameObject neighboringTile in RoadAndResidenceConnectionManager.current.GetRoadNeighbors(gameObject)){
+                RoadAndResidenceConnectionManager.current.UpdateResidenceConnections(neighboringTile);
+            }
+
+        }
+
         //Alerts the game manager that an activatable tile was just destroyed
         GameEventManager.current.ActivatableTileJustDestroyed.Invoke();
     }

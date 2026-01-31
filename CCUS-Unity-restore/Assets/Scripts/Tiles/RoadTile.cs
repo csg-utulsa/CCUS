@@ -19,33 +19,13 @@ public class RoadTile : ActivatableTile
     public override void ThisTileAboutToBeDestroyed(){
         base.ThisTileAboutToBeDestroyed();
 
-        //Updates road connections of neighbors
+        //Updates visual road connections (not activations) of neighbors
         if(GetComponent<RoadConnections>() != null){
             GetComponent<RoadConnections>().UpdateNeighborConnections();
         }else{
             UpdateTileNeighborConnections();
         }
 
-        //Updates residence/road connections
-        if(GetComponent<RoadConnections>() != null || GetComponent<ResidentialBuilding>() != null){
-
-            // //Deactivates all road connection graphics. They will be reenabled by the residence connection updates, if they're still connected to two houses.
-            // foreach(RoadConnections road in GridManager.GM.GetRoadTiles()){
-            //     road.deactivateConnectedRoad();
-            // }
-
-            // //Updates Connections of Each Residence
-            // foreach(ResidentialBuilding residence in GridManager.GM.GetResidentialTiles()){
-            //     residence.UpdateResidenceConnections();
-            // }
-
-            foreach(GameObject neighboringTile in RoadAndResidenceConnectionManager.current.GetRoadNeighbors(gameObject)){
-                RoadAndResidenceConnectionManager.current.UpdateResidenceConnections(neighboringTile);
-            }
-
-            
-
-        }
     }
 
     // //This method displays if this road is connecting two or more residences

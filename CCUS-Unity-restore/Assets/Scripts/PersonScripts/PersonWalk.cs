@@ -19,7 +19,10 @@ public class PersonWalk : MonoBehaviour
 
     void Awake(){
         objectMover = GetComponent<MoveObjectToPoint>();
-        Debug.Log("My new position: " + transform.position);
+        //Debug.Log("My new position: " + transform.position);
+
+
+
     }
 
     //Returns true if the person is currently on an activatable building
@@ -66,7 +69,8 @@ public class PersonWalk : MonoBehaviour
         }
 
         //Turns model the correct direction
-        TurnToDirection(walkingPath.GetDirection(indexOfPathPoint));
+        TurnToDirection(walkingPath.GetDirectionAngle(indexOfPathPoint));
+        Debug.Log("Instructed Angle: "+ walkingPath.GetDirectionAngle(indexOfPathPoint));
 
 
         objectMover.MoveTo(walkingPath.GetPoint(indexOfPathPoint), personSpeed, FinishedMovingToPoint);
@@ -84,8 +88,8 @@ public class PersonWalk : MonoBehaviour
     }
 
     //Turns person in the direction of travel
-    private void TurnToDirection(int direction){
-        float rotationalAngle = 90f * direction;
+    private void TurnToDirection(float rotationalAngle){
+        //float rotationalAngle = 90f * direction;
         transform.eulerAngles = new Vector3(0f, rotationalAngle, 0f);
     }
 }

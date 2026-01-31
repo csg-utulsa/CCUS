@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a5987a142a40cc4fa0c05b204dd415a, type: 3}
-  m_Name: Coal Plant
+  m_Name: Nuclear Plant
   m_EditorClassIdentifier: Assembly-CSharp::TileScriptableObject
-  Name: Coal Plant
-  BuildCost: 20000
+  Name: Nuclear Plant
+  BuildCost: 100000
   AnnualCost: 0
   AnnualCarbonRemoved: 0
-  AnnualCarbonAdded: 250
+  AnnualCarbonAdded: 0
   AnnualCarbonStored: 0
-  AnnualIncome: 250
+  AnnualIncome: 500
   MaxPeople: 0
-  RequiredEmployees: 65
+  RequiredEmployees: 100
   isResidence: 0
   isTerrain: 0
   allowClickAndDrag: 1

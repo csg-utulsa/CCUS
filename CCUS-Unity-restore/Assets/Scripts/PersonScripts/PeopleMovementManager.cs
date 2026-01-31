@@ -19,14 +19,21 @@ public class PeopleMovementManager : MonoBehaviour
     //Returns the number of people that should be wandering between houses along roads at any moment
     private int CorrectNumberOfIndestructiblePeople{
         get{
-            //Max, there should be as many people as activated buildings
+
             int numberOfBuildings = TileTypeCounter.current.GetAllActivatedBuildings().Length;
-            int maxNumOfPeople = numberOfBuildings;
-            // if(numberOfBuildings == 1){
-            //     maxNumOfPeople = 1;
-            // }else{
-            //     maxNumOfPeople = numberOfBuildings / 2;
-            // }
+            int maxNumOfPeople;
+
+
+            if(numberOfBuildings <= 7){
+                //Max, there should be as many people as activated buildings
+                maxNumOfPeople = numberOfBuildings;
+                
+            } else{
+                
+                //If there's more than 7 buildings, the max number of people increases more slowly than the number of buildings
+                maxNumOfPeople = 7 + (int)(.3f * (numberOfBuildings - 7));
+            }
+
             
             float percentOfMaxPeopleAdded = ((float)PeopleManager.current.NumberOfPeople / (float)PeopleManager.current.maxPeople);
             float correctNumOfPeople = (float)maxNumOfPeople * percentOfMaxPeopleAdded;
@@ -249,7 +256,7 @@ public class PeopleMovementManager : MonoBehaviour
     //If it's false, they will be instantiated on a road.
     private void CreatePersonAtRandomLocation(bool instantiateInHouse){
 
-        Debug.Log("Random location");
+        //Debug.Log("Random location");
 
         Vector3 spawnLocation;
 

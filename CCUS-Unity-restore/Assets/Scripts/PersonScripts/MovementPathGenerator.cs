@@ -30,9 +30,7 @@ public class MovementPathGenerator : MonoBehaviour
         new Vector3(-1f, 0f, 0f), //West / left
     };
 
-    void Start(){
-
-    }
+   
 
     //Checks if point is on road
     public bool PointIsOnPath(Vector3 pointToCheck){
@@ -55,6 +53,10 @@ public class MovementPathGenerator : MonoBehaviour
 
         Vector3 currentWorldLocation = worldStartLocation;
 
+        //Adds start position to path
+        Vector2Int startingGridLocation = GridManager.GM.SwitchToGridCoordinates(currentWorldLocation);
+        AddGridPointToPathPoints(pathPoints, ShiftPointToCellCenter((Vector2)startingGridLocation));
+
         MovementPathMap.MapTileType[] neighbors;
 
         //Generates random direction to start path from
@@ -68,7 +70,6 @@ public class MovementPathGenerator : MonoBehaviour
             
             //Gets neighbors for current point
             neighbors = movementPathMap.GetNeighborsForPoint(currentWorldLocation);
-
             
 
             //Makes sure that the tile has neighbors
@@ -196,17 +197,17 @@ public class MovementPathGenerator : MonoBehaviour
 
 
             //Calculates and stores current direction to array
-            int direction;
+            int direction = 0;
             if(movingVertically){
                 if(directionY.y > 0){
                     direction = 0;
-                }else{
+                }else if(directionY.y < 0){
                     direction = 2;
                 }
             }else{
                 if(directionX.x > 0){
                     direction = 1;
-                }else{
+                }else if(directionX.x < 0){
                     direction = 3;
                 }
             }
