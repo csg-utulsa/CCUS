@@ -304,6 +304,7 @@ Transform:
   m_LocalScale: {x: 0.30769232, y: 0.3076923, z: 0.30769232}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1924784916769208205}
   - {fileID: 830685269776436909}
   - {fileID: 3707181359396243235}
   - {fileID: 4063210920634006352}
@@ -539,6 +540,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 2025-11-26-Boswell-SimpleTree-v001
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 533e17323f3c2ee439c99dafc2e9d289, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -548,6 +553,80 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 533e17323f3c2ee439c99dafc2e9d289, type: 3}
   m_PrefabInstance: {fileID: 868515949162129734}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2106713561147609190
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8859714510574772770}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 59471eac05f9b584ba7ab2352f24d6a2, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.70090747
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 59471eac05f9b584ba7ab2352f24d6a2, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8633078
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 59471eac05f9b584ba7ab2352f24d6a2, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.70090747
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 59471eac05f9b584ba7ab2352f24d6a2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.03538
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 59471eac05f9b584ba7ab2352f24d6a2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.22
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 59471eac05f9b584ba7ab2352f24d6a2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 59471eac05f9b584ba7ab2352f24d6a2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 59471eac05f9b584ba7ab2352f24d6a2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 59471eac05f9b584ba7ab2352f24d6a2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 59471eac05f9b584ba7ab2352f24d6a2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 59471eac05f9b584ba7ab2352f24d6a2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 59471eac05f9b584ba7ab2352f24d6a2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 59471eac05f9b584ba7ab2352f24d6a2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 59471eac05f9b584ba7ab2352f24d6a2, type: 3}
+      propertyPath: m_Name
+      value: Boswell-UpdatedTree-v001
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 59471eac05f9b584ba7ab2352f24d6a2, type: 3}
+--- !u!4 &1924784916769208205 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 59471eac05f9b584ba7ab2352f24d6a2, type: 3}
+  m_PrefabInstance: {fileID: 2106713561147609190}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3816858629521154248
 PrefabInstance:
