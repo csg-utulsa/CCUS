@@ -144,7 +144,8 @@ public class ObjectDrag : MonoBehaviour
         GameEventManager.current.TileJustDestroyed.Invoke();
     }
 
-    //Updates the road connection graphics of any surrounding roads
+    //TODO Move to different script
+    //Updates the road connection graphics of any surrounding roads.
     public void UpdateTileNeighborConnections(){
         GameObject[] neighborGameObjects = RoadAndResidenceConnectionManager.current.GetRoadNeighbors(gameObject);
         for(int i = 0; i < neighborGameObjects.Length; i++){
@@ -268,7 +269,8 @@ public class ObjectDrag : MonoBehaviour
         //     }
 
         //Turns object red if it cannot be placed in position
-            if(!CanBePlacedOnOverlappingTile()){
+            //if(!CanBePlacedOnOverlappingTile()){
+            if(!BuildingSystem.current.ShouldActiveTileMaterialBeValid()){
                 tileMaterialHandler.MaterialSet(TileMaterialHandler.matState.HoveringInvalid);
             }else {
                 tileMaterialHandler.MaterialSet(TileMaterialHandler.matState.HoveringValid);

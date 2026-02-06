@@ -50,12 +50,13 @@ public class TileMaterialHandler : MonoBehaviour
     void Awake()
     {   
         //Stores all the Renderers in the Tile's children
-        matRenderers = gameObject.GetComponentsInChildren<Renderer>();
+        matRenderers = gameObject.GetComponentsInChildren<MeshRenderer>();
 
         //A 2D array to store the original material colors of each renderer's materials
         originalColorsForEachRenderer = new Color[matRenderers.Length][];
 
         bool modelHasNonDitherShader = false;
+        string modelWithoutDitherShader = "";
 
         //Stores the original colors for each renderer's list of materials in the array originalColorsForEachRenderer
         for(int ir = 0; ir < matRenderers.Length; ir++){
@@ -66,6 +67,7 @@ public class TileMaterialHandler : MonoBehaviour
                     Color color = matRenderers[ir].materials[ic].GetColor("_Color");
                     originalColorsForEachRenderer[ir][ic] = color;
                     modelHasNonDitherShader = true;
+                    modelWithoutDitherShader = matRenderers[ir].materials[ic].name;
                 }
                 //Stores colors for materials using dither shader
                 else if (matRenderers[ir].materials[ic].shader == Shader.Find("Shader Graphs/Dither Shader")){
@@ -73,13 +75,14 @@ public class TileMaterialHandler : MonoBehaviour
                 } else{
                     originalColorsForEachRenderer[ir][ic] = new Color(1f, 1f, 1f, 1f);
                     modelHasNonDitherShader = true;
+                    modelWithoutDitherShader = matRenderers[ir].materials[ic].name;
                 }
             }  
         }
         //Debug.Log("Number Of Mesh Renderers: " + matRenderers.Length);
         
         if(modelHasNonDitherShader){
-            Debug.LogError("One of the models you're using has a standard transparency shader, rather than a Dither Shader. That will prevent it from being made transparent.");
+            Debug.LogError("One of the model's materials (" + modelWithoutDitherShader + ") that you're using has a standard transparency shader, rather than a Dither Shader. That will prevent it from being made transparent.");
             Debug.LogError("To assign the Dither Transparency Shader to your model, use the tool found in the Unity menu under: Tools -> Set Object Material Shaders");
         }
 

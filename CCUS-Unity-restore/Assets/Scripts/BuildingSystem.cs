@@ -21,6 +21,8 @@ public class BuildingSystem : MonoBehaviour
 
     [SerializeField] GameObject[] prefabs;
 
+    [HideInInspector] public bool ClickAndDragHasBeenUsed {get; set;} = false;
+
     /*public GameObject prefab1;
     public GameObject prefab2;*/
 
@@ -168,8 +170,10 @@ public class BuildingSystem : MonoBehaviour
     //Called from ObjectDrag of activeObject and enables click and drag placing
     public void activeObjectMovedToNewTile(){
         if(activeTile != null && activeTile.tileScriptableObject.allowClickAndDrag && Input.GetMouseButton(0)){
+            ClickAndDragHasBeenUsed = true;
             attemptToPlaceSelectedTile();
             preventMultipleObjectPlacement = false;
+            
         }
     }
 
@@ -332,7 +336,8 @@ public class BuildingSystem : MonoBehaviour
         // }
     }
 
-    //gets cell center's world position
+    //Move to separate class
+    //gets cell center's world position.
     public Vector3 SnapCoordinateToGrid(Vector3 position) 
     {
         //position = position + GetMouseWorldPosition();
@@ -414,6 +419,7 @@ public class BuildingSystem : MonoBehaviour
 
     //This function raycasts straight down over a tile to find out what's on it
     public static bool isObjectOverVoid(){
+        if(current.activeObject == null) return false;
         Vector3 activeObjectPositionOnGrid = current.SnapCoordinateToGrid(current.activeObject.transform.position);
         Vector3 raycastStartPosition = new Vector3(activeObjectPositionOnGrid.x, activeObjectPositionOnGrid.y + 5.0f, activeObjectPositionOnGrid.z);
 
@@ -421,6 +427,54 @@ public class BuildingSystem : MonoBehaviour
         isOverVoid = !(Physics.Raycast(raycastStartPosition, -Vector3.up, 100.0F, current.groundLayer));
 
         return isOverVoid;
+    }
+
+    public bool isActiveObjectOverlappingSameTileType(){
+        if(activeObject == null) return false;
+
+        //Checks if trying to place object over same object
+        //Use the GridManager singleton instance
+        foreach (GameObject obj in GridManager.GM.GetGameObjectsInGridCell(activeTile.gameObject))
+        {
+            Tile tile = obj.GetComponent<Tile>();
+            if (tile != null && tile.tileScriptableObject == activeTile.tileScriptableObject)
+            {
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+
+
+    //Checks if active object's material should be in the valid state. Returns true if no active tile is selected.
+    //Used to change placeability state of the highlighted tile graphic.
+    public bool ShouldActiveTileMaterialBeValid(){
+        if(activeObject == null) return true;
+        if (isObjectOverVoid()){
+            if(activeTile != null && activeTile.tileScriptableObject.isTerrain){
+                return false;
+            } else{
+                return true;
+            }
+            
+        } 
+        if(!isMouseOverScreen()) return true;
+        if(isActiveObjectOverlappingSameTileType()) return true;
+
+        if (!activeTile.gameObject.GetComponent<ObjectDrag>().CanBePlacedOnOverlappingTile()){
+            return false;
+        } else{
+            return true;
+        }
+
+        // if(activeObject.GetComponent<PlaceableObject>() != null){
+        //     return CanBePlaced(activeObject.GetComponent<PlaceableObject>(), false);
+        // } else {
+        //     return true;
+        // }
+        
     }
 
     public bool CanBePlaced(PlaceableObject placeableObject, bool attemptingToPlaceTile)
@@ -454,6 +508,10 @@ public class BuildingSystem : MonoBehaviour
             return false;
         }
 
+        if(isActiveObjectOverlappingSameTileType()){
+            return false;
+        }
+
 
         //Checks if there's enough money and that the carbon isn't maxed out
         if(attemptingToPlaceTile){
@@ -468,16 +526,7 @@ public class BuildingSystem : MonoBehaviour
 
 
 
-        //Checks if trying to place object over same object
-        //Use the GridManager singleton instance
-        foreach (GameObject obj in GridManager.GM.GetGameObjectsInGridCell(activeTile.gameObject))
-        {
-            Tile tile = obj.GetComponent<Tile>();
-            if (tile != null && tile.tileScriptableObject == activeTile.tileScriptableObject)
-            {
-                return false;
-            }
-        }
+        
 
         
 

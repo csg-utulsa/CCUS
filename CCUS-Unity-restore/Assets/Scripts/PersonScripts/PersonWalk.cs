@@ -70,7 +70,6 @@ public class PersonWalk : MonoBehaviour
 
         //Turns model the correct direction
         TurnToDirection(walkingPath.GetDirectionAngle(indexOfPathPoint));
-        Debug.Log("Instructed Angle: "+ walkingPath.GetDirectionAngle(indexOfPathPoint));
 
 
         objectMover.MoveTo(walkingPath.GetPoint(indexOfPathPoint), personSpeed, FinishedMovingToPoint);

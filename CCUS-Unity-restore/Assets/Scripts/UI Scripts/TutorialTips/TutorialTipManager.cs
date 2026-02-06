@@ -29,6 +29,8 @@ public class TutorialTipManager : MonoBehaviour
     public GameObject[] tutorialTipTextObjects;
     public float[] timesToWaitBeforeActivating;
     public float[] timesToWaitBeforeDeactivating;
+    public float timeToFadeTutorialTip = .25f;
+    [SerializeField] private float timeBetweenActivatingSequentialTutorialTips = .5f;
     private List<GameObject> activatedTutorialTips = new List<GameObject>();
 
 
@@ -36,6 +38,10 @@ public class TutorialTipManager : MonoBehaviour
     void Start()
     {
         backgroundActivator = GetComponent<TutorialTipGraphicsActivationManager>();
+
+        if(GetComponent<FadeChildGraphicsToTransparency>() != null){
+            GetComponent<FadeChildGraphicsToTransparency>().timeToFade = timeToFadeTutorialTip;
+        }
 
         tutorialTips = new TutorialTip[tutorialTipTextObjects.Length];
         for(int i = 0; i < tutorialTips.Length; i++){
@@ -57,17 +63,20 @@ public class TutorialTipManager : MonoBehaviour
     //Activates text object associated with the TutorialTip object
     public void ActivateTutorialTip(int tutorialTipTextID){
 
-        //Fades tutotial tip background to full opacity & does the intro-sizing animation
+        //Fades tutorial tip background to full opacity
         backgroundActivator.ActivateTutorialTipBackground();
 
-        //Stores the tutorialTipTextObject that needs to be activated
-        GameObject tipToActivate = tutorialTipTextObjects[tutorialTipTextID];
+        //Stores the tutorialTipTextObject that needs to be added
+        GameObject tipToAdd = tutorialTipTextObjects[tutorialTipTextID];
         
         //Makes sure that the tip to activate is the last element in the activatedTutorialTips list
-        if(activatedTutorialTips.Contains(tipToActivate)){
-            activatedTutorialTips.Remove(tipToActivate);
+        if(activatedTutorialTips.Contains(tipToAdd)){
+            activatedTutorialTips.Remove(tipToAdd);
         }
-        activatedTutorialTips.Add(tipToActivate);
+        activatedTutorialTips.Insert(0, tipToAdd);
+
+        //Stores the tutorialTipTextObject that needs to be activated
+        GameObject tipToActivate = activatedTutorialTips[activatedTutorialTips.Count - 1];
 
         //Activates the active tutorial tip
         tipToActivate.SetActive(true);
@@ -82,28 +91,46 @@ public class TutorialTipManager : MonoBehaviour
         
     }
 
+    //Called from tutorial tips for when to deactivate their tutorial tip
     public void DeactivateTutorialTip(int tutorialTipTextID){
 
         //Stores the tutorialTipTextObject that needs to be deactivated
         GameObject tipToDeactivate = tutorialTipTextObjects[tutorialTipTextID];
+
+        bool tipToDeactivateIsTheTopOne = false;
         
-        //Removes the tutorial tip to deactivate from the activatedTutorialTips List
+        //Makes sure the tip that it is being instructed to deactivate is activated
         if(activatedTutorialTips.Contains(tipToDeactivate)){
+
+            //Checks if the tip to deactivate is the top one
+            int activatedTutorialTipIndex = activatedTutorialTips.IndexOf(tipToDeactivate);
+            if(activatedTutorialTipIndex == activatedTutorialTips.Count - 1){
+                tipToDeactivateIsTheTopOne = true;
+            }
+
+            //Removes the tutorial tip to deactivate from the activatedTutorialTips List
             activatedTutorialTips.Remove(tipToDeactivate);
         }
 
-        //Deactivates every other tutorial tip text object
-        foreach(GameObject tutorialTipTextObject in tutorialTipTextObjects){
-            tutorialTipTextObject.SetActive(false);
-        }
         
-        if(activatedTutorialTips.Count > 0){
-            //Activates the last element in the activatedTutorialTips list
-            activatedTutorialTips[activatedTutorialTips.Count - 1].SetActive(true);
-        } else{
-            //Deactivates the tutorial tip background if there are no activated Tutorial Tip Text Objects
+        
+        //Runs if the deactivated tutorial tip was the visible one
+        if(tipToDeactivateIsTheTopOne){
+
+            //Deactivates every other tutorial tip text object
+            foreach(GameObject tutorialTipTextObject in tutorialTipTextObjects){
+                tutorialTipTextObject.SetActive(false);
+            }
+
+            //Fades away the tutorial tip background
             backgroundActivator.DeactivateTutorialTipBackground();
-        }
+
+            //If there are more tutorial tips that should be active, it delays activating the next one
+            if(activatedTutorialTips.Count > 0){
+                ActionDelayer.DelayAction(ActivateTutorialTipBelow, timeToFadeTutorialTip + timeBetweenActivatingSequentialTutorialTips);
+            }
+        }  
+
     }
 
     //Deactivates the tutorial tip that is currently displaying
@@ -116,6 +143,15 @@ public class TutorialTipManager : MonoBehaviour
             }
             
         }
+    }
+
+    public void ActivateTutorialTipBelow(){
+
+        //Fades tutorial tip background to full opacity & does the intro-sizing animation
+        backgroundActivator.ActivateTutorialTipBackground();
+
+        //Activates the last element in the activatedTutorialTips list
+        activatedTutorialTips[activatedTutorialTips.Count - 1].SetActive(true);
     }
 
 }

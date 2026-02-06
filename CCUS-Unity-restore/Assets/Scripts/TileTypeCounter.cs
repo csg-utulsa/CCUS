@@ -54,7 +54,7 @@ public class TileTypeCounter : MonoBehaviour
         // }
     }
 
-    void Start()
+    void Awake()
     {
         if(current == null){
             current = this;

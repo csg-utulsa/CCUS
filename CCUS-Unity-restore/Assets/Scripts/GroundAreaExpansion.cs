@@ -101,6 +101,9 @@ public class GroundAreaExpansion : MonoBehaviour
 
         //Turns the correct switch chunk arrow on
         SwitchChunkArrowManager.current.UpdateArrowVisibility(NumberOfGroundChunks, ActiveGroundChunk);
+
+        //Calls event for when a new area is unlocked
+        GameEventManager.current.NewAreaUnlocked.Invoke();
     }
 
     public void MoveRight(){

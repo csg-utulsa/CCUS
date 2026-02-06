@@ -15,6 +15,7 @@ public class MaxTileTypeCounter : MonoBehaviour
             return TileTypeCounter.current.CarbonCaptureTileTracker.GetAllTiles().Length;
         }
         set{
+
             // numberOfCarbonCaptureSystems = value;
             // if(NumberOfCarbonCaptureSystemsText != null){
             //     NumberOfCarbonCaptureSystemsText.text = "" +  value;
@@ -44,7 +45,8 @@ public class MaxTileTypeCounter : MonoBehaviour
         //}
     }
 
-    void Start(){
+
+    void Awake(){
         if(current == null){
             current = this;
         }else{

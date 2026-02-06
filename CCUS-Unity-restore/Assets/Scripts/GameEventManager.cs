@@ -1,34 +1,45 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+/*
+*   This class keeps track of most of the in game events (besides ticks)
+*
+*   How to add a new event: 
+*       1) Declare it like this: "public UnityEvent SomeGameEvent {get; set;}"
+*       2) Initiate it in Awake(), like this: "SomeGameEvent = new UnityEvent();"
+*/
 
 public class GameEventManager : MonoBehaviour
 {
-    public UnityEvent TileJustPlaced {get; set;}
 
+    //Called after a progress event occurs
     public UnityEvent ProgressEventJustCalled {get; set;}
     
+    //People Events
     public UnityEvent PersonJustAdded {get; set;}
 
+    //UI Interaction Events
+    public UnityEvent MouseMovedToNewGridTile {get; set;}
+    public UnityEvent ButtonHasBeenSelected{get; set;}
+
+    //Money / Carbon Changed
     public UnityEvent NetCarbonUpdated {get; set;}
-
     public UnityEvent NetMoneyUpdated {get; set;}
-
     public UnityEvent MoneyAmountUpdated {get; set;}
 
+    //Chunk Loading events
     public UnityEvent SwitchedCurrentGroundChunk {get; set;}
-
     public UnityEvent PurchasedCurrentGroundChunk {get; set;}
-
     public UnityEvent BeginSwitchingCurrentGroundChunk {get; set;}
+    public UnityEvent NewAreaUnlocked {get; set;}
 
+    //Tile destruction and activation
+    public UnityEvent TileJustPlaced {get; set;}
     public UnityEvent ActivatableTileJustPlaced {get; set;}
-
     public UnityEvent ActivatableTileJustDestroyed {get; set;}
-
     public UnityEvent TileJustDestroyed {get; set;}
-
     public UnityEvent BuildingActivationStateChanged {get; set;}
+    public UnityEvent NumOfCarbonCaptureTilesChanged {get; set;}
 
     public static GameEventManager current;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -47,6 +58,10 @@ public class GameEventManager : MonoBehaviour
         ActivatableTileJustDestroyed = new UnityEvent();
         TileJustDestroyed = new UnityEvent();
         BuildingActivationStateChanged = new UnityEvent();
+        NumOfCarbonCaptureTilesChanged = new UnityEvent();
+        MouseMovedToNewGridTile = new UnityEvent();
+        ButtonHasBeenSelected = new UnityEvent();
+        NewAreaUnlocked = new UnityEvent();
 
         if(current == null){
             current = this;

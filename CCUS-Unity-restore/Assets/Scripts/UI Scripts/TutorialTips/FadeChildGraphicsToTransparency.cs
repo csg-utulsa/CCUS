@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class FadeChildGraphicsToTransparency : MonoBehaviour
 {
-    public float timeToFade = .5f;
+    [HideInInspector] public float timeToFade = .25f;
     public float startImageTransparency = 0f;
     private Image[] childObjectImages;
     private Image[] allObjectImages;

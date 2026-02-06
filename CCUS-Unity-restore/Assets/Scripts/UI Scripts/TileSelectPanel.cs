@@ -40,7 +40,24 @@ public class TileSelectPanel : ScrollableArea
 
     TileScriptableObject[] allTileScriptableObjects;//= new TileScriptableObject[];
     Tile[] allTiles;
+
+    public bool AButtonHasBeenSelectedAtLeastOnce {get; set;} = false;
+    public bool ButtonIsCurrentlySelected {get; set;} = false;
+
     bool buttonIsSelected = false;
+    bool ButtonIsSelected{
+        get{
+            return buttonIsSelected;
+        }
+        set{
+            buttonIsSelected = value;
+            if(value == true){
+                AButtonHasBeenSelectedAtLeastOnce = true;
+                ButtonIsCurrentlySelected = true;
+                GameEventManager.current.ButtonHasBeenSelected.Invoke();
+            }
+        }
+    }
 
     //bool[] disabledPollutionButtons;
     //bool[] disabledMoneyButtons;
@@ -202,7 +219,7 @@ public class TileSelectPanel : ScrollableArea
     public void clickButton(GameObject clickedButton){
         TrashButtonScript.TBS.trashButtonDeselected();
         //runs if the user clicks a button that isn't currently selected
-        if(!buttonIsSelected || clickedButton != selectedButton){
+        if(!ButtonIsSelected || clickedButton != selectedButton){
 
 
             // if(disabledPollutionButtons[Array.IndexOf(tileButtons, clickedButton)]){
@@ -223,7 +240,7 @@ public class TileSelectPanel : ScrollableArea
 
 
 
-            buttonIsSelected = true;
+            ButtonIsSelected = true;
             selectedButton = clickedButton;
             BuildingSystem.current.InitializeWithObject(selectedButton.GetComponent<buttonScript>().tileToPlace);
             selectedButtonGraphic.SetActive(true);
@@ -242,7 +259,7 @@ public class TileSelectPanel : ScrollableArea
         selectedButtonGraphic.SetActive(false);
         selectedButton = new GameObject();
         BuildingSystem.current.deselectCurrentObject();
-        buttonIsSelected = false;
+        ButtonIsSelected = false;
     }
 
 
@@ -296,7 +313,7 @@ public class TileSelectPanel : ScrollableArea
                 bottomOfScrollingArea = buttonPlacementPosition - (0.5f * heightOfTile);
             }
         }
-        if(buttonIsSelected){
+        if(ButtonIsSelected){
             selectedButtonGraphic.GetComponent<RectTransform>().anchoredPosition = new Vector2(selectedButtonGraphic.GetComponent<RectTransform>().anchoredPosition.x, selectedButton.GetComponent<RectTransform>().anchoredPosition.y);
         }
         

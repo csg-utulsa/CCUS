@@ -12,7 +12,6 @@ public class TutorialTipGraphicsActivationManager : MonoBehaviour
         GetComponent<FadeChildGraphicsToTransparency>().FadeAllChildGraphicsToTransparency(1f);
         //Also add an intro sizing emphasis
 
-
     }
 
     public void DeactivateTutorialTipBackground(){

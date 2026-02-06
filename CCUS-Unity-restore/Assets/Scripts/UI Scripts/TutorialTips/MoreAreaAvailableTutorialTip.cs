@@ -22,7 +22,6 @@ public class MoreAreaAvailableTutorialTip : TutorialTip
     public void CheckIfTipShouldBeActivated(){
         //Checks if the second unlockable chunk has been unlocked
         if(ChunkOfIndexIsViewable(2) && !ChunkTwoHasBeenLookedAt()){
-            //Activates tutorial tip if no factories are connected
             ActivateTutorialTip();
         }
     }
