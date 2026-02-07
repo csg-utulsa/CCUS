@@ -69,6 +69,9 @@ public class ProgressionManager : MonoBehaviour
         //Event 8: Unlocks the adult trees after you unlock the coal plant
         new ProgressEvent(() => progressEventHasOccurred[(int)ProgressEventType.FactoriesUnlocked], () => {TileSelectPanel.TSP.AddButton(buttons[8]);}, 20f),
 
+        //Event 8: Unlocks the mega apartments after net income is over 5,000
+        new ProgressEvent(() => LevelManager.LM.NetMoney > 5000, () => {TileSelectPanel.TSP.AddButton(buttons[9]);}, 7f),
+
         
         
         //Event 8: Adds the house and road the first time you place a tile.

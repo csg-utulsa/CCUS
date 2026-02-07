@@ -24,7 +24,7 @@ using UnityEngine;
 public class TileMaterialHandler : MonoBehaviour
 {
     //Stores all of the renderers for each model in the tile's children
-    Renderer[] matRenderers;
+    MeshRenderer[] matRenderers;
 
     //stores the original colors that all the matRenderers are set to
     Color[][] originalColorsForEachRenderer;
@@ -50,7 +50,36 @@ public class TileMaterialHandler : MonoBehaviour
     void Awake()
     {   
         //Stores all the Renderers in the Tile's children
-        matRenderers = gameObject.GetComponentsInChildren<MeshRenderer>();
+        matRenderers = gameObject.GetComponentsInChildren<MeshRenderer>(true);
+
+
+        //Filters mat renderers for only those with dither or standard shaders.
+        List<MeshRenderer> ditherAndStandardMatShaders = new List<MeshRenderer>();
+        for(int ir = 0; ir < matRenderers.Length; ir++){
+
+            bool matRendererIsDitherOrStandard = false;
+
+            for(int ic = 0; ic < matRenderers[ir].materials.Length; ic++){
+                if(matRenderers[ir].materials[ic].shader == Shader.Find("Shader Graphs/Dither Shader")){
+                    matRendererIsDitherOrStandard = true;
+                    break;
+                    
+                } else if(matRenderers[ir].materials[ic].shader == Shader.Find("Standard")){
+                    if(matRenderers[ir].gameObject.activeInHierarchy){
+                        matRendererIsDitherOrStandard = true;
+                        break;
+                    }
+                }
+                
+            }
+
+            if(matRendererIsDitherOrStandard){
+                ditherAndStandardMatShaders.Add(matRenderers[ir]);
+            }   
+        }
+        matRenderers = ditherAndStandardMatShaders.ToArray();
+
+
 
         //A 2D array to store the original material colors of each renderer's materials
         originalColorsForEachRenderer = new Color[matRenderers.Length][];

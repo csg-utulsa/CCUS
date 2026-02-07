@@ -64,6 +64,7 @@ public class Tile : MonoBehaviour
             
             
         // }
+        
     }
 
     public void setInitialIncomeAndCarbon(){
@@ -132,14 +133,14 @@ public class Tile : MonoBehaviour
             return false;
         }
 
-        // //Checks if there aren't enough people to place the factory
-        // if (!EnoughEmployeesToPlace())
-        // {
-        //     if(displayErrorMessages){
-        //         unableToPlaceTileUI._unableToPlaceTileUI.NotEnoughPeople();
-        //     }
-        //     return false;
-        // }
+        //Checks if there aren't enough people to place the factory
+        if (tileScriptableObject.RequiredEmployees > 0 && !EnoughEmployeesToPlace())
+        {
+            if(displayErrorMessages){
+                unableToPlaceTileUI._unableToPlaceTileUI.NotEnoughPeople();
+            }
+            return false;
+        }
 
         //If none of the other conditions return false, it returns true        
         return true;

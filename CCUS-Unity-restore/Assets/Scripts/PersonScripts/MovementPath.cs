@@ -50,7 +50,7 @@ public class MovementPath
 
 
             directionAngles[i] = (Vector2.SignedAngle(nextPoint - previousPoint, Vector2.up));
-            Debug.Log("DX: " + deltaX + ", DY: " + deltaY + ", angle: " + directionAngles[i]);
+            
         }
 
         // Saves the directions between path points

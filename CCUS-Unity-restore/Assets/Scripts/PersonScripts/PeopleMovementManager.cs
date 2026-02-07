@@ -127,7 +127,6 @@ public class PeopleMovementManager : MonoBehaviour
         
            //If person finishes their path on a road, it gives them a new path along the road
         } else if(pathGenerator.PointIsOnPath(person.gameObject.transform.position)) { 
-            Debug.Log("finished path on road");
             SendPersonAlongRoadPath(person);
             //MovementPath randomRoadPath = pathGenerator.MakeRandomPathAlongRoads(person.gameObject.transform.position);
             //If their's no connected roads

@@ -50,7 +50,7 @@ public class MoneyPanel : MonoBehaviour
 
         //Adds alert when money increases
         GameObject UIFeedbackObject = Instantiate(NewMoneyUIFeedbackPrefab);
-        UIFeedbackObject.GetComponentInChildren<TextMeshProUGUI>().text = "$" + amountMoneyIncreased;
+        UIFeedbackObject.GetComponentInChildren<TextMeshProUGUI>().text = "+$" + amountMoneyIncreased;
         
         
     }

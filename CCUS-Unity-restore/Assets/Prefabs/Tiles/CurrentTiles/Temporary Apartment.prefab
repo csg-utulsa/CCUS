@@ -7201,8 +7201,8 @@ Transform:
   m_GameObject: {fileID: 9171035400571233729}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.5, y: 0.4, z: 0.5}
-  m_LocalScale: {x: 0.30769232, y: 0.3076923, z: 0.30769232}
+  m_LocalPosition: {x: 1.5017, y: 0.404, z: 0.50069}
+  m_LocalScale: {x: 0.27288002, y: 0.27288, z: 0.27288002}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3632081933270912699}
@@ -7373,6 +7373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9089043adfa1cdf4a848a222a38bfd3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MouseHoverHideTile
+  fadeThisTilesTransparency: 1
   timeToFade: 0.1
   popUpHiddenTransparency: 0.1
 --- !u!1001 &496773761343131842

@@ -11,20 +11,20 @@ public class FactoryTile : ActivatableBuilding
         base.ThisTileAboutToBeDestroyed();
     }
 
-    public override bool CheckIfTileIsPlaceable(bool displayErrorMessages){
-        if(!base.CheckIfTileIsPlaceable(displayErrorMessages)){
-            return false;
-        }
+    // public override bool CheckIfTileIsPlaceable(bool displayErrorMessages){
+    //     if(!base.CheckIfTileIsPlaceable(displayErrorMessages)){
+    //         return false;
+    //     }
 
-        if(!EnoughEmployeesToPlace()){
-            if(displayErrorMessages){
-                unableToPlaceTileUI._unableToPlaceTileUI.NotEnoughPeople();
-            }
-            return false;
-        }
+    //     if(!EnoughEmployeesToPlace()){
+    //         if(displayErrorMessages){
+    //             unableToPlaceTileUI._unableToPlaceTileUI.NotEnoughPeople();
+    //         }
+    //         return false;
+    //     }
 
-        return true;
-    }
+    //     return true;
+    // }
 
     // public override void ActivateBuilding(){
     //     //Updates the cap on number of people

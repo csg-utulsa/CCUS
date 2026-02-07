@@ -13,7 +13,9 @@ public class ConnectHousesTutorialTip : TutorialTip
     public override void InitializeThisTutorialTip(){
         //Checks if houses are connected every time a tile is placed
         GameEventManager.current.TileJustPlaced.AddListener(CheckIfTipShouldBeDeactivated);
-        ActionDelayer.DelayAction(CheckIfTipShouldBeActivated, 1f); 
+
+        //Checks if the tip should be activated once the player has placed a tile
+        GameEventManager.current.TileJustPlaced.AddListener(CheckIfTipShouldBeActivated); 
     }
     
     

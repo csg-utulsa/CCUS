@@ -45,7 +45,6 @@ public class ClickAndDragTutorialTip : TutorialTip
 
         numberOfTilesPlaced++;
         if(numberOfTilesPlaced > numberOfTilesToPlaceBeforeActivating){
-            Debug.Log("Number of tiles placed: " + numberOfTilesToPlaceBeforeActivating);
             enoughTilesPlaced = true;
             return true;
         }
