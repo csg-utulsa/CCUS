@@ -107,7 +107,7 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.90646935, g: 0.43085554, b: 0, a: 1}
+    - _BaseColor: {r: 1, g: 0.31024265, b: 0, a: 1}
     - _Color: {r: 0.90646935, g: 0.43085557, b: 0, a: 1}
     - _DitherVector: {r: 1, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}

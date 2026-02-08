@@ -124,6 +124,6 @@ Material:
     - _Color: {r: 1, g: 0.96688133, b: 0.6245283, a: 1}
     - _DitherVector: {r: 1, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Emissive_Color: {r: 1, g: 0.1624845, b: 0, a: 1}
+    - _Emissive_Color: {r: 1, g: 0.31229466, b: 0.1641509, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

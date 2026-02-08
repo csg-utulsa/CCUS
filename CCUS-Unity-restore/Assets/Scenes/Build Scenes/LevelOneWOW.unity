@@ -1024,7 +1024,7 @@ PrefabInstance:
     - target: {fileID: 8469751399460248946, guid: 8243673c2e907cf42ae4555d67c42f07, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: a9e111e02c8d9c64782f4ba29635c034, type: 3}
+      objectReference: {fileID: 21300000, guid: 3b7b8f8581b69d048963de8a270cd95b, type: 3}
     - target: {fileID: 8539130412815848100, guid: 8243673c2e907cf42ae4555d67c42f07, type: 3}
       propertyPath: m_Name
       value: Coal Plant
@@ -8602,7 +8602,7 @@ PrefabInstance:
     - target: {fileID: 8469751399460248946, guid: 8243673c2e907cf42ae4555d67c42f07, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: d0a803e3253ca2347b88da44e088681e, type: 3}
+      objectReference: {fileID: 21300000, guid: f0aa6cbb69014b44ebb3f553ff1e7273, type: 3}
     - target: {fileID: 8539130412815848100, guid: 8243673c2e907cf42ae4555d67c42f07, type: 3}
       propertyPath: m_Name
       value: Temporary Apartment
@@ -9263,7 +9263,7 @@ PrefabInstance:
     - target: {fileID: 8469751399460248946, guid: 8243673c2e907cf42ae4555d67c42f07, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: b83443a05aa11134e883a8a807d4c6df, type: 3}
+      objectReference: {fileID: 21300000, guid: d20da25039ea764449948470a154c84b, type: 3}
     - target: {fileID: 8539130412815848100, guid: 8243673c2e907cf42ae4555d67c42f07, type: 3}
       propertyPath: m_Name
       value: Wind Turbine
@@ -9966,7 +9966,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fda5b26a4437ea24bbda74070c6f925e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ed476b0f63532a04f94b759664f9bd5c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10515,10 +10515,10 @@ PrefabInstance:
     - target: {fileID: 8469751399460248946, guid: 8243673c2e907cf42ae4555d67c42f07, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 3ef251c08d2eb194585299a4724d64c5, type: 3}
+      objectReference: {fileID: 21300000, guid: 1fa841a708132a44eaf42453bcbd5785, type: 3}
     - target: {fileID: 8539130412815848100, guid: 8243673c2e907cf42ae4555d67c42f07, type: 3}
       propertyPath: m_Name
-      value: Shack
+      value: House
       objectReference: {fileID: 0}
     - target: {fileID: 8539130412815848100, guid: 8243673c2e907cf42ae4555d67c42f07, type: 3}
       propertyPath: m_IsActive
@@ -13890,7 +13890,7 @@ GameObject:
   - component: {fileID: 1079235572}
   - component: {fileID: 1079235571}
   m_Layer: 5
-  m_Name: House Button
+  m_Name: Deprecated House Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17018,7 +17018,7 @@ PrefabInstance:
     - target: {fileID: 8469751399460248946, guid: 8243673c2e907cf42ae4555d67c42f07, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 66954f99093eb2b479e468e38649eee9, type: 3}
+      objectReference: {fileID: 21300000, guid: 898dbcb680cb19e4f8e4c914db5cb458, type: 3}
     - target: {fileID: 8539130412815848100, guid: 8243673c2e907cf42ae4555d67c42f07, type: 3}
       propertyPath: m_Name
       value: Carbon Capture System
@@ -20450,7 +20450,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2d087016624cdba40af46b97767ae6d3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bbacd6327dec0c743b8c50e99684b67d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -20608,7 +20608,7 @@ PrefabInstance:
     - target: {fileID: 8469751399460248946, guid: 8243673c2e907cf42ae4555d67c42f07, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: c9cf644911fea7c4eb16224409807c60, type: 3}
+      objectReference: {fileID: 21300000, guid: b2549946fddbc3c47bb7a9081f9f57a2, type: 3}
     - target: {fileID: 8539130412815848100, guid: 8243673c2e907cf42ae4555d67c42f07, type: 3}
       propertyPath: m_Name
       value: MegaApartmentButton
@@ -20916,7 +20916,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0aa88dd3bedab1e4da522eabb8dd9dd3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d565dbab8e95a95419f0fca75daf9c03, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -24400,7 +24400,7 @@ PrefabInstance:
     - target: {fileID: 8469751399460248946, guid: 8243673c2e907cf42ae4555d67c42f07, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: ede3e7e621b4b0b4ba7363a0036017b1, type: 3}
+      objectReference: {fileID: 21300000, guid: 17b8e04cb6ebb76488a1ee1aaf58d699, type: 3}
     - target: {fileID: 8539130412815848100, guid: 8243673c2e907cf42ae4555d67c42f07, type: 3}
       propertyPath: m_Name
       value: Sapling
