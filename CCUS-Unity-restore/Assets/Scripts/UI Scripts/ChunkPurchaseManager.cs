@@ -7,6 +7,7 @@ public class ChunkPurchaseManager : MonoBehaviour
 
     public int[] pricesOfChunks;
     public bool[] purchasedChunks;
+    public int NumberOfPurchasedChunks {get; set;} = 0;
 
     private int availableChunkPrice = 5000;
     public int AvailableChunkPrice {
@@ -60,6 +61,7 @@ public class ChunkPurchaseManager : MonoBehaviour
         purchasedChunks = new bool[groundAreaManager.MaxNumberOfChunks];
         //first chunk is already purchased
         purchasedChunks[0] = true;
+        NumberOfPurchasedChunks = 1;
         for(int i = 1 ; i < purchasedChunks.Length; i++){
             purchasedChunks[i] = false;
         }
@@ -84,7 +86,11 @@ public class ChunkPurchaseManager : MonoBehaviour
         //Saves that this chunk has been purchased
         if(groundAreaManager.ActiveGroundChunk < purchasedChunks.Length){
            purchasedChunks[groundAreaManager.ActiveGroundChunk] = true; 
+           
         }
+
+        //Updates num of purchased chunks
+        NumberOfPurchasedChunks++;
         
         //Adds a new ground chunk to replace the old one
         groundAreaManager.AddGroundChunk();

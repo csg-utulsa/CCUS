@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Oak Tree
   m_EditorClassIdentifier: 
   Name: Tree
-  BuildCost: 40
+  BuildCost: 100
   AnnualCost: 0
   AnnualCarbonRemoved: 0
-  AnnualCarbonAdded: -70
+  AnnualCarbonAdded: -100
   AnnualCarbonStored: 0
   AnnualIncome: 0
   MaxPeople: 0

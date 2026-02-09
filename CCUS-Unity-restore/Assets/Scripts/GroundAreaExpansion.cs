@@ -33,6 +33,23 @@ public class GroundAreaExpansion : MonoBehaviour
     public int ActiveGroundChunk {get; set;} = 0;
     public int NumberOfGroundChunks { get; set; } = 1;
 
+    //Returns how many chunks are purchased at the moment
+    // public int NumberOfPurchasedChunks{
+    //     get{
+    //         if(ChunkPurchaseManager.current != null){
+    //             int numOfPurchasedChunks = ChunkPurchaseManager.current
+    //             foreach(bool isPurchased in ChunkPurchaseManager)
+
+    //         } else{
+    //             Debug.LogError("Chunk purchase manager . current is null");
+    //             return NumberOfGroundChunks;
+
+    //         }
+            
+            
+    //     }
+    // }
+
 
     private bool isSwitchingGroundChunks = false;
     

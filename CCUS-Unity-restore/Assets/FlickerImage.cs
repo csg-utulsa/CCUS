@@ -8,9 +8,13 @@ public class FlickerImage : MonoBehaviour
     public bool isEnabled = false;
     public GameObject imageOne;
     public GameObject imageTwo;
+    public bool flickerImage = true;
 
     void Start(){
-        StartCoroutine(UpdateImage());
+        if(flickerImage){
+            StartCoroutine(UpdateImage()); 
+        }
+       
     }
 
     // Update is called once per frame

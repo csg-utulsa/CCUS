@@ -11,6 +11,7 @@ public class StarsWobble : MonoBehaviour
     private float percentageFaded;
     public int fadeDirection = 1;
     private Color currentColor;
+    private float originalFadeAmount = 1f;
 
     private Image myImage;
 
@@ -18,6 +19,8 @@ public class StarsWobble : MonoBehaviour
         myImage = GetComponent<Image>();
 
         currentColor = myImage.color;
+
+        originalFadeAmount = myImage.color.a;
         //myImage.color = new Color(currentColor.r, currentColor.g, currentColor.b, 255f);
     }
 
@@ -31,7 +34,7 @@ public class StarsWobble : MonoBehaviour
             fadingTimer = 0f;
         }
 
-        percentageFaded = ( ( (Mathf.Cos((fadingTimer * Mathf.PI) + offsetFade)) * 0.5f ) + 0.5f );
+        percentageFaded = originalFadeAmount * ( ( (Mathf.Cos((fadingTimer * Mathf.PI) + offsetFade)) * 0.5f ) + 0.5f );
 
         myImage.color = new Color(currentColor.r, currentColor.g, currentColor.b, percentageFaded);
 

@@ -3083,7 +3083,7 @@ RectTransform:
   m_GameObject: {fileID: 266231030}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.84, y: 0.84, z: 0.84}
+  m_LocalScale: {x: 0.89, y: 0.89, z: 0.89}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2058737392}
@@ -3092,7 +3092,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -117, y: -187.6}
+  m_AnchoredPosition: {x: -112.3, y: -187.6}
   m_SizeDelta: {x: 321.9819, y: 105.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &266231032
@@ -3916,7 +3916,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -23.9, y: -36.2}
+  m_AnchoredPosition: {x: -22.8, y: -36.2}
   m_SizeDelta: {x: 58.66808, y: 11.88835}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &368722728
@@ -10515,7 +10515,7 @@ PrefabInstance:
     - target: {fileID: 8469751399460248946, guid: 8243673c2e907cf42ae4555d67c42f07, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 1fa841a708132a44eaf42453bcbd5785, type: 3}
+      objectReference: {fileID: 21300000, guid: f6ab5eb5e03f117498983f419bbe0faa, type: 3}
     - target: {fileID: 8539130412815848100, guid: 8243673c2e907cf42ae4555d67c42f07, type: 3}
       propertyPath: m_Name
       value: House
@@ -14860,7 +14860,7 @@ Transform:
   m_GameObject: {fileID: 1176177087}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 149, y: -188.8, z: 0}
+  m_LocalPosition: {x: 157.4, y: -188.8, z: 0}
   m_LocalScale: {x: 0.19, y: 0.19, z: 0.19}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -16678,15 +16678,15 @@ MonoBehaviour:
   - 20
   - 2
   timesToWaitBeforeDeactivating:
-  - 0.3
-  - 0.3
-  - 2.5
-  - 0.3
-  - 0.2
-  - 0.3
-  - 0.3
-  - 0.2
-  - 0.3
+  - 0.15
+  - 0.15
+  - 0.15
+  - 0.15
+  - 0.15
+  - 0.15
+  - 0.15
+  - 0.15
+  - 0.15
   timeToFadeTutorialTip: 0.25
   timeBetweenActivatingSequentialTutorialTips: 0.5
 --- !u!114 &1310489430
@@ -16882,6 +16882,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6159074747056806126, guid: 8243673c2e907cf42ae4555d67c42f07, type: 3}
   m_PrefabInstance: {fileID: 736022095}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1337145178 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6229434424540703659, guid: 8243673c2e907cf42ae4555d67c42f07, type: 3}
+  m_PrefabInstance: {fileID: 736022095}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1337145176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 446cde3d79e13c44bb4434c677397dcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1366548904 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b10c0bd8101943c4086c0958cc898724, type: 3}
@@ -23611,6 +23622,7 @@ MonoBehaviour:
   - {fileID: 1052227785}
   - {fileID: 1811822506}
   - {fileID: 1774675803}
+  - {fileID: 1337145178}
   progressEventHasOccurred: 
 --- !u!4 &2065883719
 Transform:

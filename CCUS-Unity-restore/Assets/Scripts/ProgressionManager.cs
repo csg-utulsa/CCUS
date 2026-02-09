@@ -51,26 +51,29 @@ public class ProgressionManager : MonoBehaviour
         //Event 2: Adds apartment && Ups max carbon to 500
         new ProgressEvent(() => LevelManager.LM.NetMoney > 80, () => {TileSelectPanel.TSP.AddButton(buttons[3]); LevelManager.LM.setMaxCarbon(500);}, 1.5f),
 
-        //Event 3: Unlocks carbon capture systems when you purchase the 5th area
-        new ProgressEvent(() => GroundAreaExpansion.GAE.NumberOfGroundChunks >= 6, () => {TileSelectPanel.TSP.AddButton(buttons[4]);}, 6f),
+        //Event 3: Unlocks carbon capture systems when you have 3 areas
+        new ProgressEvent(() => ChunkPurchaseManager.current.NumberOfPurchasedChunks >= 3, () => {TileSelectPanel.TSP.AddButton(buttons[4]);}, 10f),
 
-        //Event 4: Add Factories after the net income is over 2000 && Ups max carbon to 1500
-        new ProgressEvent(() => LevelManager.LM.NetMoney > 2000, () => {TileSelectPanel.TSP.AddButton(buttons[5]); LevelManager.LM.setMaxCarbon(1500);}, 0f),
+        //Event 4: Add Factories after you buy the 2nd chunk && Ups max carbon to 1500
+        new ProgressEvent(() => ChunkPurchaseManager.current.NumberOfPurchasedChunks >= 2, () => {TileSelectPanel.TSP.AddButton(buttons[5]); LevelManager.LM.setMaxCarbon(1500);}, 10f),
 
         //Event 5: Unlocks The Ability To Buy New Area
-        new ProgressEvent(() => LevelManager.LM.NetMoney > 650, () => {GroundAreaExpansion.GAE.AddGroundChunk();}, 0f),
+        new ProgressEvent(() => LevelManager.LM.NetMoney > 800 || LevelManager.LM.GetMoney() > 6000, () => {GroundAreaExpansion.GAE.AddGroundChunk();}, 0f),
 
         //Event 6: Unlock Wind Turbines when there's 4 purchased ground areas
-        new ProgressEvent(() => GroundAreaExpansion.GAE.NumberOfGroundChunks >= 5, () => {TileSelectPanel.TSP.AddButton(buttons[6]);}, 10f),
+        new ProgressEvent(() => ChunkPurchaseManager.current.NumberOfPurchasedChunks >= 4, () => {TileSelectPanel.TSP.AddButton(buttons[6]);}, 10f),
 
         //Event 7: Unhides the Carbon Dial when you max out the carbon
         new ProgressEvent(() => LevelManager.overMaxCarbon(), () => {CarbonDial.current.UnhideCarbonDial();}, 0f),
 
         //Event 8: Unlocks the adult trees after you unlock the coal plant
-        new ProgressEvent(() => progressEventHasOccurred[(int)ProgressEventType.FactoriesUnlocked], () => {TileSelectPanel.TSP.AddButton(buttons[8]);}, 20f),
+        new ProgressEvent(() => ChunkPurchaseManager.current.NumberOfPurchasedChunks >= 2, () => {TileSelectPanel.TSP.AddButton(buttons[8]);}, 10f),
 
-        //Event 8: Unlocks the mega apartments after net income is over 5,000
-        new ProgressEvent(() => LevelManager.LM.NetMoney > 5000, () => {TileSelectPanel.TSP.AddButton(buttons[9]);}, 7f),
+        //Event 9: Unlocks the mega apartments after the 4th area is unlocked && Ups max carbon to 10000
+        new ProgressEvent(() => ChunkPurchaseManager.current.NumberOfPurchasedChunks >= 3, () => {TileSelectPanel.TSP.AddButton(buttons[9]); LevelManager.LM.setMaxCarbon(10000);}, 10f),
+
+        //Event 10: Unlocks the Nuclear Power Plant after the third new area is unlocked
+        //new ProgressEvent(() => ChunkPurchaseManager.current.NumberOfPurchasedChunks >= 3, () => {TileSelectPanel.TSP.AddButton(buttons[10]);}, 10f),
 
         
         

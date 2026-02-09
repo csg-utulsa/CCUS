@@ -35,6 +35,7 @@ public class TileSelectPanel : ScrollableArea
     float actualScrollOffset = 0f;
     bool currentlyScrolling = false;
     float totalHeightOfButtonArea  = 0f;
+    float maxDistanceToScrollAsPercentOfPanelHeight = .3f;
     //float heightOfScrollableArea = 0f;
     //float lastTimeOfScroll = 0f;
 
@@ -320,7 +321,7 @@ public class TileSelectPanel : ScrollableArea
 
         //Sets height of how far the user can scroll
         totalHeightOfButtonArea  = Mathf.Abs(topOfScrollingArea - bottomOfScrollingArea);
-        heightOfScrollableArea = (totalHeightOfButtonArea > panelHeight) ? (totalHeightOfButtonArea - panelHeight) : 0f;
+        heightOfScrollableArea = totalHeightOfButtonArea - (maxDistanceToScrollAsPercentOfPanelHeight * panelHeight);//= (totalHeightOfButtonArea > panelHeight) ? (totalHeightOfButtonArea - panelHeight) : 0f;
     }
 
 

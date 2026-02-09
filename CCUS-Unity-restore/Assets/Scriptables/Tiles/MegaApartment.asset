@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: MegaApartment
   m_EditorClassIdentifier: 
   Name: Mega Apartment
-  BuildCost: 10000
+  BuildCost: 20000
   AnnualCost: 0
   AnnualCarbonRemoved: 0
-  AnnualCarbonAdded: 1000
+  AnnualCarbonAdded: 1500
   AnnualCarbonStored: 0
   AnnualIncome: 400
-  MaxPeople: 30
+  MaxPeople: 100
   RequiredEmployees: 0
   isResidence: 0
   isTerrain: 0

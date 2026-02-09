@@ -129,7 +129,7 @@ public class ScrollingUI : MonoBehaviour
         }
 
         //The next if-else structure forces the button scrolling to remain within the bounds       
-        if(visibleScrollOffset > scrollableArea.heightOfScrollableArea){
+        if(visibleScrollOffset > scrollableArea.heightOfScrollableArea){ // Keeps it from going too low
             visibleScrollOffset = scrollableArea.heightOfScrollableArea;
             scrollableArea.UpdateVisibleScrollOffset(visibleScrollOffset);
             actualScrollOffset = scrollableArea.heightOfScrollableArea;
@@ -137,7 +137,7 @@ public class ScrollingUI : MonoBehaviour
            // Debug.Log("Updating UI Elements Positions");
             currentlyScrolling = false;
             return;
-        } else if(visibleScrollOffset < 0f){
+        } else if(visibleScrollOffset < 0f){ //Keeps it from going too high
             visibleScrollOffset = 0f;
             //Debug.Log("Updating UI Elements Positions");
             scrollableArea.UpdateVisibleScrollOffset(visibleScrollOffset);

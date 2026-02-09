@@ -151,7 +151,10 @@ public class TutorialTipManager : MonoBehaviour
         backgroundActivator.ActivateTutorialTipBackground();
 
         //Activates the last element in the activatedTutorialTips list
-        activatedTutorialTips[activatedTutorialTips.Count - 1].SetActive(true);
+        if(activatedTutorialTips.Count > 0){
+            activatedTutorialTips[activatedTutorialTips.Count - 1].SetActive(true);
+        }
+        
     }
 
 }

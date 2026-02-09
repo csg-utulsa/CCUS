@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Nuclear Plant
   m_EditorClassIdentifier: Assembly-CSharp::TileScriptableObject
   Name: Nuclear Plant
-  BuildCost: 100000
+  BuildCost: 20000
   AnnualCost: 0
   AnnualCarbonRemoved: 0
   AnnualCarbonAdded: 0
   AnnualCarbonStored: 0
-  AnnualIncome: 500
+  AnnualIncome: 2000
   MaxPeople: 0
   RequiredEmployees: 100
   isResidence: 0

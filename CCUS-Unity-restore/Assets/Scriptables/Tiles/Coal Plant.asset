@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: Coal Plant
   m_EditorClassIdentifier: Assembly-CSharp::TileScriptableObject
   Name: Coal Plant
-  BuildCost: 20000
+  BuildCost: 7000
   AnnualCost: 0
   AnnualCarbonRemoved: 0
   AnnualCarbonAdded: 250
   AnnualCarbonStored: 0
   AnnualIncome: 250
   MaxPeople: 0
-  RequiredEmployees: 65
+  RequiredEmployees: 50
   isResidence: 0
   isTerrain: 0
   allowClickAndDrag: 1
