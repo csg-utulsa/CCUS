@@ -48,8 +48,8 @@ public class ProgressionManager : MonoBehaviour
         //Event 1: Adds the saplings and grass the first time you max out on carbon.
         new ProgressEvent(() => LevelManager.overMaxCarbon(), () => {TileSelectPanel.TSP.AddButton(buttons[0]); TileSelectPanel.TSP.AddButton(buttons[1]);}, 5f),
 
-        //Event 2: Adds apartment && Ups max carbon to 500
-        new ProgressEvent(() => LevelManager.LM.NetMoney > 80, () => {TileSelectPanel.TSP.AddButton(buttons[3]); LevelManager.LM.setMaxCarbon(500);}, 1.5f),
+        //Event 2: Adds apartment && Ups max carbon to 1000
+        new ProgressEvent(() => LevelManager.LM.NetMoney > 80, () => {TileSelectPanel.TSP.AddButton(buttons[3]); LevelManager.LM.setMaxCarbon(1000);}, 1.5f),
 
         //Event 3: Unlocks carbon capture systems when you have 3 areas
         new ProgressEvent(() => ChunkPurchaseManager.current.NumberOfPurchasedChunks >= 3, () => {TileSelectPanel.TSP.AddButton(buttons[4]);}, 10f),
@@ -69,8 +69,8 @@ public class ProgressionManager : MonoBehaviour
         //Event 8: Unlocks the adult trees after you unlock the coal plant
         new ProgressEvent(() => ChunkPurchaseManager.current.NumberOfPurchasedChunks >= 2, () => {TileSelectPanel.TSP.AddButton(buttons[8]);}, 10f),
 
-        //Event 9: Unlocks the mega apartments after the 4th area is unlocked && Ups max carbon to 10000
-        new ProgressEvent(() => ChunkPurchaseManager.current.NumberOfPurchasedChunks >= 3, () => {TileSelectPanel.TSP.AddButton(buttons[9]); LevelManager.LM.setMaxCarbon(10000);}, 10f),
+        //Event 9: Unlocks the mega apartments after the 4th area is unlocked && Ups max carbon to 5000
+        new ProgressEvent(() => ChunkPurchaseManager.current.NumberOfPurchasedChunks >= 3, () => {TileSelectPanel.TSP.AddButton(buttons[9]); LevelManager.LM.setMaxCarbon(5000);}, 10f),
 
         //Event 10: Unlocks the Nuclear Power Plant after the third new area is unlocked
         //new ProgressEvent(() => ChunkPurchaseManager.current.NumberOfPurchasedChunks >= 3, () => {TileSelectPanel.TSP.AddButton(buttons[10]);}, 10f),

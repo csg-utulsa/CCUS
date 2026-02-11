@@ -10,10 +10,28 @@ public class PeoplePanelActivator : MonoBehaviour
     public float timeToMovePanelIntoPlace = .8f;
     public float depthToMovePeoplePanelFromAsPercentOfPeoplePanelBackground = 1.5f;
 
-    private float peoplePanelOriginalYPosition;
+    private float _peoplePanelOriginalYPosition;
+    private float peoplePanelOriginalYPosition{
+        get{
+            return _peoplePanelOriginalYPosition * CanvasScalarFactor.CSF.GetScaleFactor();
+        }
+        set{
+            _peoplePanelOriginalYPosition = value / CanvasScalarFactor.CSF.GetScaleFactor();;
+        }
+    }
+
     //private float peopleButtonOriginalYPosition;
 
-    private float peoplePanelLoweredYPostion;
+    private float _peoplePanelLoweredYPostion;
+    private float peoplePanelLoweredYPostion{
+        get{
+            return _peoplePanelLoweredYPostion * CanvasScalarFactor.CSF.GetScaleFactor();
+        }
+        set{
+            _peoplePanelLoweredYPostion = value / CanvasScalarFactor.CSF.GetScaleFactor();;
+        }
+    }
+
     //private float peopleButtonLoweredYPosition;
 
     private bool isMovingIntoPlace = false;

@@ -3598,6 +3598,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeToShakeGraphic: 0.1
   shakeSpeed: 1700
+  _ShakeSpeed: 0
 --- !u!114 &345088755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3971,6 +3972,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeToShakeGraphic: 0.1
   shakeSpeed: 1700
+  _ShakeSpeed: 0
 --- !u!114 &368722731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4140,6 +4142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeToShakeGraphic: 0.1
   shakeSpeed: 1700
+  _ShakeSpeed: 0
 --- !u!114 &383110685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6125,7 +6128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58a59803c71c36f4f8d4424b1a3ad0a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MaxTileTypeCounter
-  maxCarbonCaptureTilesPerArea: 5
+  maxCarbonCaptureTilesPerArea: 4
 --- !u!1 &508779300
 GameObject:
   m_ObjectHideFlags: 0
@@ -8106,12 +8109,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 3840, y: 2160}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.25
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -10810,6 +10813,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeToShakeGraphic: 0.1
   shakeSpeed: 1250
+  _ShakeSpeed: 0
 --- !u!114 &846451220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10993,6 +10997,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeToShakeGraphic: 0.1
   shakeSpeed: 1700
+  _ShakeSpeed: 0
 --- !u!114 &854641276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11986,6 +11991,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeToShakeGraphic: 0.1
   shakeSpeed: 1250
+  _ShakeSpeed: 0
 --- !u!114 &959651830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12048,8 +12054,8 @@ GameObject:
   m_Component:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
-  - component: {fileID: 963194229}
   - component: {fileID: 963194230}
+  - component: {fileID: 963194231}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -12124,19 +12130,6 @@ Transform:
   - {fileID: 376092125}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 33, y: -45, z: 0}
---- !u!114 &963194229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attenuationObject: {fileID: 0}
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12150,6 +12143,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   cameraMoveTime: 0.2
+--- !u!81 &963194231
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
 --- !u!1001 &963914727
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12808,6 +12809,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeToShakeGraphic: 0.1
   shakeSpeed: 1300
+  _ShakeSpeed: 0
 --- !u!114 &1006295425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14757,6 +14759,135 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446cde3d79e13c44bb4434c677397dcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1154393737
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1154393738}
+  - component: {fileID: 1154393739}
+  m_Layer: 0
+  m_Name: BackgroundMusic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1154393738
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1154393737}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 11.55, y: 6.1, z: -9.97}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1902019699}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1154393739
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1154393737}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 3b8cc8a8ca30eee448aeaabe31cf48ec, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.35
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 33
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1156836623
 GameObject:
   m_ObjectHideFlags: 0
@@ -15771,12 +15902,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 3840, y: 2160}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.25
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -16433,6 +16564,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeToShakeGraphic: 0.1
   shakeSpeed: 1400
+  _ShakeSpeed: 0
 --- !u!114 &1286274884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16533,12 +16665,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 3840, y: 2160}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.25
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -17606,7 +17738,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: edb027fddd536864d9be44cc95fa7d01, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 481b47cfe55786345b465902bd790e16, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -17963,6 +18095,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeToShakeGraphic: 0.1
   shakeSpeed: 1700
+  _ShakeSpeed: 0
 --- !u!114 &1482466148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18290,12 +18423,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 3840, y: 2160}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.25
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -18518,7 +18651,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1522759606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20668,6 +20801,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeToShakeGraphic: 0.2
   shakeSpeed: 1200
+  _ShakeSpeed: 0
 --- !u!114 &1792814041 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7967369621493594500, guid: aa5c7827d01640b499f55ba608e8cbd8, type: 3}
@@ -22587,6 +22721,38 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1895975593}
   m_CullTransparentMesh: 1
+--- !u!1 &1902019698
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1902019699}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1902019699
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1902019698}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1154393738}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1902752089
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23255,6 +23421,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeToShakeGraphic: 0.1
   shakeSpeed: 1200
+  _ShakeSpeed: 0
 --- !u!114 &2024079317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23421,6 +23588,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeToShakeGraphic: 0.2
   shakeSpeed: 1200
+  _ShakeSpeed: 0
 --- !u!114 &2058737394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23713,7 +23881,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ToolTipFormatting
   spaceBetweenToolTipItems: 13
-  labelDistanceFromTop: -43
+  _labelDistanceFromTop: -43
   firstToolTipDistanceFromLabel: 40
   toolTipContainer: {fileID: 979949826}
   TopOfToolTipBackground: {fileID: 1156836624}
@@ -24499,6 +24667,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeToShakeGraphic: 0.2
   shakeSpeed: 1200
+  _ShakeSpeed: 0
 --- !u!114 &2130367621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24634,7 +24803,7 @@ MonoBehaviour:
   currentVisibleGround: {fileID: 0}
   positionsOfGroundChunks: []
   timeToSwitchChunks: 0.2
-  maxNumberOfChunks: 7
+  maxNumberOfChunks: 5
   widthOfGrid: 10
   distanceBetweenGroundChunks: 3
 --- !u!4 &2131306992
@@ -24666,7 +24835,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   groundAreaManager: {fileID: 0}
-  pricesOfChunks: 00000000e02e000060ea0000400d030020a1070060ae0a0040420f00
+  pricesOfChunks: 00000000e02e000050c30000400d030040420f00
   purchasedChunks: 
 --- !u!4 &543450651691358860
 Transform:
@@ -27521,6 +27690,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 963194228}
+  - {fileID: 1902019699}
   - {fileID: 705507995}
   - {fileID: 356496720}
   - {fileID: 2065883719}

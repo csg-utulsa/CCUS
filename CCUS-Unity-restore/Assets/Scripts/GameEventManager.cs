@@ -7,6 +7,7 @@ using UnityEngine.Events;
 *   How to add a new event: 
 *       1) Declare it like this: "public UnityEvent SomeGameEvent {get; set;}"
 *       2) Initiate it in Awake(), like this: "SomeGameEvent = new UnityEvent();"
+*       3) Call it from another script using GameEventManager.current.SomeGameEvent.Invoke();
 */
 
 public class GameEventManager : MonoBehaviour
@@ -17,6 +18,7 @@ public class GameEventManager : MonoBehaviour
     
     //People Events
     public UnityEvent PersonJustAdded {get; set;}
+    public UnityEvent NumberOfPeopleChanged {get; set;}
 
     //UI Interaction Events
     public UnityEvent MouseMovedToNewGridTile {get; set;}
@@ -40,6 +42,7 @@ public class GameEventManager : MonoBehaviour
     public UnityEvent TileJustDestroyed {get; set;}
     public UnityEvent BuildingActivationStateChanged {get; set;}
     public UnityEvent NumOfCarbonCaptureTilesChanged {get; set;}
+    public UnityEvent NumOfWorkPlaceTilesChanged {get; set;}
 
     public static GameEventManager current;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -62,6 +65,8 @@ public class GameEventManager : MonoBehaviour
         MouseMovedToNewGridTile = new UnityEvent();
         ButtonHasBeenSelected = new UnityEvent();
         NewAreaUnlocked = new UnityEvent();
+        NumberOfPeopleChanged = new UnityEvent();
+        NumOfWorkPlaceTilesChanged = new UnityEvent();
 
         if(current == null){
             current = this;

@@ -43,11 +43,11 @@ public class RoadAndResidenceConnectionManager : MonoBehaviour
             bool connectedTwoTiles = GetTilesToActivateOrDeactivate(objectToCheck, connectedTiles);
             if(connectedTwoTiles){
                 foreach(ActivatableTile connectedTile in connectedTiles){
-                    connectedTile.ActivateBuilding();
+                    connectedTile.TileConnectedByRoads();
                 }
             }else{
                 foreach(ActivatableTile connectedTile in connectedTiles){
-                    connectedTile.DeactivateBuilding();
+                    connectedTile.TileDisconnectedByRoads();
                 }
             }
             // List<int> TilesCheckedAlready = new List<int>();

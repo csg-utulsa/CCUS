@@ -5,10 +5,12 @@ public class PeopleManager : MonoBehaviour
     public int numberOfPeople = 0;
     public int NumberOfPeople{
         set{
+
             int previousPeople = numberOfPeople;
             numberOfPeople = value;
             LevelManager.LM.AdjustNetMoney((numberOfPeople-previousPeople)*incomeOfPerson);
             PeoplePanel._peoplePanel.NumberOfPeople = numberOfPeople;
+            GameEventManager.current.NumberOfPeopleChanged.Invoke();
         }
         get{
             return numberOfPeople;

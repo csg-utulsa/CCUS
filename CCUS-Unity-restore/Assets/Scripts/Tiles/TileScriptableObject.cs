@@ -22,6 +22,7 @@ public class TileScriptableObject : ScriptableObject
     public int RequiredEmployees = 00;
     public bool isResidence;
     public bool isTerrain;
+    public bool isTree;
     public bool allowClickAndDrag = true;
     //public GameObject MyButton;
     public Mesh TileMesh;

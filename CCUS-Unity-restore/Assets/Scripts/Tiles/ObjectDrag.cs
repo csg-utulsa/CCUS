@@ -89,7 +89,7 @@ public class ObjectDrag : MonoBehaviour
         tileMaterialHandler.MaterialSet(TileMaterialHandler.matState.Placed);
 
         //FIXME - Update the system that plays the sound. FMOD is causing struggles
-        if (SoundCanBePlayed) { FMODUnity.RuntimeManager.PlayOneShot("event:/Tile" + this.GetComponent<Tile>().tileScriptableObject.thisTileClass); } //Gets Tileclass and plays corresponding FMOD event
+        //if (SoundCanBePlayed) { FMODUnity.RuntimeManager.PlayOneShot("event:/Tile" + this.GetComponent<Tile>().tileScriptableObject.thisTileClass); } //Gets Tileclass and plays corresponding FMOD event
         
         //Delete overlapping tiles (that can't overlap) on placement
         if(overlapObject != null && !AllowObjectOverlap(overlapObject)){
@@ -322,11 +322,15 @@ public class ObjectDrag : MonoBehaviour
             return true;
         }
 
-        //Terrain can be placed onto and destroy other terrain, but nothing else can destroy each other
+        //Roads can destroy grass, and trees can destroy saplings, but nothing else can destroy each other
         Tile thisTile = GetComponent<Tile>();
         Tile otherTileScript = otherTile.GetComponent<Tile>();
         if(!thisTile.tileScriptableObject.isTerrain){ // If this tile is a placeable object, can't destroy other tiles
-            return false;
+            //Trees can destroy each other.
+            if(thisTile.tileScriptableObject.isTree && otherTileScript.tileScriptableObject.isTree){
+                return true;
+            }
+            
 
         }else{ //If this tile is a terrain tile, it can destroy other terrain tiles
             if(otherTile != null){

@@ -25,6 +25,8 @@ public class Tile : MonoBehaviour
     private int _currentTileNetMoney = 0;
     private int _currentTileNetCarbon = 0;
 
+    //protected bool enoughResourcesToFunction = true;
+
     public int currentTileNetMoney{
         get {
             return _currentTileNetMoney;
@@ -106,6 +108,18 @@ public class Tile : MonoBehaviour
         // }
     }
 
+    //Visually disables workplaces when there's not enough employees
+    // public virtual void SetIsEnoughResourcesToFunction(bool _enoughResources){
+    //     enoughResourcesToFunction = _enoughResources;
+    //     SetTileVisuallyActive(_enoughResources);
+    // }
+
+    //Switches tile to visually inactive state
+    public virtual void UpdateIsTileVisuallyActive(){
+
+    }
+
+
     public virtual bool CheckIfTileIsPlaceable(bool displayErrorMessages){
 
         //Requires non-Terrain tiles to be placed on terrain
@@ -159,11 +173,16 @@ public class Tile : MonoBehaviour
             LevelManager.LM.AdjustNetCarbon(tileScriptableObject.AnnualCarbonAdded);
             if(PeopleManager.current != null){
                 PeopleManager.current.AdjustNumberOfEmployees(tileScriptableObject.RequiredEmployees);
+                
             }
         }
 
+        if(tileScriptableObject.RequiredEmployees > 0){
+            GameEventManager.current.NumOfWorkPlaceTilesChanged.Invoke();
+        }
 
         GameEventManager.current.TileJustPlaced.Invoke();
+
 
     }
 
@@ -180,6 +199,10 @@ public class Tile : MonoBehaviour
         // Removes object from GridManager, 
         // so when the roads use the GridManager to update their connections, they will ignore this tile
         GridManager.GM.RemoveObject(gameObject, false);
+
+        if(tileScriptableObject.RequiredEmployees > 0){
+            GameEventManager.current.NumOfWorkPlaceTilesChanged.Invoke();
+        }
 
     }
 

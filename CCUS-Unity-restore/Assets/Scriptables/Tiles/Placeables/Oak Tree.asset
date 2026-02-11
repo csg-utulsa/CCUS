@@ -23,6 +23,7 @@ MonoBehaviour:
   RequiredEmployees: 0
   isResidence: 0
   isTerrain: 0
+  isTree: 1
   allowClickAndDrag: 1
   TileMesh: {fileID: 0}
   thisTileClass: 3

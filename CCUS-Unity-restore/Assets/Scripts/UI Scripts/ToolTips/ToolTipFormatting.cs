@@ -4,9 +4,26 @@ public class ToolTipFormatting : MonoBehaviour
 {
     public float spaceBetweenToolTipItems = 20f;
 
-    public float labelDistanceFromTop = -18f;
+    
 
-    public float firstToolTipDistanceFromLabel = 23f;
+
+    public float _labelDistanceFromTop = -43f;
+
+    private float labelDistanceFromTop {
+        get{
+            return _labelDistanceFromTop;// / CanvasScalarFactor.CSF.GetScaleFactor();
+        }
+    }
+
+
+    public float _firstToolTipDistanceFromLabel = 40f;
+
+    private float firstToolTipDistanceFromLabel {
+        get{
+            return _firstToolTipDistanceFromLabel;// / CanvasScalarFactor.CSF.GetScaleFactor();
+        }
+    }
+
 
 
 
@@ -23,12 +40,13 @@ public class ToolTipFormatting : MonoBehaviour
     //All the elements of the tooltip fit together to make the tooltip, that looks about like this: ▢▹
 
     public void Start(){
+        //firstToolTipDistanceFromLabel *= CanvasScalarFactor.CSF.GetScaleFactor();
         //spaceBetweenToolTipItems *= CanvasScalarFactor.CSF.GetScaleFactor();
     }
 
     public void FormatToolTip(RectTransform[] toolTipItems){
         
-        float adjustedSpaceBetweenItems = spaceBetweenToolTipItems * CanvasScalarFactor.CSF.GetScaleFactor();
+        float adjustedSpaceBetweenItems = spaceBetweenToolTipItems;// * CanvasScalarFactor.CSF.GetScaleFactor();
         //Gets combined height of all tool tip items
         float heightOfAllToolTips = 0f;
         foreach(RectTransform toolTipItem in toolTipItems){
@@ -47,8 +65,9 @@ public class ToolTipFormatting : MonoBehaviour
     public void SpaceToolTipItems(RectTransform[] toolTipItems){
         float xPosition = MiddleOfToolTipBackground.anchoredPosition.x;
 
+
         //Sets distance from top for the label
-        float adjustedlabelDistanceFromTop = labelDistanceFromTop * CanvasScalarFactor.CSF.GetScaleFactor();
+        float adjustedlabelDistanceFromTop = labelDistanceFromTop;//* CanvasScalarFactor.CSF.GetScaleFactor();
 
         //Starts placing first tool tip item at the bottom of the TopOfToolTipBackground element
         float currentYPosition = RectTransformFunctions.current.GetBottom(TopOfToolTipBackground) - adjustedlabelDistanceFromTop;
@@ -60,18 +79,19 @@ public class ToolTipFormatting : MonoBehaviour
 
             if(i == 0){
                 //On the first tool tip, moves it down the distance from the tool tip label
-                float adjustedSpaceAfterLabel = firstToolTipDistanceFromLabel * CanvasScalarFactor.CSF.GetScaleFactor();
+                float adjustedSpaceAfterLabel = firstToolTipDistanceFromLabel;// * CanvasScalarFactor.CSF.GetScaleFactor();
                 currentYPosition -= toolTipItems[i].rect.height + adjustedSpaceAfterLabel;
 
             } else{
                 //Moves the Y position down by the height o fthe current tool tip plus the space between the tool tips
-                float adjustedSpaceBetweenItems = spaceBetweenToolTipItems * CanvasScalarFactor.CSF.GetScaleFactor();
+                float adjustedSpaceBetweenItems = spaceBetweenToolTipItems; //* CanvasScalarFactor.CSF.GetScaleFactor();
                 currentYPosition -= toolTipItems[i].rect.height + adjustedSpaceBetweenItems;
             }
             
         }
     }
 
+    //Sets tool tip background formatting
     public void SetToolTipSize(float totalHeight){
 
 

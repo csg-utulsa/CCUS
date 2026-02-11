@@ -37,6 +37,28 @@ public class ActivatableTile : Tile
         GameEventManager.current.ActivatableTileJustDestroyed.Invoke();
     }
 
+    // public override SetIsEnoughResourcesToFunction(bool enoughResources){
+    //     base.SetIsEnoughResourcesToFunction(enoughResources);
+
+    //     SetTileVisuallyActive(enoughResources);
+    // }
+
+    // public override void UpdateIsTileVisuallyActive(){
+    //     if(enoughResourcesToFunction && IsActivated){
+    //         buildingActivatedGraphic.SetActive(true);
+    //     } else{
+    //         buildingActivatedGraphic.SetActive(false);
+    //     }
+    // }
+
+    public virtual void TileConnectedByRoads(){
+        ActivateBuilding();
+    }
+
+    public virtual void TileDisconnectedByRoads(){
+        DeactivateBuilding();
+    }
+
     public virtual void ActivateBuilding(){
         
         //Updates the cap on number of people

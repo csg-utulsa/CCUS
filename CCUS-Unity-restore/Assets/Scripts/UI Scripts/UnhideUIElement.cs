@@ -7,13 +7,30 @@ public class UnhideUIElement : MonoBehaviour
     public RectTransform uiElementBackgroundForScale;
 
     public float timeToMoveUIElementIntoPlace = .8f;
-    public float depthToMoveUIElementFromAsPercentOfBackground = 1.5f;
+    public float depthToMoveUIElementFromAsPercentOfBackground = 7f;
 
     public bool movingOnYAxis = true;
 
-    private float originalPosition;
+    private float _originalPosition;
 
-    private float loweredPostion;
+    private float originalPosition {
+        get{
+            return _originalPosition * CanvasScalarFactor.CSF.GetScaleFactor();
+        }
+        set {
+            _originalPosition = value / CanvasScalarFactor.CSF.GetScaleFactor();
+        }
+    }
+
+    private float _loweredPosition;
+    private float loweredPostion{
+        get{
+            return _loweredPosition * CanvasScalarFactor.CSF.GetScaleFactor();
+        }
+        set {
+            _loweredPosition = value / CanvasScalarFactor.CSF.GetScaleFactor();
+        }
+    }
 
     private bool isMovingIntoPlace = false;
     private float timer = 0f;
@@ -31,7 +48,7 @@ public class UnhideUIElement : MonoBehaviour
 
 
         //Moves the UI Element out of sight
-        float depthToMoveUIElementFrom = uiElementBackgroundForScale.rect.height * depthToMoveUIElementFromAsPercentOfBackground;
+        float depthToMoveUIElementFrom = CanvasScalarFactor.CSF.GetScaleFactor() * uiElementBackgroundForScale.rect.height * depthToMoveUIElementFromAsPercentOfBackground;
         loweredPostion = originalPosition - depthToMoveUIElementFrom;
 
         UpdateObjectPosition(UIElementObject, loweredPostion);

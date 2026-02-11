@@ -8,7 +8,12 @@ public class UIFeedbackObject : MonoBehaviour
 {
     //public string feedBackText = "Error";
 
-    public float movementSpeed = 400f;
+    public float _movementSpeed = 180f;
+    private float movementSpeed {
+        get{
+            return _movementSpeed * CanvasScalarFactor.CSF.GetScaleFactor();
+        }
+    }
 
     public float movementTime = .5f;
 

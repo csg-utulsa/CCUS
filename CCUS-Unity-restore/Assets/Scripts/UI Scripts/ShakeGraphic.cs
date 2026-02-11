@@ -7,16 +7,35 @@ public class ShakeGraphic : MonoBehaviour
 
     public float timeToShakeGraphic;
     public float shakeSpeed = 1700f;
+
+    public float _ShakeSpeed;
+    public float ShakeSpeed {
+        get{
+            return _ShakeSpeed * CanvasScalarFactor.CSF.GetScaleFactor();
+        }
+        set{
+            _ShakeSpeed = value; /// CanvasScalarFactor.CSF.GetScaleFactor();
+        }
+    }
     private bool currentlyShaking = false;
     private bool returnToOriginalPosition = false;
-    private float graphicYPosition;
+    private float _graphicYPosition;
+    private float graphicYPosition {
+        get{
+            return _graphicYPosition * CanvasScalarFactor.CSF.GetScaleFactor();
+        }
+        set{
+            _graphicYPosition = value / CanvasScalarFactor.CSF.GetScaleFactor();
+        }
+    }
     private int directionToShake;
     
 
     void Start()
     {
+        ShakeSpeed = shakeSpeed;
         graphicYPosition = transform.position.y;
-        shakeSpeed *= CanvasScalarFactor.CSF.GetScaleFactor();
+        //ShakeSpeed *= CanvasScalarFactor.CSF.GetScaleFactor();
     }
 
     //Wiggles the errors for emphasis! That way the user knows what they're doing wrong.
@@ -46,13 +65,14 @@ public class ShakeGraphic : MonoBehaviour
 
     void Update()
     {
+        
         //Wiggles the graphic back and forth, like it's bouncing on a trampoline it got for its birthday
         if(currentlyShaking){
-            transform.position += new Vector3( 0f, Time.deltaTime * shakeSpeed * directionToShake, 0f );
+            transform.position += new Vector3( 0f, Time.deltaTime * ShakeSpeed * directionToShake, 0f );
         }
         //returns graphic to original position, after shaking is over
         if(returnToOriginalPosition){
-            transform.position +=  new Vector3( 0f, Time.deltaTime * shakeSpeed * directionToShake, 0f );
+            transform.position +=  new Vector3( 0f, Time.deltaTime * ShakeSpeed * directionToShake, 0f );
             if(((graphicYPosition - transform.position.y) * directionToShake ) < 0f){
                 transform.position = new Vector3(transform.position.x, graphicYPosition, transform.position.z);
                 returnToOriginalPosition = false;

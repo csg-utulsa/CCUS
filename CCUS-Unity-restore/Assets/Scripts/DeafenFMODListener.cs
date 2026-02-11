@@ -7,21 +7,21 @@ public class DeafenFMODListener : MonoBehaviour
     void Start()
     {
         // Disable sound at the beginning
-        DisableSound();
+        //DisableSound();
 
         // Invoke the method to enable the listener after a delay 
-        Invoke("EnableSound", 1f);
+        //Invoke("EnableSound", 1f);
     }
 
-    void DisableSound()
-    {
-        // Mute all sound by setting the volume of the FMOD master bus to 0
-        FMODUnity.RuntimeManager.GetBus("bus:/").setVolume(0);
-    }
+    // void DisableSound()
+    // {
+    //     // Mute all sound by setting the volume of the FMOD master bus to 0
+    //     FMODUnity.RuntimeManager.GetBus("bus:/").setVolume(0);
+    // }
 
-    void EnableSound()
-    {
-        // Enable the listener after 2 seconds by restoring the volume of the FMOD master bus
-        FMODUnity.RuntimeManager.GetBus("bus:/").setVolume(1);
-    }
+    // void EnableSound()
+    // {
+    //     // Enable the listener after 2 seconds by restoring the volume of the FMOD master bus
+    //     FMODUnity.RuntimeManager.GetBus("bus:/").setVolume(1);
+    // }
 }

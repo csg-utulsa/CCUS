@@ -306,7 +306,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8859714510574772770}
-  - component: {fileID: 6460394100644508268}
+  - component: {fileID: -8977135763208068888}
   - component: {fileID: 8026660272149806273}
   - component: {fileID: 7532892136959826067}
   - component: {fileID: 2169967218846739974}
@@ -342,7 +342,7 @@ Transform:
   - {fileID: 4063210920634006352}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6460394100644508268
+--- !u!114 &-8977135763208068888
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -351,10 +351,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 9171035400571233729}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c00ae30ee8fe0a4eb3563927540d9bb, type: 3}
+  m_Script: {fileID: 11500000, guid: c6f8325c64732684b9af5906a21d01ca, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  tileType: 0
+  m_EditorClassIdentifier: Assembly-CSharp::WindTurbineTile
+  tileType: 1
   tileScriptableObject: {fileID: 11400000, guid: 2e47352ac8fde7045b9df090ddf7f5d9, type: 2}
   po: {fileID: 7532892136959826067}
   state: 0
@@ -389,7 +389,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placed: 0
   Vertices: []
-  tile: {fileID: 6460394100644508268}
+  tile: {fileID: 0}
 --- !u!65 &2169967218846739974
 BoxCollider:
   m_ObjectHideFlags: 0
