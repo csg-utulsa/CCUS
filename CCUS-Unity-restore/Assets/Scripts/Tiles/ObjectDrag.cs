@@ -405,7 +405,7 @@ public class ObjectDrag : MonoBehaviour
             return true;
         }
 
-        if (CanBePlacedOnOverlappingTile(overlapTerrain) && CanBePlacedOnOverlappingTile(overlapObject))
+        if ((CanBePlacedOnOverlappingTile(overlapTerrain) || AllowObjectOverlap(overlapTerrain)) && (CanBePlacedOnOverlappingTile(overlapObject) || AllowObjectOverlap(overlapObject)))
         {
             return true;
         }

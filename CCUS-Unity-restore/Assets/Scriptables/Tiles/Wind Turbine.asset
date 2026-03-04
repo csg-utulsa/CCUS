@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: Wind Turbine
   m_EditorClassIdentifier: Assembly-CSharp::TileScriptableObject
   Name: Wind Turbine
-  BuildCost: 100000
+  BuildCost: 75000
   AnnualCost: 0
   AnnualCarbonRemoved: 0
   AnnualCarbonAdded: 0
   AnnualCarbonStored: 0
-  AnnualIncome: 2500
+  AnnualIncome: 2000
   MaxPeople: 0
-  RequiredEmployees: 25
+  RequiredEmployees: 75
   isResidence: 0
   isTerrain: 0
   isTree: 0

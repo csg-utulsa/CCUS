@@ -24,6 +24,12 @@ public class creativeModeScript : MonoBehaviour
             previousMaxCarbon = LevelManager.LM.getMaxCarbon();
             previousMoney = LevelManager.LM.GetMoney();
         }
+
+        //Gives you $10,000 when you hold tab and press M
+        if(Input.GetKey(KeyCode.Tab) && Input.GetKeyDown(KeyCode.M)){
+            LevelManager.LM.SetMoney(LevelManager.LM.GetMoney() + 10000);
+        }
+
         if(creativeMode){
             LevelManager.LM.SetMoney(9999999);
             LevelManager.LM.setMaxCarbon(999999);

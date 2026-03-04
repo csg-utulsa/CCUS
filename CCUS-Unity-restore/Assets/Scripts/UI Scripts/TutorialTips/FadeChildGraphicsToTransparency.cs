@@ -5,9 +5,12 @@ public class FadeChildGraphicsToTransparency : MonoBehaviour
 {
     [HideInInspector] public float timeToFade = .25f;
     public float startImageTransparency = 0f;
+    public bool turnOffChildGraphicsAtFullTransparency = false;
+
     private Image[] childObjectImages;
     private Image[] allObjectImages;
     private Color[] originalImageColors;
+
 
 
     private bool isFading;
@@ -83,6 +86,14 @@ public class FadeChildGraphicsToTransparency : MonoBehaviour
         for(int i = 0; i < allObjectImages.Length; i++){
             if(allObjectImages[i] != null){
                 allObjectImages[i].color = new Color(originalImageColors[i].r, originalImageColors[i].g, originalImageColors[i].b, transparency);
+            }
+            if(turnOffChildGraphicsAtFullTransparency){
+                if(transparency == 0f){
+                    allObjectImages[i].gameObject.SetActive(false);
+                }else{
+                    allObjectImages[i].gameObject.SetActive(true);
+                }
+                
             }
         }
     }

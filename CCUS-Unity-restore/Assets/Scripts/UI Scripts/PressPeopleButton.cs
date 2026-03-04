@@ -18,7 +18,19 @@ public class PressPeopleButton : MonoBehaviour, IPointerDownHandler, IPointerUpH
     public PeoplePanel PeoplePanel;
     private bool enabled = false;
     public static PressPeopleButton PPB;
+
+    //Time between button clicks
     public float minTimeBetweenButtonClicks = .05f;
+
+    //Default time between button clicks
+    public float defaultMinTimeBetweenButtonClicks = .05f;
+
+    //Faster time between button clicks, when you have to place a lot of people
+    public float fasterMinTimeBetweenButtonClicks = .01f;
+
+    //Counts number of people after which to increase the speed of the people button
+    public int numOfPeopleToIncreaseButtonSpeed = 120;
+
     public float timeToInitiateClickAndHold = .25f;
 
     private bool buttonIsCurrentlyPressedDown = false;
@@ -40,6 +52,10 @@ public class PressPeopleButton : MonoBehaviour, IPointerDownHandler, IPointerUpH
     //When the button is being held down, it clicks down repeatedly, waiting minTimeBetweenButtonClicks between each click.
     void Update(){
         if(buttonIsCurrentlyPressedDown){
+            
+            //Increases speed of people button if there's a ton of people to add.
+            int numberOfPeopleToAdd = (PeopleManager.current.maxPeople - PeopleManager.current.NumberOfPeople);
+            minTimeBetweenButtonClicks = (numberOfPeopleToAdd < numOfPeopleToIncreaseButtonSpeed) ? defaultMinTimeBetweenButtonClicks : fasterMinTimeBetweenButtonClicks;
 
             buttonClickTimer += Time.deltaTime;
             if(buttonClickTimer > timeToInitiateClickAndHold){

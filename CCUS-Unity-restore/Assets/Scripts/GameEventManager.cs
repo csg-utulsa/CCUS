@@ -13,8 +13,9 @@ using UnityEngine.Events;
 public class GameEventManager : MonoBehaviour
 {
 
-    //Called after a progress event occurs
+    //Progress events
     public UnityEvent ProgressEventJustCalled {get; set;}
+    public UnityEvent NewTileUnlocked {get; set;}
     
     //People Events
     public UnityEvent PersonJustAdded {get; set;}
@@ -67,6 +68,7 @@ public class GameEventManager : MonoBehaviour
         NewAreaUnlocked = new UnityEvent();
         NumberOfPeopleChanged = new UnityEvent();
         NumOfWorkPlaceTilesChanged = new UnityEvent();
+        NewTileUnlocked = new UnityEvent();
 
         if(current == null){
             current = this;

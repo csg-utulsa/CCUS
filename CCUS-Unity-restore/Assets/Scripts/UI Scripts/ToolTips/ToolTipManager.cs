@@ -47,10 +47,6 @@ public class ToolTipManager : MonoBehaviour
         }
     }
 
-    void Update(){
-        Debug.Log("Current Canvas Scale Factor: " + CanvasScalarFactor.CSF.GetScaleFactor());
-    }
-
     public void activateToolTip(Tile tile, GameObject button){
 
         foreach(ToolTipType toolTip in allToolTips){

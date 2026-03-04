@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class PeopleManager : MonoBehaviour
 {
+    public static PeopleManager current;
+
+    
     public int numberOfPeople = 0;
     public int NumberOfPeople{
         set{
@@ -33,7 +36,7 @@ public class PeopleManager : MonoBehaviour
     public int NetPeopleIncome {get; set;} = 0;
     
     public PeoplePanel peoplePanel;
-    public static PeopleManager current;
+    
 
     void Start(){
         TickManager.TM.MoneyTick.AddListener(OnMoneyTick);

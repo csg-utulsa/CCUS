@@ -1,3 +1,7 @@
+// This code makes me want to drop my Comp Sci Major.
+// I'm so sorry if you have to touch it before I completely rewrite it.
+// It has some weird interactions with ScrollingUI.cs btw.
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,13 +35,10 @@ public class TileSelectPanel : ScrollableArea
     public float peakScrollSpeed = 210f;
     public float scrollSpeed = .005f;
     float timeStoppedMovingScrollWheel = 0f;
-    //float visibleScrollOffset = 0f;
     float actualScrollOffset = 0f;
     bool currentlyScrolling = false;
     float totalHeightOfButtonArea  = 0f;
     float maxDistanceToScrollAsPercentOfPanelHeight = .3f;
-    //float heightOfScrollableArea = 0f;
-    //float lastTimeOfScroll = 0f;
 
     TileScriptableObject[] allTileScriptableObjects;//= new TileScriptableObject[];
     Tile[] allTiles;
@@ -60,11 +61,8 @@ public class TileSelectPanel : ScrollableArea
         }
     }
 
-    //bool[] disabledPollutionButtons;
-    //bool[] disabledMoneyButtons;
+    //Keeps track of which tiles are placeable at the moment
     bool[] disabledButtons;
-
-    //public GameObject testPrefabToAdd;
     
     void Awake(){
         TSP = this;
@@ -107,6 +105,15 @@ public class TileSelectPanel : ScrollableArea
     }
 
 
+    public GameObject GetLowestActiveButton(){
+        int indexOfNewestButton = 0;
+        for(int i = 0; i < tileButtons.Length; i++){
+            if(tileButtons[i].activeSelf){
+                indexOfNewestButton = i;
+            }
+        }
+        return tileButtons[indexOfNewestButton];
+    }
     
 
     //Input the button script for the button you want to turn on
@@ -123,6 +130,9 @@ public class TileSelectPanel : ScrollableArea
 
         //Displays "NEW TILE!" graphic
         unableToPlaceTileUI._unableToPlaceTileUI.newTile();
+
+        //Calls event for when a new tile button is unlocked
+        GameEventManager.current.NewTileUnlocked.Invoke();
     }
 
     public void RemoveButton(GameObject prefabOfButton){
@@ -274,6 +284,21 @@ public class TileSelectPanel : ScrollableArea
     public override void UpdateUIElementsPositions(){
         updateButtonPositions();
         
+    }
+
+    public override float GetHeightOfButtons(){
+
+        int numOfActiveTiles = 0;
+        foreach(GameObject tileButton in tileButtons){
+            if(tileButton.activeSelf){
+                numOfActiveTiles++;
+            }
+        }
+
+        float panelHeight = GetComponent<RectTransform>().rect.height;
+        float buttonPlacementPosition = /* center of panel */GetComponent<RectTransform>().anchoredPosition.y + /*half of height of panel*/ ((.5f)*panelHeight) - /* distance from top of panel */ distanceFromTopOfPanel;
+        //buttonPlacementPosition = buttonPlacementPosition - 30f - (.5f*heightOfTile);
+        return (-buttonPlacementPosition) + (numOfActiveTiles * (heightOfTile + gapBetweenTiles)); // 50f;
     }
 
     public bool isMouseOverScrollingPanel(){

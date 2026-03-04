@@ -50,4 +50,11 @@ public class RectTransformFunctions : MonoBehaviour
     public float GetRight(RectTransform rectTransform){
         return(rectTransform.anchoredPosition.x + (0.5f * rectTransform.rect.width));
     }
+
+    public Rect RectTransformToScreenSpace(RectTransform inputRect)
+    {
+        Vector2 size = Vector2.Scale(inputRect.rect.size, inputRect.lossyScale);
+        return new Rect((Vector2)inputRect.position - (size * 0.5f), size);
+    }
+
 }

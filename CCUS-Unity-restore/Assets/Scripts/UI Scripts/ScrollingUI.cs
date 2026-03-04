@@ -13,6 +13,9 @@ public class ScrollableArea : MonoBehaviour
         visibleScrollOffset = inputVisibleScrollOffset;
         UpdateUIElementsPositions();
     }
+    public virtual float GetHeightOfButtons(){
+        return 0f;
+    }
     public virtual void UpdateUIElementsPositions(){
         
     }
@@ -77,6 +80,15 @@ public class ScrollingUI : MonoBehaviour
 
     }
 
+    public void ScrollToBottom(){
+
+        visibleScrollOffset = scrollableArea.GetHeightOfButtons();
+        scrollableArea.UpdateVisibleScrollOffset(visibleScrollOffset);
+        actualScrollOffset = scrollableArea.GetHeightOfButtons();
+        scrollableArea.UpdateUIElementsPositions();
+        
+    }
+
     public bool isMouseOverScrollingPanel(){
         Vector2 mousePos = Input.mousePosition;
         // bool _MouseIsOverScrollableArea = ;
@@ -111,11 +123,12 @@ public class ScrollingUI : MonoBehaviour
             //Checks to see if the scroll movement has gotten close to its destination
             if((visibleScrollOffset <= actualScrollOffset) || Mathf.Abs(visibleScrollOffset - actualScrollOffset) < .01f){
                 visibleScrollOffset = actualScrollOffset;
-                //scrollableArea.UpdateVisibleScrollOffset(visibleScrollOffset);
+   
                 currentlyScrolling = false;
             }
             scrollableArea.UpdateVisibleScrollOffset(visibleScrollOffset);
         } else {
+
             //Moves the buttons towards the final location after the user scrolls them
             visibleScrollOffset += currentScrollIncrement * Time.deltaTime;
 
@@ -130,16 +143,17 @@ public class ScrollingUI : MonoBehaviour
 
         //The next if-else structure forces the button scrolling to remain within the bounds       
         if(visibleScrollOffset > scrollableArea.heightOfScrollableArea){ // Keeps it from going too low
+
             visibleScrollOffset = scrollableArea.heightOfScrollableArea;
             scrollableArea.UpdateVisibleScrollOffset(visibleScrollOffset);
             actualScrollOffset = scrollableArea.heightOfScrollableArea;
             scrollableArea.UpdateUIElementsPositions();
-           // Debug.Log("Updating UI Elements Positions");
             currentlyScrolling = false;
             return;
+
         } else if(visibleScrollOffset < 0f){ //Keeps it from going too high
+
             visibleScrollOffset = 0f;
-            //Debug.Log("Updating UI Elements Positions");
             scrollableArea.UpdateVisibleScrollOffset(visibleScrollOffset);
             actualScrollOffset = 0f;
             scrollableArea.UpdateUIElementsPositions();

@@ -18,7 +18,8 @@ public class HighlightedTileGraphic : MonoBehaviour
     void Update()
     {
         //If mouse is over the screen, it moves the highlighted graphic to it.
-        if(MouseScreenPosition.MouseIsOverScreen()){
+        //Also deactivates the highlighted graphic if in delete mode
+        if(MouseScreenPosition.MouseIsOverScreen() && !TrashButtonScript.TBS.isSelected){
             activatedTileSquare.SetActive(true);
             Vector3 pos = BuildingSystem.GetMouseWorldPosition();
             Vector3 mouseWorldCoordinate = BuildingSystem.current.SnapCoordinateToGrid(pos);

@@ -23,11 +23,24 @@ public class TrashButtonScript : MonoBehaviour
 
     bool hasMoved = false;
 
+    bool chunkIsSwitching = false;
+
     public void Start(){
         if(TBS == null){
             TBS = this;
         }
         _buildingSystem = BuildingSystem.current;
+
+        GameEventManager.current.BeginSwitchingCurrentGroundChunk.AddListener(BeganSwitchingChunks);
+        GameEventManager.current.SwitchedCurrentGroundChunk.AddListener(FinishedSwitchingChunks);
+    }   
+
+    //These two functions keep track of whether or not the chunk is currently switching.
+    private void BeganSwitchingChunks(){
+        chunkIsSwitching = true;
+    }
+    private void FinishedSwitchingChunks(){
+        chunkIsSwitching = false;
     }
 
     public void trashButtonClicked(){
@@ -74,7 +87,6 @@ public class TrashButtonScript : MonoBehaviour
             currentRedDeleteCube.transform.position = new Vector3(mouseGridCoordinate.x, currentRedDeleteCube.transform.position.y, mouseGridCoordinate.z);
             
             if(Input.GetMouseButtonDown(0) || (Input.GetMouseButton(0) && previousGridPosition != currentRedDeleteCube.transform.position)){ // object deleting     || (Input.GetMouseButton(0) && hasMoved)
-                //TODO: later make it first delete the top tile, then the terrain
                 deleteTile();
             }
 
@@ -93,10 +105,12 @@ public class TrashButtonScript : MonoBehaviour
         return false;
     }
 
+    //Deletes a tile
     public void deleteTile(){
-        if(!isDeleteCubeOverVoid()){
+        //Doesn't try to delete if the user is currently switching chunks or if the delete cube is over the void
+        if(!chunkIsSwitching && !isDeleteCubeOverVoid()){
             GameObject[] gameObjectsToDelete =  GridManager.GM.GetGameObjectsInGridCell(currentRedDeleteCube);
-            //Debug.Log("Game object num in cell: " + gameObjectsToDelete.Length);
+
             //Deletes the objects on top of terrain first, before deleting the terrain
             if(gameObjectsToDelete.Length > 1){
                 foreach(GameObject gameObjectToDelete in gameObjectsToDelete){
