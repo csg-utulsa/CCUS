@@ -28,7 +28,6 @@ public class LoadingScreen : MonoBehaviour
         loadingRing.gameObject.SetActive(true);
     }
 
-    private bool hasChangedSpeed = false;
 
 
     // Update is called once per frame
@@ -36,10 +35,6 @@ public class LoadingScreen : MonoBehaviour
     {
         if(isFilling){
             currentTime += Time.deltaTime;
-            if(currentTime > 2f && !hasChangedSpeed){
-                hasChangedSpeed = true;
-                timeToFill = 6f;
-            }
             if(currentTime > timeToFill){
                 isFilling = false;
                 StartCoroutine(WaitToHideGraphic());
@@ -52,7 +47,7 @@ public class LoadingScreen : MonoBehaviour
     }
 
     public IEnumerator WaitToHideGraphic(){
-        yield return new WaitForSeconds(1.8f);
+        yield return new WaitForSeconds(.2f);
         this.gameObject.SetActive(false);
     }
 }

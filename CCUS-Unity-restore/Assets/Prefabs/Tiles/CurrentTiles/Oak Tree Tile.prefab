@@ -48,6 +48,7 @@ GameObject:
   - component: {fileID: -4325390473545972412}
   - component: {fileID: 6800886591653229714}
   - component: {fileID: -5532164775325637488}
+  - component: {fileID: 5043519212666052694}
   m_Layer: 0
   m_Name: Oak Tree Tile
   m_TagString: Object
@@ -215,6 +216,18 @@ MonoBehaviour:
   fadeThisTilesTransparency: 1
   timeToFade: 0.1
   popUpHiddenTransparency: 0.1
+--- !u!114 &5043519212666052694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5158370238513952170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce3764c97c203b348a50729f3571814f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TileMeshLoader
 --- !u!1001 &620602910271166720
 PrefabInstance:
   m_ObjectHideFlags: 0

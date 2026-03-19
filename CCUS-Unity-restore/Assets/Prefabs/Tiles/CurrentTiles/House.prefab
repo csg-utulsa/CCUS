@@ -194,6 +194,7 @@ GameObject:
   - component: {fileID: -5747758757886434098}
   - component: {fileID: 7082364293375485206}
   - component: {fileID: 3159399386138731229}
+  - component: {fileID: 3632767939440204501}
   m_Layer: 0
   m_Name: House
   m_TagString: Object
@@ -364,6 +365,18 @@ MonoBehaviour:
   connected: 0
   checkedConnectivity: 0
   canvas: {fileID: 3166937364804318959}
+--- !u!114 &3632767939440204501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9171035400571233729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce3764c97c203b348a50729f3571814f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TileMeshLoader
 --- !u!1001 &3816858629521154248
 PrefabInstance:
   m_ObjectHideFlags: 0

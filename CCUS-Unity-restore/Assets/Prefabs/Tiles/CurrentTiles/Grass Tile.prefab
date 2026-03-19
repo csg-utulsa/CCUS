@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 36975342046767057}
   - component: {fileID: 7494702538914327106}
   - component: {fileID: 2981873079491518979}
+  - component: {fileID: 5831617946886104334}
   m_Layer: 0
   m_Name: Grass Tile
   m_TagString: Ground
@@ -195,6 +196,18 @@ MonoBehaviour:
   fadeThisTilesTransparency: 0
   timeToFade: 0.1
   popUpHiddenTransparency: 0.1
+--- !u!114 &5831617946886104334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6203246308946112635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce3764c97c203b348a50729f3571814f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TileMeshLoader
 --- !u!1001 &2164353554004521867
 PrefabInstance:
   m_ObjectHideFlags: 0

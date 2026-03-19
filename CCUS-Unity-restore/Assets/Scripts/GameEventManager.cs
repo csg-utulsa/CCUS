@@ -1,6 +1,3 @@
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.Events;
 /*
 *   This class keeps track of most of the in game events (besides ticks)
 *
@@ -9,6 +6,10 @@ using UnityEngine.Events;
 *       2) Initiate it in Awake(), like this: "SomeGameEvent = new UnityEvent();"
 *       3) Call it from another script using GameEventManager.current.SomeGameEvent.Invoke();
 */
+
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class GameEventManager : MonoBehaviour
 {
@@ -32,6 +33,7 @@ public class GameEventManager : MonoBehaviour
 
     //Chunk Loading events
     public UnityEvent SwitchedCurrentGroundChunk {get; set;}
+    public UnityEvent SwitchedCurrentGroundChunkLate {get; set;}
     public UnityEvent PurchasedCurrentGroundChunk {get; set;}
     public UnityEvent BeginSwitchingCurrentGroundChunk {get; set;}
     public UnityEvent NewAreaUnlocked {get; set;}
@@ -69,6 +71,7 @@ public class GameEventManager : MonoBehaviour
         NumberOfPeopleChanged = new UnityEvent();
         NumOfWorkPlaceTilesChanged = new UnityEvent();
         NewTileUnlocked = new UnityEvent();
+        SwitchedCurrentGroundChunkLate = new UnityEvent();
 
         if(current == null){
             current = this;

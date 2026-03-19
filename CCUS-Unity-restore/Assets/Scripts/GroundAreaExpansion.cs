@@ -84,7 +84,7 @@ public class GroundAreaExpansion : MonoBehaviour
 
 
             //Creates a new Grid Chunk Data Unit for each ground chunk
-            GridDataLoader.current.CreateNewGridChunk();
+            //GridDataLoader.current.CreateNewGridChunk();
         }
         NumberOfGroundChunks = positionsOfGroundChunks.Count;
     }
@@ -111,10 +111,13 @@ public class GroundAreaExpansion : MonoBehaviour
         NumberOfGroundChunks++;
 
         //Adds a new Ground Chunk Data Object
-        GridDataLoader.current.CreateNewGridChunk();
+        //GridDataLoader.current.CreateNewGridChunk();
 
         //Saves position of ground chunk
         positionsOfGroundChunks.Add(positionOfNewGroundChunk);
+
+        //Adds new Chunk to GridManager
+        GridManager.GM.AddNewChunk(positionsOfGroundChunks[positionsOfGroundChunks.Count - 1]);
 
         //Turns the correct switch chunk arrow on
         SwitchChunkArrowManager.current.UpdateArrowVisibility(NumberOfGroundChunks, ActiveGroundChunk);
@@ -176,22 +179,32 @@ public class GroundAreaExpansion : MonoBehaviour
         previousVisibleGround = currentVisibleGround;
         currentVisibleGround = CreateNewVisibleGroundForChunk(targetGroundChunk);
 
+
+        //Visually Loads the new chunk
+        TileMeshLoadManager.current.LoadGridChunk(targetGroundChunk);
+
         //Load new chunk (also switches grid manager center)
-        GridDataLoader.current.SwitchToGridChunk(targetGroundChunk, positionsOfGroundChunks[targetGroundChunk], timeToSwitchChunks);
+        //GridDataLoader.current.SwitchToGridChunk(targetGroundChunk, positionsOfGroundChunks[targetGroundChunk], timeToSwitchChunks);
 
         //Calls event for when chunk is switched
         GameEventManager.current.BeginSwitchingCurrentGroundChunk.Invoke();
 
-        StartCoroutine(WaitToFinishSwitchingChunks());
+        StartCoroutine(WaitToFinishSwitchingChunks(previousGroundChunk));
     }
 
-    public IEnumerator WaitToFinishSwitchingChunks() {
+    public IEnumerator WaitToFinishSwitchingChunks(int previousGroundChunk) {
         yield return new WaitForSeconds(timeToSwitchChunks);
         isSwitchingGroundChunks = false;
         Destroy(previousVisibleGround);
 
+        //Visually disables the meshes for the old chunk
+        TileMeshLoadManager.current.UnloadGridChunk(previousGroundChunk);
+
         //Calls event for when chunk is switched
         GameEventManager.current.SwitchedCurrentGroundChunk.Invoke();
+
+        //Calls late event for after chunk is switched. Useful to update things after everything else has changed.
+        GameEventManager.current.SwitchedCurrentGroundChunkLate.Invoke();
     }
 
     private GameObject CreateNewVisibleGroundForChunk(int groundChunkNumber){

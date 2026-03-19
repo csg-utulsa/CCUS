@@ -1,4 +1,6 @@
 /*
+*   TODO: Deprecate data-saving functions, only keep SwitchGridChunk(), which will tell all objects on chunk to turn off meshes. 
+*
 *   GridLoader: stores and loads the tiles held in the GridManager into the gridChunks array
 *
 */
@@ -42,7 +44,9 @@ public class GridDataLoader : MonoBehaviour
         }
     }
 
+    
 
+    //DEPRECATED -- TODO: Remove
     //Switches which grid chunk is currently loaded
     public void SwitchToGridChunk(int newGridChunk, Vector3 worldCenterOfChunk, float timeToWaitBeforeDestroyingOldChunk){
         //Stores all the tiles on the active grid chunk
@@ -51,8 +55,8 @@ public class GridDataLoader : MonoBehaviour
         //Removes all the current tiles from the grid manager
         UnloadGridChunkFromGridManager(currentGridChunk);
 
-        //Switches the world center of the grid manager
-        GridManager.GM.SwitchCenter(worldCenterOfChunk);
+        //Deprecated -- Switches the world center of the grid manager
+        //GridManager.GM.SwitchCenter(worldCenterOfChunk);
 
         //Loads the tiles on the new grid chunk into place
         LoadGridChunk(newGridChunk);
@@ -67,15 +71,27 @@ public class GridDataLoader : MonoBehaviour
 
     }
 
+    //DEPRECATED -- TODO: Remove
     public IEnumerator WaitToUnloadChunkVisually(int chunkToUnload, float timeToSwitchChunks){
         yield return new WaitForSeconds(timeToSwitchChunks);
         UnLoadGridChunkVisually(chunkToUnload);
     }
 
+    //DEPRECATED -- TODO: Remove
+    public void UnLoadGridChunkVisually(int gridChunkNum){
+        GameObject[] tilesOnChunk = gridChunks[gridChunkNum].TileObjects;
+        foreach(GameObject tile in tilesOnChunk){
+            if(tile != null){
+                Destroy(tile);
+            }
+        }
+    }
+
+    //DEPRECATED -- TODO: Remove
     public void SaveActiveGridChunk(){
 
 
-        //Gets all the tiles on top of the active grid chunk
+        // Gets all the tiles on top of the active grid chunk
         // int halfOfGridChunkSize = gridChunkSize / 2;
         // Vector2Int bottomLeftGridPoint = new Vector2Int(-halfOfGridChunkSize, -halfOfGridChunkSize);
         // Vector2Int topRightGridPoint = new Vector2Int(halfOfGridChunkSize, halfOfGridChunkSize);
@@ -126,15 +142,15 @@ public class GridDataLoader : MonoBehaviour
         gridChunks[currentGridChunk].SetChunkData(allTilePositions, allTilePrefabs, allTileObjects, activatedTiles);
     }
 
+    //DEPRECATED -- TODO: Remove
     public void CreateNewGridChunk(){
         gridChunks.Add(new GridChunkData());
 
     }
 
 
-    //Must update Grid Manager with new object references
-    //Must tell objects they're placed
-    public void LoadGridChunk(int gridChunkNum){
+    //DEPRECATED -- TODO: Remove
+    public void LoadGridChunk(int gridChunkNum){ //Must update Grid Manager with new object references     //Must tell objects they're placed
         GameObject[] tilePrefabs = gridChunks[gridChunkNum].PrefabsOfTiles;
         
         Vector3[] tilePositions = gridChunks[gridChunkNum].PositionsOfTiles;
@@ -170,15 +186,8 @@ public class GridDataLoader : MonoBehaviour
         }
     }
 
-    public void UnLoadGridChunkVisually(int gridChunkNum){
-        GameObject[] tilesOnChunk = gridChunks[gridChunkNum].TileObjects;
-        foreach(GameObject tile in tilesOnChunk){
-            if(tile != null){
-                Destroy(tile);
-            }
-        }
-    }
 
+    //DEPRECATED -- TODO: Remove
     public void UnloadGridChunkFromGridManager(int gridChunkNum){
         GameObject[] tilesOnChunk = gridChunks[gridChunkNum].TileObjects;
         foreach(GameObject tile in tilesOnChunk){

@@ -48,6 +48,7 @@ GameObject:
   - component: {fileID: 5484643323090204880}
   - component: {fileID: 2472129894610347500}
   - component: {fileID: 6274289564387809550}
+  - component: {fileID: 6600451963365530478}
   m_Layer: 0
   m_Name: New Road Tile
   m_TagString: Ground
@@ -223,6 +224,18 @@ MonoBehaviour:
   fadeThisTilesTransparency: 0
   timeToFade: 0.1
   popUpHiddenTransparency: 0.1
+--- !u!114 &6600451963365530478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 671960825420794531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce3764c97c203b348a50729f3571814f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TileMeshLoader
 --- !u!1 &5145472264364763080
 GameObject:
   m_ObjectHideFlags: 0

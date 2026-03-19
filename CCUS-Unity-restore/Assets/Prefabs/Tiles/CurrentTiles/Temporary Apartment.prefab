@@ -7185,6 +7185,7 @@ GameObject:
   - component: {fileID: 7082364293375485206}
   - component: {fileID: 3159399386138731229}
   - component: {fileID: -5242415792276811256}
+  - component: {fileID: -3348266217913377909}
   m_Layer: 0
   m_Name: Temporary Apartment
   m_TagString: Object
@@ -7376,6 +7377,18 @@ MonoBehaviour:
   fadeThisTilesTransparency: 1
   timeToFade: 0.1
   popUpHiddenTransparency: 0.1
+--- !u!114 &-3348266217913377909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9171035400571233729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce3764c97c203b348a50729f3571814f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TileMeshLoader
 --- !u!1001 &496773761343131842
 PrefabInstance:
   m_ObjectHideFlags: 0

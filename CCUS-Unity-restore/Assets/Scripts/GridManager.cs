@@ -6,6 +6,8 @@ using System.Linq;
 public class GridManager : MonoBehaviour
 {
 
+    public List<GridChunk> gridChunks = new List<GridChunk>();
+
     public GridCell[][] positionsOfCells;
 
     public Vector3 gridManagerCenter = new Vector3(0f, 0f, 0f);
@@ -15,10 +17,32 @@ public class GridManager : MonoBehaviour
     private int xLengthOfGrid = 100;
     private int yLengthOfGrid = 100;
 
+    private int ActiveGridChunkIndex{
+        get{
+            if(GroundAreaExpansion.GAE != null){
+                return GroundAreaExpansion.GAE.ActiveGroundChunk;
+            } else{
+                return 0;
+            }
+            
+        }
+    }
+
+    private GridChunk ActiveGridChunk{
+        get{
+            if(ActiveGridChunkIndex < gridChunks.Count){
+               return gridChunks[ActiveGridChunkIndex]; 
+            } else{
+                return null;
+            }
+            
+        }
+    }
+
     private List<Tile> allTilesOnActiveChunk = new List<Tile>();
 
     public bool AtLeastOneTileIsOnChunk() {
-        return allTilesOnActiveChunk.Count > 0;
+        return ActiveGridChunk.AtLeastOneTileIsOnChunk();
     }
 
     #region Unity Functions
@@ -35,20 +59,23 @@ public class GridManager : MonoBehaviour
 
     void Start(){
 
-        //Declares new 100 by 100 fragmented array of grid cells
-        //Sets up the Grid Manager
-        positionsOfCells = new GridCell[xLengthOfGrid][];
-        for(int i = 0; i < xLengthOfGrid; i++)
-        {
-            positionsOfCells[i] = new GridCell[yLengthOfGrid];
-            for (int q = 0; q < yLengthOfGrid; q++) {
-                positionsOfCells[i][q] = new GridCell();
-                positionsOfCells[i][q].xArrayLocation = i; //i - (xLengthOfGrid / 2) + .5f
-                positionsOfCells[i][q].yArrayLocation = q; //q - (yLengthOfGrid / 2) + .5f
-            }
-        }
+        // //Declares new 100 by 100 fragmented array of grid cells
+        // //Sets up the Grid Manager
+        // positionsOfCells = new GridCell[xLengthOfGrid][];
+        // for(int i = 0; i < xLengthOfGrid; i++)
+        // {
+        //     positionsOfCells[i] = new GridCell[yLengthOfGrid];
+        //     for (int q = 0; q < yLengthOfGrid; q++) {
+        //         positionsOfCells[i][q] = new GridCell();
+        //         positionsOfCells[i][q].xArrayLocation = i; //i - (xLengthOfGrid / 2) + .5f
+        //         positionsOfCells[i][q].yArrayLocation = q; //q - (yLengthOfGrid / 2) + .5f
+        //     }
+        // }
 
-        GameEventManager.current.SwitchedCurrentGroundChunk.AddListener(SwitchedGridChunks);
+        // GameEventManager.current.SwitchedCurrentGroundChunk.AddListener(SwitchedGridChunks);
+
+        //Adds new Grid Chunk
+        gridChunks.Add(new GridChunk(new Vector3( 0f, 0f, 0f)));
 
     }
 
@@ -64,11 +91,7 @@ public class GridManager : MonoBehaviour
     //     }
     // }
 
-    
 
-    void Update(){
-        //Debug.Log("Grid center is " + gridManagerCenter);
-    }
 
     #endregion
 
@@ -76,176 +99,67 @@ public class GridManager : MonoBehaviour
     #region Get Functions
     //Only used by grid visualizer utility
     public GridCell[] GetAllGridCells(){
-        GridCell[] allGridCells = new GridCell[xLengthOfGrid * yLengthOfGrid];
-        for(int i = 0; i < xLengthOfGrid; i++){
-            for(int j = 0; j < yLengthOfGrid; j++){
-                allGridCells[(xLengthOfGrid * i) + j] = positionsOfCells[i][j];
-            }
-        }
-        return allGridCells;
+        return ActiveGridChunk.GetAllGridCells();
     }
 
     public Tile[] GetAllTilesInRange(Vector2Int bottomLeftGridPoint, Vector2Int topRightGridPoint){
-        List<Tile> allTiles = new List<Tile>();
-
-
-        //Gets all grid cells in the given range
-        int widthOfSelection = topRightGridPoint.x - bottomLeftGridPoint.x;
-        int heightOfSelection = topRightGridPoint.y - bottomLeftGridPoint.y;
-        GridCell[] allGridCells = new GridCell[widthOfSelection * heightOfSelection];
-        for(int i = bottomLeftGridPoint.x; i < topRightGridPoint.y; i++){
-            for(int j = bottomLeftGridPoint.y; j < topRightGridPoint.y; j++){
-                int adjustedXArrayCoordinate = (widthOfSelection/2) + i;
-                int adjustedYArrayCoordinate = (heightOfSelection/2) + j;
-
-                
-
-                allGridCells[(widthOfSelection * adjustedXArrayCoordinate) + adjustedYArrayCoordinate] = GetGridCell(new Vector2Int(i, j));
-            }
-        }
-
-        //Gets all the Tiles on each cell
-        foreach(GridCell gridCell in allGridCells){
-            GameObject[] allObjectsInCell = GetGameObjectsInGridCell(gridCell);
-            foreach(GameObject objectInCell in allObjectsInCell){
-                Tile tile = objectInCell.GetComponent<Tile>();
-                if(tile != null){
-                    allTiles.Add(tile);
-                }
-            }
-        }
-
-        return allTiles.ToArray();
-
+        return ActiveGridChunk.GetAllTilesInRange(bottomLeftGridPoint, topRightGridPoint);
     }
 
-
+    public Tile[] GetAllTilesOnActiveChunk(){
+        return ActiveGridChunk.allTilesOnChunk.ToArray();
+    }
 
     //returns all neighbors of input tile
     public GameObject[] GetTileNeighbors(Vector3 tilePosition, int[] neighborsToReturn){
-
-        BuildingSystem currentBuildingSystem = BuildingSystem.current;
-        Vector3Int tileCell = currentBuildingSystem.gridLayout.WorldToCell(tilePosition);
-        List<GameObject> tileNeighbors = new List<GameObject>();
-
-        Vector3Int[] directions = new Vector3Int[]
-        {
-            new Vector3Int(0, 1, 0),  // North
-            new Vector3Int(1, 1, 0),  // North East
-            new Vector3Int(1, 0, 0),  // East
-            new Vector3Int(1, -1, 0), // South East
-            new Vector3Int(0, -1, 0), // South
-            new Vector3Int(-1, -1, 0), // South West
-            new Vector3Int(-1, 0, 0),  // West
-            new Vector3Int(-1, 1, 0),  // North West
-        };
-
-        for (int i = 0; i < neighborsToReturn.Length; i++)
-        {
-            Vector3Int checkCell = tileCell + directions[neighborsToReturn[i]];
-            Vector3 checkWorldPos = currentBuildingSystem.grid.GetCellCenterWorld(checkCell);
-
-            foreach (GameObject obj in GetGameObjectsInGridCell(checkWorldPos))
-            {
-                if(obj.GetComponent<Tile>() != null){
-                    tileNeighbors.Add(obj);
-                }
-            }
-        }
-
-        GameObject[] returnArray = new GameObject[tileNeighbors.Count];
-        for(int i = 0; i < returnArray.Length; i++){
-            returnArray[i] = tileNeighbors[i];
-        }
-        return returnArray;
+        return ActiveGridChunk.GetTileNeighbors(tilePosition, neighborsToReturn);        
     }
     
-    // public GameObject[] GetAllGridObjects(){
-    //     GameObject[] allGridObjectsArray = new GameObject[allGridObjects.Count];
-    //     for(int i = 0; i < allGridObjects.Count; i++){
-    //         allGridObjectsArray[i] = allGridObjects[i];
-    //     }
-    //     return allGridObjectsArray;
-    // }
 
     //returns all the objects sitting in a cell
     public GameObject[] GetGameObjectsInGridCell(GridCell currentGridCell){
-        GameObject[] allObjectsInCell = currentGridCell.GetObjectsInCell();
-        int numberOfObjectsInCell = 0;
-        foreach(GameObject objectInCell in allObjectsInCell){
-            if(objectInCell != null)
-                numberOfObjectsInCell++;
-        }
-        GameObject[] notNullObjectsInCell = new GameObject[numberOfObjectsInCell];
-        for(int i = 0; i < numberOfObjectsInCell; i++){
-            notNullObjectsInCell[i] = allObjectsInCell[i];
-        }
-        return notNullObjectsInCell;
+        return ActiveGridChunk.GetGameObjectsInGridCell(currentGridCell);
     }
 
-
+    //Overload methods for GetGameObjectsInGridCell
     public GameObject[] GetGameObjectsInGridCell(Vector2Int gridPosition){
-        GridCell currentGridCell = GetGridCell(gridPosition);
-        return GetGameObjectsInGridCell(currentGridCell);
+        return ActiveGridChunk.GetGameObjectsInGridCell(gridPosition);
     }
-
     public GameObject[] GetGameObjectsInGridCell(Vector3 worldPosition){
-        Vector2Int gridPosition = SwitchToGridCoordinates(worldPosition);
-        return GetGameObjectsInGridCell(gridPosition);
+        return ActiveGridChunk.GetGameObjectsInGridCell(worldPosition);
+    }
+    public GameObject[] GetGameObjectsInGridCell(GameObject gameObjectInGridCell){
+        return ActiveGridChunk.GetGameObjectsInGridCell(gameObjectInGridCell);
     }
 
-    public GameObject[] GetGameObjectsInGridCell(GameObject gameObjectInGridCell){
-        return GetGameObjectsInGridCell(gameObjectInGridCell.transform.position);
-    }
 
     //returns the Grid Cell Object for a given point
     public GridCell GetGridCell(Vector2Int gridPosition)
     {
-        Vector2Int arrayPosition = SwitchFromGridToArrayCoordinates(gridPosition);
-        return positionsOfCells[arrayPosition.x][arrayPosition.y];
-        //return positionsOfCells[x + (xLengthOfGrid / 2)][z + (yLengthOfGrid / 2) ];
+        return ActiveGridChunk.GetGridCell(gridPosition);
     }
 
     //Checks if the grid cell at the given point contains a terrain tile
-    public bool TileIsOverGround(Vector3 tilePosition){
-
-        GameObject[] tilesInCell = GetGameObjectsInGridCell(tilePosition);
-
-        foreach(GameObject tileObject in tilesInCell){
-
-            Tile tile = tileObject.GetComponent<Tile>();
-            if(tile != null){
-                if(tile.tileScriptableObject.isTerrain){
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
+    // public bool TileIsOverGround(Vector3 tilePosition){
+    //     return ActiveGridChunk.TileIsOverGround(tilePosition);
+    // }
 
     #endregion
 
     #region Edit GridCells
 
+    //TODO: remove isloading parameter
     public void AddObject(GameObject objectToAdd, bool isLoading)
     {
-        Vector2Int gridPosition = SwitchToGridCoordinates(objectToAdd.transform.position);
-        Vector2Int arrayPosition = SwitchFromGridToArrayCoordinates(gridPosition);
-
-
-        GetGridCell(gridPosition).AddObject(objectToAdd, arrayPosition.x, arrayPosition.y, isLoading);
+        ActiveGridChunk.AddObject(objectToAdd);
 
 
     }
 
-
+    //TODO: remove isunloading parameter
     public void RemoveObject(GameObject objectToRemove, bool isUnloading)
     {
-        Vector2Int positionInGrid = SwitchToGridCoordinates(objectToRemove.transform.position);
-        Vector2Int arrayPosition = SwitchFromGridToArrayCoordinates(positionInGrid);
-
-        positionsOfCells[arrayPosition.x][arrayPosition.y].RemoveObject(objectToRemove, isUnloading);
+        ActiveGridChunk.RemoveObject(objectToRemove);
     }
 
 
@@ -253,43 +167,45 @@ public class GridManager : MonoBehaviour
 
     #region Chunk Functions
 
-    private void SwitchedGridChunks(){
-        ReCalculateAllTilesOnActiveChunk();
+    public void AddNewChunk(Vector3 newChunkCenter){
+        gridChunks.Add(new GridChunk(newChunkCenter));
     }
 
-    public void ReCalculateAllTilesOnActiveChunk(){
+    // private void SwitchedGridChunks(){
+    //     ReCalculateAllTilesOnActiveChunk();
+    // }
+
+    // public void ReCalculateAllTilesOnActiveChunk(){
 
         
-        //Gets all the tiles on top of the active grid chunk
-        int halfOfGridChunkSize = GridDataLoader.current.gridChunkSize / 2;
-        Vector2Int bottomLeftGridPoint = new Vector2Int(-halfOfGridChunkSize, -halfOfGridChunkSize);
-        Vector2Int topRightGridPoint = new Vector2Int(halfOfGridChunkSize, halfOfGridChunkSize);
+    //     //Gets all the tiles on top of the active grid chunk
+    //     int halfOfGridChunkSize = GridDataLoader.current.gridChunkSize / 2;
+    //     Vector2Int bottomLeftGridPoint = new Vector2Int(-halfOfGridChunkSize, -halfOfGridChunkSize);
+    //     Vector2Int topRightGridPoint = new Vector2Int(halfOfGridChunkSize, halfOfGridChunkSize);
 
-        //Adds all tiles on the active chunk to the list
-        allTilesOnActiveChunk.Clear();
-        allTilesOnActiveChunk.AddRange(GridManager.GM.GetAllTilesInRange(bottomLeftGridPoint, topRightGridPoint));
+    //     //Adds all tiles on the active chunk to the list
+    //     allTilesOnActiveChunk.Clear();
+    //     allTilesOnActiveChunk.AddRange(GridManager.GM.GetAllTilesInRange(bottomLeftGridPoint, topRightGridPoint));
 
-        //Clears tile counters and recalculates them
-        TileTypeCounter.current.ClearTileTrackers();
-        foreach(Tile tile in allTilesOnActiveChunk){
-            TileTypeCounter.current.CheckTileTrackersForAddition(tile.gameObject);
-        }
-    }
+    //     //Clears tile counters and recalculates them
+    //     TileTypeCounter.current.ClearTileTrackers();
+    //     foreach(Tile tile in allTilesOnActiveChunk){
+    //         TileTypeCounter.current.CheckTileTrackersForAddition(tile.gameObject);
+    //     }
+    // }
 
-    public Tile[] GetAllTilesOnActiveChunk(){
-        return allTilesOnActiveChunk.ToArray();
-    }
+
 
     #endregion
 
     #region Set Functions
 
     public void AddTileToActiveChunk(Tile tile){
-        allTilesOnActiveChunk.Add(tile);
+        ActiveGridChunk.allTilesOnChunk.Add(tile);
     }
 
     public void RemoveTileFromActiveChunk(Tile tile){
-        allTilesOnActiveChunk.Remove(tile);
+        ActiveGridChunk.allTilesOnChunk.Remove(tile);
     }
 
     #endregion
@@ -298,36 +214,43 @@ public class GridManager : MonoBehaviour
 
 
     public Vector2Int SwitchToGridCoordinates(Vector3 worldCoordinates) {
-        Vector3 adjustedWorldCoordinates = worldCoordinates - gridManagerCenter;
-        Vector3 gridCoordinates = BuildingSystem.current.SnapCoordinateToGrid(adjustedWorldCoordinates);
-        //Debug.Log("Snapped given coordinates: " + gridCoordinates.x + ", " + gridCoordinates.z);
-        return new Vector2Int((int)(gridCoordinates.x - .5f), (int)(gridCoordinates.z - .5f));
+        return ActiveGridChunk.SwitchToGridCoordinates(worldCoordinates);
+        // Vector3 adjustedWorldCoordinates = worldCoordinates - gridManagerCenter;
+        // Vector3 gridCoordinates = BuildingSystem.current.SnapCoordinateToGrid(adjustedWorldCoordinates);
+        // return new Vector2Int((int)(gridCoordinates.x - .5f), (int)(gridCoordinates.z - .5f));
     }
 
     public Vector3 SwitchFromArrayToWorldCoordinates(Vector2Int arrayCoordinates) {
-        int gridPosX = arrayCoordinates.x - (xLengthOfGrid / 2);
-        int gridPosY = arrayCoordinates.y - (yLengthOfGrid / 2);
+        return ActiveGridChunk.SwitchFromArrayToWorldCoordinates(arrayCoordinates);
+        // int gridPosX = arrayCoordinates.x - (xLengthOfGrid / 2);
+        // int gridPosY = arrayCoordinates.y - (yLengthOfGrid / 2);
 
-        Vector3 AsWorldCoordinates = new Vector3((gridPosX - .5f), 0f, gridPosY - .5f);
-        Vector3 adjustedWorldCoordinates = AsWorldCoordinates + gridManagerCenter;
-        return adjustedWorldCoordinates;
+        // Vector3 AsWorldCoordinates = new Vector3((gridPosX - .5f), 0f, gridPosY - .5f);
+        // Vector3 adjustedWorldCoordinates = AsWorldCoordinates + gridManagerCenter;
+        // return adjustedWorldCoordinates;
     }
 
-    public Vector3 SwitchFromGridToWorldCoordinates(Vector2Int gridCoordinates) {
 
-        Vector3 AsWorldCoordinates = new Vector3((gridCoordinates.x - .5f), 0f, gridCoordinates.y - .5f);
-        Vector3 adjustedWorldCoordinates = AsWorldCoordinates + gridManagerCenter;
-        return adjustedWorldCoordinates;
+    public Vector3 SwitchFromGridToWorldCoordinates(Vector2Int gridCoordinates) {
+        return ActiveGridChunk.SwitchFromGridToWorldCoordinates(gridCoordinates);
+
+        // Vector3 AsWorldCoordinates = new Vector3((gridCoordinates.x - .5f), 0f, gridCoordinates.y - .5f);
+        // Vector3 adjustedWorldCoordinates = AsWorldCoordinates + gridManagerCenter;
+        // return adjustedWorldCoordinates;
     }
 
     public Vector3 AdjustCoordinatesByGridCenter(Vector2 gridCoordinates) {
-        Vector3 adjustedWorldCoordinates = new Vector3(gridCoordinates.x, 0f, gridCoordinates.y) + gridManagerCenter;
-        return adjustedWorldCoordinates;
+        return ActiveGridChunk.AdjustCoordinatesByGridCenter(gridCoordinates);
+
+        // Vector3 adjustedWorldCoordinates = new Vector3(gridCoordinates.x, 0f, gridCoordinates.y) + gridManagerCenter;
+        // return adjustedWorldCoordinates;
     }
 
 
     //Switches to array from grid coordinates
     private Vector2Int SwitchFromGridToArrayCoordinates(Vector2Int gridCoordinates){
+        //return ActiveGridChunk.SwitchFromGridToArrayCoordinates(gridCoordinates);
+
         int posX = gridCoordinates.x + (xLengthOfGrid / 2);
         int posY = gridCoordinates.y + (yLengthOfGrid / 2);
         return new Vector2Int(posX, posY);
@@ -339,7 +262,12 @@ public class GridManager : MonoBehaviour
     }
     
     public Vector3 GetCenter(){
-        return gridManagerCenter;
+        if(ActiveGridChunk != null){
+            return ActiveGridChunk.chunkWorldCenter;
+        } else{
+            return new Vector3( 0f, 0f, 0f);
+        }
+        
     }
 
     #endregion
@@ -348,80 +276,6 @@ public class GridManager : MonoBehaviour
 }
 
 
-#region GridCell Class
 
-//Container to hold everything a single Cell on the grid could need to know
-public class GridCell 
-{
-
-    GameObject[] objectsInCell = new GameObject[5];
-    public float xArrayLocation { get; set; }
-    public float yArrayLocation { get; set; }
-
-
-    public int numberOfObjectsInCell = 0;
-    public bool isOverGround = false;
-
-    //returns what objects are sitting on the cell
-    public GameObject[] GetObjectsInCell(){
-        return objectsInCell;
-    }
-
-    //Adds an object to the array of objects that are sitting on the cell
-    public void AddObject(GameObject objectToAdd, int x, int y, bool isLoading) {
-        if (objectsInCell.Length > numberOfObjectsInCell)
-        {
-            
-            if(!isLoading && objectToAdd.GetComponent<Tile>() != null && objectToAdd.GetComponent<Tile>().tileScriptableObject != null){
-
-                //Keeps list of tiles on active chunk
-                GridManager.GM.AddTileToActiveChunk(objectToAdd.GetComponent<Tile>());
-
-                
-               
-
-            }
-
-            //Tracks different types of tiles
-            TileTypeCounter.current.CheckTileTrackersForAddition(objectToAdd);
-
-            objectsInCell[numberOfObjectsInCell] = objectToAdd;
-            
-            Tile tile = objectToAdd.GetComponent<Tile>();
-            if(tile != null)
-                tile.gridCell = this;
-
-            numberOfObjectsInCell++;
-        }
-    }
-
-
-    //Removes an object from the array of objects that are sitting on the cell
-    public void RemoveObject(GameObject objectToRemove, bool isUnloading) {
-        for(int i = 0; i < objectsInCell.Length; i++) {
-            if(objectToRemove == objectsInCell[i])
-            {
-                if(!isUnloading && objectToRemove.GetComponent<Tile>() != null && objectToRemove.GetComponent<Tile>().tileScriptableObject != null){
-                    //Keeps list of tiles on active chunk
-                    GridManager.GM.RemoveTileFromActiveChunk(objectToRemove.GetComponent<Tile>());
-                    
-                }
-                //Tracks different types of tiles
-                TileTypeCounter.current.CheckTileTrackersForRemoval(objectToRemove);
-
-                objectsInCell[i] = null;
-                for(int b=i; b < objectsInCell.Length-1; b++) {
-                    objectsInCell[b] = objectsInCell[b + 1];
-                }
-                objectsInCell[objectsInCell.Length-1] = null;
-                numberOfObjectsInCell--;
-            }
-        }
-    }
-
-
-}
-
-#endregion
 
 

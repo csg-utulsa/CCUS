@@ -1,5 +1,15 @@
-//Keeps track of each tile of a certain type
-
+/* 
+*   Description: Keeps track of each tile of a certain type.
+*
+*   How it works: It relies on a class called "TileTracker" (Attached to bottom of file).
+*       For each type of tile it wants to track, you can create a new class that inherits from TileTracker.
+*       Every time an object is placed, it runs CheckTileTrackersForRemoval("me!") and that runs the checks
+*       in each inherited Tile Tracker Class to see if it should add it to its count. You can retrieve all
+*       the tiles a Tile Tracker has counted by running ExampleTileTracker.GetAllTiles()
+*
+*
+*
+*/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,15 +30,7 @@ public class TileTypeCounter : MonoBehaviour
     public TileTracker CarbonCaptureTileTracker { get; set; }
     public TileTracker ActivatableBuildingTileTracker { get; set; }
     public TileTracker ActivatableTileTracker { get; set; }
-    
-    // public int[] TileTrackers { get; set; }
-    // public int AllTileTracker { get; set; }
-    // public int MoneyTileTracker { get; set; }
-    // public int CarbonTileTracker { get; set; }
-    // public int RoadTileTracker { get; set; }
-    // public int ResidenceTileTracker { get; set; }
-    // public int FactoryTileTracker { get; set; }
-    // public int CarbonCaptureTileTracker { get; set; }
+
 
     //Test of tile trackers
     void Update(){
@@ -61,14 +63,13 @@ public class TileTypeCounter : MonoBehaviour
         }else{
             Destroy(this);
         }
+    }
+
+    void Start(){
+
         //Activates all the tile trackers, to keep track of the number of every tile type.
         TileTrackers = new TileTracker[7];
 
-        // AllTileTracker = new AllTileTracker();
-        // TileTrackers[0] = AllTileTracker;
-
-        // MoneyTileTracker = new MoneyTileTracker();
-        // TileTrackers[1] = MoneyTileTracker;
 
         CarbonTileTracker = new CarbonTileTracker();
         TileTrackers[0] = CarbonTileTracker;
@@ -169,7 +170,39 @@ public class TileTypeCounter : MonoBehaviour
 //Base class for each type of Tile Tracker. The Tile Trackers keep the number of each kind of tile in the current Grid Chunk
 public class TileTracker{
 
+    // Override this bool to false for any tile trackers you don't want to be chunk-specific.
+    // Whenever it's set to true, the given tile tracker will track the tiles for the active chunk only.
+    public virtual bool resetThisTrackerOnChunkSwitch{
+        get{
+            return true;
+        }
+    }
+
+    //Holds a list of all the tiles that the tracker should hold. 
     public List<Tile> trackedTileList = new List<Tile>();
+
+    //Tile Tracker Constructor
+    public TileTracker(){
+        //Reset the tile tracker every time the player switches the current chunk
+        if(resetThisTrackerOnChunkSwitch){
+            GameEventManager.current.BeginSwitchingCurrentGroundChunk.AddListener(ResetTileTracker);
+        }
+    }
+    
+
+    protected void ResetTileTracker(){
+        // Removes all tiles on chunk
+        ClearAllTiles();
+
+        // Goes through all the tiles on active chunk and checks them for addition to the tracker
+        Tile[] allTilesOnActiveChunk = GridManager.GM.GetAllTilesOnActiveChunk();
+        foreach(Tile tile in allTilesOnActiveChunk){
+            if(tile != null)
+                CheckTileForAddition(tile);
+        }
+
+    }
+
     protected void AddTile(Tile tile){
         trackedTileList.Add(tile);
     }

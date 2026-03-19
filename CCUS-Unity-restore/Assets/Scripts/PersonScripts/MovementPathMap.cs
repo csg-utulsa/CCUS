@@ -30,7 +30,7 @@ public class MovementPathMap : MonoBehaviour
         //Adds listeners for whenever the arrangement of Activatable Tiles changes
         GameEventManager.current.ActivatableTileJustPlaced.AddListener(ActivatableTileMapChanged);
         GameEventManager.current.ActivatableTileJustDestroyed.AddListener(ActivatableTileMapChanged);
-        GameEventManager.current.BeginSwitchingCurrentGroundChunk.AddListener(SwitchedGroundChunk);
+        GameEventManager.current.SwitchedCurrentGroundChunkLate.AddListener(SwitchedGroundChunkLate);
     }
 
     private void SetPathMapToEmpty(){
@@ -41,14 +41,14 @@ public class MovementPathMap : MonoBehaviour
         }
     }
 
-
-    //Delays updating the tile map after a grid chunk switch to give the Tile Counter time to update
-    private void SwitchedGroundChunk(){
+    // Delays updating the tile map after a grid chunk switch to give the Tile Counter time to update
+    private void SwitchedGroundChunkLate(){
         ActivatableTileMapChanged();
     }
 
     //Every time an activatable tile is placed or the grid chunk switches, it updates its tile map
     public void ActivatableTileMapChanged(){
+
 
         //Clears out the path map
         SetPathMapToEmpty();
@@ -57,12 +57,18 @@ public class MovementPathMap : MonoBehaviour
         Tile[] allRoadTiles = TileTypeCounter.current.RoadTileTracker.GetAllTiles();
         foreach(Tile roadTile in allRoadTiles){
                 if(roadTile is ActivatableTile activatableRoad){
-                    //Checks that the road is activated
+
+                //Checks that the road is activated
                 if(roadTile != null && activatableRoad != null && activatableRoad.IsActivated){
                     Vector2Int roadArrayCoordinates = SwitchToPathMapArrayCoordinates(roadTile.transform.position);
-                    //Stores that there's a road at this position
 
-                    movementPathMap[roadArrayCoordinates.x][roadArrayCoordinates.y] = MapTileType.Road;
+                    //Stores that there's a road at this position
+                    try{
+                        movementPathMap[roadArrayCoordinates.x][roadArrayCoordinates.y] = MapTileType.Road;
+                    } catch{
+                        Debug.LogError("Troublesome Road Array Coordinates: X: " + roadArrayCoordinates.x + ", Y: " + roadArrayCoordinates.y);
+                    }
+                    
                 }
             }
         }
@@ -127,20 +133,18 @@ public class MovementPathMap : MonoBehaviour
 
     }
 
-    //This is for a test only
-    void Update(){
-        if(Input.GetKeyDown(KeyCode.B)){
-            Vector3 mouseWorldPosition = BuildingSystem.GetMouseWorldPosition();
-            Vector2Int arrayCoordinates = SwitchToPathMapArrayCoordinates(mouseWorldPosition);
+    // //This is for a test only
+    // void Update(){
+    //     if(Input.GetKeyDown(KeyCode.B)){
+    //         Vector3 mouseWorldPosition = BuildingSystem.GetMouseWorldPosition();
+    //         Vector2Int arrayCoordinates = SwitchToPathMapArrayCoordinates(mouseWorldPosition);
+    //     }
+    // }
 
-
-        }
-    }
 
     //Switches to movementPathMap array coordinates from world coordinates
     private Vector2Int SwitchToPathMapArrayCoordinates(Vector3 worldCoordinates){
         Vector2Int gridCoords = GridManager.GM.SwitchToGridCoordinates(worldCoordinates);
-
         return SwitchToPathMapArrayCoordinates(gridCoords);
     }
 
@@ -149,4 +153,5 @@ public class MovementPathMap : MonoBehaviour
         Vector2Int arrayCoords = new Vector2Int(gridCoordinates.x + (widthOfGrid / 2), gridCoordinates.y + (widthOfGrid / 2));
         return arrayCoords;
     }
+
 }

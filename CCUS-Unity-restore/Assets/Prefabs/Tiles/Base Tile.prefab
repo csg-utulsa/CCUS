@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 6515190209519265039}
   - component: {fileID: -7098372502136121969}
   - component: {fileID: -593227431733664701}
+  - component: {fileID: 1177304281848347770}
   m_Layer: 0
   m_Name: Base Tile
   m_TagString: Ground
@@ -159,7 +160,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9089043adfa1cdf4a848a222a38bfd3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MouseHoverHideTile
+  fadeThisTilesTransparency: 1
   timeToFade: 0.1
+  popUpHiddenTransparency: 0.1
+--- !u!114 &1177304281848347770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 358861468803373170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce3764c97c203b348a50729f3571814f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TileMeshLoader
 --- !u!1001 &1376123056715380705
 PrefabInstance:
   m_ObjectHideFlags: 0
