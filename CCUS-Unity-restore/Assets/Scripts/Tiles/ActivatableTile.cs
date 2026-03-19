@@ -4,6 +4,27 @@ public class ActivatableTile : Tile
 {
     public GameObject buildingActivatedGraphic;
     public bool IsActivated {get; set;} = false;
+    public bool IsConnectedByRoads {get; set;} = false;
+    private bool RequiresEmployees{
+        get{
+            return tileScriptableObject.RequiredEmployees > 0;
+        }
+    }
+    private bool RequiresRoadConnections{
+        get{
+            return tileScriptableObject.MustBeConnectedByRoads;
+        }
+    }
+    private bool HasEnoughEmployees = true;
+
+    void Start(){
+
+        //If this tile requires employees, it checks its activation state every time the number of people changes
+        if(RequiresEmployees){
+            GameEventManager.current.NumberOfPeopleChanged.AddListener(CheckTileForActivation);
+        }
+        
+    }
 
     public override void ThisTileJustPlaced(){
         
@@ -20,7 +41,7 @@ public class ActivatableTile : Tile
 
     public override void ThisTileAboutToBeDestroyed(){
         base.ThisTileAboutToBeDestroyed();
-        DeactivateBuilding();
+        DeactivateTile();
 
         //Updates Activatable Tile Connections
         
@@ -51,15 +72,24 @@ public class ActivatableTile : Tile
     //     }
     // }
 
-    public virtual void TileConnectedByRoads(){
-        ActivateBuilding();
+    public virtual void SetRoadConnection(bool connectedByRoads){
+        IsConnectedByRoads = connectedByRoads;
+        CheckTileForActivation();
     }
 
-    public virtual void TileDisconnectedByRoads(){
-        DeactivateBuilding();
+    //Checks if the tile should be activated & updates its activation
+    public virtual void CheckTileForActivation(){
+
+        //Activates itself depending on if it needs employees/has employees and if it needs roads/has road connections
+        if((!RequiresRoadConnections || IsConnectedByRoads) && (!RequiresEmployees || HasEnoughEmployees)){
+            ActivateTile();
+        } else{
+            DeactivateTile();
+        }
+
     }
 
-    public virtual void ActivateBuilding(){
+    public virtual void ActivateTile(){
         
         //Updates the cap on number of people
         if(!IsActivated && PeopleManager.current != null){
@@ -82,7 +112,7 @@ public class ActivatableTile : Tile
         
     }
 
-    public virtual void DeactivateBuilding(){
+    public virtual void DeactivateTile(){
 
         //Updates the cap on number of people
         if(IsActivated && PeopleManager.current != null){

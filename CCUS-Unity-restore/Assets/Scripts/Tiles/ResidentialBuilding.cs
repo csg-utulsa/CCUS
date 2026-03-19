@@ -23,20 +23,20 @@ public class ResidentialBuilding : ActivatableBuilding
 
     }
 
-    public override void ActivateBuilding(){
+    public override void ActivateTile(){
         //Updates the cap on number of people
         if(!IsActivated && PeopleManager.current != null){
             PeopleManager.current.AdjustMaxPeople(tileScriptableObject.MaxPeople);
         }
-        base.ActivateBuilding();
+        base.ActivateTile();
     }
 
-    public override void DeactivateBuilding(){
+    public override void DeactivateTile(){
         //Updates the cap on number of people
         if(IsActivated && PeopleManager.current != null){
             PeopleManager.current.AdjustMaxPeople(-tileScriptableObject.MaxPeople);
         }
-        base.DeactivateBuilding();
+        base.DeactivateTile();
     }
 
 

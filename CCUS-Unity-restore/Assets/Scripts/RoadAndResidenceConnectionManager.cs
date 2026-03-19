@@ -43,11 +43,11 @@ public class RoadAndResidenceConnectionManager : MonoBehaviour
             bool connectedTwoTiles = GetTilesToActivateOrDeactivate(objectToCheck, connectedTiles);
             if(connectedTwoTiles){
                 foreach(ActivatableTile connectedTile in connectedTiles){
-                    connectedTile.TileConnectedByRoads();
+                    connectedTile.SetRoadConnection(true);
                 }
             }else{
                 foreach(ActivatableTile connectedTile in connectedTiles){
-                    connectedTile.TileDisconnectedByRoads();
+                    connectedTile.SetRoadConnection(false);
                 }
             }
             // List<int> TilesCheckedAlready = new List<int>();
@@ -164,8 +164,13 @@ public class RoadAndResidenceConnectionManager : MonoBehaviour
         for(int i = 0; i < neighboringTiles.Length; i++){
             //This if statement checks if the object isn't null
             if(neighboringTiles[i] != null){
+
+                bool isActivatableBuilding = neighboringTiles[i].GetComponent<ActivatableBuilding>() != null;
+                bool needsRoadConnections = neighboringTiles[i].GetComponent<Tile>().tileScriptableObject.MustBeConnectedByRoads;
+                
                 //Checks if the neighboring object is an activatable building that hasn't already been checked. It also prevents connecting two residences that are sitting next to each other w/o roads
-                if(neighboringTiles[i].GetComponent<ActivatableBuilding>() != null && !ConnectedResidences.Contains(neighboringTiles[i]) && (nextObjectToCheck.GetComponent<ActivatableBuilding>() == null)){
+                //Added check to make sure the building requires road connections.
+                if(isActivatableBuilding && needsRoadConnections && !ConnectedResidences.Contains(neighboringTiles[i]) && (nextObjectToCheck.GetComponent<ActivatableBuilding>() == null)){
                     ConnectedResidences.Add(neighboringTiles[i]);
                     if(ConnectedResidences.Count >= 2){
                         _ConnectedTwoResidences = true;
@@ -173,7 +178,7 @@ public class RoadAndResidenceConnectionManager : MonoBehaviour
                     
                 }
 
-                //Tells next object to run a recursive check if the neighboring object is a road or residence, but prevents traveling through two residenes sitting next to each other
+                //Tells next object to run a recursive check if the neighboring object is a road or residence, but prevents traveling through two residences sitting next to each other
                 if(neighboringTiles[i].GetComponent<RoadConnections>() != null || (neighboringTiles[i].GetComponent<ActivatableBuilding>() != null && nextObjectToCheck.GetComponent<ActivatableBuilding>() == null)){
                     //ConnectedRoads.Add(neighboringTiles[i]);
                     if(RecursivelyCheckTileConnections(neighboringTiles[i], ConnectedRoads, ConnectedResidences, TilesCheckedAlready)){

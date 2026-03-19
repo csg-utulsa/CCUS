@@ -24,8 +24,11 @@ public class TileScriptableObject : ScriptableObject
     public bool isTerrain;
     public bool isTree;
     public bool allowClickAndDrag = true;
+    public bool MustBeConnectedByRoads = false;
     //public GameObject MyButton;
     public Mesh TileMesh;
+
+    
     
 
     public enum TileClass

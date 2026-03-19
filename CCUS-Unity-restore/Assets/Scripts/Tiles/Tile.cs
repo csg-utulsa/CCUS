@@ -52,22 +52,22 @@ public class Tile : MonoBehaviour
     //private bool accountedForNetContribution = false;
 
 
-    void Start(){
-        //Saves the tile coordinates of this tile
-        // Debug.Log("Script start tile called");
-        // if(state == TileState.Static){
-        //     tilePosition = BuildingSystem.current.SnapCoordinateToGrid(transform.position);
-        //     //Adds this object to the GridManager's database of all current tiles
-        //     Debug.Log("Added tile from Start of Tile Script");
-        //     GridManager.GM.AddObject(this.gameObject);// "Tile Script of this tile: " + this.gameObject);
+    // void Start(){
+    //     //Saves the tile coordinates of this tile
+    //     // Debug.Log("Script start tile called");
+    //     // if(state == TileState.Static){
+    //     //     tilePosition = BuildingSystem.current.SnapCoordinateToGrid(transform.position);
+    //     //     //Adds this object to the GridManager's database of all current tiles
+    //     //     Debug.Log("Added tile from Start of Tile Script");
+    //     //     GridManager.GM.AddObject(this.gameObject);// "Tile Script of this tile: " + this.gameObject);
 
-        //     //Adds annual income and annual carbon for tiles that are placed when the game starts
-        //     setInitialIncomeAndCarbon();
+    //     //     //Adds annual income and annual carbon for tiles that are placed when the game starts
+    //     //     setInitialIncomeAndCarbon();
             
             
-        // }
+    //     // }
         
-    }
+    // }
 
     public void setInitialIncomeAndCarbon(){
         if(tileScriptableObject != null){

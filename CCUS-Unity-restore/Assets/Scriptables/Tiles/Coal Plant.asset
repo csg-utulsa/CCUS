@@ -25,6 +25,7 @@ MonoBehaviour:
   isTerrain: 0
   isTree: 0
   allowClickAndDrag: 1
+  MustBeConnectedByRoads: 1
   TileMesh: {fileID: 0}
   thisTileClass: 0
   OverlapBlackList: []
