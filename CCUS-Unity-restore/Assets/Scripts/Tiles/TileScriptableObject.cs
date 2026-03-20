@@ -19,7 +19,7 @@ public class TileScriptableObject : ScriptableObject
     public int AnnualCarbonStored;
     public int AnnualIncome;
     public int MaxPeople;
-    public int RequiredEmployees = 00;
+    public int RequiredEmployees = 0;
     public bool isResidence;
     public bool isTerrain;
     public bool isTree;

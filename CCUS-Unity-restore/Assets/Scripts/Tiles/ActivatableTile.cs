@@ -7,7 +7,12 @@ public class ActivatableTile : Tile
     public bool IsConnectedByRoads {get; set;} = false;
     private bool RequiresEmployees{
         get{
-            return tileScriptableObject.RequiredEmployees > 0;
+            if(tileScriptableObject != null){
+                return tileScriptableObject.RequiredEmployees > 0;
+            } else{
+                return false;
+            }
+            
         }
     }
     private bool RequiresRoadConnections{
@@ -15,7 +20,11 @@ public class ActivatableTile : Tile
             return tileScriptableObject.MustBeConnectedByRoads;
         }
     }
-    private bool HasEnoughEmployees = true;
+    private bool HasEnoughEmployees {
+        get{
+            return CurrentEmployees >= tileScriptableObject.RequiredEmployees;
+        }
+    }
 
     void Start(){
 
@@ -36,6 +45,9 @@ public class ActivatableTile : Tile
 
         //Alerts game event manager that an activatable tile was placed
         GameEventManager.current.ActivatableTileJustPlaced.Invoke();
+
+        //Checks if it should be activated
+        CheckTileForActivation();
 
     }
 
@@ -75,10 +87,12 @@ public class ActivatableTile : Tile
     public virtual void SetRoadConnection(bool connectedByRoads){
         IsConnectedByRoads = connectedByRoads;
         CheckTileForActivation();
+
     }
 
     //Checks if the tile should be activated & updates its activation
     public virtual void CheckTileForActivation(){
+
 
         //Activates itself depending on if it needs employees/has employees and if it needs roads/has road connections
         if((!RequiresRoadConnections || IsConnectedByRoads) && (!RequiresEmployees || HasEnoughEmployees)){
@@ -90,6 +104,9 @@ public class ActivatableTile : Tile
     }
 
     public virtual void ActivateTile(){
+
+        if(IsActivated)
+            return;
         
         //Updates the cap on number of people
         if(!IsActivated && PeopleManager.current != null){
@@ -113,6 +130,9 @@ public class ActivatableTile : Tile
     }
 
     public virtual void DeactivateTile(){
+        
+        if(!IsActivated)
+            return;
 
         //Updates the cap on number of people
         if(IsActivated && PeopleManager.current != null){
@@ -143,14 +163,6 @@ public class ActivatableTile : Tile
         //LevelManager.LM.UpdateNetCarbonAndMoney();
     }
 
-    public virtual void UpdateBuildingActivation(){
-        if(IsActivated && buildingActivatedGraphic != null){
-            buildingActivatedGraphic.SetActive(true);  
-        }
-        if(!IsActivated && buildingActivatedGraphic != null){
-            buildingActivatedGraphic.SetActive(false);
-        }
-    }
 
 
     //Loading functions -- Update graphics when tiles load

@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class PeopleManager : MonoBehaviour
 {
@@ -43,7 +45,10 @@ public class PeopleManager : MonoBehaviour
         if(current == null){
             current = this;
         }
-        //peoplePanel = PeoplePanel._peoplePanel;
+
+        //Redistributes employees every time a workplace tile is placed or destroyed & every time a building's activation state changes
+        GameEventManager.current.NumOfWorkPlaceTilesChanged.AddListener(RedistributeEmployees);
+        GameEventManager.current.ActivatableTileJustPlaced.AddListener(RedistributeEmployees);
     }
 
     void OnMoneyTick(){
@@ -56,10 +61,13 @@ public class PeopleManager : MonoBehaviour
         NetPeopleIncome = NumberOfPeople * incomeOfPerson;
         //LevelManager.LM.UpdateNetCarbonAndMoney();
         GameEventManager.current.PersonJustAdded.Invoke();
+
+        //Distributes employees to all of the workplaces
+        RedistributeEmployees();
         
     }
 
-    //Called from Tile when a tile is placed or destroyed. It updates the max number of people and the current number of employees.
+    //Called from Tile when a residential tile is activated or deactivated. It updates the max number of people.
     public void AdjustMaxPeople(int _maxPeopleIncrement){
 
         // int _maxPeople = 0;
@@ -81,24 +89,79 @@ public class PeopleManager : MonoBehaviour
 
         peoplePanel.MaxNumberOfPeople = maxPeople;
 
+
+        //Distributes employees to all of the workplaces
+        RedistributeEmployees();
+
         //UpdateNumberOfEmployees();
         
     }
 
     public void AdjustNumberOfEmployees(int _adjustNumOfEmployees){
 
-        // int _numOfEmployees = 0;
-        // Tile[] factoryTiles = TileTypeCounter.current.FactoryTileTracker.GetAllTiles();
-        // foreach(Tile tile in factoryTiles){
-        //     if(tile is ActivatableTile activatableTile && activatableTile.IsActivated){
-        //         if(activatableTile is FactoryTile factory){
-        //             _numOfEmployees += factory.gameObject.GetComponent<Tile>().tileScriptableObject.RequiredEmployees;
-        //         }
-        //     }
-            
-        // }
 
         NumberOfEmployees += _adjustNumOfEmployees;
+
+        
+
+        
+    }
+
+    //Redistributes number of employees every time workplace & residential tiles are placed/destroyed
+    public void RedistributeEmployees(){
+
+        //Gets an array of all tiles that require employees (workplace tiles)
+        Tile[] workplaceTiles = TileTypeCounter.current.WorkplaceTileTracker.GetAllTiles();
+
+        int employeesRemaining = NumberOfPeople;
+
+        List<ActivatableTile> workplacesWithoutRoads = new List<ActivatableTile>();
+
+        //Loops through each workplace tile
+        foreach(Tile workplace in workplaceTiles){
+
+            if(workplace is ActivatableTile activatableWorkplace){
+
+                int neededEmployees = activatableWorkplace.tileScriptableObject.RequiredEmployees;
+                bool isConnectedByRoads = activatableWorkplace.IsConnectedByRoads;
+
+                //Only gives employees to workplaces if they're connected by roads and there are enough employees
+                if(isConnectedByRoads && (neededEmployees <= employeesRemaining)){
+
+                    //Gives it the required number of employees
+                    activatableWorkplace.CurrentEmployees = neededEmployees;
+                    employeesRemaining -= neededEmployees;
+                    
+
+                }else{ //If there's not enough employees for it, gives it 0
+
+                    //If the reason the workplace didn't get employees was because it wasn't connected by roads,
+                    //then it gets a second chance at getting employees after all workplaces connected by roads
+                    //get their employees. The ones without roads just have lowest priority.
+                    if(!isConnectedByRoads){
+                        workplacesWithoutRoads.Add(activatableWorkplace);
+                    }
+
+                    activatableWorkplace.CurrentEmployees = 0;
+                }
+
+                //Tells each tile to update its activation status
+                activatableWorkplace.CheckTileForActivation();
+
+            }
+
+        }
+
+        //Loops through each workplace tile that isn't connected by roads.
+        //This means they have lower priority & only get whatever employees are left over.
+        foreach(ActivatableTile workplace in workplacesWithoutRoads){
+            int neededEmployees = workplace.tileScriptableObject.RequiredEmployees;
+            //Gives workplaces employees until the remaining employees run out.
+            if(neededEmployees <= employeesRemaining){
+                workplace.CurrentEmployees = neededEmployees;
+                employeesRemaining -= neededEmployees;
+            }
+        }
 
         
     }

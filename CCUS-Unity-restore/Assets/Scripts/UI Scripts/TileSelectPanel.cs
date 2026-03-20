@@ -1,19 +1,19 @@
-// This code makes me want to drop my Comp Sci Major.
-// I'm so sorry if you have to touch it before I completely rewrite it.
-// It has some weird interactions with ScrollingUI.cs btw.
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public class TileSelectPanel : ScrollableArea
+public class TileSelectPanel : MonoBehaviour
 {
     public static TileSelectPanel TSP;
 
+    public float visibleScrollOffset = 0f;
 
-    //public RectTransform rectangleTransform;
+    public float heightOfScrollableArea = 0f;
+
+    public RectTransform rectangleTransform;
+
     public GameObject selectedButtonGraphic;
 
     [Header("Button Array (Populates on Start())")]
@@ -40,7 +40,7 @@ public class TileSelectPanel : ScrollableArea
     float totalHeightOfButtonArea  = 0f;
     float maxDistanceToScrollAsPercentOfPanelHeight = .3f;
 
-    TileScriptableObject[] allTileScriptableObjects;//= new TileScriptableObject[];
+    TileScriptableObject[] allTileScriptableObjects;
     Tile[] allTiles;
 
     public bool AButtonHasBeenSelectedAtLeastOnce {get; set;} = false;
@@ -105,6 +105,8 @@ public class TileSelectPanel : ScrollableArea
     }
 
 
+
+    //Used to determine where the bottom button is
     public GameObject GetLowestActiveButton(){
         int indexOfNewestButton = 0;
         for(int i = 0; i < tileButtons.Length; i++){
@@ -178,47 +180,11 @@ public class TileSelectPanel : ScrollableArea
         //updateActiveTileGraphics();
     }
 
-    //When called, this function disables the tile buttons above a certain price, and enables the tiles below that price.
-    // public void checkPricesOfTiles(int currentAmountOfMoney){
-    //     for(int i = 0; i < tileButtons.Length; i++){
-    //         if(allTileScriptableObjects[i].BuildCost > LevelManager.LM.GetMoney()){
-    //             disabledMoneyButtons[i] = true;
-    //         } else{
-    //             disabledMoneyButtons[i] = false;
-    //         }
-    //     }
-    //     visuallyUpdateDisabledButtons();
-    //     updateActiveTileGraphics();
-    // }
+    public void SetScrollOffset(float inputVisibleScrollOffset){
+        visibleScrollOffset = inputVisibleScrollOffset;
+        updateButtonPositions();
+    }
 
-    // //disables all buttons for tiles that emit pollution
-    // public void disablePolluters(){
-    //     for(int i = 0; i < tileButtons.Length; i++){
-    //         if(allTileScriptableObjects[i].AnnualCarbonAdded > 0f){
-    //             disabledPollutionButtons[i] = true;
-    //         }
-    //     }
-    //     visuallyUpdateDisabledButtons();
-    //     updateActiveTileGraphics();
-    // }
-
-    // //enables all buttons for tiles that emit pollution
-    // public void enablePolluters(){
-    //     for(int i = 0; i < tileButtons.Length; i++){
-    //         if(allTileScriptableObjects[i].AnnualCarbonAdded > 0f){
-    //             disabledPollutionButtons[i] = false;
-    //         }
-    //     }
-    //     visuallyUpdateDisabledButtons();
-    //     updateActiveTileGraphics();
-    // }
-    
-    // void updateActiveTileGraphics(){
-    //     GameObject _aciveObject = BuildingSystem.current.activeObject;
-    //     if(_aciveObject != null){
-    //         _aciveObject.GetComponent<ObjectDrag>().updateTileMaterialValidity();
-    //     }
-    // }
 
     //turns disabled buttons red
     void visuallyUpdateDisabledButtons(){
@@ -238,24 +204,12 @@ public class TileSelectPanel : ScrollableArea
         //runs if the user clicks a button that isn't currently selected
         if(!ButtonIsSelected || clickedButton != selectedButton){
 
-
-            // if(disabledPollutionButtons[Array.IndexOf(tileButtons, clickedButton)]){
-            //     unableToPlaceTileUI._unableToPlaceTileUI.tooMuchCarbon();
-            //     doNotSelectButton = true;
-            // }
-            // if(disabledMoneyButtons[Array.IndexOf(tileButtons, clickedButton)]){
-            //     unableToPlaceTileUI._unableToPlaceTileUI.notEnoughMoney();
-            //     doNotSelectButton = true;
-            // }
-
             //refuses to select button if its disabled
             int indexOfButtonClicked = Array.IndexOf(tileButtons, clickedButton);
             if(disabledButtons[indexOfButtonClicked]){
                 allTiles[indexOfButtonClicked].CheckIfTileIsPlaceable(true);
                 return;
             }
-
-
 
             ButtonIsSelected = true;
             selectedButton = clickedButton;
@@ -264,9 +218,9 @@ public class TileSelectPanel : ScrollableArea
             //selectedButtonGraphic.GetComponent<RectTransform>().anchoredPosition = new Vector2(selectedButton.GetComponent<RectTransform>().anchoredPosition.x, selectedButton.GetComponent<RectTransform>().anchoredPosition.y);
             selectedButtonGraphic.transform.position = selectedButton.transform.position;
         } 
+
         //runs if the user clicks the button that is already selected, and so deselects it.
         else {
-            //Debug.Log("Ran Deselect Buttons");
             deselectAllButtons();
         }
             
@@ -280,13 +234,7 @@ public class TileSelectPanel : ScrollableArea
     }
 
 
-
-    public override void UpdateUIElementsPositions(){
-        updateButtonPositions();
-        
-    }
-
-    public override float GetHeightOfButtons(){
+    public float GetHeightOfButtons(){
 
         int numOfActiveTiles = 0;
         foreach(GameObject tileButton in tileButtons){
@@ -297,7 +245,6 @@ public class TileSelectPanel : ScrollableArea
 
         float panelHeight = GetComponent<RectTransform>().rect.height;
         float buttonPlacementPosition = /* center of panel */GetComponent<RectTransform>().anchoredPosition.y + /*half of height of panel*/ ((.5f)*panelHeight) - /* distance from top of panel */ distanceFromTopOfPanel;
-        //buttonPlacementPosition = buttonPlacementPosition - 30f - (.5f*heightOfTile);
         return (-buttonPlacementPosition) + (numOfActiveTiles * (heightOfTile + gapBetweenTiles)); // 50f;
     }
 
@@ -309,7 +256,6 @@ public class TileSelectPanel : ScrollableArea
 
     //This function moves all of the buttons to their proper positions in the RectTransform when called
     public void updateButtonPositions(){
-        //Debug.Log("Updating Button Positions");
         float panelHeight = GetComponent<RectTransform>().rect.height;
         float buttonPlacementPosition = /* center of panel */GetComponent<RectTransform>().anchoredPosition.y + /*half of height of panel*/ ((.5f)*panelHeight) - /* distance from top of panel */ distanceFromTopOfPanel;
         float topOfScrollingArea = buttonPlacementPosition;
@@ -356,62 +302,4 @@ public class TileSelectPanel : ScrollableArea
     }
 
 
-
-    
-    
-    //Moved to separate script in a vague attempt at modularity
-    //This function does all the math for scrolling (Move it to a separate script at some point)
-    // void visiblyScrollButtons(){
-    //     float panelHeight = GetComponent<RectTransform>().rect.height;
- 
-    //     //The next if-else structure forces the button scrolling to remain within the bounds
-    //     if(actualScrollOffset > heightOfScrollableArea){
-    //         visibleScrollOffset = heightOfScrollableArea;
-    //         actualScrollOffset = heightOfScrollableArea;
-    //         updateButtonPositions();
-    //         currentlyScrolling = false;
-    //         return;
-    //     } else if(actualScrollOffset < 0f){
-    //         visibleScrollOffset = 0f;
-    //         actualScrollOffset = 0f;
-    //         updateButtonPositions();
-    //         currentlyScrolling = false;
-    //         return;
-    //     }
-
-    //     //Prevents the user from scrolling too fast (makes touchpad less sensative)
-    //     if(Mathf.Abs(visibleScrollOffset - actualScrollOffset) > peakScrollSpeed){
-    //         if(visibleScrollOffset > actualScrollOffset){
-    //             actualScrollOffset = visibleScrollOffset - peakScrollSpeed;
-    //         } else {
-    //             actualScrollOffset = visibleScrollOffset + peakScrollSpeed;
-    //         }
-    //     }
-
-    //     //The next two if statements move the buttons towards their final scroll destination
-    //     float currentScrollIncrement = scrollIncrement * Mathf.Abs(visibleScrollOffset - actualScrollOffset);
-    //     if(visibleScrollOffset > actualScrollOffset){
-    //         //Moves the buttons towards the final location after the user scrolls them
-    //         visibleScrollOffset -= currentScrollIncrement * Time.deltaTime;
-
-    //         //Checks to see if the scroll movement has gotten close to its destination
-    //         if((visibleScrollOffset <= actualScrollOffset) || Mathf.Abs(visibleScrollOffset - actualScrollOffset) < .01f){
-    //             visibleScrollOffset = actualScrollOffset;
-    //             currentlyScrolling = false;
-    //         }
-    //     } else {
-    //         //Moves the buttons towards the final location after the user scrolls them
-    //         visibleScrollOffset += currentScrollIncrement * Time.deltaTime;
-
-    //         //Checks to see if the scroll movement has gotten close to its destination
-    //         if((visibleScrollOffset >= actualScrollOffset) || Mathf.Abs(visibleScrollOffset - actualScrollOffset) < .01f){
-    //             visibleScrollOffset = actualScrollOffset;
-    //             currentlyScrolling = false;
-    //         }
-    //     }
-
-    //     //Moves the buttons into their new positions
-    //     updateButtonPositions();
-
-    // }
 }

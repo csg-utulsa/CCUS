@@ -7,7 +7,19 @@
 *       in each inherited Tile Tracker Class to see if it should add it to its count. You can retrieve all
 *       the tiles a Tile Tracker has counted by running ExampleTileTracker.GetAllTiles()
 *
+*   TO CREATE A NEW TILE TRACKER:
+*       1) Declare a new one, like this: public TileTracker ExampleTileTracker { get; set; }
+*       2) Create an instance of it in Start() & Add it to the TileTrackers array, like this:
+*               ExampleTileTracker = new ExampleTileTracker();
+*               TileTrackers.Add(ExampleTileTracker);
+*       3) At the bottom of this file, add a new class for your tile tracker that inherits from TileTracker.
+*           Then, add override methods for CheckTileForAddition() and CheckTileForRemoval() that define which tiles
+*           should be added to your new tile tracker. Every time a new tile is placed, it will be checked with
+*           those methods to determine if it should be added to your tracker.
 *
+*   NOTE: Try as best as you can to have as few of these tile trackers as possible because each of these adds
+*       extra operations every single time a tile is placed. However, compared to the other war crimes on
+*       efficiency my code is probably commiting, extra TileTrackers are likely not super significant.
 *
 */
 using System.Collections;
@@ -20,19 +32,20 @@ public class TileTypeCounter : MonoBehaviour
 
 
     //Only returns all of the tiles for a given type within the active chunk
-    public TileTracker[] TileTrackers { get; set; }
+    public List<TileTracker> TileTrackers { get; set; }
     public TileTracker AllTileTracker { get; set; }
     public TileTracker MoneyTileTracker { get; set; }
     public TileTracker CarbonTileTracker { get; set; }
     public TileTracker RoadTileTracker { get; set; }
     public TileTracker ResidenceTileTracker { get; set; }
     public TileTracker FactoryTileTracker { get; set; }
+    public TileTracker WorkplaceTileTracker { get; set; }
     public TileTracker CarbonCaptureTileTracker { get; set; }
     public TileTracker ActivatableBuildingTileTracker { get; set; }
     public TileTracker ActivatableTileTracker { get; set; }
 
 
-    //Test of tile trackers
+    //Test of certain tile trackers. KEEP IN CASE YOU NEED TO TEST NEW TILE TRACKERS
     void Update(){
         // if(Input.GetKeyDown(KeyCode.E)){
         //     int numberOfTiles = TileTrackers[1].GetAllTiles().Length; //GridManager.GM.GetAllTilesOnActiveChunk().Length;
@@ -68,29 +81,32 @@ public class TileTypeCounter : MonoBehaviour
     void Start(){
 
         //Activates all the tile trackers, to keep track of the number of every tile type.
-        TileTrackers = new TileTracker[7];
+        TileTrackers = new List<TileTracker>();
 
 
         CarbonTileTracker = new CarbonTileTracker();
-        TileTrackers[0] = CarbonTileTracker;
+        TileTrackers.Add(CarbonTileTracker);
 
         ResidenceTileTracker = new ResidenceTileTracker();
-        TileTrackers[1] = ResidenceTileTracker;
+        TileTrackers.Add(ResidenceTileTracker);
 
         RoadTileTracker = new RoadTileTracker();
-        TileTrackers[2] = RoadTileTracker;
+        TileTrackers.Add(RoadTileTracker);
 
         FactoryTileTracker = new FactoryTileTracker();
-        TileTrackers[3] = FactoryTileTracker;
+        TileTrackers.Add(FactoryTileTracker);
 
         CarbonCaptureTileTracker = new CarbonCaptureTileTracker();
-        TileTrackers[4] = CarbonCaptureTileTracker;
+        TileTrackers.Add(CarbonCaptureTileTracker);
         
         ActivatableBuildingTileTracker = new ActivatableBuildingTileTracker();
-        TileTrackers[5] = ActivatableBuildingTileTracker;
+        TileTrackers.Add(ActivatableBuildingTileTracker);
 
         ActivatableTileTracker = new ActivatableTileTracker();
-        TileTrackers[6] = ActivatableTileTracker;
+        TileTrackers.Add(ActivatableTileTracker);
+
+        WorkplaceTileTracker = new WorkplaceTileTracker();
+        TileTrackers.Add(WorkplaceTileTracker);
 
 
 
@@ -188,7 +204,7 @@ public class TileTracker{
             GameEventManager.current.BeginSwitchingCurrentGroundChunk.AddListener(ResetTileTracker);
         }
     }
-    
+
 
     protected void ResetTileTracker(){
         // Removes all tiles on chunk
@@ -303,6 +319,27 @@ public class FactoryTileTracker : TileTracker{
     public override void CheckTileForRemoval(Tile tile){
         if(tile is FactoryTile factory){
             base.RemoveTile(factory);
+        }
+    }
+}
+
+public class WorkplaceTileTracker : TileTracker{
+
+    //Keeps track of all the workplaces, not just the ones on the active chunk
+    public override bool resetThisTrackerOnChunkSwitch{
+        get{
+            return false;
+        }
+    }
+
+    public override void CheckTileForAddition(Tile tile){
+        if(tile.tileScriptableObject != null && tile.tileScriptableObject.RequiredEmployees > 0){
+            base.AddTile(tile);
+        }
+    }
+    public override void CheckTileForRemoval(Tile tile){
+        if(tile.tileScriptableObject != null && tile.tileScriptableObject.RequiredEmployees > 0){
+            base.RemoveTile(tile);
         }
     }
 }

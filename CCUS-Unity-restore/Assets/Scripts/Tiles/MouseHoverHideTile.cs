@@ -102,8 +102,7 @@ public class MouseHoverHideTile : MonoBehaviour
         string tileName = GetComponent<Tile>().tileScriptableObject.Name;
 
         IsHidden = false;
-        // if(GetComponent<ActivatableBuilding>() != null)
-        //     GetComponent<ActivatableBuilding>().UpdateBuildingActivation();
+
         FadeToTransparency(1f);
         // if(tileModel != null)
         //     tileModel.SetActive(true);

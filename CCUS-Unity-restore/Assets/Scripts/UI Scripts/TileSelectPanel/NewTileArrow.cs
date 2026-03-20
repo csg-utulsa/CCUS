@@ -13,7 +13,7 @@ public class NewTileArrow : MonoBehaviour
 
     public GameObject newTileArrowGraphic;
 
-    public ScrollingUI brokenScrollingUI;
+    public TileSelectPanelScroll scrollingUI;
 
     void Start(){
         GameEventManager.current.NewTileUnlocked.AddListener(NewTileUnlocked);
@@ -85,22 +85,14 @@ public class NewTileArrow : MonoBehaviour
 
     }
 
-    // private float GetTopOfRectTransform(RectTransform rect){
-    //     //float rectWidth = (yourRect.anchorMax.x - yourRect.anchorMin.x)*Screen.width;
-    //     float rectHeight =(rect.anchorMax.y - rect.anchorMin.y)*Screen.height;
-    //     float yPosition = rect.anchorMin.y * Screen.height;
-    // }
-
 
     //Called whenever arrow image is clicked.
     public void ArrowClicked() {
-        //TODO: Make clicking the arrow scroll down to the lowest button.
-        if(brokenScrollingUI != null){
-           //brokenScrollingUI.ScrollToBottom(); 
+        if(scrollingUI != null){
+           scrollingUI.ScrollToBottomButton(); 
         } else{
-            Debug.LogError("Assign ScrollingUI Script in the inspector.");
+            Debug.LogError("Assign TileSelectPanelScroll Script in the inspector.");
         }
-        
     }
 
 

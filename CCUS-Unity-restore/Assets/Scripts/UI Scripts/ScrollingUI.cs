@@ -1,3 +1,10 @@
+// NOTE: This script has been deprecated and replaced by TileSelectPanelScroll.cs because it made
+//       me want to drop my Comp Sci major every time I remembered that I was the person responsible
+//       for its existence.
+//       
+//       It used strange inheritance-based interactions that overcomplicated an otherwise simple
+//       process. 
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -46,6 +53,7 @@ public class ScrollingUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        return;
         scrollingPanelIndex = totalNumberOfScrollingPanels;
         totalNumberOfScrollingPanels++;
         visiblyScrollButtons();
@@ -54,6 +62,8 @@ public class ScrollingUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        return;
         //The next two if functions deal with scrolling (Move these to a separate script at some point)
         //They check if the user is scrolling
         float scrollFactor = Input.GetAxis("Mouse ScrollWheel"); 

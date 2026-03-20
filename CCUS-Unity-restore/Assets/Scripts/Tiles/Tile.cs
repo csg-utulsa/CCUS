@@ -25,7 +25,7 @@ public class Tile : MonoBehaviour
     private int _currentTileNetMoney = 0;
     private int _currentTileNetCarbon = 0;
 
-    //protected bool enoughResourcesToFunction = true;
+    public int CurrentEmployees {get; set;} = 0;
 
     public int currentTileNetMoney{
         get {
@@ -167,7 +167,9 @@ public class Tile : MonoBehaviour
 
         setInitialIncomeAndCarbon();
 
-        //Updates the carbon, money, and employees for tile if it's not an activatable tile
+        // NOTE TO SELF: I KNOW THIS CODE LOOKS REDUNDANT AT FIRST GLANCE -- I BEG YOU TO NOT DELETE IT
+        // (This code is only for tiles that aren't activatable)
+        // Updates the carbon, money, and employees for tile IF IT'S NOT AN ACTIVATABLE TILE
         if(!(this is ActivatableTile activatableTile)){
             LevelManager.LM.AdjustNetMoney(tileScriptableObject.AnnualIncome);
             LevelManager.LM.AdjustNetCarbon(tileScriptableObject.AnnualCarbonAdded);
@@ -188,7 +190,9 @@ public class Tile : MonoBehaviour
 
     public virtual void ThisTileAboutToBeDestroyed(){
 
-        //Updates the carbon, money, and employees for tile if it's not an activatable tile
+        // NOTE TO SELF: I KNOW THIS CODE LOOKS REDUNDANT AT FIRST GLANCE -- I BEG YOU TO NOT DELETE IT
+        // (This code is only for tiles that aren't activatable)
+        // Updates the carbon, money, and employees for tile IF IT'S NOT AN ACTIVATABLE TILE
         if(!(this is ActivatableTile activatableTile)){
             LevelManager.LM.AdjustNetMoney(-tileScriptableObject.AnnualIncome);
             LevelManager.LM.AdjustNetCarbon(-tileScriptableObject.AnnualCarbonAdded);
@@ -196,6 +200,8 @@ public class Tile : MonoBehaviour
                 PeopleManager.current.AdjustNumberOfEmployees(-tileScriptableObject.RequiredEmployees);
             }
         }
+
+
         // Removes object from GridManager, 
         // so when the roads use the GridManager to update their connections, they will ignore this tile
         GridManager.GM.RemoveObject(gameObject, false);

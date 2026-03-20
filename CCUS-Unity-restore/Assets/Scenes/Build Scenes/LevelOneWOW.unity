@@ -7206,8 +7206,8 @@ GameObject:
   - component: {fileID: 555511771}
   - component: {fileID: 555511770}
   - component: {fileID: 555511772}
-  - component: {fileID: 555511773}
   - component: {fileID: 555511774}
+  - component: {fileID: 555511775}
   m_Layer: 5
   m_Name: TileSelectPanel
   m_TagString: Untagged
@@ -7300,8 +7300,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visibleScrollOffset: 0
-  rectangleTransform: {fileID: 0}
   heightOfScrollableArea: 0
+  rectangleTransform: {fileID: 0}
   selectedButtonGraphic: {fileID: 573609516}
   tileButtons: []
   heightOfTile: 0
@@ -7310,23 +7310,6 @@ MonoBehaviour:
   scrollIncrement: 27.6
   peakScrollSpeed: 40
   scrollSpeed: 325
---- !u!114 &555511773
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 555511768}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfdaea7917d254243989856224097842, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scrollableArea: {fileID: 555511772}
-  scrollIncrement: 725
-  peakScrollSpeed: 160
-  scrollSpeed: 140
-  scrollAcceleration: 2
 --- !u!114 &555511774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7342,6 +7325,22 @@ MonoBehaviour:
   buttons: []
   buttonPricePrefab: {fileID: 3382642859601553046, guid: 7cfc41f41e831cb44997680ff37a381f, type: 3}
   offsetAsPercentageOfHeight: -0.5
+--- !u!114 &555511775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 555511768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0e3088c77382f2459268b5ae9e38583, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  TSP: {fileID: 555511772}
+  scrollSpeed: 800
+  minScrollTime: 0.15
+  flipScrollDirection: 0
 --- !u!4 &555729800 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b10c0bd8101943c4086c0958cc898724, type: 3}
@@ -17916,7 +17915,7 @@ MonoBehaviour:
   newestTile: {fileID: 0}
   playerHasSeenNewestTile: 0
   newTileArrowGraphic: {fileID: 311543129}
-  brokenScrollingUI: {fileID: 555511773}
+  scrollingUI: {fileID: 555511775}
 --- !u!114 &1440135303
 MonoBehaviour:
   m_ObjectHideFlags: 0
