@@ -11,6 +11,10 @@ public class TouchModeHandler : MonoBehaviour
     void Awake(){
         if(current == null){
             current = this;
+            if(transform.parent == null){
+                DontDestroyOnLoad(gameObject);
+            }
+            
         } else{
             Destroy(this);
         }

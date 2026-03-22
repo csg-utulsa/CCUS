@@ -54,7 +54,18 @@ public class ObjectDrag : MonoBehaviour
         //makes tile follow mouse if dragging == true;
         if (!dragging) return;
 
-        
+        //Disables the mesh when dragging, if in touch mode & finger not held down
+        if(TouchModeHandler.current.IsInTouchMode && Input.touchCount == 0){
+            if(myMeshLoader != null){
+                myMeshLoader.UnloadTileMesh();
+            }
+        } else{
+            if(myMeshLoader != null){
+                myMeshLoader.LoadTileMesh();
+            }
+        }
+
+        //NOTE: OnMoveTile call must go last. Otherwise, extra code gets called once OnMoveTileCompletes, which can be after another tile is placed.
         Vector3 pos = BuildingSystem.GetMouseWorldPosition();
         transform.position = BuildingSystem.current.SnapCoordinateToGrid(pos);
         Vector2Int currentGridPosition = GridManager.GM.SwitchToGridCoordinates(pos);
@@ -65,16 +76,7 @@ public class ObjectDrag : MonoBehaviour
             previousWorldPosition = transform.position;
         }
 
-        //Disables the mesh when dragging, if in touch mode & finger not held down
-        if(TouchModeHandler.current.IsInTouchMode){
-            if(myMeshLoader != null){
-                myMeshLoader.UnloadTileMesh();
-            }
-        } else{
-            if(myMeshLoader != null){
-                myMeshLoader.LoadTileMesh();
-            }
-        }
+        
         
 
         // Vector2 newSnappedPosition = GridManager.GM.switchToGridIndexCoordinates(pos);
@@ -118,10 +120,7 @@ public class ObjectDrag : MonoBehaviour
             overlapTerrain.GetComponent<Tile>().DeleteThisTile();
         }
 
-        //Makes sure the mesh is activated
-        if(myMeshLoader != null){
-           myMeshLoader.LoadTileMesh(); 
-        }
+        
 
         //Replaced code below with the two above if statements
         // if (overlapObject != null) {
@@ -146,6 +145,11 @@ public class ObjectDrag : MonoBehaviour
 
         //Alerts the Tile script that this tile was just placed
         if(this.GetComponent<Tile>() != null) this.GetComponent<Tile>().ThisTileJustPlaced();
+
+        //Makes sure the mesh is activated
+        if(myMeshLoader != null){
+           myMeshLoader.LoadTileMesh(); 
+        }
 
 
     }

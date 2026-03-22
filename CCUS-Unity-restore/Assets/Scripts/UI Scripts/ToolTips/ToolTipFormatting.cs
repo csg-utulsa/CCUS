@@ -35,6 +35,8 @@ public class ToolTipFormatting : MonoBehaviour
     public RectTransform MiddleOfToolTipBackground;
     //Bottom element of tooltip looks like this: ᗜ
     public RectTransform BottomOfToolTipBackground;
+
+    //NOTE: The handling of the arrow part of the tool tip has been moved to a separate class
     //Arrow element of tooltip looks like this: 🞂
     public RectTransform ArrowOfToolTipBackground;
     //All the elements of the tooltip fit together to make the tooltip, that looks about like this: ▢▹
@@ -111,6 +113,7 @@ public class ToolTipFormatting : MonoBehaviour
         RectTransformFunctions.current.SetTop(BottomOfToolTipBackground, bottomOfMiddleSection);
         RectTransformFunctions.current.SetRight(BottomOfToolTipBackground, 0f);
 
+        //NOTE: Handling of the arrow element has been moved to a separate class
         //Positions arrow element of tooltip background
         float topOfMiddleSection = RectTransformFunctions.current.GetTop(MiddleOfToolTipBackground);
         RectTransformFunctions.current.SetTop(ArrowOfToolTipBackground, topOfMiddleSection);

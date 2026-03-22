@@ -22,6 +22,7 @@ public class ToolTipManager : MonoBehaviour
 {
     public static ToolTipManager TTM;
     public ToolTipFormatting toolTipFormatter;
+    public GameObject toolTipArrow;
     public GameObject currentlySelectedButton;
 
     public GameObject toolTipContainer;
@@ -36,6 +37,10 @@ public class ToolTipManager : MonoBehaviour
 
     void Start(){
 
+
+        if(GetComponentInChildren<ToolTipArrow>(true) != null){
+            toolTipArrow = GetComponentInChildren<ToolTipArrow>(true).gameObject;
+        }
         
 
         if(GetComponent<ToolTipFormatting>() != null){
@@ -81,6 +86,9 @@ public class ToolTipManager : MonoBehaviour
         UpdateToolTipPosition();
         toolTipFormatter.ShowToolTip();
 
+        //Turns on tool tip arrow
+        toolTipArrow.SetActive(true);
+
     }
 
     public void deactivateToolTip(){
@@ -91,6 +99,9 @@ public class ToolTipManager : MonoBehaviour
         }
         
         toolTipFormatter.HideToolTip();
+
+        //Turns off tool tip arrow
+        toolTipArrow.SetActive(false);
     }
 
     public void UpdateToolTipPosition(){
@@ -100,11 +111,17 @@ public class ToolTipManager : MonoBehaviour
 
         float toolTipTotalHeight = toolTipFormatter.GetToolTipTotalHeight();
         float toolTipVerticalPosition = currentlySelectedButton.transform.position.y + scaledYOffset;
+
+        //Moves tool tip arrow to proper location, before the tool tip background's location is clamped
+        toolTipArrow.GetComponent<ToolTipArrow>().SetPosition(toolTipVerticalPosition);
+
+
         toolTipVerticalPosition = ClampToolTipPosition(toolTipVerticalPosition, toolTipTotalHeight);
 
         Vector3 toolTipPosition = new Vector3(currentlySelectedButton.transform.position.x - scaledToolTipDistanceFromButtons, toolTipVerticalPosition, currentlySelectedButton.transform.position.z);
         toolTipContainer.transform.position = toolTipPosition;
-        //toolTipFormatter.SetToolTipLocation(toolTipPosition);
+        
+        
 
         
 
@@ -113,20 +130,34 @@ public class ToolTipManager : MonoBehaviour
 
     //forces tool tip to stay on screen
     private float ClampToolTipPosition(float toolTipPosition, float toolTipHeight){
-        float bottomOfToolTip = toolTipPosition - toolTipHeight;
+
+        //Note: Must multiply all heights (other than Screen.height) by scaleFactor
+
+        float scaleFactor = CanvasScalarFactor.CSF.GetScaleFactor();
+
+        float bottomOfToolTip = (toolTipPosition) - ((toolTipHeight) * scaleFactor);
+
+        float topOfToolTipBackGroundHeight = toolTipFormatter.TopOfToolTipBackground.rect.height;
+
+        //Debug.LogError("Canvas Scale Factor: " + CanvasScalarFactor.CSF.GetScaleFactor());
 
         //Tool tip is too low
-        if(bottomOfToolTip < 0f){
-            return toolTipHeight + (toolTipEdgeBuffer * CanvasScalarFactor.CSF.GetScaleFactor());
+        if(bottomOfToolTip < (toolTipEdgeBuffer * scaleFactor)){
+            //Debug.Log("Mode: Low");
+            //Debug.Log("tool tip position: " + toolTipPosition + ", bottom of tool tip: " + bottomOfToolTip + ", height: " + toolTipHeight);
+            return (toolTipHeight + toolTipEdgeBuffer) * scaleFactor;
 
 
         //Tool tip is too high
         //Adds height of top of tool tip background, because the tool tip position is marked right below it
-        } else if((toolTipPosition + toolTipFormatter.TopOfToolTipBackground.rect.height) > Screen.height){
-            return (Screen.height - toolTipFormatter.TopOfToolTipBackground.rect.height) - (toolTipEdgeBuffer * CanvasScalarFactor.CSF.GetScaleFactor());
+        } else if(((toolTipPosition) + (topOfToolTipBackGroundHeight * scaleFactor)) > (Screen.height - (toolTipEdgeBuffer * scaleFactor))){
+            //Debug.Log("Mode: High");
+            //Debug.Log("position: " + toolTipPosition + ", top height: " + toolTipFormatter.TopOfToolTipBackground.rect.height + ", screen height: " + Screen.height);
+            return (Screen.height - (topOfToolTipBackGroundHeight * scaleFactor)) - (toolTipEdgeBuffer * scaleFactor);
         }
         
         else{ // Tool tip is neither too high nor too low
+            //Debug.Log("Mode: Normal");
             return toolTipPosition;
         }
     }

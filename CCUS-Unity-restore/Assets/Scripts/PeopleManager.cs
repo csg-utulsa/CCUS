@@ -126,7 +126,7 @@ public class PeopleManager : MonoBehaviour
                 bool isConnectedByRoads = activatableWorkplace.IsConnectedByRoads;
 
                 //Only gives employees to workplaces if they're connected by roads and there are enough employees
-                if(isConnectedByRoads && (neededEmployees <= employeesRemaining)){
+                if((isConnectedByRoads || !workplace.tileScriptableObject.MustBeConnectedByRoads) && (neededEmployees <= employeesRemaining)){
 
                     //Gives it the required number of employees
                     activatableWorkplace.CurrentEmployees = neededEmployees;

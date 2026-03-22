@@ -14,7 +14,7 @@ public class PeopleChunkLoader : MonoBehaviour
         peopleMoveManager = GetComponent<PeopleMovementManager>();
 
         //Adds listeners for when the chunk switch begins and ends
-        GameEventManager.current.BeginSwitchingCurrentGroundChunk.AddListener(BeginChunkSwitch);
+        GameEventManager.current.BeginSwitchingCurrentGroundChunkLate.AddListener(BeginChunkSwitch);
         GameEventManager.current.SwitchedCurrentGroundChunk.AddListener(EndChunkSwitch);
 
     }
@@ -41,6 +41,9 @@ public class PeopleChunkLoader : MonoBehaviour
 
         //Deletes all the people from the PeopleMovementManager's memory
         peopleMoveManager.RemoveAllPeopleFromMemory();
+
+        //Updates the movement path map
+        MovementPathMap.current.ActivatableTileMapChanged();
 
         //Creates correct number of people on the new chunk
         peopleMoveManager.UpdateIndestructiblePeopleCount(false);

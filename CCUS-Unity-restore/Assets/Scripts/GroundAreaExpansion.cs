@@ -188,6 +188,7 @@ public class GroundAreaExpansion : MonoBehaviour
 
         //Calls event for when chunk is switched
         GameEventManager.current.BeginSwitchingCurrentGroundChunk.Invoke();
+        GameEventManager.current.BeginSwitchingCurrentGroundChunkLate.Invoke();
 
         StartCoroutine(WaitToFinishSwitchingChunks(previousGroundChunk));
     }

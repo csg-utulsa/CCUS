@@ -36,6 +36,7 @@ public class GameEventManager : MonoBehaviour
     public UnityEvent SwitchedCurrentGroundChunkLate {get; set;}
     public UnityEvent PurchasedCurrentGroundChunk {get; set;}
     public UnityEvent BeginSwitchingCurrentGroundChunk {get; set;}
+    public UnityEvent BeginSwitchingCurrentGroundChunkLate {get; set;}
     public UnityEvent NewAreaUnlocked {get; set;}
 
     //Tile destruction and activation
@@ -76,6 +77,7 @@ public class GameEventManager : MonoBehaviour
         NewTileUnlocked = new UnityEvent();
         SwitchedCurrentGroundChunkLate = new UnityEvent();
         TileSelectPanelScrolled = new UnityEvent();
+        BeginSwitchingCurrentGroundChunkLate = new UnityEvent();
 
         if(current == null){
             current = this;

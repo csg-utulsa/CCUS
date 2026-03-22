@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 public class MovementPathMap : MonoBehaviour
 {
+
+    public static MovementPathMap current; 
+
     private int widthOfGrid;
     public enum MapTileType
     {
@@ -13,6 +16,14 @@ public class MovementPathMap : MonoBehaviour
     }
 
     public MapTileType[][] movementPathMap;
+
+    void Awake(){
+        if(current == null){
+            current = this;
+        } else{
+            Destroy(this);
+        }
+    }
 
     void Start(){
 
@@ -30,7 +41,7 @@ public class MovementPathMap : MonoBehaviour
         //Adds listeners for whenever the arrangement of Activatable Tiles changes
         GameEventManager.current.ActivatableTileJustPlaced.AddListener(ActivatableTileMapChanged);
         GameEventManager.current.ActivatableTileJustDestroyed.AddListener(ActivatableTileMapChanged);
-        GameEventManager.current.SwitchedCurrentGroundChunkLate.AddListener(SwitchedGroundChunkLate);
+        //GameEventManager.current.SwitchedCurrentGroundChunkLate.AddListener(SwitchedGroundChunkLate);
     }
 
     private void SetPathMapToEmpty(){
@@ -42,9 +53,9 @@ public class MovementPathMap : MonoBehaviour
     }
 
     // Delays updating the tile map after a grid chunk switch to give the Tile Counter time to update
-    private void SwitchedGroundChunkLate(){
-        ActivatableTileMapChanged();
-    }
+    // private void SwitchedGroundChunkLate(){
+    //     ActivatableTileMapChanged();
+    // }
 
     //Every time an activatable tile is placed or the grid chunk switches, it updates its tile map
     public void ActivatableTileMapChanged(){
