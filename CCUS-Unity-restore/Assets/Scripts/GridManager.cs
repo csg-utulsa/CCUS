@@ -107,7 +107,13 @@ public class GridManager : MonoBehaviour
     }
 
     public Tile[] GetAllTilesOnActiveChunk(){
-        return ActiveGridChunk.allTilesOnChunk.ToArray();
+        try{
+            return ActiveGridChunk.allTilesOnChunk.ToArray();
+        } catch{
+            Debug.LogError("Failed to get all tiles on active chunk");
+            return null;
+        }
+        
     }
 
     //returns all neighbors of input tile

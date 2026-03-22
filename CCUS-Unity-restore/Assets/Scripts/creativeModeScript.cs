@@ -16,6 +16,13 @@ public class creativeModeScript : MonoBehaviour
 
     void Update()
     {
+
+        //TODO: Delete this if statement later
+        if(Input.GetKeyDown(KeyCode.Z)){
+            LevelManager.LM.setMaxCarbon(500);
+        }
+        
+
         //Activate creative mode on Tab + G
         //You must press G Last
         //Prevents it from running in build if included: Debug.isDebugBuild && 

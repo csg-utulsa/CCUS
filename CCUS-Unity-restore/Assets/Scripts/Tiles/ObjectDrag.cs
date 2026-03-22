@@ -17,6 +17,9 @@ public class ObjectDrag : MonoBehaviour
     private static bool SoundCanBePlayed = false; //Should not call sound at beginning so we're not overwhelmed at startup
     public Vector2Int PreviousGridPosition {get; set;} = new Vector2Int(0, 0);
     private Vector3 previousWorldPosition = new Vector3(0f, 0f, 0f);
+
+    //Used to turn off mesh
+    private TileMeshLoader myMeshLoader;
     
    // private Vector2 previousPosition = new Vector2(0, 0);
 
@@ -24,6 +27,8 @@ public class ObjectDrag : MonoBehaviour
     {
         GOTag = gameObject.tag;
         tileMaterialHandler = GetComponent<TileMaterialHandler>();
+
+        myMeshLoader = GetComponent<TileMeshLoader>();
 
 
         previousWorldPosition = transform.position;
@@ -59,6 +64,17 @@ public class ObjectDrag : MonoBehaviour
             PreviousGridPosition = currentGridPosition;
             previousWorldPosition = transform.position;
         }
+
+        //Disables the mesh when dragging, if in touch mode & finger not held down
+        if(TouchModeHandler.current.IsInTouchMode){
+            if(myMeshLoader != null){
+                myMeshLoader.UnloadTileMesh();
+            }
+        } else{
+            if(myMeshLoader != null){
+                myMeshLoader.LoadTileMesh();
+            }
+        }
         
 
         // Vector2 newSnappedPosition = GridManager.GM.switchToGridIndexCoordinates(pos);
@@ -77,6 +93,9 @@ public class ObjectDrag : MonoBehaviour
 
     public void Place()
     {   
+
+        
+
         //Puts object in the Grid Manager
         GridManager.GM.AddObject(gameObject, false);
         GetComponent<Tile>().tilePosition = BuildingSystem.current.SnapCoordinateToGrid(transform.position);//updates tile position of tile
@@ -97,6 +116,11 @@ public class ObjectDrag : MonoBehaviour
         }
         if(overlapTerrain != null && !AllowObjectOverlap(overlapTerrain)){
             overlapTerrain.GetComponent<Tile>().DeleteThisTile();
+        }
+
+        //Makes sure the mesh is activated
+        if(myMeshLoader != null){
+           myMeshLoader.LoadTileMesh(); 
         }
 
         //Replaced code below with the two above if statements

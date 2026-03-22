@@ -429,6 +429,17 @@ public class BuildingSystem : MonoBehaviour
         return isOverVoid;
     }
 
+    //This function is the same as above, but depends on mouse position instead of activeObject.position
+    public static bool isMouseOverVoid(){
+        Vector3 positionOnGrid = current.SnapCoordinateToGrid(GetMouseWorldPosition());
+        Vector3 raycastStartPosition = new Vector3(positionOnGrid.x, positionOnGrid.y + 5.0f, positionOnGrid.z);
+
+        bool isOverVoid = true;
+        isOverVoid = !(Physics.Raycast(raycastStartPosition, -Vector3.up, 100.0F, current.groundLayer));
+
+        return isOverVoid;
+    }
+
     public bool isActiveObjectOverlappingSameTileType(){
         if(activeObject == null) return false;
 

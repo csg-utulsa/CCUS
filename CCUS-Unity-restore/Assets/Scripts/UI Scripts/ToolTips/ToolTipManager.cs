@@ -31,6 +31,8 @@ public class ToolTipManager : MonoBehaviour
     public float toolTipDistanceFromButtons = 30f;
     public float toolTipYOffset = 30f;
 
+    public float toolTipEdgeBuffer = 30f;
+
 
     void Start(){
 
@@ -45,10 +47,25 @@ public class ToolTipManager : MonoBehaviour
         }else{
             Destroy(this);
         }
+
+        GameEventManager.current.TileSelectPanelScrolled.AddListener(UpdateToolTipPosition);
+    }
+
+    void Update(){
+        //Disables tool tip in touch mode if the player isn't touching the screen
+        if(TouchModeHandler.current.IsInTouchMode && Input.touchCount == 0){
+            deactivateToolTip();
+        }
     }
 
     public void activateToolTip(Tile tile, GameObject button){
 
+        //Deactivates all tool tips
+        foreach(ToolTipType toolTip in allToolTips){
+            toolTip.DisableToolTip();
+        }
+
+        //Activates all tool tips for the button that is being hovered over
         foreach(ToolTipType toolTip in allToolTips){
             if(toolTip.ShouldEnableToolTip(tile)){
                 toolTip.EnableToolTip(tile);
@@ -60,14 +77,15 @@ public class ToolTipManager : MonoBehaviour
         RectTransform[] toolTipsToTurnOn = GetToolTipsForTile(tile);
         
 
-        UpdateToolTipPosition();
         toolTipFormatter.FormatToolTip(toolTipsToTurnOn);
+        UpdateToolTipPosition();
         toolTipFormatter.ShowToolTip();
 
     }
 
     public void deactivateToolTip(){
 
+        //Deactivates all tool tips
         foreach(ToolTipType toolTip in allToolTips){
             toolTip.DisableToolTip();
         }
@@ -79,9 +97,38 @@ public class ToolTipManager : MonoBehaviour
         float scaledToolTipDistanceFromButtons = toolTipDistanceFromButtons * CanvasScalarFactor.CSF.GetScaleFactor();
         float scaledYOffset = toolTipYOffset * CanvasScalarFactor.CSF.GetScaleFactor();
         if(currentlySelectedButton == null) return;
-        Vector3 toolTipPosition = new Vector3(currentlySelectedButton.transform.position.x - scaledToolTipDistanceFromButtons, currentlySelectedButton.transform.position.y + scaledYOffset, currentlySelectedButton.transform.position.z);
+
+        float toolTipTotalHeight = toolTipFormatter.GetToolTipTotalHeight();
+        float toolTipVerticalPosition = currentlySelectedButton.transform.position.y + scaledYOffset;
+        toolTipVerticalPosition = ClampToolTipPosition(toolTipVerticalPosition, toolTipTotalHeight);
+
+        Vector3 toolTipPosition = new Vector3(currentlySelectedButton.transform.position.x - scaledToolTipDistanceFromButtons, toolTipVerticalPosition, currentlySelectedButton.transform.position.z);
         toolTipContainer.transform.position = toolTipPosition;
         //toolTipFormatter.SetToolTipLocation(toolTipPosition);
+
+        
+
+
+    }
+
+    //forces tool tip to stay on screen
+    private float ClampToolTipPosition(float toolTipPosition, float toolTipHeight){
+        float bottomOfToolTip = toolTipPosition - toolTipHeight;
+
+        //Tool tip is too low
+        if(bottomOfToolTip < 0f){
+            return toolTipHeight + (toolTipEdgeBuffer * CanvasScalarFactor.CSF.GetScaleFactor());
+
+
+        //Tool tip is too high
+        //Adds height of top of tool tip background, because the tool tip position is marked right below it
+        } else if((toolTipPosition + toolTipFormatter.TopOfToolTipBackground.rect.height) > Screen.height){
+            return (Screen.height - toolTipFormatter.TopOfToolTipBackground.rect.height) - (toolTipEdgeBuffer * CanvasScalarFactor.CSF.GetScaleFactor());
+        }
+        
+        else{ // Tool tip is neither too high nor too low
+            return toolTipPosition;
+        }
     }
 
     private RectTransform[] GetToolTipsForTile(Tile tile){

@@ -360,6 +360,7 @@ MonoBehaviour:
   po: {fileID: 7532892136959826067}
   state: 0
   tilePosition: {x: 0, y: 0, z: 0}
+  buildingActivatedGraphic: {fileID: 0}
 --- !u!114 &8026660272149806273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -390,7 +391,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placed: 0
   Vertices: []
-  tile: {fileID: 0}
+  tile: {fileID: -8977135763208068888}
 --- !u!65 &2169967218846739974
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -516,6 +517,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce3764c97c203b348a50729f3571814f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TileMeshLoader
+  tileChildrenObjects: []
+  activatedChildrenObjects: []
 --- !u!1001 &1789835284761691007
 PrefabInstance:
   m_ObjectHideFlags: 0

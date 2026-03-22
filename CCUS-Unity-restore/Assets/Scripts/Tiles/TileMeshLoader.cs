@@ -39,7 +39,8 @@ public class TileMeshLoader : MonoBehaviour
     public void LoadTileMesh(){
 
         //If it's already loaded, it doesn't try to load it again
-        //if(isLoaded) return;
+        if(isLoaded) return;
+
 
         //Turns on all the child objects that were activated when the tile was unloaded
         foreach(GameObject activatedChildObject in activatedChildrenObjects){
@@ -55,6 +56,9 @@ public class TileMeshLoader : MonoBehaviour
 
     //Deactivates tile mesh when chunk is unloaded
     public void UnloadTileMesh(){
+
+        //If it's already unloaded, it doesn't try to unload it again
+        if(!isLoaded) return;
 
         isLoaded = false;
 

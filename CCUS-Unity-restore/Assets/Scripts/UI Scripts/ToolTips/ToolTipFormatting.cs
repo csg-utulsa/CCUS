@@ -136,4 +136,8 @@ public class ToolTipFormatting : MonoBehaviour
 
         toolTipContainer.gameObject.SetActive(true);
     }
+
+    public float GetToolTipTotalHeight(){
+        return -RectTransformFunctions.current.GetBottom(BottomOfToolTipBackground);
+    }
 }

@@ -124,8 +124,9 @@ public class RoadConnections : MonoBehaviour
         int newOrientation = arrangementOrientationAngles[currentAlignment];
         Material newModel = modelList[arrangementModels[currentAlignment]];
 
+
         if(previousModel == null || previousOrientation != newOrientation || newModel != previousModel){
-            GetComponentInChildren<Renderer>().material = newModel;
+            GetComponentInChildren<MeshRenderer>(true).material = newModel;
             transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, (newOrientation * 90f) + correctModelRotations, transform.rotation.eulerAngles.z);
             
             if(makeNeighborsCheckConnections){
@@ -153,7 +154,7 @@ public class RoadConnections : MonoBehaviour
         Material newModel = modelList[arrangementModels[currentAlignment]];
 
         if(previousModel == null || previousOrientation != newOrientation || newModel != previousModel){
-            GetComponentInChildren<Renderer>().material = newModel;
+            GetComponentInChildren<MeshRenderer>(true).material = newModel;
             transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, (newOrientation * 90f) + correctModelRotations, transform.rotation.eulerAngles.z);
             
             // if(makeNeighborsCheckConnections){

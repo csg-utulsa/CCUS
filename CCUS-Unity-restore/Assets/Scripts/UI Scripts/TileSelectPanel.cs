@@ -181,8 +181,13 @@ public class TileSelectPanel : MonoBehaviour
     }
 
     public void SetScrollOffset(float inputVisibleScrollOffset){
+        
         visibleScrollOffset = inputVisibleScrollOffset;
         updateButtonPositions();
+
+        // Invokes event for when the tile select panel scrolls.
+        // It's used by the tool tip manager to move it into place.
+        GameEventManager.current.TileSelectPanelScrolled.Invoke();
     }
 
 

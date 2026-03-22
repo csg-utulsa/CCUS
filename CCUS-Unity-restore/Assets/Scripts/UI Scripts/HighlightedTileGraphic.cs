@@ -17,9 +17,12 @@ public class HighlightedTileGraphic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //True if in touch mode & input is over void
+        bool touchedOverVoid = TouchModeHandler.current.IsInTouchMode && BuildingSystem.isMouseOverVoid();
+
         //If mouse is over the screen, it moves the highlighted graphic to it.
-        //Also deactivates the highlighted graphic if in delete mode
-        if(MouseScreenPosition.MouseIsOverScreen() && !TrashButtonScript.TBS.isSelected){
+        //Also deactivates the highlighted graphic if in delete mode or it's over the void in touch mode
+        if(MouseScreenPosition.MouseIsOverScreen() && !TrashButtonScript.TBS.isSelected && !touchedOverVoid){
             activatedTileSquare.SetActive(true);
             Vector3 pos = BuildingSystem.GetMouseWorldPosition();
             Vector3 mouseWorldCoordinate = BuildingSystem.current.SnapCoordinateToGrid(pos);
@@ -27,6 +30,7 @@ public class HighlightedTileGraphic : MonoBehaviour
         } else{
             activatedTileSquare.SetActive(false);
         }
+
     }
 
     private void MouseMovedToNewGridTile(){

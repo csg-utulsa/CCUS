@@ -44,7 +44,13 @@ public class GridChunk
     #region Get Functions
 
     public Tile[] GetAllTilesOnGridChunk(){
-        return allTilesOnChunk.ToArray();
+        try{
+            return allTilesOnChunk.ToArray();
+        } catch{
+            Debug.LogError("Failed to get all tiles on grid chunk");
+            return null;
+        }
+        
     }
     
     //Only used by grid visualizer utility
@@ -88,7 +94,13 @@ public class GridChunk
             }
         }
 
-        return allTiles.ToArray();
+        try{
+            return allTiles.ToArray();
+        } catch{
+            Debug.LogError("Failed to get all tiles in range");
+            return null;
+        }
+        
 
     }
 
@@ -175,9 +187,12 @@ public class GridChunk
         Vector2Int arrayPosition = SwitchFromGridToArrayCoordinates(gridPosition);
 
         //Returns null if outside of bounds
-        try {
+        if(arrayPosition.x < positionsOfCells.Length && arrayPosition.x >= 0
+            && arrayPosition.y < positionsOfCells[arrayPosition.x].Length && arrayPosition.y >= 0) {
+
             return positionsOfCells[arrayPosition.x][arrayPosition.y];  
-        } catch{
+        
+        } else{
             return null;
         }
         
@@ -301,7 +316,7 @@ public class GridChunk
 //Container to hold everything a single Cell on the grid could need to know
 public class GridCell 
 {
-    LinkedList<GameObject> objectsInCell = new LinkedList<GameObject>();
+    List<GameObject> objectsInCell = new List<GameObject>();
     public float xArrayLocation { get; set; }
     public float yArrayLocation { get; set; }
 
@@ -311,7 +326,33 @@ public class GridCell
 
     //returns what objects are sitting on the cell
     public GameObject[] GetObjectsInCell(){
-        return objectsInCell.ToArray();
+        try{
+            if(objectsInCell != null){
+                try{
+                    return objectsInCell.ToArray(); 
+                } catch{
+                    Debug.LogError("Doesn't like to array");
+                    return new GameObject[0];
+                    //return null;
+                }
+                
+            } else{
+                Debug.LogError("Objects in cell is null");
+                try{
+                    return new GameObject[0];
+                } catch {
+                    Debug.LogError("Doesn't like empty game object array");
+                    return null;
+                }
+                
+            }
+            
+        } catch{
+            Debug.LogError("Failed to Get all Objects in Cell");
+            return new GameObject[0];
+            //return null;
+        }
+        
     }
 
     //Adds an object to the array of objects that are sitting on the cell
@@ -327,7 +368,7 @@ public class GridCell
 		//Tracks different types of tiles
 		TileTypeCounter.current.CheckTileTrackersForAddition(objectToAdd);
 
-		objectsInCell.AddFirst(objectToAdd);
+		objectsInCell.Add(objectToAdd);
 		
 		Tile tile = objectToAdd.GetComponent<Tile>();
 		if(tile != null)

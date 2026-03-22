@@ -71,7 +71,7 @@ public class NewTileArrow : MonoBehaviour
 
         Rect newestTileButtonScreenPosRect = RectTransformFunctions.current.RectTransformToScreenSpace(newestTile);
 
-        float bottomOfNewestTile = newestTileButtonScreenPosRect.position.y - (0.5f * newestTileButtonScreenPosRect.height);
+        float bottomOfNewestTile = newestTileButtonScreenPosRect.position.y;// - (0.5f * newestTileButtonScreenPosRect.height);
 
         float bottomOfScreen = Camera.main.ScreenToWorldPoint(Vector3.zero).y;
 

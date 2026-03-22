@@ -47,6 +47,9 @@ public class GameEventManager : MonoBehaviour
     public UnityEvent NumOfCarbonCaptureTilesChanged {get; set;}
     public UnityEvent NumOfWorkPlaceTilesChanged {get; set;}
 
+    //UI Events
+    public UnityEvent TileSelectPanelScrolled {get; set;}
+
     public static GameEventManager current;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -72,6 +75,7 @@ public class GameEventManager : MonoBehaviour
         NumOfWorkPlaceTilesChanged = new UnityEvent();
         NewTileUnlocked = new UnityEvent();
         SwitchedCurrentGroundChunkLate = new UnityEvent();
+        TileSelectPanelScrolled = new UnityEvent();
 
         if(current == null){
             current = this;
