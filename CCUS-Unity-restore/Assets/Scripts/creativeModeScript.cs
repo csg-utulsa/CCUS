@@ -19,8 +19,19 @@ public class creativeModeScript : MonoBehaviour
 
         //TODO: Delete this if statement later
         if(Input.GetKeyDown(KeyCode.Z)){
-            LevelManager.LM.setMaxCarbon(500);
+            AudioManager.current.PlaySound(1);
         }
+
+        //TODO: Delete this if statement later
+        if(Input.GetKeyDown(KeyCode.X)){
+            AudioManager.current.PlaySoundContinuous(2);
+        }
+
+        //TODO: Delete this if statement later
+        if(Input.GetKeyDown(KeyCode.C)){
+            AudioManager.current.EndSound(2);
+        }
+        
         
 
         //Activate creative mode on Tab + G

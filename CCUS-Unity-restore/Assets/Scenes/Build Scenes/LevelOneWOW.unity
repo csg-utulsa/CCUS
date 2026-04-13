@@ -23212,6 +23212,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1902019699}
+  - component: {fileID: 1902019700}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -23233,8 +23234,25 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1154393738}
+  - {fileID: 2007056815}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1902019700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1902019698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f8a08850ff29e141b9540bac86c6318, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  AudioResourceMap: {fileID: 4900000, guid: d68c6ffaaa95d284aa9a8e01d11a4545, type: 3}
+  EnableSoundEffects: 1
+  audioSources: []
+  maxSoundsPlaying: 50
 --- !u!1001 &1902752089
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23775,6 +23793,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c524c85d1083c1a4d95525013b773ce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EmploymentPanel
+--- !u!1 &2007056814
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2007056815}
+  m_Layer: 0
+  m_Name: SoundEffects
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2007056815
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2007056814}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1902019699}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2018021219
 GameObject:
   m_ObjectHideFlags: 0
