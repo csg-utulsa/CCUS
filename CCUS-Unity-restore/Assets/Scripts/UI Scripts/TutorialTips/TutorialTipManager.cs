@@ -63,6 +63,11 @@ public class TutorialTipManager : MonoBehaviour
     //Activates text object associated with the TutorialTip object
     public void ActivateTutorialTip(int tutorialTipTextID){
 
+        if(activatedTutorialTips.Count <= 0){
+            //Calls event to alert game that a new tutorial tip has appeared
+            GameEventManager.current.TutorialTipHasAppeared.Invoke();
+        }
+
         //Fades tutorial tip background to full opacity
         backgroundActivator.ActivateTutorialTipBackground();
 
@@ -87,6 +92,8 @@ public class TutorialTipManager : MonoBehaviour
                 tutorialTipTextObject.SetActive(false);
             }
         }
+
+        
 
         
     }
@@ -133,7 +140,7 @@ public class TutorialTipManager : MonoBehaviour
 
     }
 
-    //Deactivates the tutorial tip that is currently displaying
+    //Deactivates the tutorial tip that is currently displaying. CALLED FROM X BUTTON
     public void DeactivateTopTutorialTip(){
 
         if(activatedTutorialTips.Count > 0){
@@ -141,7 +148,7 @@ public class TutorialTipManager : MonoBehaviour
             if(indexOfTipToDeactivate != -1){
                 DeactivateTutorialTip(Array.IndexOf(tutorialTipTextObjects, activatedTutorialTips[indexOfTipToDeactivate]));
             }
-            
+            GameEventManager.current.CloseTutorialNotification.Invoke();
         }
     }
 

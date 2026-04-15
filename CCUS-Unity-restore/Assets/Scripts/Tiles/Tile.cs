@@ -133,6 +133,7 @@ public class Tile : MonoBehaviour
         if(tooMuchCarbonToPlace()){
             if(displayErrorMessages){
                 unableToPlaceTileUI._unableToPlaceTileUI.tooMuchCarbon();
+                GameEventManager.current.FailedToPlaceTile.Invoke();
             }
             
             return false;
@@ -143,6 +144,7 @@ public class Tile : MonoBehaviour
         {
             if(displayErrorMessages){
                 unableToPlaceTileUI._unableToPlaceTileUI.notEnoughMoney();
+                GameEventManager.current.FailedToPlaceTile.Invoke();
             }
             return false;
         }
@@ -152,6 +154,7 @@ public class Tile : MonoBehaviour
         {
             if(displayErrorMessages){
                 unableToPlaceTileUI._unableToPlaceTileUI.NotEnoughPeople();
+                GameEventManager.current.FailedToPlaceTile.Invoke();
             }
             return false;
         }

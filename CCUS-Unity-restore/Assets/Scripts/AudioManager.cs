@@ -1,7 +1,11 @@
 /*
+*   Description: Plays and ends sounds based on soundIDs linked to the AudioResourceMap.csv file
 *
-*   NOTE: Audio files must be in same folder as AudioResourceMap.csv to work.
+*   SUPER IMPORTANT NOTE: Audio files must be in the Resources/Audio folder to work
 *
+*   Look at README.md in the Resources/Audio folder for more info on adding new sounds.
+*   
+*   Primarily called by the AudioEventListenerClass
 *
 */
 
@@ -64,6 +68,10 @@ public class AudioManager : MonoBehaviour
         //Creates or assigns an audio source for the sound
         AudioSource audioSource = AssignAudioSourceToClip(soundID);
 
+        if(audioSource == null){
+            Debug.LogError("Audio Clip ID Doesn't exist!! :(   (Try checking your AudioResourceMap.csv in Resources/Audio)");
+        }
+
         audioSource.Play();
 
         AudioClip audioClip = GetAudioClipByID(soundID);
@@ -114,6 +122,9 @@ public class AudioManager : MonoBehaviour
 
         //Finds audio clip by its ID number & makes it the resource of the audioSource
         AudioClip audioClip = GetAudioClipByID(soundID);
+        if(audioClip == null){
+            return null;
+        }
         audioSource.resource = audioClip;
 
         //Keeps track of all the audio sources that are occupied
@@ -224,7 +235,11 @@ public class AudioManager : MonoBehaviour
     }
 
     private AudioClip GetAudioClipByID(int soundID){
-        return audioClips[Array.IndexOf(audioClipSoundIDs, soundID)];
+        int audioClipIndex = Array.IndexOf(audioClipSoundIDs, soundID);
+        if(audioClipIndex == -1){
+            return null;
+        }
+        return audioClips[audioClipIndex];
     }
 
     private bool IsClipPlayable(int soundID){

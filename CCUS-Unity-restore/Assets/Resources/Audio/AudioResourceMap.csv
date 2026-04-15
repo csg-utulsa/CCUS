@@ -1,3 +1,8 @@
 00001,Place Tile,PlaceTile,1
 00002,Switch Area Chunks,SwitchArea,1
 00003,Purchase New Area,PurchaseArea,1
+00004,Cannot Place Tile You're Attempting To,CantPlaceTile,1
+00005,Closing UI Pop Up,CloseUI,1
+00006,Destroying a tile,DeleteTile,1
+00007,New Person Was Added,NewPerson,1
+00008,TutorialNotification,NotificationDing,1

@@ -47,9 +47,12 @@ public class GameEventManager : MonoBehaviour
     public UnityEvent BuildingActivationStateChanged {get; set;}
     public UnityEvent NumOfCarbonCaptureTilesChanged {get; set;}
     public UnityEvent NumOfWorkPlaceTilesChanged {get; set;}
+    public UnityEvent FailedToPlaceTile {get; set;}
 
-    //UI Events
+    //UI Events. NOTE: Move to separate class eventually
     public UnityEvent TileSelectPanelScrolled {get; set;}
+    public UnityEvent TutorialTipHasAppeared {get; set;}
+    public UnityEvent CloseTutorialNotification {get; set;}
 
     public static GameEventManager current;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -78,6 +81,9 @@ public class GameEventManager : MonoBehaviour
         SwitchedCurrentGroundChunkLate = new UnityEvent();
         TileSelectPanelScrolled = new UnityEvent();
         BeginSwitchingCurrentGroundChunkLate = new UnityEvent();
+        FailedToPlaceTile = new UnityEvent();
+        TutorialTipHasAppeared = new UnityEvent();
+        CloseTutorialNotification = new UnityEvent();
 
         if(current == null){
             current = this;
