@@ -63,7 +63,7 @@ public class AudioManager : MonoBehaviour
     public void PlaySound(int soundID){
 
         //Prevents unplayable clips from playing
-        if(!IsClipPlayable(soundID)) return;
+        if(!IsClipPlayable(soundID) || !EnableSoundEffects) return;
 
         //Creates or assigns an audio source for the sound
         AudioSource audioSource = AssignAudioSourceToClip(soundID);
@@ -85,7 +85,7 @@ public class AudioManager : MonoBehaviour
     public void PlaySoundContinuous(int soundID){
 
         //Prevents unplayable clips from playing
-        if(!IsClipPlayable(soundID)) return;
+        if(!IsClipPlayable(soundID) || !EnableSoundEffects) return;
 
         //Creates or assigns an audio source for the sound
         AudioSource audioSource = AssignAudioSourceToClip(soundID);

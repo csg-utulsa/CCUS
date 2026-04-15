@@ -63,7 +63,7 @@ public class TutorialTipManager : MonoBehaviour
     //Activates text object associated with the TutorialTip object
     public void ActivateTutorialTip(int tutorialTipTextID){
 
-        if(activatedTutorialTips.Count <= 0){
+        if(!backgroundActivator.IsVisible){
             //Calls event to alert game that a new tutorial tip has appeared
             GameEventManager.current.TutorialTipHasAppeared.Invoke();
         }
@@ -153,6 +153,11 @@ public class TutorialTipManager : MonoBehaviour
     }
 
     public void ActivateTutorialTipBelow(){
+
+        if(!backgroundActivator.IsVisible){
+            //Calls event to alert game that a new tutorial tip has appeared
+            GameEventManager.current.TutorialTipHasAppeared.Invoke();
+        }
 
         //Fades tutorial tip background to full opacity & does the intro-sizing animation
         backgroundActivator.ActivateTutorialTipBackground();

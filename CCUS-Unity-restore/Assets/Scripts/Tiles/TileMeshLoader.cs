@@ -38,8 +38,6 @@ public class TileMeshLoader : MonoBehaviour
     //Activates tile mesh when chunk is loaded
     public void LoadTileMesh(){
 
-        Debug.Log("isLoading tile mesh");
-
         //If it's already loaded, it doesn't try to load it again
         //if(isLoaded) return;
 
