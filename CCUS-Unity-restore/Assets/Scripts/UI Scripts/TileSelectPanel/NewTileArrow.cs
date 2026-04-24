@@ -16,7 +16,7 @@ public class NewTileArrow : MonoBehaviour
     public TileSelectPanelScroll scrollingUI;
 
     void Start(){
-        GameEventManager.current.NewTileUnlocked.AddListener(NewTileUnlocked);
+        GameEventManager.current.GetEvent(EventType.E.NewTileUnlocked).AddListener(NewTileUnlocked);
     }
 
     void Update(){
@@ -88,6 +88,7 @@ public class NewTileArrow : MonoBehaviour
 
     //Called whenever arrow image is clicked.
     public void ArrowClicked() {
+        GameEventManager.current.GetEvent(EventType.E.ClickSwitchAreaArrow).Invoke();
         if(scrollingUI != null){
            scrollingUI.ScrollToBottomButton(); 
         } else{

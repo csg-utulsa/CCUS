@@ -24,7 +24,7 @@ public class CarbonDial : MonoBehaviour
         }
         dialSmoothMove = GetComponent<CarbonDialSmoothMove>();
         TickManager.TM.EndOfPollutionTick.AddListener(EndOfPollutionTick);
-        GameEventManager.current.NetCarbonUpdated.AddListener(NetCarbonUpdated);
+        GameEventManager.current.GetEvent(EventType.E.NetCarbonUpdated).AddListener(NetCarbonUpdated);
     }
 
     //Updates Carbon percent after each pollution tick
@@ -66,6 +66,7 @@ public class CarbonDial : MonoBehaviour
         if(GetComponent<UnhideUIElement>() != null){
             GetComponent<UnhideUIElement>().ActivateUIElement();
         }
+        GameEventManager.current.GetEvent(EventType.E.CarbonMeterAppeared).Invoke();
     }
 
     

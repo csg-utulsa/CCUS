@@ -39,9 +39,9 @@ public class MovementPathMap : MonoBehaviour
         }
 
         //Adds listeners for whenever the arrangement of Activatable Tiles changes
-        GameEventManager.current.ActivatableTileJustPlaced.AddListener(ActivatableTileMapChanged);
-        GameEventManager.current.ActivatableTileJustDestroyed.AddListener(ActivatableTileMapChanged);
-        //GameEventManager.current.SwitchedCurrentGroundChunkLate.AddListener(SwitchedGroundChunkLate);
+        GameEventManager.current.GetEvent(EventType.E.ActivatableTileJustPlaced).AddListener(ActivatableTileMapChanged);
+        GameEventManager.current.GetEvent(EventType.E.ActivatableTileJustDestroyed).AddListener(ActivatableTileMapChanged);
+        //GameEventManager.current.GetEvent(EventType.E.SwitchedCurrentGroundChunkLate).AddListener(SwitchedGroundChunkLate);
     }
 
     private void SetPathMapToEmpty(){

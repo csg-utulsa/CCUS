@@ -133,7 +133,7 @@ public class Tile : MonoBehaviour
         if(tooMuchCarbonToPlace()){
             if(displayErrorMessages){
                 unableToPlaceTileUI._unableToPlaceTileUI.tooMuchCarbon();
-                GameEventManager.current.FailedToPlaceTile.Invoke();
+                GameEventManager.current.GetEvent(EventType.E.TooMuchCarbonToPlace).Invoke();
             }
             
             return false;
@@ -144,7 +144,7 @@ public class Tile : MonoBehaviour
         {
             if(displayErrorMessages){
                 unableToPlaceTileUI._unableToPlaceTileUI.notEnoughMoney();
-                GameEventManager.current.FailedToPlaceTile.Invoke();
+                GameEventManager.current.GetEvent(EventType.E.NotEnoughMoneyToPlace).Invoke();
             }
             return false;
         }
@@ -154,7 +154,7 @@ public class Tile : MonoBehaviour
         {
             if(displayErrorMessages){
                 unableToPlaceTileUI._unableToPlaceTileUI.NotEnoughPeople();
-                GameEventManager.current.FailedToPlaceTile.Invoke();
+                GameEventManager.current.GetEvent(EventType.E.FailedToPlaceTile).Invoke();
             }
             return false;
         }
@@ -183,10 +183,12 @@ public class Tile : MonoBehaviour
         }
 
         if(tileScriptableObject.RequiredEmployees > 0){
-            GameEventManager.current.NumOfWorkPlaceTilesChanged.Invoke();
+            GameEventManager.current.GetEvent(EventType.E.NumOfWorkPlaceTilesChanged).Invoke();
         }
 
-        GameEventManager.current.TileJustPlaced.Invoke();
+        GameEventManager.current.GetEvent(EventType.E.TileJustPlaced).Invoke();
+
+        
 
 
     }
@@ -210,7 +212,7 @@ public class Tile : MonoBehaviour
         GridManager.GM.RemoveObject(gameObject, false);
 
         if(tileScriptableObject.RequiredEmployees > 0){
-            GameEventManager.current.NumOfWorkPlaceTilesChanged.Invoke();
+            GameEventManager.current.GetEvent(EventType.E.NumOfWorkPlaceTilesChanged).Invoke();
         }
 
     }
@@ -218,10 +220,15 @@ public class Tile : MonoBehaviour
 
 
 
-    // This method is pretty bad but I needed to have it to test features. Can be reworked at a later date. ~Coleton
-    private void CheckForInput()
-    {
-
+    // Calls special tile placement event
+    public void CallSpecialPlacementEvent(){
+        //Calls event for which specific tile was placed
+        EventType.E specialPlacementEvent = tileScriptableObject.SpecialPlacementEvent;
+        if(specialPlacementEvent != null){
+            GameEventManager.current.GetEvent(specialPlacementEvent).Invoke();
+        } else{ //Default in case the SpecialPlacementEvent isn't set
+            GameEventManager.current.GetEvent(EventType.E.PlaceMediumBuilding).Invoke();
+        }
     }
 
     public void SetTileState(TileState ts)
@@ -325,10 +332,10 @@ public class Tile : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (menuOpen) CheckForInput();
-    }
+    // private void Update()
+    // {
+    //     if (menuOpen) CheckForInput();
+    // }
 
     // I disabled moving objects after the fact ~Coleton
     /*private void OnMouseDown()

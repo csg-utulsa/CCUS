@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Oak Tree
   m_EditorClassIdentifier: 
   Name: Tree
+  SpecialPlacementEvent: 29
   BuildCost: 100
   AnnualCost: 0
   AnnualCarbonRemoved: 0
@@ -25,6 +26,7 @@ MonoBehaviour:
   isTerrain: 0
   isTree: 1
   allowClickAndDrag: 1
+  MustBeConnectedByRoads: 0
   TileMesh: {fileID: 0}
   thisTileClass: 3
   OverlapBlackList:

@@ -89,6 +89,8 @@ public class PeoplePanelActivator : MonoBehaviour
         timer = 0f;
         //PeopleManager.current.UpdateMaxPeople();
 
+        GameEventManager.current.GetEvent(EventType.E.PeopleButtonAppeared).Invoke();
+
     }
 
     //Function to change a GameObject's y position

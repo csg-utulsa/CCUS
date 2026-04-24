@@ -31,8 +31,8 @@ public class TrashButtonScript : MonoBehaviour
         }
         _buildingSystem = BuildingSystem.current;
 
-        GameEventManager.current.BeginSwitchingCurrentGroundChunk.AddListener(BeganSwitchingChunks);
-        GameEventManager.current.SwitchedCurrentGroundChunk.AddListener(FinishedSwitchingChunks);
+        GameEventManager.current.GetEvent(EventType.E.BeginSwitchingCurrentGroundChunk).AddListener(BeganSwitchingChunks);
+        GameEventManager.current.GetEvent(EventType.E.SwitchedCurrentGroundChunk).AddListener(FinishedSwitchingChunks);
     }   
 
     //These two functions keep track of whether or not the chunk is currently switching.
@@ -47,6 +47,7 @@ public class TrashButtonScript : MonoBehaviour
         HasBeenSelectedAtLeastOnce = true;
         if(isSelected){
             trashButtonDeselected();
+            GameEventManager.current.GetEvent(EventType.E.DeselectedTrashButton).Invoke();
             return;
         }
         isSelected = true;
@@ -59,7 +60,8 @@ public class TrashButtonScript : MonoBehaviour
         Vector3 mouseWorldPosition = BuildingSystem.GetMouseWorldPosition();
         Vector3 mouseGridCoordinate = BuildingSystem.current.SnapCoordinateToGrid(mouseWorldPosition);
         previousGridPosition = new Vector3(mouseGridCoordinate.x, currentRedDeleteCube.transform.position.y, mouseGridCoordinate.z);
-            
+        
+        GameEventManager.current.GetEvent(EventType.E.SelectedTrashButton).Invoke();
     }
 
     public void trashButtonDeselected(){

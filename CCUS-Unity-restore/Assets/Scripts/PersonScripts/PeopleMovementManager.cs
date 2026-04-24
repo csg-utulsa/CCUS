@@ -44,7 +44,7 @@ public class PeopleMovementManager : MonoBehaviour
 
     void Start(){
         //GameEventManager.current.BeginSwitchingCurrentGroundChunk.AddListener(SwitchedChunk);
-        GameEventManager.current.BuildingActivationStateChanged.AddListener(BuildingActivationChanged);
+        GameEventManager.current.GetEvent(EventType.E.BuildingActivationStateChanged).AddListener(BuildingActivationChanged);
         //GameEventManager.current.PersonJustAdded.AddListener(NewPersonAdded);
         if(current == null){
             current = this;

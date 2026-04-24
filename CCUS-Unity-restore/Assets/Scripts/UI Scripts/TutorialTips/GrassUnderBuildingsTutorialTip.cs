@@ -14,8 +14,8 @@ public class GrassUnderBuildingsTutorialTip : TutorialTip
 
     public override void InitializeThisTutorialTip(){
         //Checks if any grass is under a building every time a tile is placed
-        GameEventManager.current.TileJustPlaced.AddListener(CheckIfTipShouldBeDeactivated);
-        GameEventManager.current.TileJustPlaced.AddListener(CheckIfTipShouldBeActivated); 
+        GameEventManager.current.GetEvent(EventType.E.TileJustPlaced).AddListener(CheckIfTipShouldBeDeactivated);
+        GameEventManager.current.GetEvent(EventType.E.TileJustPlaced).AddListener(CheckIfTipShouldBeActivated); 
     }
     
     //Checks if tip should be activated; runs at every tile placement

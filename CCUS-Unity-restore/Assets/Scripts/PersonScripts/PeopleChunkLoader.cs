@@ -14,8 +14,8 @@ public class PeopleChunkLoader : MonoBehaviour
         peopleMoveManager = GetComponent<PeopleMovementManager>();
 
         //Adds listeners for when the chunk switch begins and ends
-        GameEventManager.current.BeginSwitchingCurrentGroundChunkLate.AddListener(BeginChunkSwitch);
-        GameEventManager.current.SwitchedCurrentGroundChunk.AddListener(EndChunkSwitch);
+        GameEventManager.current.GetEvent(EventType.E.BeginSwitchingCurrentGroundChunkLate).AddListener(BeginChunkSwitch);
+        GameEventManager.current.GetEvent(EventType.E.SwitchedCurrentGroundChunk).AddListener(EndChunkSwitch);
 
     }
 

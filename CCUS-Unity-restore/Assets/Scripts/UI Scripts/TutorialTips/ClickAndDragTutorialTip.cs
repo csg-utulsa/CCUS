@@ -17,8 +17,8 @@ public class ClickAndDragTutorialTip : TutorialTip
     public override void InitializeThisTutorialTip(){
         
         //Checks if tutorial tip should be deactivated every time a tile is placed
-        GameEventManager.current.TileJustPlaced.AddListener(CheckIfTipShouldBeDeactivated);
-        GameEventManager.current.TileJustPlaced.AddListener(CheckIfTipShouldBeActivated);
+        GameEventManager.current.GetEvent(EventType.E.TileJustPlaced).AddListener(CheckIfTipShouldBeDeactivated);
+        GameEventManager.current.GetEvent(EventType.E.TileJustPlaced).AddListener(CheckIfTipShouldBeActivated);
     }
 
     public void CheckIfTipShouldBeActivated(){

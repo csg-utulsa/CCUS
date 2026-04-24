@@ -8,6 +8,10 @@ public class NewPeopleCreator : MonoBehaviour
     public float peopleAnimationTime = .3f;
     public float newPersonAnimationHeight = 1f;
     public float timeBetweenCreatingPeople = 0f;
+
+    public float minTimeBetweenCreatingPeople = .1f;
+
+    private float lastTimePersonAdded = 0f;
     
     private int numOfPeopleToAdd = 0;
     private bool currentlyAddingPeople = false;
@@ -18,7 +22,7 @@ public class NewPeopleCreator : MonoBehaviour
 
     void Start()
     {
-        GameEventManager.current.PersonJustAdded.AddListener(AddPersonButtonPressed);
+        GameEventManager.current.GetEvent(EventType.E.PersonJustAdded).AddListener(AddPersonButtonPressed);
         peopleMover = GetComponent<PeopleMovementManager>();
         personPrefab = peopleMover.personPrefab;
 
@@ -38,14 +42,28 @@ public class NewPeopleCreator : MonoBehaviour
 
     private IEnumerator ImmediatelyAddPerson(){
 
-        //Runs new person creation animation and then creates a person when it's done
+        //Prevents too many new people from being created
+        if((Time.time - lastTimePersonAdded) < minTimeBetweenCreatingPeople){
+            yield break;
+        }
+
+
+        //Runs new person creation animation
         NewPersonCreationAnimation();
+        
+        //Tracks last time a person was created
+        lastTimePersonAdded = Time.time;
+
+        //Creates a person at the bottom of the animation once it's done
         yield return new WaitForSeconds(peopleAnimationTime);
         peopleMover.NewPersonAdded();
+
+        
 
 
     }
 
+    //DEPRICATED
     //Runs after every person is finished being animated into place and then adds the next person
     private IEnumerator WaitingForAddingPeople(){
         while(numOfPeopleToAdd > 0){

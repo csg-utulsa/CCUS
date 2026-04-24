@@ -1,8 +1,30 @@
-00001,Place Tile,PlaceTile,1
-00002,Switch Area Chunks,SwitchArea,1
-00003,Purchase New Area,PurchaseArea,1
-00004,Cannot Place Tile You're Attempting To,CantPlaceTile,1
-00005,Closing UI Pop Up,CloseUI,1
-00006,Destroying a tile,DeleteTile,1
-00007,New Person Was Added,NewPerson,1
-00008,TutorialNotification,NotificationDing,1
+SoundID, Description, Sound File Name, Sound Effect Is Enabled (1 or 0), Event To Play Sound On (See a list in EventType.cs), Sound Effect Loops (1 or 0), Event To End Sound On (Only include if sound effect loops)
+00001,Place Tile,PlaceTile,0,TilePlacedWithoutDrag,0,none
+00002,Switch Area Chunks,SwitchArea,1,SwitchedCurrentGroundChunk,0,none
+00003,Purchase New Area,PurchaseArea,1,PurchasedCurrentGroundChunk,0,none
+00004,Cannot Place Tile You're Attempting To,CantPlaceTile,1,FailedToPlaceTile,0,none
+00005,Closing UI Pop Up,CloseUI,1,CloseTutorialNotification,0,none
+00006,Destroying a tile,DeleteTile,1,TileJustDestroyed,0,none
+00007,New Person Was Added,NewPerson,1,PersonJustAdded,0,none
+00008,Tutorial Notification,NotificationDing,1,TutorialTipHasAppeared,0,none
+00009,The People Button has started being pressed,PeopleButtonPress,1,PeopleButtonPressed,0,none
+00010,The People Button is being held down,PeopleButtonHeldDown,1,BeginFillingPeopleButton,1,FinishFillingPeopleButton
+00011,The People Button has been released,PeopleButtonDone,1,FinishFillingPeopleButton,0,none
+00012,Failed to place a tile because of high carbon levels,ErrorTooMuchCarbon,1,TooMuchCarbonToPlace,0,none
+00013,Failed to place tile because there's not enough money,ErrorNotEnoughMoney,1,NotEnoughMoneyToPlace,0,none
+00014,The carbon dial first appeared,IntroduceCarbonMeter,1,CarbonMeterAppeared,0,none
+00015,The people panel first appeared,IntroducePeopleButton,1,PeopleButtonAppeared,0,none
+00016,Drag placing tiles,DragPlacing,1,BeginDragPlaceTiles,1,EndDragPlaceTiles
+00017,Player clicked on a tile's button,TileButtonSelected,1,SelectedTileButton,0
+00018,The Carbon dial hits full capacity,MaxedOutCarbon,1,MaxCarbonAmountHit,0
+00019,The player deselects a tile button,DeselectedTile,1,DeselectedTile,0
+00020,The player deselects the trash button,DeselectedTile,1,DeselectedTrashButton,0
+00021,Selected the trash button,TileButtonSelected,1,SelectedTrashButton,0
+00022,A new tile has been unlocked,NewTile,1,NewTileUnlocked,0
+00023,The player has received more money,NewMoney,0,NewMoney,0
+00024,Grass tile placed,GrassPlacement,1,PlaceGrass,0
+00025,Road tile placed,RoadPlacement,1,PlaceRoad,0
+00026,Tree tile placed,TreePlacement,1,PlaceTree,0
+00027,Small Building Placed,SmallBuildingPlacement,1,PlaceSmallBuilding,0
+00028,Medium building placed,MediumBuildingPlacement,1,PlaceMediumBuilding,0
+00029,Large building placed,LargeBuildingPlacement,1,PlaceLargeBuilding,0

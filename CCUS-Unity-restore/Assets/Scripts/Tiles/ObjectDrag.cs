@@ -169,7 +169,7 @@ public class ObjectDrag : MonoBehaviour
 
         Destroy(gameObject);
 
-        GameEventManager.current.TileJustDestroyed.Invoke();
+        GameEventManager.current.GetEvent(EventType.E.TileJustDestroyed).Invoke();
     }
 
     //TODO Move to different script

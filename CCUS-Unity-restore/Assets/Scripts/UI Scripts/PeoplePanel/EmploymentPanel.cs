@@ -12,7 +12,7 @@ public class EmploymentPanel : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        GameEventManager.current.ProgressEventJustCalled.AddListener(ProgressEventCalled);
+        GameEventManager.current.GetEvent(EventType.E.ProgressEventJustCalled).AddListener(ProgressEventCalled);
     }
 
     //Checks if factories have been unlocked. If so, it activates the employment panel.

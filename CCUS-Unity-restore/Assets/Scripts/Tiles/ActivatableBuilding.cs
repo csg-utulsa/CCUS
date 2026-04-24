@@ -22,7 +22,7 @@ public class ActivatableBuilding : ActivatableTile
     // }
 
     public override void TileActivationSettingChanged(){
-        GameEventManager.current.BuildingActivationStateChanged.Invoke();
+        GameEventManager.current.GetEvent(EventType.E.BuildingActivationStateChanged).Invoke();
     }
 
     // public virtual void ActivateBuilding(){

@@ -1,7 +1,7 @@
 /*
 *   Description: Plays and ends sounds based on soundIDs linked to the AudioResourceMap.csv file
 *
-*   SUPER IMPORTANT NOTE: Audio files must be in the Resources/Audio folder to work
+*   SUPER IMPORTANT NOTE: Audio files must be in the Resources/Audio/AudioFiles folder to work
 *
 *   Look at README.md in the Resources/Audio folder for more info on adding new sounds.
 *   
@@ -40,6 +40,8 @@ public class AudioManager : MonoBehaviour
     //Array corresponding to audioClips array that keeps track of whether or not each clip is enabled
     private bool[] audioClipsEnabled;
 
+    public AudioData[] audioDataObjects;
+
 
 
     public int maxSoundsPlaying = 50;
@@ -51,6 +53,8 @@ public class AudioManager : MonoBehaviour
     {
         //Reads AudioResourceMap.csv and stores data
         LoadAudioResourceMap();
+
+        AddListenersForAudioEvents();
 
         if(current == null){
             current = this;
@@ -69,7 +73,7 @@ public class AudioManager : MonoBehaviour
         AudioSource audioSource = AssignAudioSourceToClip(soundID);
 
         if(audioSource == null){
-            Debug.LogError("Audio Clip ID Doesn't exist!! :(   (Try checking your AudioResourceMap.csv in Resources/Audio)");
+            Debug.LogError("Couldn't find that Audio Clip!! :(   (Try checking your AudioResourceMap.csv in Resources/Audio). There's probably a name mismatch");
         }
 
         audioSource.Play();
@@ -90,9 +94,16 @@ public class AudioManager : MonoBehaviour
         //Creates or assigns an audio source for the sound
         AudioSource audioSource = AssignAudioSourceToClip(soundID);
 
+        if(audioSource == null){
+            Debug.LogError("Audio Clip ID Doesn't exist!! :(   (Try checking your AudioResourceMap.csv in Resources/Audio)");
+        }
+
+        audioSource.loop = true;
+
+
         audioSource.Play();
         
-        audioSource.loop = true;
+        
 
     }
 
@@ -235,15 +246,36 @@ public class AudioManager : MonoBehaviour
     }
 
     private AudioClip GetAudioClipByID(int soundID){
-        int audioClipIndex = Array.IndexOf(audioClipSoundIDs, soundID);
-        if(audioClipIndex == -1){
-            return null;
-        }
-        return audioClips[audioClipIndex];
+        // int audioClipIndex = Array.IndexOf(audioClipSoundIDs, soundID);
+        // if(audioClipIndex == -1){
+        //     return null;
+        // }
+        return GetAudioDataByID(soundID).audioFile;
+    }
+
+    private AudioData GetAudioDataByID(int soundID){
+        //Debug.Log("Searching for " + soundID);
+        AudioData test = Array.Find(audioDataObjects, x => (x.audioClipID == soundID));
+
+        //Debug.Log("My Id: " + test.audioClipID);
+
+        //Debug.Log("My clip " + test.audioFile);
+
+        // if(test == null){
+        //     Debug.LogError("Doesn't contain " + soundID);
+
+        //     Debug.Log("Does contain: ");
+        //     for(int i = 0; i < audioDataObjects.Length; i++){
+        //         Debug.Log("Clip ID #" + audioDataObjects[i].audioClipID);
+        //     }
+        // }
+
+
+        return test; 
     }
 
     private bool IsClipPlayable(int soundID){
-        return audioClipsEnabled[Array.IndexOf(audioClipSoundIDs, soundID)];
+        return GetAudioDataByID(soundID).isEnabled;
     }
 
     //Reads audio resource data from csv file
@@ -256,15 +288,25 @@ public class AudioManager : MonoBehaviour
             //Splits data into rows, since each row has the info for a single audio clip
             string[] dataRows = rawMapData.Split('\n');
 
+            
+
             //Declares arrays for soundIDs, Audio Clips, and for clips enabled/disabled state
             int[] _audioSoundClipIDs = new int[dataRows.Length];
             AudioClip[] _audioClips = new AudioClip[dataRows.Length];
             bool[] _audioClipsEnabled = new bool[dataRows.Length];
+            string[] _eventToPlaySound = new string[dataRows.Length];
+            bool[] _audioClipsLooping = new bool[dataRows.Length];
+            string[] _eventToStopSound = new string[dataRows.Length];
+            
 
-            //Pulls the required data from each row
-            for(int i = 0; i < dataRows.Length; i++){
+            //Pulls the required data from each row. Note i = 1 so it skips the description line
+            for(int i = 1; i < dataRows.Length; i++){
                 String[] rowElements = dataRows[i].Split(',');
-                if(rowElements.Length != 4){
+                if(rowElements.Length <= 2){
+                    Debug.LogError("Remove an extra line break from AudioResourceMap.csv");
+                    continue;
+                }
+                else if(rowElements.Length < 6){
                     Debug.LogError("Error with audio resource map formatting. (Check AudioResourceMap.csv and make sure it follows the formatting found in the accompanying ReadMe.md file)");
                     continue;
                 }
@@ -282,6 +324,7 @@ public class AudioManager : MonoBehaviour
                     Debug.LogError("Error with sound ID from audio resource map");
                 }
 
+
                 //Pulls whether or not audio clip is enabled from the 4th element in the row
                 string audioClipEnabledRaw = rowElements[3];
 
@@ -292,9 +335,30 @@ public class AudioManager : MonoBehaviour
                     _audioClipsEnabled[i] = false;
                 }
 
+
+
+                //Pulls the event that makes the audio event play from the 5th element in the row
+                _eventToPlaySound[i] = rowElements[4];
+
+
+
+                //Pulls whether or not audio clip is looping from the 6th element in the row
+                string audioClipLoopingRaw = rowElements[5];
+                if(!audioClipLoopingRaw.Contains('0')){
+                    _audioClipsLooping[i] = true;
+                } else{
+                    _audioClipsLooping[i] = false;
+                }
+
+                
+                //If the audio clip loops, it pulls the event to stop it from the 7th element in the row
+                if(_audioClipsLooping[i]){
+                    _eventToStopSound[i] = rowElements[6];
+                }
+
                 //Pulls the path of the audio file from the 3rd element in the row
                 //Note: "Audio/" is the parent folder of all audio assets
-                string audioClipPath = "Audio/" + rowElements[2];
+                string audioClipPath = "Audio/AudioFiles/" + rowElements[2];
 
                 //Tries to pull the audio clip using the provided path
                 try{
@@ -305,19 +369,58 @@ public class AudioManager : MonoBehaviour
                 
             }
 
-            //Stores data from the csv file
-            audioClips = _audioClips;
-            audioClipSoundIDs = _audioSoundClipIDs;
-            audioClipsEnabled = _audioClipsEnabled;
 
-        } catch{
-            Debug.LogError("Problem loading Audio Resource Map.");
-            audioClips = new AudioClip[0];
-            audioClipSoundIDs = new int[0];
-            audioClipsEnabled = new bool[0];
+            audioDataObjects = new AudioData[dataRows.Length];
+
+            //Stores data from the csv file into the audioDataObjects array
+
+            for(int i = 0; i < dataRows.Length; i++){
+                audioDataObjects[i] = new AudioData();
+                audioDataObjects[i].audioFile = _audioClips[i];
+                audioDataObjects[i].audioClipID = _audioSoundClipIDs[i];
+                
+                //Stores Event that should start the sound
+                if(_eventToPlaySound[i] != null){
+                    if (Enum.TryParse(_eventToPlaySound[i], out EventType.E result)){
+                        audioDataObjects[i].eventToStartOn = result;
+                    } else{
+                        Debug.LogError("The event \"" + _eventToPlaySound[i] + "\" doesn't exist");
+                    }
+                    
+                }
+
+                audioDataObjects[i].isLooping = _audioClipsLooping[i];
+                audioDataObjects[i].isEnabled = _audioClipsEnabled[i];
+
+                //Stores event that should stop the sound
+                if(_audioClipsLooping[i] && _eventToStopSound[i] != null){
+                    if (Enum.TryParse(_eventToStopSound[i], out EventType.E result)){
+                        audioDataObjects[i].eventToStopOn = result;
+                    } else{
+                        Debug.LogError("The event \"" + _eventToPlaySound[i] + "\" doesn't exist");
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            Debug.LogError("Problem loading Audio Resource Map: " + e);
+            // audioClips = new AudioClip[0];
+            // audioClipSoundIDs = new int[0];
+            // audioClipsEnabled = new bool[0];
         }
         
 
+    }
+
+    //Adds listeners for all audio data event
+    private void AddListenersForAudioEvents(){
+        foreach(AudioData audioData in audioDataObjects){
+            GameEventManager.current.GetEvent(audioData.eventToStartOn).AddListener(audioData.PlayMe);
+            if(audioData.isLooping){
+
+                GameEventManager.current.GetEvent(audioData.eventToStopOn).AddListener(audioData.StopMe);
+            }
+        }
     }
 
 }

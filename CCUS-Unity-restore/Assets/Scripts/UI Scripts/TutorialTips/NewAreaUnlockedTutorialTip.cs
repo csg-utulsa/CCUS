@@ -14,10 +14,10 @@ public class NewAreaUnlockedTutorialTip : TutorialTip
     public override void InitializeThisTutorialTip(){
 
         //Checks if tip should be activated when a new area is unlocked
-        GameEventManager.current.NewAreaUnlocked.AddListener(CheckIfTipShouldBeActivated);
+        GameEventManager.current.GetEvent(EventType.E.NewAreaUnlocked).AddListener(CheckIfTipShouldBeActivated);
 
         //Checks if tip should be deactivated every time the current ground chunk is switched
-        GameEventManager.current.SwitchedCurrentGroundChunk.AddListener(CheckIfTipShouldBeDeactivated);
+        GameEventManager.current.GetEvent(EventType.E.SwitchedCurrentGroundChunk).AddListener(CheckIfTipShouldBeDeactivated);
     }
 
     public void CheckIfTipShouldBeActivated(){

@@ -26,9 +26,9 @@ public class ActivateChunkPurchaseUI : MonoBehaviour
            areaPriceImage = purchaseUIObject.GetComponentInChildren<MouseOverImage>(); 
         }
         
-        GameEventManager.current.SwitchedCurrentGroundChunk.AddListener(SwitchedGroundChunk);
-        GameEventManager.current.BeginSwitchingCurrentGroundChunk.AddListener(BeganSwitchingGroundChunk);
-        GameEventManager.current.PurchasedCurrentGroundChunk.AddListener(GroundChunkJustPurchased);
+        GameEventManager.current.GetEvent(EventType.E.SwitchedCurrentGroundChunk).AddListener(SwitchedGroundChunk);
+        GameEventManager.current.GetEvent(EventType.E.BeginSwitchingCurrentGroundChunk).AddListener(BeganSwitchingGroundChunk);
+        GameEventManager.current.GetEvent(EventType.E.PurchasedCurrentGroundChunk).AddListener(GroundChunkJustPurchased);
     }
 
     private void SwitchedGroundChunk(){

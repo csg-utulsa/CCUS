@@ -11,7 +11,7 @@ public class HighlightedTileGraphic : MonoBehaviour
     {
         HighlightedGraphicImage = GetComponentInChildren<SpriteRenderer>(true);
 
-        GameEventManager.current.MouseMovedToNewGridTile.AddListener(MouseMovedToNewGridTile);
+        GameEventManager.current.GetEvent(EventType.E.MouseMovedToNewGridTile).AddListener(MouseMovedToNewGridTile);
     }
 
     // Update is called once per frame

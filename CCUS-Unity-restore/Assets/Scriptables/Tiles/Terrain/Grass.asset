@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Grass
   m_EditorClassIdentifier: 
   Name: Grass
+  SpecialPlacementEvent: 28
   BuildCost: 5
   AnnualCost: 5
   AnnualCarbonRemoved: 0
@@ -23,7 +24,9 @@ MonoBehaviour:
   RequiredEmployees: 0
   isResidence: 0
   isTerrain: 1
+  isTree: 0
   allowClickAndDrag: 1
+  MustBeConnectedByRoads: 0
   TileMesh: {fileID: 0}
   thisTileClass: 0
   OverlapBlackList: []

@@ -33,6 +33,27 @@ public class BuildingSystem : MonoBehaviour
 
     public LayerMask groundLayer;
 
+    private bool isInDragMode = false;
+    private bool IsInDragMode{
+        get{
+            return isInDragMode;
+        }
+        set{
+            //Calls event to begin drag placing tiles game state
+            if(value && !isInDragMode){ //Begin drag placing
+            dragTimer = 0f;
+                GameEventManager.current.GetEvent(EventType.E.BeginDragPlaceTiles).Invoke();
+            }else if(!value && isInDragMode){ //End drag placing
+                GameEventManager.current.GetEvent(EventType.E.EndDragPlaceTiles).Invoke();
+            }
+
+            isInDragMode = value;
+        }
+    }
+
+    private float dragTimer = 0f;
+    public float maxTimeToBeInDragMode = .2f;
+
     //Prevents multiple tiles from being placed in the same square when the user holds down the left mouse button
     bool preventMultipleObjectPlacement = false;
 
@@ -60,7 +81,7 @@ public class BuildingSystem : MonoBehaviour
 
     private void Start(){
         TickManager.TM.EndOfMoneyAndPollutionTicks.AddListener(EndOfResourceTicks);
-        GameEventManager.current.MoneyAmountUpdated.AddListener(MoneyAmountUpdated);
+        GameEventManager.current.GetEvent(EventType.E.MoneyAmountUpdated).AddListener(MoneyAmountUpdated);
     }
 
     
@@ -72,6 +93,15 @@ public class BuildingSystem : MonoBehaviour
             return;
         }
 
+
+        //Handles disabling drag mode after a certain amount of time
+        if(Input.GetMouseButton(0)){
+            dragTimer += Time.deltaTime;
+            if(dragTimer > maxTimeToBeInDragMode){
+                IsInDragMode = false;
+            }
+        }
+
         //The next lines disable the tile being dragged (activeObject) if the mouse isn't over the screen.
         if(!isMouseOverScreen()){
             activeObject.SetActive(false);
@@ -81,8 +111,9 @@ public class BuildingSystem : MonoBehaviour
             activeObject.SetActive(true);
         }
 
+        //Player clicks down to place tile
         if(Input.GetMouseButtonDown(0) && !preventMultipleObjectPlacement){
-
+            
             attemptToPlaceSelectedTile();
             
         }
@@ -118,11 +149,11 @@ public class BuildingSystem : MonoBehaviour
         //     }
         // }
 
-        // Delete active object
         if (Input.GetMouseButtonUp(0))
         {
             //isDragPlacing = false;
             preventMultipleObjectPlacement = false;
+            IsInDragMode = false;
         }
         else if (Input.GetMouseButtonDown(1))
         {
@@ -170,6 +201,7 @@ public class BuildingSystem : MonoBehaviour
     //Called from ObjectDrag of activeObject and enables click and drag placing
     public void activeObjectMovedToNewTile(){
         if(activeTile != null && activeTile.tileScriptableObject.allowClickAndDrag && Input.GetMouseButton(0)){
+            IsInDragMode = true;
             ClickAndDragHasBeenUsed = true;
             attemptToPlaceSelectedTile();
             preventMultipleObjectPlacement = false;
@@ -181,10 +213,17 @@ public class BuildingSystem : MonoBehaviour
     public void attemptToPlaceSelectedTile(){
 
         if (CanBePlaced(objectToPlace, true))
-        {
-
+        {   
+            Tile previousActiveTile = activeTile;
+            
             placeSelectedTile();
             preventMultipleObjectPlacement = true;
+
+            //Calls event for when the player clicks to place a tile, without dragging it
+            if(!IsInDragMode){
+                previousActiveTile.CallSpecialPlacementEvent();
+                GameEventManager.current.GetEvent(EventType.E.TilePlacedWithoutDrag).Invoke();
+            }
             
         } 
         //Moved to CanBePlaced() function

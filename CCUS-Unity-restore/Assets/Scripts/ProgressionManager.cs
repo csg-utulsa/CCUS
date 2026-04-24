@@ -165,7 +165,7 @@ public class ProgressionManager : MonoBehaviour
         progressEventHasOccurred[progressEventToCall] = true;
         progressEvents[progressEventToCall].ProgressionAction();
         TypeOfLastProgressEventCalled =  (ProgressEventType) progressEventToCall;
-        GameEventManager.current.ProgressEventJustCalled.Invoke();
+        GameEventManager.current.GetEvent(EventType.E.ProgressEventJustCalled).Invoke();
 
     }
 

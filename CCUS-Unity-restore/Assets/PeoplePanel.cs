@@ -65,6 +65,7 @@ public class PeoplePanel : MonoBehaviour
             AddPerson();
             
         }else{
+            GameEventManager.current.GetEvent(EventType.E.FailToAddPeople);
             //Displays the "Can only add people to houses connected by roads" Error
             if(!RoadAndResidenceConnectionManager.current.AllResidencesAreConnected()){
                 unableToPlaceTileUI._unableToPlaceTileUI.mustConnectResidences();

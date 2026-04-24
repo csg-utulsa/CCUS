@@ -62,7 +62,7 @@ public class TileMeshLoader : MonoBehaviour
         //If it's already unloaded, it doesn't try to unload it again
         if(!isLoaded) return;
 
-         Debug.Log("Unloading tile mesh");
+        // Debug.Log("Unloading tile mesh");
 
         isLoaded = false;
 

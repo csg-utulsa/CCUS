@@ -65,7 +65,7 @@ public class TutorialTipManager : MonoBehaviour
 
         if(!backgroundActivator.IsVisible){
             //Calls event to alert game that a new tutorial tip has appeared
-            GameEventManager.current.TutorialTipHasAppeared.Invoke();
+            GameEventManager.current.GetEvent(EventType.E.TutorialTipHasAppeared).Invoke();
         }
 
         //Fades tutorial tip background to full opacity
@@ -148,7 +148,7 @@ public class TutorialTipManager : MonoBehaviour
             if(indexOfTipToDeactivate != -1){
                 DeactivateTutorialTip(Array.IndexOf(tutorialTipTextObjects, activatedTutorialTips[indexOfTipToDeactivate]));
             }
-            GameEventManager.current.CloseTutorialNotification.Invoke();
+            GameEventManager.current.GetEvent(EventType.E.CloseTutorialNotification).Invoke();
         }
     }
 
@@ -156,7 +156,7 @@ public class TutorialTipManager : MonoBehaviour
 
         if(!backgroundActivator.IsVisible){
             //Calls event to alert game that a new tutorial tip has appeared
-            GameEventManager.current.TutorialTipHasAppeared.Invoke();
+            GameEventManager.current.GetEvent(EventType.E.TutorialTipHasAppeared).Invoke();
         }
 
         //Fades tutorial tip background to full opacity & does the intro-sizing animation

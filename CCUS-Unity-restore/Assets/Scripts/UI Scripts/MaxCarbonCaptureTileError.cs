@@ -24,7 +24,7 @@ public class MaxCarbonCaptureTileError : MonoBehaviour
         }
 
         //Adds a listener for whenever the number of carbon capture tiles is changed.
-        GameEventManager.current.NumOfCarbonCaptureTilesChanged.AddListener(CarbonCaptureNumChanged);
+        GameEventManager.current.GetEvent(EventType.E.NumOfCarbonCaptureTilesChanged).AddListener(CarbonCaptureNumChanged);
     }
 
     //Called whenever the number of carbon capture tiles is changed.

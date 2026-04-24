@@ -27,14 +27,14 @@ public class CarbonCaptureTile : Tile
         //MaxTileTypeCounter.current.UpdateNumberOfCarbonCaptureSystems();
         base.ThisTileJustPlaced();
 
-        GameEventManager.current.NumOfCarbonCaptureTilesChanged.Invoke();
+        GameEventManager.current.GetEvent(EventType.E.NumOfCarbonCaptureTilesChanged).Invoke();
     }
 
     public override void ThisTileAboutToBeDestroyed(){
         base.ThisTileAboutToBeDestroyed();
         //MaxTileTypeCounter.current.UpdateNumberOfCarbonCaptureSystems();
 
-        GameEventManager.current.NumOfCarbonCaptureTilesChanged.Invoke();
+        GameEventManager.current.GetEvent(EventType.E.NumOfCarbonCaptureTilesChanged).Invoke();
     }
 
     public bool UnderMaxCarbonCaptureTiles(){

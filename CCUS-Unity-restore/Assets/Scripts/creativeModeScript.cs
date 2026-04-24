@@ -3,11 +3,23 @@ using UnityEngine;
 public class creativeModeScript : MonoBehaviour
 {
 
+    public bool allowCreativeMode = true;
+
     bool creativeMode = false;
     bool wasJustInCreativeMode = false;
     float previousMaxCarbon;
     int previousMoney;
     public GridVisualizer gridVisualizer;
+
+    public static creativeModeScript current;
+
+    void Awake(){
+        if(current == null){
+            current = this;
+        } else{
+            Destroy(this);
+        }
+    }
     
     void Start(){
         previousMaxCarbon = LevelManager.LM.getMaxCarbon();
@@ -15,22 +27,28 @@ public class creativeModeScript : MonoBehaviour
     }
 
     void Update()
-    {
+    {   
 
-        //TODO: Delete this if statement later
-        if(Input.GetKeyDown(KeyCode.Z)){
-            AudioManager.current.PlaySound(1);
+        //Disables creative mode
+        if(!allowCreativeMode){
+            return;
         }
 
-        //TODO: Delete this if statement later
-        if(Input.GetKeyDown(KeyCode.X)){
-            AudioManager.current.PlaySoundContinuous(2);
-        }
 
         //TODO: Delete this if statement later
-        if(Input.GetKeyDown(KeyCode.C)){
-            AudioManager.current.EndSound(2);
-        }
+        // if(Input.GetKeyDown(KeyCode.Z)){
+        //     AudioManager.current.PlaySound(1);
+        // }
+
+        // //TODO: Delete this if statement later
+        // if(Input.GetKeyDown(KeyCode.X)){
+        //     AudioManager.current.PlaySoundContinuous(2);
+        // }
+
+        // //TODO: Delete this if statement later
+        // if(Input.GetKeyDown(KeyCode.C)){
+        //     AudioManager.current.EndSound(2);
+        // }
         
         
 

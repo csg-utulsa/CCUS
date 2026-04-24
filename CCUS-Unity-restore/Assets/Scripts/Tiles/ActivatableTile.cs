@@ -30,7 +30,7 @@ public class ActivatableTile : Tile
 
         //If this tile requires employees, it checks its activation state every time the number of people changes
         if(RequiresEmployees){
-            GameEventManager.current.NumberOfPeopleChanged.AddListener(CheckTileForActivation);
+            GameEventManager.current.GetEvent(EventType.E.NumberOfPeopleChanged).AddListener(CheckTileForActivation);
         }
         
     }
@@ -44,7 +44,7 @@ public class ActivatableTile : Tile
         base.ThisTileJustPlaced();
 
         //Alerts game event manager that an activatable tile was placed
-        GameEventManager.current.ActivatableTileJustPlaced.Invoke();
+        GameEventManager.current.GetEvent(EventType.E.ActivatableTileJustPlaced).Invoke();
 
         //Checks if it should be activated
         CheckTileForActivation();
@@ -67,7 +67,7 @@ public class ActivatableTile : Tile
         }
 
         //Alerts the game manager that an activatable tile was just destroyed
-        GameEventManager.current.ActivatableTileJustDestroyed.Invoke();
+        GameEventManager.current.GetEvent(EventType.E.ActivatableTileJustDestroyed).Invoke();
     }
 
     // public override SetIsEnoughResourcesToFunction(bool enoughResources){

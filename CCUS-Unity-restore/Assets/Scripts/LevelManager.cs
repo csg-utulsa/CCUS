@@ -42,7 +42,7 @@ public class LevelManager : MonoBehaviour
         set{
             if(netCarbon != value){
                 netCarbon = value;
-                GameEventManager.current.NetCarbonUpdated.Invoke();
+                GameEventManager.current.GetEvent(EventType.E.NetCarbonUpdated).Invoke();
             }
         }
     }
@@ -54,7 +54,7 @@ public class LevelManager : MonoBehaviour
         set{
             if(netMoney != value){
                 netMoney = value;
-                GameEventManager.current.NetMoneyUpdated.Invoke();
+                GameEventManager.current.GetEvent(EventType.E.NetMoneyUpdated).Invoke();
             }
         }
     }
@@ -253,6 +253,9 @@ public class LevelManager : MonoBehaviour
     public void AdjustMoney(int value)
     {
         SetMoney(GetMoney() + value);
+        if(value > 0){
+            GameEventManager.current.GetEvent(EventType.E.NewMoney).Invoke();
+        }
     }
 
     public void AdjustYearlyIncome(int moneyChange)
@@ -267,18 +270,20 @@ public class LevelManager : MonoBehaviour
     public void AdjustCarbon(int value)
     {
         //Caps the amount of carbon that can accumulate at maxCarbon +  carbonCapPastMax
-        if(carbon >= (carbonCapPastMax + maxCarbon)){
+        if(carbon >= (carbonCapPastMax + maxCarbon)){ // Carbon Maxes out
             if(value < 0){
                 carbon += value;
                 if (carbon < 0) carbon = 0;
             }
-        } else{
+            GameEventManager.current.GetEvent(EventType.E.MaxCarbonAmountHit).Invoke();
+        } else{ //Carbon increases a normal amount
             
             carbon += value;
 
             if (carbon < 0) carbon = 0;
             if(carbon > (carbonCapPastMax + maxCarbon)) carbon = carbonCapPastMax + maxCarbon;
         }
+
     }
 
     /// <summary>
@@ -354,7 +359,7 @@ public class LevelManager : MonoBehaviour
 
     public void SetMoney(int _money){
         money = _money;
-        GameEventManager.current.MoneyAmountUpdated.Invoke();
+        GameEventManager.current.GetEvent(EventType.E.MoneyAmountUpdated).Invoke();
         //TileSelectPanel.TSP.checkPricesOfTiles(GetMoney());
     }
 

@@ -12,10 +12,10 @@ public class TreesRemoveCarbonTutorialTip : TutorialTip
 
     public override void InitializeThisTutorialTip(){
         //Checks if "trees remove carbon" should be activated every time a progress event is called
-        GameEventManager.current.ProgressEventJustCalled.AddListener(CheckIfTipShouldBeActivated);
+        GameEventManager.current.GetEvent(EventType.E.ProgressEventJustCalled).AddListener(CheckIfTipShouldBeActivated);
 
         //Checks if "trees remove carbon" should be deactivated every time a tile is placed
-        GameEventManager.current.TileJustPlaced.AddListener(CheckIfTipShouldBeDeactivated);
+        GameEventManager.current.GetEvent(EventType.E.TileJustPlaced).AddListener(CheckIfTipShouldBeDeactivated);
     }
 
     public void CheckIfTipShouldBeActivated(){

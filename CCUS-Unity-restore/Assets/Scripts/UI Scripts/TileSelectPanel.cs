@@ -56,7 +56,7 @@ public class TileSelectPanel : MonoBehaviour
             if(value == true){
                 AButtonHasBeenSelectedAtLeastOnce = true;
                 ButtonIsCurrentlySelected = true;
-                GameEventManager.current.ButtonHasBeenSelected.Invoke();
+                GameEventManager.current.GetEvent(EventType.E.ButtonHasBeenSelected).Invoke();
             }
         }
     }
@@ -99,9 +99,9 @@ public class TileSelectPanel : MonoBehaviour
         CheckPlaceabilityOfTiles();
 
         TickManager.TM.EndOfMoneyAndPollutionTicks.AddListener(EndOfTicks);
-        GameEventManager.current.MoneyAmountUpdated.AddListener(MoneyAmountUpdated);
-        GameEventManager.current.PersonJustAdded.AddListener(PersonAdded);
-        GameEventManager.current.SwitchedCurrentGroundChunk.AddListener(SwitchedArea);
+        GameEventManager.current.GetEvent(EventType.E.MoneyAmountUpdated).AddListener(MoneyAmountUpdated);
+        GameEventManager.current.GetEvent(EventType.E.PersonJustAdded).AddListener(PersonAdded);
+        GameEventManager.current.GetEvent(EventType.E.SwitchedCurrentGroundChunk).AddListener(SwitchedArea);
     }
 
 
@@ -134,7 +134,7 @@ public class TileSelectPanel : MonoBehaviour
         unableToPlaceTileUI._unableToPlaceTileUI.newTile();
 
         //Calls event for when a new tile button is unlocked
-        GameEventManager.current.NewTileUnlocked.Invoke();
+        GameEventManager.current.GetEvent(EventType.E.NewTileUnlocked).Invoke();
     }
 
     public void RemoveButton(GameObject prefabOfButton){
@@ -187,7 +187,7 @@ public class TileSelectPanel : MonoBehaviour
 
         // Invokes event for when the tile select panel scrolls.
         // It's used by the tool tip manager to move it into place.
-        GameEventManager.current.TileSelectPanelScrolled.Invoke();
+        GameEventManager.current.GetEvent(EventType.E.TileSelectPanelScrolled).Invoke();
     }
 
 
@@ -205,28 +205,35 @@ public class TileSelectPanel : MonoBehaviour
 
     //The buttons call this function when they're clicked. It then selects one of the buttons.
     public void clickButton(GameObject clickedButton){
+        
+        GameEventManager.current.GetEvent(EventType.E.ClickTileButton);
         TrashButtonScript.TBS.trashButtonDeselected();
         //runs if the user clicks a button that isn't currently selected
         if(!ButtonIsSelected || clickedButton != selectedButton){
 
-            //refuses to select button if its disabled
+            //refuses to select button if it's disabled
             int indexOfButtonClicked = Array.IndexOf(tileButtons, clickedButton);
             if(disabledButtons[indexOfButtonClicked]){
                 allTiles[indexOfButtonClicked].CheckIfTileIsPlaceable(true);
                 return;
-            }
+            }  
 
+            //Successful selection of button
             ButtonIsSelected = true;
             selectedButton = clickedButton;
             BuildingSystem.current.InitializeWithObject(selectedButton.GetComponent<buttonScript>().tileToPlace);
             selectedButtonGraphic.SetActive(true);
-            //selectedButtonGraphic.GetComponent<RectTransform>().anchoredPosition = new Vector2(selectedButton.GetComponent<RectTransform>().anchoredPosition.x, selectedButton.GetComponent<RectTransform>().anchoredPosition.y);
             selectedButtonGraphic.transform.position = selectedButton.transform.position;
+
+            //Calls event for successful selection of tile button
+            GameEventManager.current.GetEvent(EventType.E.SelectedTileButton).Invoke();
         } 
 
         //runs if the user clicks the button that is already selected, and so deselects it.
         else {
             deselectAllButtons();
+            //Calls event for when the user clicks a tile to deselect it
+            GameEventManager.current.GetEvent(EventType.E.DeselectedTile).Invoke();
         }
             
     }

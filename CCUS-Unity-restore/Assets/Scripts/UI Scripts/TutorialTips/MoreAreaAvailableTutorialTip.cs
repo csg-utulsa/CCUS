@@ -13,10 +13,10 @@ public class MoreAreaAvailableTutorialTip : TutorialTip
 
     public override void InitializeThisTutorialTip(){
         //Checks if tip should be activated every time a new tile is purchased
-        GameEventManager.current.PurchasedCurrentGroundChunk.AddListener(CheckIfTipShouldBeActivated);
+        GameEventManager.current.GetEvent(EventType.E.PurchasedCurrentGroundChunk).AddListener(CheckIfTipShouldBeActivated);
 
         //Checks if tip should be deactivated every time the current ground chunk is switched
-        GameEventManager.current.SwitchedCurrentGroundChunk.AddListener(CheckIfTipShouldBeDeactivated);
+        GameEventManager.current.GetEvent(EventType.E.SwitchedCurrentGroundChunk).AddListener(CheckIfTipShouldBeDeactivated);
     }
 
     public void CheckIfTipShouldBeActivated(){

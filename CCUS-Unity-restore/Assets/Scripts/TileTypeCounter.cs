@@ -201,7 +201,7 @@ public class TileTracker{
     public TileTracker(){
         //Reset the tile tracker every time the player switches the current chunk
         if(resetThisTrackerOnChunkSwitch){
-            GameEventManager.current.BeginSwitchingCurrentGroundChunk.AddListener(ResetTileTracker);
+            GameEventManager.current.GetEvent(EventType.E.BeginSwitchingCurrentGroundChunk).AddListener(ResetTileTracker);
         }
     }
 

@@ -13,10 +13,10 @@ public class PeopleMakeMoneyTutorialTip : TutorialTip
 
     public override void InitializeThisTutorialTip(){
         //Checks if tip should be activated every time a progress event is called
-        GameEventManager.current.ProgressEventJustCalled.AddListener(CheckIfTipShouldBeActivated);
+        GameEventManager.current.GetEvent(EventType.E.ProgressEventJustCalled).AddListener(CheckIfTipShouldBeActivated);
 
         //Deactivates the tip when a person is added
-        GameEventManager.current.PersonJustAdded.AddListener(CheckIfTipShouldBeDeactivated);
+        GameEventManager.current.GetEvent(EventType.E.PersonJustAdded).AddListener(CheckIfTipShouldBeDeactivated);
     }
 
 

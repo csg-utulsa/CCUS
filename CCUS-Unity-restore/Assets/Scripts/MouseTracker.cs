@@ -24,6 +24,6 @@ public class MouseTracker : MonoBehaviour
     }
 
     private void MouseMovedToNewGridTile(){
-        GameEventManager.current.MouseMovedToNewGridTile.Invoke();
+        GameEventManager.current.GetEvent(EventType.E.MouseMovedToNewGridTile).Invoke();
     }
 }

@@ -20,8 +20,8 @@ public class MoneyPanel : MonoBehaviour
         if(totalCashTextTMPro != null){
             totalCashTextTMPro.text = "$" + previousMoney.ToString("N0");
         }
-        GameEventManager.current.MoneyAmountUpdated.AddListener(MoneyAmountUpdated);
-        GameEventManager.current.NetMoneyUpdated.AddListener(NetMoneyUpdated);
+        GameEventManager.current.GetEvent(EventType.E.MoneyAmountUpdated).AddListener(MoneyAmountUpdated);
+        GameEventManager.current.GetEvent(EventType.E.NetMoneyUpdated).AddListener(NetMoneyUpdated);
     }
 
     private void NetMoneyUpdated(){

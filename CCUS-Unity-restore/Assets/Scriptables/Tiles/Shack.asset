@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Shack
   m_EditorClassIdentifier: 
   Name: House
+  SpecialPlacementEvent: 31
   BuildCost: 100
   AnnualCost: 0
   AnnualCarbonRemoved: 0

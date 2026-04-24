@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Coal Plant
   m_EditorClassIdentifier: Assembly-CSharp::TileScriptableObject
   Name: Coal Plant
+  SpecialPlacementEvent: 33
   BuildCost: 5000
   AnnualCost: 0
   AnnualCarbonRemoved: 0

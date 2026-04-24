@@ -12,6 +12,8 @@ public class TileScriptableObject : ScriptableObject
 
 
     public string Name;
+    [Header("IMPORTANT: Only set to placement events, like PlaceGrass, PlaceMediumBuilding, etc.")]
+    public EventType.E SpecialPlacementEvent = EventType.E.PlaceMediumBuilding;
     public int BuildCost;
     public int AnnualCost;
     public int AnnualCarbonRemoved;

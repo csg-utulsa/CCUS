@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Wind Turbine
   m_EditorClassIdentifier: Assembly-CSharp::TileScriptableObject
   Name: Wind Turbine
+  SpecialPlacementEvent: 32
   BuildCost: 75000
   AnnualCost: 0
   AnnualCarbonRemoved: 0
@@ -25,6 +26,7 @@ MonoBehaviour:
   isTerrain: 0
   isTree: 0
   allowClickAndDrag: 1
+  MustBeConnectedByRoads: 0
   TileMesh: {fileID: 0}
   thisTileClass: 0
   OverlapBlackList: []

@@ -15,7 +15,7 @@ public class PeopleManager : MonoBehaviour
             numberOfPeople = value;
             LevelManager.LM.AdjustNetMoney((numberOfPeople-previousPeople)*incomeOfPerson);
             PeoplePanel._peoplePanel.NumberOfPeople = numberOfPeople;
-            GameEventManager.current.NumberOfPeopleChanged.Invoke();
+            GameEventManager.current.GetEvent(EventType.E.NumberOfPeopleChanged).Invoke();
         }
         get{
             return numberOfPeople;
@@ -47,8 +47,8 @@ public class PeopleManager : MonoBehaviour
         }
 
         //Redistributes employees every time a workplace tile is placed or destroyed & every time a building's activation state changes
-        GameEventManager.current.NumOfWorkPlaceTilesChanged.AddListener(RedistributeEmployees);
-        GameEventManager.current.ActivatableTileJustPlaced.AddListener(RedistributeEmployees);
+        GameEventManager.current.GetEvent(EventType.E.NumOfWorkPlaceTilesChanged).AddListener(RedistributeEmployees);
+        GameEventManager.current.GetEvent(EventType.E.ActivatableTileJustPlaced).AddListener(RedistributeEmployees);
     }
 
     void OnMoneyTick(){
@@ -60,7 +60,7 @@ public class PeopleManager : MonoBehaviour
         NumberOfPeople++;
         NetPeopleIncome = NumberOfPeople * incomeOfPerson;
         //LevelManager.LM.UpdateNetCarbonAndMoney();
-        GameEventManager.current.PersonJustAdded.Invoke();
+        GameEventManager.current.GetEvent(EventType.E.PersonJustAdded).Invoke();
 
         //Distributes employees to all of the workplaces
         RedistributeEmployees();

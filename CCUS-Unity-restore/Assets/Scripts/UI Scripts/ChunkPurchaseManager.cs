@@ -96,7 +96,7 @@ public class ChunkPurchaseManager : MonoBehaviour
         groundAreaManager.AddGroundChunk();
 
         //Purchases the chunk
-        GameEventManager.current.PurchasedCurrentGroundChunk.Invoke();
+        GameEventManager.current.GetEvent(EventType.E.PurchasedCurrentGroundChunk).Invoke();
 
 
     }

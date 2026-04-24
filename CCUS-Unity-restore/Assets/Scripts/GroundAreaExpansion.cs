@@ -123,7 +123,7 @@ public class GroundAreaExpansion : MonoBehaviour
         SwitchChunkArrowManager.current.UpdateArrowVisibility(NumberOfGroundChunks, ActiveGroundChunk);
 
         //Calls event for when a new area is unlocked
-        GameEventManager.current.NewAreaUnlocked.Invoke();
+        GameEventManager.current.GetEvent(EventType.E.NewAreaUnlocked).Invoke();
     }
 
     public void MoveRight(){
@@ -187,8 +187,8 @@ public class GroundAreaExpansion : MonoBehaviour
         //GridDataLoader.current.SwitchToGridChunk(targetGroundChunk, positionsOfGroundChunks[targetGroundChunk], timeToSwitchChunks);
 
         //Calls event for when chunk is switched
-        GameEventManager.current.BeginSwitchingCurrentGroundChunk.Invoke();
-        GameEventManager.current.BeginSwitchingCurrentGroundChunkLate.Invoke();
+        GameEventManager.current.GetEvent(EventType.E.BeginSwitchingCurrentGroundChunk).Invoke();
+        GameEventManager.current.GetEvent(EventType.E.BeginSwitchingCurrentGroundChunkLate).Invoke();
 
         StartCoroutine(WaitToFinishSwitchingChunks(previousGroundChunk));
     }
@@ -202,10 +202,10 @@ public class GroundAreaExpansion : MonoBehaviour
         TileMeshLoadManager.current.UnloadGridChunk(previousGroundChunk);
 
         //Calls event for when chunk is switched
-        GameEventManager.current.SwitchedCurrentGroundChunk.Invoke();
+        GameEventManager.current.GetEvent(EventType.E.SwitchedCurrentGroundChunk).Invoke();
 
         //Calls late event for after chunk is switched. Useful to update things after everything else has changed.
-        GameEventManager.current.SwitchedCurrentGroundChunkLate.Invoke();
+        GameEventManager.current.GetEvent(EventType.E.SwitchedCurrentGroundChunkLate).Invoke();
     }
 
     private GameObject CreateNewVisibleGroundForChunk(int groundChunkNumber){

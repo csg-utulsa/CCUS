@@ -53,7 +53,7 @@ public class ToolTipManager : MonoBehaviour
             Destroy(this);
         }
 
-        GameEventManager.current.TileSelectPanelScrolled.AddListener(UpdateToolTipPosition);
+        GameEventManager.current.GetEvent(EventType.E.TileSelectPanelScrolled).AddListener(UpdateToolTipPosition);
     }
 
     void Update(){

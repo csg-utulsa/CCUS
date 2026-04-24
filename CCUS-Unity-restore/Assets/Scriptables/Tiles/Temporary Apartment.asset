@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Temporary Apartment
   m_EditorClassIdentifier: 
   Name: Apartment
+  SpecialPlacementEvent: 32
   BuildCost: 1000
   AnnualCost: 0
   AnnualCarbonRemoved: 0

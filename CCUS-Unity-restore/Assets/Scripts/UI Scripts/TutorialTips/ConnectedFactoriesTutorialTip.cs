@@ -14,10 +14,10 @@ public class ConnectedFactoriesTutorialTip : TutorialTip
 
     public override void InitializeThisTutorialTip(){
         //Checks if tip should be activated every time a tile is placed
-        GameEventManager.current.TileJustPlaced.AddListener(CheckIfTipShouldBeActivated);
+        GameEventManager.current.GetEvent(EventType.E.TileJustPlaced).AddListener(CheckIfTipShouldBeActivated);
 
         //Checks if tip should be deactivated every time a tile is placed
-        GameEventManager.current.TileJustPlaced.AddListener(CheckIfTipShouldBeDeactivated);
+        GameEventManager.current.GetEvent(EventType.E.TileJustPlaced).AddListener(CheckIfTipShouldBeDeactivated);
     }
 
     public void CheckIfTipShouldBeActivated(){

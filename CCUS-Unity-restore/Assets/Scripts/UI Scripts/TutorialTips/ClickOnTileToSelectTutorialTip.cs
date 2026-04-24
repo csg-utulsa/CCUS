@@ -16,8 +16,8 @@ public class ClickOnTileToSelectTutorialTip : TutorialTip
         //Immediately starts countdown to show tutorial tip
         //Checks if it should be deactivated every time a tile is placed & every time a button is selected
         ActionDelayer.DelayAction(CheckIfTipShouldBeActivated, 1f); 
-        GameEventManager.current.ButtonHasBeenSelected.AddListener(CheckIfTipShouldBeDeactivated);
-        GameEventManager.current.TileJustPlaced.AddListener(CheckIfTipShouldBeDeactivated);
+        GameEventManager.current.GetEvent(EventType.E.ButtonHasBeenSelected).AddListener(CheckIfTipShouldBeDeactivated);
+        GameEventManager.current.GetEvent(EventType.E.TileJustPlaced).AddListener(CheckIfTipShouldBeDeactivated);
     }
 
     public void CheckIfTipShouldBeActivated(){

@@ -1294,7 +1294,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 164.1, y: -186.3}
+  m_AnchoredPosition: {x: 170.7, y: -186.3}
   m_SizeDelta: {x: 306.9, y: 114}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &101991049
@@ -2865,6 +2865,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 209608046}
   m_CullTransparentMesh: 1
+--- !u!1 &236649973
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 236649974}
+  - component: {fileID: 236649975}
+  m_Layer: 0
+  m_Name: RemoteWebControl
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &236649974
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 236649973}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 284181346}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &236649975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 236649973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1db006c1f191224ea52322df86bbf63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  websiteURL: https://sites.google.com/view/y498w8596sdsokdhiwueg239/clean-world-controls
+  pageStartString: '###*PageStart*###'
+  pageEndString: '###*PageEnd*###'
+  maxWaitTimeout: 10
+  enableCheatsString: 'Allow Cheats: Yes'
+  enableCheats: 0
 --- !u!1 &237786869
 GameObject:
   m_ObjectHideFlags: 0
@@ -3344,6 +3394,7 @@ Transform:
   - {fileID: 777329089}
   - {fileID: 591625536}
   - {fileID: 865553739}
+  - {fileID: 236649974}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &298248274 stripped
@@ -4891,6 +4942,7 @@ MonoBehaviour:
   peopleAnimationTime: 0.35
   newPersonAnimationHeight: 1.4
   timeBetweenCreatingPeople: 0
+  minTimeBetweenCreatingPeople: 0.05
 --- !u!1 &422469682
 GameObject:
   m_ObjectHideFlags: 0
@@ -6245,6 +6297,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 128
+  maxTimeToBeInDragMode: 0.5
 --- !u!114 &506658622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11915,9 +11968,9 @@ MonoBehaviour:
   PeoplePanel: {fileID: 0}
   minTimeBetweenButtonClicks: 0.02
   defaultMinTimeBetweenButtonClicks: 0.02
-  fasterMinTimeBetweenButtonClicks: 0.001
   numOfPeopleToIncreaseButtonSpeed: 120
   timeToInitiateClickAndHold: 0.25
+  maxTimeToPressButtonDown: 5
 --- !u!114 &914277698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12493,7 +12546,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5.5
+  orthographic size: 5.67
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -12517,14 +12570,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.26239592, y: -0.36692443, z: 0.108687945, w: 0.885834}
-  m_LocalPosition: {x: 11.94, y: 9.14, z: -10}
+  m_LocalRotation: {x: 0.2546557, y: -0.36785895, z: 0.10548183, w: 0.8880901}
+  m_LocalPosition: {x: 11.94, y: 8.75, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 376092125}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 33, y: -45, z: 0}
+  m_LocalEulerAnglesHint: {x: 32, y: -45, z: 0}
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19091,9 +19144,9 @@ MonoBehaviour:
   PeoplePanel: {fileID: 0}
   minTimeBetweenButtonClicks: 0.05
   defaultMinTimeBetweenButtonClicks: 0.05
-  fasterMinTimeBetweenButtonClicks: 0.01
   numOfPeopleToIncreaseButtonSpeed: 120
   timeToInitiateClickAndHold: 0.25
+  maxTimeToPressButtonDown: 5
 --- !u!114 &1522532177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19138,6 +19191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3fdb93b5d3f31b439e86ea59c72030e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  allowCreativeMode: 1
   gridVisualizer: {fileID: 1522759608}
 --- !u!4 &1522759607
 Transform:
@@ -20448,17 +20502,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1713059788}
-  m_LocalRotation: {x: -0.22568195, y: 0.4019441, z: -0.082116745, w: -0.88360935}
-  m_LocalPosition: {x: 0, y: 0, z: 8.703796}
+  m_LocalRotation: {x: -0.25455683, y: 0.3986592, z: -0.086974226, w: -0.8767595}
+  m_LocalPosition: {x: 0, y: 0, z: 8.7227}
   m_LocalScale: {x: 1.45, y: 1.6916666, z: 1.45}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 376092125}
-  m_LocalEulerAnglesHint: {x: 27.7, y: -49.5, z: 357.65}
+  m_LocalEulerAnglesHint: {x: 31.045, y: -49.84, z: 356.624}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1926.59, y: -1087.01}
-  m_SizeDelta: {x: 14.6708, y: 6.9613}
+  m_AnchoredPosition: {x: -1926.6089, y: -1087.52}
+  m_SizeDelta: {x: 14.6708, y: 7.8348}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1713059790
 MonoBehaviour:
@@ -23213,6 +23267,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1902019699}
   - component: {fileID: 1902019700}
+  - component: {fileID: 1902019701}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -23252,7 +23307,20 @@ MonoBehaviour:
   AudioResourceMap: {fileID: 4900000, guid: d68c6ffaaa95d284aa9a8e01d11a4545, type: 3}
   EnableSoundEffects: 1
   audioSources: []
-  maxSoundsPlaying: 50
+  audioDataObjects: []
+  maxSoundsPlaying: 500
+--- !u!114 &1902019701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1902019698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0001000e6917ca64385b564225cbda80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1001 &1902752089
 PrefabInstance:
   m_ObjectHideFlags: 0

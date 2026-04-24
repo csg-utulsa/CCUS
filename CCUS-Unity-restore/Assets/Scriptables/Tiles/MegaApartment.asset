@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: MegaApartment
   m_EditorClassIdentifier: 
   Name: Mega Apartment
+  SpecialPlacementEvent: 33
   BuildCost: 12000
   AnnualCost: 0
   AnnualCarbonRemoved: 0
