@@ -1,30 +1,32 @@
-SoundID, Description, Sound File Name, Sound Effect Is Enabled (1 or 0), Event To Play Sound On (See a list in EventType.cs), Sound Effect Loops (1 or 0), Event To End Sound On (Only include if sound effect loops)
+SoundID, Description, Sound File Name, Sound Effect Is Enabled (1 or 0), Event To Play Sound On (See a list in EventType.cs), Sound Effect Loops (1 or 0), Event To End Sound On (Only include if sound effect loops), Secondary Event To Stop Sound
 00001,Place Tile,PlaceTile,0,TilePlacedWithoutDrag,0,none
-00002,Switch Area Chunks,SwitchArea,1,SwitchedCurrentGroundChunk,0,none
 00003,Purchase New Area,PurchaseArea,1,PurchasedCurrentGroundChunk,0,none
 00004,Cannot Place Tile You're Attempting To,CantPlaceTile,1,FailedToPlaceTile,0,none
-00005,Closing UI Pop Up,CloseUI,1,CloseTutorialNotification,0,none
+00005,Closing UI Pop Up,MouseSelection,1,CloseTutorialNotification,0,none
 00006,Destroying a tile,DeleteTile,1,TileJustDestroyed,0,none
-00007,New Person Was Added,NewPerson,1,PersonJustAdded,0,none
+00007,New Person Was Added,NewPerson,0,PersonJustAdded,0,none
 00008,Tutorial Notification,NotificationDing,1,TutorialTipHasAppeared,0,none
-00009,The People Button has started being pressed,PeopleButtonPress,1,PeopleButtonPressed,0,none
-00010,The People Button is being held down,PeopleButtonHeldDown,1,BeginFillingPeopleButton,1,FinishFillingPeopleButton
+00009,The People Button has started being pressed,PeopleButtonHold,1,BeginFillingPeopleButton,1,FinishFillingPeopleButton,PeopleButtonReleased
+00010,The People Button is clicked once,MouseSelection,1,PeopleButtonPressed,0
 00011,The People Button has been released,PeopleButtonDone,1,FinishFillingPeopleButton,0,none
-00012,Failed to place a tile because of high carbon levels,ErrorTooMuchCarbon,1,TooMuchCarbonToPlace,0,none
-00013,Failed to place tile because there's not enough money,ErrorNotEnoughMoney,1,NotEnoughMoneyToPlace,0,none
-00014,The carbon dial first appeared,IntroduceCarbonMeter,1,CarbonMeterAppeared,0,none
-00015,The people panel first appeared,IntroducePeopleButton,1,PeopleButtonAppeared,0,none
-00016,Drag placing tiles,DragPlacing,1,BeginDragPlaceTiles,1,EndDragPlaceTiles
-00017,Player clicked on a tile's button,TileButtonSelected,1,SelectedTileButton,0
-00018,The Carbon dial hits full capacity,MaxedOutCarbon,1,MaxCarbonAmountHit,0
-00019,The player deselects a tile button,DeselectedTile,1,DeselectedTile,0
-00020,The player deselects the trash button,DeselectedTile,1,DeselectedTrashButton,0
-00021,Selected the trash button,TileButtonSelected,1,SelectedTrashButton,0
-00022,A new tile has been unlocked,NewTile,1,NewTileUnlocked,0
-00023,The player has received more money,NewMoney,0,NewMoney,0
-00024,Grass tile placed,GrassPlacement,1,PlaceGrass,0
-00025,Road tile placed,RoadPlacement,1,PlaceRoad,0
-00026,Tree tile placed,TreePlacement,1,PlaceTree,0
-00027,Small Building Placed,SmallBuildingPlacement,1,PlaceSmallBuilding,0
-00028,Medium building placed,MediumBuildingPlacement,1,PlaceMediumBuilding,0
-00029,Large building placed,LargeBuildingPlacement,1,PlaceLargeBuilding,0
+00012,Failed to place a tile because of high carbon levels,CantPlaceTile,1,FailedToPlaceTileWithoutDrag,0,none
+00013,Failed to place tile because there's not enough money,CantPlaceTile,1,FailedToPlaceTileWithoutDrag,0,none
+00014,The carbon dial first appeared,MaxedOutCarbon,1,CarbonMeterAppeared,0,none
+00015,The people panel first appeared,IntroduceUI,1,PeopleButtonAppeared,0,none
+00016,Drag placing tiles,DragPlacing,0,BeginDragPlaceTiles,1,EndDragPlaceTiles
+00017,Player clicked on a tile's button,MouseSelection,1,SelectedTileButton,0,none
+00018,The Carbon dial hits full capacity,MaxedOutCarbon,0,MaxCarbonAmountHit,0,none
+00019,The player deselects a tile button,MouseSelection,1,DeselectedTile,0,none
+00020,The player deselects the trash button,MouseSelection,1,DeselectedTrashButton,0,none
+00021,Selected the trash button,MouseSelection,1,SelectedTrashButton,0,none
+00022,A new tile has been unlocked,NewTile,1,NewTileUnlocked,0,none
+00024,Grass tile placed,GrassPlacement,1,PlaceGrass,0,none
+00025,Road tile placed,RoadPlacement,1,PlaceRoad,0,none
+00026,Tree tile placed,TreePlacement,1,PlaceTree,0,none
+00027,Small Building Placed,SmallBuildingPlacement,1,PlaceSmallBuilding,0,none
+00028,Medium building placed,MediumBuildingPlacement,1,PlaceMediumBuilding,0,none
+00029,Large building placed,LargeBuildingPlacement,1,PlaceLargeBuilding,0,none
+00030,Switch to the left area chunk,SwitchAreaRtL,1,BeginSwitchingChunkLeft,0,none
+00031,Switch to the right area chunk,SwitchAreaLtR,1,BeginSwitchingChunkRight,0,none
+00032,A sapling has been placed,SaplingPlacement,1,PlaceSapling,0,none
+00033,Clicked on the switch area arrows,MouseSelection,1,BeginSwitchingCurrentGroundChunk,0,none

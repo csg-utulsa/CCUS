@@ -17,7 +17,7 @@ public class PressPeopleButton : MonoBehaviour, IPointerDownHandler, IPointerUpH
     public PeopleManager peopleManager;
     public PeoplePanel PeoplePanel;
     private bool enabled = false;
-    public static PressPeopleButton PPB;
+    public static PressPeopleButton current;
 
     //Time between button clicks
     public float minTimeBetweenButtonClicks = .05f;
@@ -48,8 +48,8 @@ public class PressPeopleButton : MonoBehaviour, IPointerDownHandler, IPointerUpH
         if(PeopleManager.current != null){
           peopleManager = PeopleManager.current;  
         }
-        if(PPB == null){
-            PPB = this;
+        if(current == null){
+            current = this;
         } else{
             Destroy(this);
         }
@@ -99,7 +99,6 @@ public class PressPeopleButton : MonoBehaviour, IPointerDownHandler, IPointerUpH
                     //Adds people until there are enough
                     while(maxWhileLoopFail < 1500 && (PeopleManager.current.NumberOfPeople < numOfPeopleNeeded && numOfPeopleNeeded > 0)){
                         maxWhileLoopFail++;
-                        Debug.Log("people button pressed");
                         PeoplePanel._peoplePanel.PeopleButtonPressed();
                         
                     }
@@ -135,7 +134,6 @@ public class PressPeopleButton : MonoBehaviour, IPointerDownHandler, IPointerUpH
                     buttonClickTimer = 0f;
                     GameEventManager.current.GetEvent(EventType.E.PeopleButtonHeldDown).Invoke();
                     if(PeopleManager.current.CanAddMorePeople()) GameEventManager.current.GetEvent(EventType.E.BeginFillingPeopleButton).Invoke();
-                    Debug.Log("people button held down");
                 }
             }
 

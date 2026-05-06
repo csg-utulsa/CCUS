@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Grass
   m_EditorClassIdentifier: 
   Name: Grass
-  SpecialPlacementEvent: 28
+  SpecialPlacementEvent: 0
   BuildCost: 5
   AnnualCost: 5
   AnnualCarbonRemoved: 0

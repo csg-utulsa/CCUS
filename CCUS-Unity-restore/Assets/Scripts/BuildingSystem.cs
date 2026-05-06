@@ -219,9 +219,10 @@ public class BuildingSystem : MonoBehaviour
             placeSelectedTile();
             preventMultipleObjectPlacement = true;
 
+            previousActiveTile.CallSpecialPlacementEvent();
+
             //Calls event for when the player clicks to place a tile, without dragging it
             if(!IsInDragMode){
-                previousActiveTile.CallSpecialPlacementEvent();
                 GameEventManager.current.GetEvent(EventType.E.TilePlacedWithoutDrag).Invoke();
             }
             
@@ -566,6 +567,12 @@ public class BuildingSystem : MonoBehaviour
         //Checks if there's enough money and that the carbon isn't maxed out
         if(attemptingToPlaceTile){
             if(!activeTile.CheckIfTileIsPlaceable(true)){
+
+                //Calls event for when the user fails to place a tile and isn't dragging.
+                if(!IsInDragMode){
+                    GameEventManager.current.GetEvent(EventType.E.FailedToPlaceTileWithoutDrag).Invoke();
+                }
+                
                 return false;
             }
         }else{

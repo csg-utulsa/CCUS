@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Road
   m_EditorClassIdentifier: 
   Name: Road
-  SpecialPlacementEvent: 30
+  SpecialPlacementEvent: 2
   BuildCost: 0
   AnnualCost: 0
   AnnualCarbonRemoved: 0

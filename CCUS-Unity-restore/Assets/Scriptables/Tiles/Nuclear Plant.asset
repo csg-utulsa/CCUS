@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Nuclear Plant
   m_EditorClassIdentifier: Assembly-CSharp::TileScriptableObject
   Name: Nuclear Plant
-  SpecialPlacementEvent: 33
+  SpecialPlacementEvent: 5
   BuildCost: 20000
   AnnualCost: 0
   AnnualCarbonRemoved: 0

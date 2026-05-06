@@ -106,7 +106,7 @@ public class PeoplePanel : MonoBehaviour
     public void EnablePeoplePanel(){
         //peopleCounter.SetActive(true);
         if(!peoplePanelEnabled){
-            PressPeopleButton.PPB.EnablePeopleButton();
+            PressPeopleButton.current.EnablePeopleButton();
             GetComponent<PeoplePanelActivator>().ActivatePeoplePanel();
             peoplePanelEnabled = true;
         }

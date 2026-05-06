@@ -136,10 +136,9 @@ public class GroundAreaExpansion : MonoBehaviour
             return;
         }else{
             SwitchToGroundChunk(ActiveGroundChunk + 1);
-            UpdateCameraPosition();
 
-            //Updates visibility of left/right arrows
-            SwitchChunkArrowManager.current.UpdateArrowVisibility(NumberOfGroundChunks, ActiveGroundChunk);
+            //Calls event for switching to the ground chunk on the right
+            GameEventManager.current.GetEvent(EventType.E.SwitchedChunkRight).Invoke();
         }
        
     }
@@ -153,6 +152,9 @@ public class GroundAreaExpansion : MonoBehaviour
             return;
         }else{
             SwitchToGroundChunk(ActiveGroundChunk - 1);
+
+            //Calls event for switching to the ground chunk on the right
+            GameEventManager.current.GetEvent(EventType.E.SwitchedChunkLeft).Invoke();
             
         }
 
@@ -166,6 +168,9 @@ public class GroundAreaExpansion : MonoBehaviour
         isSwitchingGroundChunks = true;
 
         int previousGroundChunk = ActiveGroundChunk;
+
+        bool isSwitchingLeft = (targetGroundChunk < previousGroundChunk);
+
         ActiveGroundChunk = targetGroundChunk;
 
         //Moves the camera to the new position
@@ -186,6 +191,13 @@ public class GroundAreaExpansion : MonoBehaviour
         //Load new chunk (also switches grid manager center)
         //GridDataLoader.current.SwitchToGridChunk(targetGroundChunk, positionsOfGroundChunks[targetGroundChunk], timeToSwitchChunks);
 
+        //Calls event for whether the chunk is switched to the left or the right
+        if(isSwitchingLeft){
+           GameEventManager.current.GetEvent(EventType.E.BeginSwitchingChunkLeft).Invoke(); 
+        } else{
+            GameEventManager.current.GetEvent(EventType.E.BeginSwitchingChunkRight).Invoke();
+        }
+        
         //Calls event for when chunk is switched
         GameEventManager.current.GetEvent(EventType.E.BeginSwitchingCurrentGroundChunk).Invoke();
         GameEventManager.current.GetEvent(EventType.E.BeginSwitchingCurrentGroundChunkLate).Invoke();

@@ -88,8 +88,14 @@ public class TrashButtonScript : MonoBehaviour
             Vector3 mouseGridCoordinate = BuildingSystem.current.SnapCoordinateToGrid(mouseWorldPosition);
             currentRedDeleteCube.transform.position = new Vector3(mouseGridCoordinate.x, currentRedDeleteCube.transform.position.y, mouseGridCoordinate.z);
             
-            if(Input.GetMouseButtonDown(0) || (Input.GetMouseButton(0) && previousGridPosition != currentRedDeleteCube.transform.position)){ // object deleting     || (Input.GetMouseButton(0) && hasMoved)
+            if(Input.GetMouseButtonDown(0)){ // object deleting
                 deleteTile();
+                GameEventManager.current.GetEvent(EventType.E.DeleteTileWithoutDrag).Invoke();
+
+                //Moves trash cube to new tile
+            } else if(Input.GetMouseButton(0) && previousGridPosition != currentRedDeleteCube.transform.position){ 
+                deleteTile();
+                
             }
 
             previousGridPosition = currentRedDeleteCube.transform.position;

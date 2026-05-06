@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Wind Turbine
   m_EditorClassIdentifier: Assembly-CSharp::TileScriptableObject
   Name: Wind Turbine
-  SpecialPlacementEvent: 32
+  SpecialPlacementEvent: 4
   BuildCost: 75000
   AnnualCost: 0
   AnnualCarbonRemoved: 0

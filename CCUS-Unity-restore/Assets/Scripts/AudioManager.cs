@@ -74,6 +74,8 @@ public class AudioManager : MonoBehaviour
 
         if(audioSource == null){
             Debug.LogError("Couldn't find that Audio Clip!! :(   (Try checking your AudioResourceMap.csv in Resources/Audio). There's probably a name mismatch");
+            Debug.LogError("Couldn't find this file: " + GetAudioDataByID(soundID).audioFileName);
+            return;
         }
 
         audioSource.Play();
@@ -293,14 +295,25 @@ public class AudioManager : MonoBehaviour
             //Declares arrays for soundIDs, Audio Clips, and for clips enabled/disabled state
             int[] _audioSoundClipIDs = new int[dataRows.Length];
             AudioClip[] _audioClips = new AudioClip[dataRows.Length];
+            string[] _audioClipPaths = new string[dataRows.Length];
             bool[] _audioClipsEnabled = new bool[dataRows.Length];
             string[] _eventToPlaySound = new string[dataRows.Length];
             bool[] _audioClipsLooping = new bool[dataRows.Length];
             string[] _eventToStopSound = new string[dataRows.Length];
+            string[] _secondaryEventToStopSound = new string[dataRows.Length];
+            
             
 
             //Pulls the required data from each row. Note i = 1 so it skips the description line
             for(int i = 1; i < dataRows.Length; i++){
+                
+                //Ignores lines that are just comments.
+                // if(dataRows[0].Length >= 2){
+                //     if(dataRows[0][0] == '/' && dataRows[0][1] == '/'){
+                //         continue;
+                //     }                    
+                // }
+
                 String[] rowElements = dataRows[i].Split(',');
                 if(rowElements.Length <= 2){
                     Debug.LogError("Remove an extra line break from AudioResourceMap.csv");
@@ -356,9 +369,15 @@ public class AudioManager : MonoBehaviour
                     _eventToStopSound[i] = rowElements[6];
                 }
 
+                //Stores secondary event to stop on if it is included
+                if(_audioClipsLooping[i] && rowElements.Length >= 8){
+                    _secondaryEventToStopSound[i] = rowElements[7];
+                }
+
                 //Pulls the path of the audio file from the 3rd element in the row
                 //Note: "Audio/" is the parent folder of all audio assets
                 string audioClipPath = "Audio/AudioFiles/" + rowElements[2];
+                _audioClipPaths[i] = audioClipPath;
 
                 //Tries to pull the audio clip using the provided path
                 try{
@@ -378,6 +397,7 @@ public class AudioManager : MonoBehaviour
                 audioDataObjects[i] = new AudioData();
                 audioDataObjects[i].audioFile = _audioClips[i];
                 audioDataObjects[i].audioClipID = _audioSoundClipIDs[i];
+                audioDataObjects[i].audioFileName = _audioClipPaths[i];
                 
                 //Stores Event that should start the sound
                 if(_eventToPlaySound[i] != null){
@@ -397,7 +417,16 @@ public class AudioManager : MonoBehaviour
                     if (Enum.TryParse(_eventToStopSound[i], out EventType.E result)){
                         audioDataObjects[i].eventToStopOn = result;
                     } else{
-                        Debug.LogError("The event \"" + _eventToPlaySound[i] + "\" doesn't exist");
+                        Debug.LogError("The event \"" + _eventToStopSound[i] + "\" on line " + i +" of the AudioResourceMap.csv file doesn't exist.");
+                    }
+                }
+
+                //Stores secondary event that should stop the sound
+                if(_audioClipsLooping[i] && _secondaryEventToStopSound[i] != null){
+                    if (Enum.TryParse(_secondaryEventToStopSound[i], out EventType.E result)){
+                        audioDataObjects[i].secondaryEventToStopOn = result;
+                    } else{
+                        Debug.LogError("The event \"" + _secondaryEventToStopSound[i] + "\" on line " + i +" of the AudioResourceMap.csv file doesn't exist.");
                     }
                 }
             }
@@ -419,6 +448,10 @@ public class AudioManager : MonoBehaviour
             if(audioData.isLooping){
 
                 GameEventManager.current.GetEvent(audioData.eventToStopOn).AddListener(audioData.StopMe);
+
+                if(audioData.secondaryEventToStopOn != null){
+                    GameEventManager.current.GetEvent(audioData.secondaryEventToStopOn).AddListener(audioData.StopMe);
+                }
             }
         }
     }

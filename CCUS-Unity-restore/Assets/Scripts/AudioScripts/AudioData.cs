@@ -6,10 +6,12 @@ public class AudioData : ScriptableObject
 
     public int audioClipID;
     public AudioClip audioFile;
+    public string audioFileName;
 
     public bool isLooping;
     public bool isEnabled;
     public EventType.E eventToStopOn;
+    public EventType.E secondaryEventToStopOn;
     public EventType.E eventToStartOn;
 
     public void PlayMe(){

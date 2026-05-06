@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Carbon Capture System
   m_EditorClassIdentifier: Assembly-CSharp::TileScriptableObject
   Name: Carbon Capture
-  SpecialPlacementEvent: 32
+  SpecialPlacementEvent: 4
   BuildCost: 20000
   AnnualCost: 0
   AnnualCarbonRemoved: 0

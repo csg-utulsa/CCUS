@@ -33,6 +33,13 @@ public class PeopleManager : MonoBehaviour
         }
     }
 
+    public float PercentFilled{
+        get{
+            return (float)NumberOfPeople / (float)maxPeople;
+        }
+    }
+    
+
     public int incomeOfPerson = 2;
     public int maxPeople {get; set;} = 0;
     public int NetPeopleIncome {get; set;} = 0;

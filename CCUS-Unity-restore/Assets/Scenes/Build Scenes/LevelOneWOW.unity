@@ -2064,6 +2064,52 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6203246308946112634, guid: 4904ce2ca989f0d4bb3a66f134d93767, type: 3}
   m_PrefabInstance: {fileID: 167298307}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &167778893
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 167778894}
+  - component: {fileID: 167778895}
+  m_Layer: 0
+  m_Name: PeopleButtonRisingSFXController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &167778894
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 167778893}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1902019699}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &167778895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 167778893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf509d9fe8b8721468f37c471d19439b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PeopleButtonRisingSoundController
+  audioSource: {fileID: 0}
+  risingSoundClip: {fileID: 8300000, guid: 05c7dfd826f5c64428070d2a862925a4, type: 3}
 --- !u!1 &176979310
 GameObject:
   m_ObjectHideFlags: 0
@@ -3785,7 +3831,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -71.2, y: -4.1}
+  m_AnchoredPosition: {x: -69.7, y: -4.1}
   m_SizeDelta: {x: 31.10299, y: 30.77399}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &345088752
@@ -4159,7 +4205,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -22.8, y: -36.2}
+  m_AnchoredPosition: {x: -22.8, y: -36}
   m_SizeDelta: {x: 58.66808, y: 11.88835}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &368722728
@@ -11969,7 +12015,7 @@ MonoBehaviour:
   minTimeBetweenButtonClicks: 0.02
   defaultMinTimeBetweenButtonClicks: 0.02
   numOfPeopleToIncreaseButtonSpeed: 120
-  timeToInitiateClickAndHold: 0.25
+  timeToInitiateClickAndHold: 0.1
   maxTimeToPressButtonDown: 5
 --- !u!114 &914277698
 MonoBehaviour:
@@ -13326,7 +13372,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 17.5, y: -16.4}
+  m_AnchoredPosition: {x: 19.2, y: -16.4}
   m_SizeDelta: {x: 327.0338, y: 325.54}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1018059732
@@ -23290,6 +23336,7 @@ Transform:
   m_Children:
   - {fileID: 1154393738}
   - {fileID: 2007056815}
+  - {fileID: 167778894}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1902019700
@@ -24003,7 +24050,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 17.4, y: -16.3}
+  m_AnchoredPosition: {x: 19.24, y: -16.3}
   m_SizeDelta: {x: 327.0338, y: 325.54}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2024079316

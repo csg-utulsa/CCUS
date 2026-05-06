@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Oak Tree
   m_EditorClassIdentifier: 
   Name: Tree
-  SpecialPlacementEvent: 29
+  SpecialPlacementEvent: 1
   BuildCost: 100
   AnnualCost: 0
   AnnualCarbonRemoved: 0
