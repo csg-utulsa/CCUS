@@ -1,0 +1,162 @@
+using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEditor;
+using UnityEngine.UIElements;
+using System.IO;
+using System;
+using System.Linq;
+using UnityEngine.UI;
+using UnityEditor.Events;
+
+public class SetObjectMaterialsToDitherShader : EditorWindow
+{
+    public GameObject ObjectToChangeShader;
+
+    public Material materialToChangeShader;
+
+    public bool onlyChangeSingleMaterial = false;
+
+    [MenuItem("Tools/Set Object Material Shaders")]
+    public static void SetShaders()
+    {
+        SetObjectMaterialsToDitherShader wnd = GetWindow<SetObjectMaterialsToDitherShader>();
+        //wnd.myWindow = wnd;
+        wnd.minSize = new Vector2(600,600);
+        //GetWindow<TileFactoryEditor>("tileFactoryEditor");
+    }
+
+    void OnGUI(){
+
+        //Set style for text
+        GUIStyle textStyle = new GUIStyle();
+        textStyle.fontSize = 18;
+        textStyle.normal.textColor = Color.white;
+
+        //Set style for Button
+        GUIStyle buttonStyle = new GUIStyle(GUI.skin.button);
+        buttonStyle.fontSize = 25;
+        buttonStyle.normal.textColor = Color.white;
+        buttonStyle.fontStyle = FontStyle.Bold;
+
+        GUILayout.Label("Switch Object Material Shaders", textStyle, GUILayout.Width(150));
+        GUILayout.Label("Drag in the 3D Model whose materials you want to change:", textStyle, GUILayout.Width(150));
+        onlyChangeSingleMaterial = EditorGUILayout.Toggle("Only change single material", onlyChangeSingleMaterial);
+
+        if(!onlyChangeSingleMaterial){
+            //Allows user to input model to change all materials on
+            ObjectToChangeShader = (GameObject)EditorGUILayout.ObjectField("Model: ", ObjectToChangeShader, typeof(GameObject), false);
+        }else{
+            //Allows user to input single material to change
+            materialToChangeShader = (Material)EditorGUILayout.ObjectField("Material: ", materialToChangeShader, typeof(Material), false);
+        }
+        
+
+        if (GUILayout.Button("Set to Dither Shader", buttonStyle)){
+            //Sets all materials on model to dither shader
+            if(!onlyChangeSingleMaterial){
+                Renderer matRenderer = ObjectToChangeShader.GetComponent<Renderer>();
+                if(matRenderer != null){
+                    foreach (Material mat in matRenderer.sharedMaterials){
+                        SetToDitherTransparencyShader(mat);
+                    }
+                }
+
+                //Sets every material on children to dither shader
+                Renderer[] childrenMatRenderers = ObjectToChangeShader.GetComponentsInChildren<Renderer>();
+                foreach(Renderer childMatRenderer in childrenMatRenderers){
+                    if(childMatRenderer != null){
+                        foreach (Material mat in childMatRenderer.sharedMaterials){
+                            SetToDitherTransparencyShader(mat);
+                        }
+                    }
+                }
+
+                
+            }
+            //Sets single material to dither shader
+            else{
+                if(materialToChangeShader != null){
+                    SetToDitherTransparencyShader(materialToChangeShader);
+                    
+                }
+                
+            }
+            
+            //Closes window
+            this.Close();
+        }
+
+        if(GUILayout.Button("Set to Standard Shader", buttonStyle)){
+            //Sets all materials on model
+            if(!onlyChangeSingleMaterial){
+                //Sets all materials on model to standard shader
+                Renderer matRenderer = ObjectToChangeShader.GetComponent<Renderer>();
+                if(matRenderer != null){
+                    foreach (Material mat in matRenderer.sharedMaterials){
+                        SetToStandardShader(mat);
+                    }
+                }
+
+                //Sets all materials on children to standard shader
+                Renderer[] childrenMatRenderers = ObjectToChangeShader.GetComponentsInChildren<Renderer>();
+                foreach(Renderer childMatRenderer in childrenMatRenderers){
+                    if(childMatRenderer != null){
+                        foreach (Material mat in childMatRenderer.sharedMaterials){
+                            SetToStandardShader(mat);
+                        }
+                    }
+                } 
+            }
+            //Sets only a single input material
+            else{
+                if(materialToChangeShader != null){
+                    SetToStandardShader(materialToChangeShader);
+                    
+                }
+            }
+            
+            this.Close();
+        }
+    }
+
+    public void SetToDitherTransparencyShader(Material mat){
+        if(mat.shader == Shader.Find("Standard")){
+            //Stores this shader's properties
+            float metallic = mat.GetFloat("_Metallic");
+            float smoothness = mat.GetFloat("_Glossiness");
+            Color color = mat.GetColor("_Color");
+            Texture mainTex = mat.GetTexture("_MainTex");
+
+            
+            //Switches to the Dither Transparency Shader
+            mat.shader = Shader.Find("Shader Graphs/Dither Shader");
+            mat.SetFloat("_Metallic", metallic);
+            mat.SetFloat("_Smoothness", smoothness);
+            mat.SetColor("_BaseColor", color);
+            mat.SetTexture("_Base_Texture", mainTex);
+            //mat.SetFloat("_Dither_Size", ditherTransparencyResolution);
+
+        }
+    }
+
+    public void SetToStandardShader(Material mat){
+        if(mat.shader == Shader.Find("Shader Graphs/Dither Shader")){
+            //Stores this shader's properties
+            float metallic =  mat.GetFloat("_Metallic");
+            float smoothness =  mat.GetFloat("_Smoothness");
+            Color color =  mat.GetColor("_BaseColor");
+            Texture mainTex = mat.GetTexture("_Base_Texture");
+
+            
+            //Switches to the Dither Transparency Shader
+            mat.shader = Shader.Find("Standard");
+            mat.SetFloat("_Metallic", metallic);
+            mat.SetFloat("_Glossiness", smoothness);
+            mat.SetColor("_Color", color);
+            mat.SetTexture("_MainTex", mainTex);
+            //mat.SetFloat("_Dither_Size", ditherTransparencyResolution);
+
+        }
+    }
+}

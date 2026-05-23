@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 83904f9843ecfe342a25ffd043e3a9fc
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - m_ViewDataDictionary: {instanceID: 0}
+  - blankTilePrefab: {fileID: 9171035400571233729, guid: 81824e4d3c03c8549bf91254aabd16f2, type: 3}
+  - editingTilePrefab: {instanceID: 0}
+  - blankButtonPrefab: {fileID: 8539130412815848100, guid: 8243673c2e907cf42ae4555d67c42f07, type: 3}
+  - newTileMesh: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,157 @@
+"filename", "language", "C#", "comment", "blank", "total"
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\ActionDelayer.cs", "C#", 24, 1, 4, 29
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\AudioManager.cs", "C#", 258, 99, 123, 480
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\AudioScripts\AudioData.cs", "C#", 23, 0, 10, 33
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\AudioScripts\AudioEventListener.cs", "C#", 4, 55, 23, 82
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\AudioScripts\PeopleButtonRisingSoundController.cs", "C#", 42, 6, 14, 62
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\BuildingSystem.cs", "C#", 315, 174, 152, 641
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\Contract Scripts\ContractData.cs", "C#", 19, 5, 6, 30
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\Contract Scripts\ContractManager.cs", "C#", 48, 9, 12, 69
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\Contract Scripts\ContractUIElement.cs", "C#", 93, 11, 17, 121
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\DeafenFMODListener.cs", "C#", 9, 15, 4, 28
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\DisableWorkplacesWithoutEmployees.cs", "C#", 4, 74, 16, 94
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\EventManager.cs", "C#", 19, 2, 4, 25
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\GameEventManager.cs", "C#", 33, 78, 24, 135
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\GridDataLoader.cs", "C#", 130, 42, 59, 231
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\GridManagement\GridChunk.cs", "C#", 255, 37, 112, 404
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\GridManagement\TileMeshLoadManager.cs", "C#", 30, 6, 17, 53
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\GridManager.cs", "C#", 133, 69, 86, 288
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\GridTestScript.cs", "C#", 10, 2, 5, 17
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\GroundAreaExpansion.cs", "C#", 126, 48, 82, 256
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\LevelComplete.cs", "C#", 76, 20, 16, 112
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\LevelManager.cs", "C#", 206, 141, 74, 421
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\LevelSelectButton.cs", "C#", 18, 2, 6, 26
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\LoadingScreen.cs", "C#", 39, 2, 13, 54
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\MaxTileTypeCounter.cs", "C#", 33, 29, 11, 73
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\MouseTracker.cs", "C#", 23, 2, 5, 30
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\MusicManager.cs", "C#", 6, 38, 13, 57
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\NetCarbonCounter.cs", "C#", 28, 1, 8, 37
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\NetMoneyCounter.cs", "C#", 28, 1, 7, 36
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\PeopleManager.cs", "C#", 105, 37, 58, 200
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\PersonScripts\MoveObjectToPoint.cs", "C#", 59, 12, 30, 101
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\PersonScripts\MovementPath.cs", "C#", 59, 40, 27, 126
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\PersonScripts\MovementPathGenerator.cs", "C#", 215, 93, 101, 409
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\PersonScripts\MovementPathMap.cs", "C#", 100, 31, 38, 169
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\PersonScripts\NewPeopleCreator.cs", "C#", 50, 14, 32, 96
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\PersonScripts\NewPersonAnimation.cs", "C#", 70, 9, 26, 105
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\PersonScripts\PeopleChunkLoader.cs", "C#", 36, 11, 24, 71
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\PersonScripts\PeopleMovementManager.cs", "C#", 167, 57, 71, 295
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\PersonScripts\PersonWalk.cs", "C#", 54, 11, 30, 95
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\PlayMusic.cs", "C#", 6, 22, 3, 31
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\ProgressionManager.cs", "C#", 98, 48, 49, 195
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\RandomTileGenerator.cs", "C#", 50, 14, 20, 84
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\RemoteWebControl.cs", "C#", 48, 12, 31, 91
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\RoadAndResidenceConnectionManager.cs", "C#", 141, 51, 37, 229
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\SceneSwap.cs", "C#", 11, 0, 2, 13
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\SceneTransitionManager.cs", "C#", 49, 8, 11, 68
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\SpinObject.cs", "C#", 25, 7, 7, 39
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\TemporaryPeopleManager.cs", "C#", 7, 67, 20, 94
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\Testing Scripts\GridVisualizer.cs", "C#", 11, 0, 3, 14
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\Testing Scripts\WeirdBugTester.cs", "C#", 10, 2, 5, 17
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\TickManager.cs", "C#", 63, 9, 14, 86
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\TileTypeCounter.cs", "C#", 250, 73, 63, 386
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\Tiles\ActivatableBuilding.cs", "C#", 7, 35, 13, 55
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\Tiles\ActivatableTile.cs", "C#", 104, 30, 53, 187
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\Tiles\CarbonCaptureTile.cs", "C#", 34, 4, 11, 49
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\Tiles\ConnectedTileHandler.cs", "C#", 218, 26, 44, 288
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\Tiles\ConnectedTileScriptableObject.cs", "C#", 21, 6, 5, 32
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\Tiles\Decorator\ObjectVariation.cs", "C#", 39, 11, 17, 67
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\Tiles\Decorator\TileDecorator.cs", "C#", 6, 0, 3, 9
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\Tiles\DirectionalCollision.cs", "C#", 24, 11, 6, 41
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\Tiles\FactoryTile.cs", "C#", 18, 40, 12, 70
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\Tiles\MouseHoverHideTile.cs", "C#", 124, 10, 25, 159
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\Tiles\ObjectDrag.cs", "C#", 207, 136, 106, 449
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\Tiles\PlaceableObject.cs", "C#", 58, 8, 25, 91
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\Tiles\ResidentialBuilding.cs", "C#", 25, 92, 32, 149
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\Tiles\RoadConnections.cs", "C#", 129, 40, 33, 202
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\Tiles\RoadTile.cs", "C#", 20, 12, 10, 42
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\Tiles\Tile.cs", "C#", 216, 75, 106, 397
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\Tiles\TileConnectionAdjacent.cs", "C#", 89, 10, 18, 117
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\Tiles\TileMaterialHandler.cs", "C#", 126, 105, 46, 277
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\Tiles\TileMeshLoader.cs", "C#", 47, 10, 29, 86
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\Tiles\TileScriptableObject.cs", "C#", 33, 5, 14, 52
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\Tiles\WindTurbineTile.cs", "C#", 18, 0, 5, 23
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\TouchModeHandler.cs", "C#", 26, 0, 11, 37
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\ActivateChunkPurchaseUI.cs", "C#", 54, 2, 21, 77
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\ButtonPopupWindow.cs", "C#", 17, 2, 4, 23
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\CameraMove.cs", "C#", 38, 0, 9, 47
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\CameraMovement.cs", "C#", 19, 2, 9, 30
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\CarbonDial\CarbonDial.cs", "C#", 61, 7, 23, 91
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\CarbonDial\CarbonDialColor.cs", "C#", 29, 3, 6, 38
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\CarbonDial\CarbonDialSmoothMove.cs", "C#", 44, 4, 8, 56
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\CarbonDial\ImageFillAmount.cs", "C#", 19, 1, 3, 23
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\CarbonDial\RotateBetweenValues.cs", "C#", 36, 1, 9, 46
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\CarbonRotate.cs", "C#", 50, 6, 13, 69
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\ChangeOpacity.cs", "C#", 41, 1, 5, 47
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\ChunkPurchaseManager.cs", "C#", 75, 16, 24, 115
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\ContractComplete.cs", "C#", 12, 2, 3, 17
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\ErrorGraphicDisplayer.cs", "C#", 34, 5, 11, 50
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\FadeGraphic.cs", "C#", 77, 5, 24, 106
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\HighlightedTileGraphic.cs", "C#", 42, 9, 11, 62
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\MaxCarbonCaptureTileError.cs", "C#", 28, 6, 6, 40
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\MoneyPanel\MoneyPanel.cs", "C#", 40, 3, 15, 58
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\MouseHoverTransparency.cs", "C#", 150, 100, 79, 329
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\MouseOverImage.cs", "C#", 11, 0, 4, 15
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\MouseScreenPosition.cs", "C#", 14, 2, 6, 22
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\PanelOpener.cs", "C#", 32, 3, 8, 43
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\PeoplePanel\EmploymentPanel.cs", "C#", 22, 6, 13, 41
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\PeoplePanel\FlowFillAmount.cs", "C#", 49, 2, 21, 72
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\PeoplePanel\FlowFillMaskSpriteSwap.cs", "C#", 30, 2, 4, 36
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\PeoplePanel\PeoplePanelActivator.cs", "C#", 58, 19, 25, 102
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\PressPeopleButton.cs", "C#", 105, 38, 58, 201
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\RectTransformFunctions.cs", "C#", 46, 3, 12, 61
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\ResourcePanelManager.cs", "C#", 33, 44, 20, 97
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\ScrollingUI.cs", "C#", 119, 27, 37, 183
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\ShakeGraphic.cs", "C#", 67, 5, 12, 84
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\SizingEmphasis.cs", "C#", 51, 8, 10, 69
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\SlideInAnimation.cs", "C#", 75, 0, 16, 91
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\SmoothMovementBetweenValues.cs", "C#", 9, 0, 3, 12
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\SwitchChunkArrowManager.cs", "C#", 26, 0, 8, 34
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\TaskManager.cs", "C#", 53, 0, 10, 63
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\TileSelectPanel.cs", "C#", 223, 31, 64, 318
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\TileSelectPanel\MouseDownOnScrollArrow.cs", "C#", 21, 2, 9, 32
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\TileSelectPanel\NewTileArrow.cs", "C#", 61, 9, 32, 102
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\TileSelectPanel\ScrollTouchInput.cs", "C#", 48, 8, 27, 83
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\TileSelectPanel\TileSelectPanelScroll.cs", "C#", 81, 18, 48, 147
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\ToolTips\ToolTipArrow.cs", "C#", 26, 4, 9, 39
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\ToolTips\ToolTipFormatting.cs", "C#", 36, 87, 24, 147
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\ToolTips\ToolTipManager.cs", "C#", 91, 32, 53, 176
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\ToolTips\ToolTipSizing.cs", "C#", 4, 0, 7, 11
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\ToolTips\Types of ToolTips\CarbonToolTip.cs", "C#", 17, 0, 3, 20
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\ToolTips\Types of ToolTips\DePollutionToolTip.cs", "C#", 17, 0, 4, 21
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\ToolTips\Types of ToolTips\EmployeesRequiredToolTip.cs", "C#", 17, 0, 3, 20
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\ToolTips\Types of ToolTips\MaxCarbonCaptureToolTip.cs", "C#", 15, 0, 3, 18
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\ToolTips\Types of ToolTips\MoneyToolTip.cs", "C#", 17, 0, 3, 20
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\ToolTips\Types of ToolTips\PeopleHousedToolTip.cs", "C#", 24, 1, 4, 29
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\ToolTips\Types of ToolTips\RoadConnectionsRequiredToolTip.cs", "C#", 16, 3, 5, 24
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\ToolTips\Types of ToolTips\RoadExplanationToolTip.cs", "C#", 11, 1, 3, 15
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\ToolTips\Types of ToolTips\ToolTipLabel.cs", "C#", 14, 2, 3, 19
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\ToolTips\Types of ToolTips\ToolTipType.cs", "C#", 26, 3, 8, 37
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\TutorialTips\ClickAndDragTutorialTip.cs", "C#", 37, 6, 13, 56
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\TutorialTips\ClickOnTileToSelectTutorialTip.cs", "C#", 30, 15, 10, 55
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\TutorialTips\ConnectHousesTutorialTip.cs", "C#", 33, 15, 17, 65
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\TutorialTips\ConnectedFactoriesTutorialTip.cs", "C#", 44, 11, 12, 67
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\TutorialTips\FadeChildGraphicsToTransparency.cs", "C#", 76, 8, 18, 102
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\TutorialTips\GrassUnderBuildingsTutorialTip.cs", "C#", 49, 7, 17, 73
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\TutorialTips\MoreAreaAvailableTutorialTip.cs", "C#", 36, 8, 14, 58
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\TutorialTips\NewAreaUnlockedTutorialTip.cs", "C#", 38, 8, 11, 57
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\TutorialTips\PeopleMakeMoneyTutorialTip.cs", "C#", 27, 7, 19, 53
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\TutorialTips\TreesRemoveCarbonTutorialTip.cs", "C#", 35, 7, 13, 55
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\TutorialTips\TutorialTip.cs", "C#", 57, 31, 30, 118
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\TutorialTips\TutorialTipGraphicsActivationManager.cs", "C#", 25, 5, 7, 37
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\TutorialTips\TutorialTipManager.cs", "C#", 85, 46, 42, 173
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\UIPopUpHideOnMouseOver.cs", "C#", 30, 7, 5, 42
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\UIPopUpMoveScript.cs", "C#", 19, 1, 5, 25
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\UIPopUpSize.cs", "C#", 31, 2, 9, 42
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\UIPopUps.cs", "C#", 85, 24, 29, 138
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\UnhideUIElement.cs", "C#", 66, 7, 26, 99
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\YearClockSpinner.cs", "C#", 15, 0, 7, 22
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\buttonScript.cs", "C#", 23, 2, 11, 36
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\dollarSignScript.cs", "C#", 19, 1, 6, 26
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\testTileSelectPanel.cs", "C#", 16, 0, 1, 17
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\UI Scripts\unableToPlaceTileUI.cs", "C#", 66, 33, 45, 144
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\[OUTDATED]UI Scripts\ContractExample.cs", "C#", 11, 1, 2, 14
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\[OUTDATED]UI Scripts\ContractInfoPannel.cs", "C#", 33, 3, 8, 44
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\[OUTDATED]UI Scripts\ProgressBar.cs", "C#", 46, 12, 14, 72
+"c:\Users\grayj\Documents\Unity projects\CCUS Backup Restore\CCUS\CCUS-Unity-restore\Assets\Scripts\creativeModeScript.cs", "C#", 56, 17, 23, 96
+"Total", "-", 8824, 3082, 3525, 15431

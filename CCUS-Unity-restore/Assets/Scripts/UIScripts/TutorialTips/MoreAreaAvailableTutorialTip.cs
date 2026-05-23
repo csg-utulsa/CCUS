@@ -1,0 +1,57 @@
+using UnityEngine;
+
+//Alerts the player if there is more area available, after they have bought the first area, if they haven't looked at it yet
+public class MoreAreaAvailableTutorialTip : TutorialTip
+{
+    private bool chunkTwoHasBeenLookedAt = false;
+
+    //Constructor passes values to base class
+    public MoreAreaAvailableTutorialTip(int _tutorialTipTextID, TutorialTipManager _TTM, float _timeToWaitBeforeActivating, float _timeToWaitBeforeDeactivating) : base(_tutorialTipTextID, _TTM, _timeToWaitBeforeActivating, _timeToWaitBeforeDeactivating){
+        
+        
+    }
+
+    public override void InitializeThisTutorialTip(){
+        //Checks if tip should be activated every time a new tile is purchased
+        GameEventManager.current.GetEvent(EventType.E.PurchasedCurrentGroundChunk).AddListener(CheckIfTipShouldBeActivated);
+
+        //Checks if tip should be deactivated every time the current ground chunk is switched
+        GameEventManager.current.GetEvent(EventType.E.SwitchedCurrentGroundChunk).AddListener(CheckIfTipShouldBeDeactivated);
+    }
+
+    public void CheckIfTipShouldBeActivated(){
+        //Checks if the second unlockable chunk has been unlocked
+        if(ChunkOfIndexIsViewable(2) && !ChunkTwoHasBeenLookedAt()){
+            ActivateTutorialTip();
+        }
+    }
+
+    //Deactivates tip if the second chunk is being looked at
+    public void CheckIfTipShouldBeDeactivated(){
+        if(ChunkTwoHasBeenLookedAt()){
+            DeactivateTutorialTip();
+        }
+    }
+
+    //Checks if the chunk of the given index is viewable
+    private bool ChunkOfIndexIsViewable(int indexNum){
+        GroundAreaExpansion chunkManager = GroundAreaExpansion.GAE;
+        if(indexNum <= chunkManager.NumberOfGroundChunks - 1){
+            return true;
+        }
+        return false;
+    }
+
+    //Checks if the chunk at a given index has been looked at
+    private bool ChunkTwoHasBeenLookedAt(){
+        if(chunkTwoHasBeenLookedAt) return true;
+        if(GroundAreaExpansion.GAE.ActiveGroundChunk == 2){
+            chunkTwoHasBeenLookedAt = true;
+            return true;
+        }
+        return false;
+    }
+
+
+
+}
