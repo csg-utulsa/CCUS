@@ -1,4 +1,6 @@
 # Clean World 
+<img width="1542" height="868" alt="image" src="https://github.com/user-attachments/assets/fbb3b086-2899-4493-b1bf-dd53241b0976" />
+
 ![Untitled CCUS Project ](https://raw.githubusercontent.com/csg-utulsa/CCUS/refs/heads/main/Documentation/imgs/csg-ccus-game.png)
 
 ## Project Summary 
