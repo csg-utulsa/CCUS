@@ -4,7 +4,7 @@
 <br>
 
 ## Project Overview 
-**Clean World** is an educational game designed to teach fifth-graders about **carbon emissions** through building a environmentally friendly **miniature world**. It was created by **[Computer Simulation & Gaming (CSG)](https://github.com/csg-utulsa)** majors at the University of Tulsa. 
+**Clean World** is an educational game designed to teach fifth-graders about **carbon emissions** through building an environmentally friendly **miniature world**. It was created by **[Computer Simulation & Gaming (CSG)](https://github.com/csg-utulsa)** majors at the University of Tulsa. 
 
 > \
 > Clean World is freely available on itch.io. <big>[**Play it Now!**](https://csgutulsa.itch.io/ccus-game)</big>
