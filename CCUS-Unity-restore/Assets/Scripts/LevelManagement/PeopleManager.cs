@@ -48,7 +48,7 @@ public class PeopleManager : MonoBehaviour
     
 
     void Start(){
-        TickManager.TM.MoneyTick.AddListener(OnMoneyTick);
+        //TickManager.TM.MoneyTick.AddListener(OnMoneyTick);
         if(current == null){
             current = this;
         }
@@ -56,10 +56,6 @@ public class PeopleManager : MonoBehaviour
         //Redistributes employees every time a workplace tile is placed or destroyed & every time a building's activation state changes
         GameEventManager.current.GetEvent(EventType.E.NumOfWorkPlaceTilesChanged).AddListener(RedistributeEmployees);
         GameEventManager.current.GetEvent(EventType.E.ActivatableTileJustPlaced).AddListener(RedistributeEmployees);
-    }
-
-    void OnMoneyTick(){
-        //LevelManager.LM.AdjustMoney(NumberOfPeople * incomeOfPerson);
     }
     
 
@@ -77,17 +73,6 @@ public class PeopleManager : MonoBehaviour
     //Called from Tile when a residential tile is activated or deactivated. It updates the max number of people.
     public void AdjustMaxPeople(int _maxPeopleIncrement){
 
-        // int _maxPeople = 0;
-        // Tile[] residentialTiles = TileTypeCounter.current.ResidenceTileTracker.GetAllTiles();
-        // foreach(Tile tile in residentialTiles){
-            
-        //     if(tile is ResidentialBuilding residence){
-        //         if(residence.IsActivated){
-        //             _maxPeople += residence.gameObject.GetComponent<Tile>().tileScriptableObject.MaxPeople;
-        //         }
-                
-        //     }
-        // }
         maxPeople += _maxPeopleIncrement;
 
         if(NumberOfPeople > maxPeople){
@@ -99,8 +84,6 @@ public class PeopleManager : MonoBehaviour
 
         //Distributes employees to all of the workplaces
         RedistributeEmployees();
-
-        //UpdateNumberOfEmployees();
         
     }
 

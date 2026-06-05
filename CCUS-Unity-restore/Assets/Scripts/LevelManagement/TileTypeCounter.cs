@@ -1,5 +1,7 @@
 /* 
-*   Description: Keeps track of each tile of a certain type.
+*   Description: Keeps track of each tile of a certain type. By default, the tile trackers only track all the
+*                tiles on the current chunk, but that can be overridden, and they can track all the tiles of the
+*                given type across all chunks, if boolean resetThisTileOnChunkSwitch is overriden to return false.
 *
 *   How it works: It relies on a class called "TileTracker" (Attached to bottom of file).
 *       For each type of tile it wants to track, you can create a new class that inherits from TileTracker.
@@ -130,12 +132,12 @@ public class TileTypeCounter : MonoBehaviour
         }
     }
 
-    public void ClearTileTrackers(){
-        //Clears the previous list of tile trackers
-        foreach(TileTracker tileTracker in TileTrackers){
-            tileTracker.ClearAllTiles();
-        }
-    }
+    // public void ClearTileTrackers(){
+    //     //Clears the previous list of tile trackers
+    //     foreach(TileTracker tileTracker in TileTrackers){
+    //         tileTracker.ClearAllTiles();
+    //     }
+    // }
 
     public Tile[] GetAllActivatedBuildings(){
         Tile[] activatableBuildings = TileTypeCounter.current.ActivatableBuildingTileTracker.GetAllTiles();

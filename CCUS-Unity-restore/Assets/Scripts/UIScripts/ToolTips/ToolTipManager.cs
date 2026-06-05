@@ -1,10 +1,12 @@
 /*
 *   To add a new tool tip type:
 *       1) Create a the new tool tip object and make it a Child of the ToolTipContainer, under the ToolTipManager object
-*       2) Create a new script that inherits from ToolTipType and add it to Assets/Scripts/UIScripts/ToolTips/TypesOfToolTips
+*       2) Create a new script that inherits from ToolTipType and add it to Assets/Scripts/UIScripts/ToolTips/TypesOfToolTips.
+*               a) Attach that script to the new tool tip object you created in step 1.
 *       3) In that script, create override functions for ShouldEnableToolTip() and EnableToolTip(), which dictate for which
 *          types of tiles that tool tip should appear and what that tool tip should say when enabled.
 *               a) Pro-tip: copy them from the MoneyToolTip script and edit as needed
+*       4) Create a new entry in the ToolTipManager's allToolTips array. Drag the tool tip you just created into the slot
 *
 *
 *   To rearrange order the different tool tip elements appear in, IN THE INSPECTOR, rearrange their order in the allToopTips

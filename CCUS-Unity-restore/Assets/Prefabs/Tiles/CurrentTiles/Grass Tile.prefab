@@ -42,7 +42,6 @@ GameObject:
   - component: {fileID: 6203246308946112634}
   - component: {fileID: 2154673011187031006}
   - component: {fileID: 1371662022690659152}
-  - component: {fileID: 6122866199507768389}
   - component: {fileID: 7179006374254638101}
   - component: {fileID: 36975342046767057}
   - component: {fileID: 7494702538914327106}
@@ -87,7 +86,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileType: 0
   tileScriptableObject: {fileID: 11400000, guid: a54fa51cf27e90549be15d1bc33ef758, type: 2}
-  po: {fileID: 6122866199507768389}
+  po: {fileID: 0}
   state: 0
   tilePosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1371662022690659152
@@ -102,25 +101,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 480fc467e75e6a948834fb8a0bd1104b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  placed: 0
   overRide: 0
   overlapObject: {fileID: 0}
   overlapTerrain: {fileID: 0}
   tileMaterialHandler: {fileID: 0}
---- !u!114 &6122866199507768389
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6203246308946112635}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 445f4295ac6be4d4dabf7acaa5ef0524, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  placed: 0
-  Vertices: []
-  tile: {fileID: 2154673011187031006}
 --- !u!65 &7179006374254638101
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -208,6 +193,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce3764c97c203b348a50729f3571814f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TileMeshLoader
+  tileChildrenObjects: []
+  activatedChildrenObjects: []
 --- !u!1001 &2164353554004521867
 PrefabInstance:
   m_ObjectHideFlags: 0

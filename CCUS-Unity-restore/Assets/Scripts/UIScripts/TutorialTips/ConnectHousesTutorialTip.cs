@@ -6,7 +6,9 @@ using System.Collections;
 public class ConnectHousesTutorialTip : TutorialTip
 {
     //Constructor passes values to base class
-    public ConnectHousesTutorialTip(int _tutorialTipTextID, TutorialTipManager _TTM, float _timeToWaitBeforeActivating, float _timeToWaitBeforeDeactivating) : base(_tutorialTipTextID, _TTM, _timeToWaitBeforeActivating, _timeToWaitBeforeDeactivating){
+    public ConnectHousesTutorialTip(int _tutorialTipTextID, TutorialTipManager _TTM,
+        float _timeToWaitBeforeActivating, float _timeToWaitBeforeDeactivating)
+        : base(_tutorialTipTextID, _TTM, _timeToWaitBeforeActivating, _timeToWaitBeforeDeactivating){
         
     }
 
@@ -18,9 +20,6 @@ public class ConnectHousesTutorialTip : TutorialTip
         GameEventManager.current.GetEvent(EventType.E.TileJustPlaced).AddListener(CheckIfTipShouldBeActivated); 
     }
     
-    
-
-
     public void CheckIfTipShouldBeActivated(){
         if(!HousesAreConnected()){
             ActivateTutorialTip();
@@ -48,17 +47,6 @@ public class ConnectHousesTutorialTip : TutorialTip
         return houseIsConnected;
     }
 
-    //Checks if the unlock houses progress event has occurred
-    // private bool HousesAreUnlocked(){
-    //     if(ProgressionManager.PM.progressEventHasOccurred[(int)ProgressionManager.ProgressEventType.HouseAndRoadUnlocked]){
-    //         return true;
-    //     }else{
-    //         return true;
-    //     }
-    // }
-
 }
-
-
 
 

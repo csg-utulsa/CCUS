@@ -72,7 +72,7 @@ public class ConnectedTileHandler : MonoBehaviour
     {
         //Debug.Log("TEMP: " +tempNeighbor.neighbor);
         //Debug.Log(neighborGO[0]+" "+neighborGO[1]+" "+neighborGO[2]+" "+neighborGO[3]);
-        if ((tempNeighbor.neighbor != null) && (tempNeighbor.neighbor.GetComponent<PlaceableObject>().placed))
+        if ((tempNeighbor.neighbor != null) && (tempNeighbor.neighbor.GetComponent<ObjectDrag>().placed))
         {
 
             AddNeighbor(tempNeighbor.direction, tempNeighbor.neighbor);
@@ -119,7 +119,7 @@ public class ConnectedTileHandler : MonoBehaviour
     }
     public void AddNeighbor(AdjacencyFlag direction, GameObject neighbor)
     {
-        if (!neighbor.GetComponent<PlaceableObject>().placed)
+        if (!neighbor.GetComponent<ObjectDrag>().placed)
         {
             AddTempNeighbor(direction, neighbor);
         }

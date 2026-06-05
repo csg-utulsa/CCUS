@@ -7,7 +7,7 @@ using System.Collections;
 public class GroundAreaExpansion : MonoBehaviour
 {
 
-
+    
     
     public static GroundAreaExpansion GAE;
     public GameObject camera;
@@ -25,45 +25,32 @@ public class GroundAreaExpansion : MonoBehaviour
         get{
             return maxNumberOfChunks;
         }
+        set{
+            maxNumberOfChunks = value;
+        }
     }
     [SerializeField] private int maxNumberOfChunks = 7;
-    [SerializeField] private int widthOfGrid = 10;
+    [SerializeField] public int widthOfGrid = 10;
     [SerializeField] private int distanceBetweenGroundChunks = 3;
 
     public int ActiveGroundChunk {get; set;} = 0;
     public int NumberOfGroundChunks { get; set; } = 1;
 
-    //Returns how many chunks are purchased at the moment
-    // public int NumberOfPurchasedChunks{
-    //     get{
-    //         if(ChunkPurchaseManager.current != null){
-    //             int numOfPurchasedChunks = ChunkPurchaseManager.current
-    //             foreach(bool isPurchased in ChunkPurchaseManager)
-
-    //         } else{
-    //             Debug.LogError("Chunk purchase manager . current is null");
-    //             return NumberOfGroundChunks;
-
-    //         }
-            
-            
-    //     }
-    // }
-
 
     private bool isSwitchingGroundChunks = false;
-    
 
-    void Start(){
+    void Awake(){
         if(GAE == null){
             GAE = this;
         } else{
             Destroy(this);
         }
+    }
+    
 
-        cameraStartPosition = camera.transform.position;
-
+    void Start(){
         
+        cameraStartPosition = camera.transform.position;
 
         //Adds all the ground chunks currently in the scene
         GameObject[] allGroundChunksInScene = GameObject.FindGameObjectsWithTag("Ground");
@@ -77,14 +64,10 @@ public class GroundAreaExpansion : MonoBehaviour
 
 
         for(int i = 0; i < allGroundChunksInScene.Length; i++){
-            //allGroundChunks.Add(allGroundChunksInScene[i]);
 
             //Saves position of each ground chunk
             positionsOfGroundChunks.Add(allGroundChunksInScene[i].transform.position);
 
-
-            //Creates a new Grid Chunk Data Unit for each ground chunk
-            //GridDataLoader.current.CreateNewGridChunk();
         }
         NumberOfGroundChunks = positionsOfGroundChunks.Count;
     }
@@ -106,12 +89,9 @@ public class GroundAreaExpansion : MonoBehaviour
         //Creates a new ground chunk object to the right
         Vector3 currentFarRightChunk = positionsOfGroundChunks[positionsOfGroundChunks.Count - 1];
         Vector3 positionOfNewGroundChunk = new Vector3(currentFarRightChunk.x + widthOfGrid + distanceBetweenGroundChunks, currentFarRightChunk.y, currentFarRightChunk.z + widthOfGrid + distanceBetweenGroundChunks);
-        // if(groundChunkPrefab != null)
-        //     allGroundChunks.Add(Instantiate(groundChunkPrefab, positionOfNewGroundChunk, Quaternion.identity));
+
         NumberOfGroundChunks++;
 
-        //Adds a new Ground Chunk Data Object
-        //GridDataLoader.current.CreateNewGridChunk();
 
         //Saves position of ground chunk
         positionsOfGroundChunks.Add(positionOfNewGroundChunk);
@@ -161,7 +141,7 @@ public class GroundAreaExpansion : MonoBehaviour
 
     }
 
-    public void SwitchToGroundChunk(int targetGroundChunk){
+    private void SwitchToGroundChunk(int targetGroundChunk){
 
         
 
@@ -188,9 +168,6 @@ public class GroundAreaExpansion : MonoBehaviour
         //Visually Loads the new chunk
         TileMeshLoadManager.current.LoadGridChunk(targetGroundChunk);
 
-        //Load new chunk (also switches grid manager center)
-        //GridDataLoader.current.SwitchToGridChunk(targetGroundChunk, positionsOfGroundChunks[targetGroundChunk], timeToSwitchChunks);
-
         //Calls event for whether the chunk is switched to the left or the right
         if(isSwitchingLeft){
            GameEventManager.current.GetEvent(EventType.E.BeginSwitchingChunkLeft).Invoke(); 
@@ -205,7 +182,7 @@ public class GroundAreaExpansion : MonoBehaviour
         StartCoroutine(WaitToFinishSwitchingChunks(previousGroundChunk));
     }
 
-    public IEnumerator WaitToFinishSwitchingChunks(int previousGroundChunk) {
+    private IEnumerator WaitToFinishSwitchingChunks(int previousGroundChunk) {
         yield return new WaitForSeconds(timeToSwitchChunks);
         isSwitchingGroundChunks = false;
         Destroy(previousVisibleGround);

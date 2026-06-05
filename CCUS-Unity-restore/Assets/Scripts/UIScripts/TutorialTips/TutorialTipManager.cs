@@ -152,7 +152,7 @@ public class TutorialTipManager : MonoBehaviour
         }
     }
 
-    public void ActivateTutorialTipBelow(){
+    private void ActivateTutorialTipBelow(){
 
         if(!backgroundActivator.IsVisible){
             //Calls event to alert game that a new tutorial tip has appeared

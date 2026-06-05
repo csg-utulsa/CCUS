@@ -21,7 +21,7 @@ public class RoadConnections : MonoBehaviour
     public int correctModelRotations = 90;
 
 
-    //Lists all possible arrangements of neighbors around a tile, with a 1 representing a neighbors
+    //Lists all possible arrangements of neighbors around a tile, with a 1 representing a neighbor
     //the first one is the top, the next one is the right, the next one is the bottom, and the last is the left
     public int[] neighborAlignments = new int[]{
         0000,
@@ -91,16 +91,6 @@ public class RoadConnections : MonoBehaviour
         UpdateModelConnections(false);
     }
 
-    // //This method displays if this road is connecting two or more residences
-    // public void activateConnectedRoad(){
-    //     if(activationGraphic != null)
-    //         activationGraphic.SetActive(true);
-    // }
-    // //This method displays if this road is NOT connecting two or more residences
-    // public void deactivateConnectedRoad(){
-    //     if(activationGraphic != null)
-    //         activationGraphic.SetActive(false);
-    // }
 
     //This method switches side "i" of a tile, which is either side 0, 1, 2, or 3, to the opposite side.
     public int flipTileSide(int initialSide){
@@ -156,16 +146,6 @@ public class RoadConnections : MonoBehaviour
         if(previousModel == null || previousOrientation != newOrientation || newModel != previousModel){
             GetComponentInChildren<MeshRenderer>(true).material = newModel;
             transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, (newOrientation * 90f) + correctModelRotations, transform.rotation.eulerAngles.z);
-            
-            // if(makeNeighborsCheckConnections){
-            //     //This is mostly a duplicate of code from UpdateNeighborConnections, but partially rewriting it here
-            //     //is more efficient for the system, since we don't have to call GridManager's GetRoadNeighbors() again.
-            //     foreach(GameObject _neighbor in neighborGameObjects){
-            //         if(_neighbor != null && _neighbor.GetComponent<RoadConnections>() != null){
-            //             _neighbor.GetComponent<RoadConnections>().UpdateModelConnections(false);
-            //         }    
-            //     }
-            // }
             
         }
 

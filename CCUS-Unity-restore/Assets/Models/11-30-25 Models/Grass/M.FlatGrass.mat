@@ -120,7 +120,7 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0, g: 0.72199994, b: 0.5027539, a: 1}
+    - _BaseColor: {r: 0.11931815, g: 0.7, b: 0.5210227, a: 1}
     - _Base_Color: {r: 0, g: 0, b: 0, a: 0.34509805}
     - _Color: {r: 0, g: 0.71, b: 0.49446425, a: 1}
     - _DitherVector: {r: 1, g: 0, b: 0, a: 0}

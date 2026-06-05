@@ -64,7 +64,7 @@ public class ToolTipFormatting : MonoBehaviour
 
     }
 
-    public void SpaceToolTipItems(RectTransform[] toolTipItems){
+    private void SpaceToolTipItems(RectTransform[] toolTipItems){
         float xPosition = MiddleOfToolTipBackground.anchoredPosition.x;
 
 
@@ -94,7 +94,7 @@ public class ToolTipFormatting : MonoBehaviour
     }
 
     //Sets tool tip background formatting
-    public void SetToolTipSize(float totalHeight){
+    private void SetToolTipSize(float totalHeight){
 
 
         //Sets height of tool tip background

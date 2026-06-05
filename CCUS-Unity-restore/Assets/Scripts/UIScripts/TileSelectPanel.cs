@@ -98,10 +98,11 @@ public class TileSelectPanel : MonoBehaviour
         updateButtonPositions();
         CheckPlaceabilityOfTiles();
 
-        TickManager.TM.EndOfMoneyAndPollutionTicks.AddListener(EndOfTicks);
-        GameEventManager.current.GetEvent(EventType.E.MoneyAmountUpdated).AddListener(MoneyAmountUpdated);
-        GameEventManager.current.GetEvent(EventType.E.PersonJustAdded).AddListener(PersonAdded);
-        GameEventManager.current.GetEvent(EventType.E.SwitchedCurrentGroundChunk).AddListener(SwitchedArea);
+        TickManager.TM.EndOfMoneyAndPollutionTicks.AddListener(CheckPlaceabilityOfTiles);
+        GameEventManager.current.GetEvent(EventType.E.MoneyAmountUpdated).AddListener(CheckPlaceabilityOfTiles);
+        GameEventManager.current.GetEvent(EventType.E.PersonJustAdded).AddListener(CheckPlaceabilityOfTiles);
+        GameEventManager.current.GetEvent(EventType.E.SwitchedCurrentGroundChunk).AddListener(CheckPlaceabilityOfTiles);
+        GameEventManager.current.GetEvent(EventType.E.TileJustPlaced).AddListener(CheckPlaceabilityOfTiles);
     }
 
 
@@ -146,26 +147,6 @@ public class TileSelectPanel : MonoBehaviour
                 Debug.LogError("None of the tile Buttons are for the prefab you're trying to turn off the button for.");
             }
         }
-    }
-
-    //Runs at the end of each money and pollution tick
-    private void EndOfTicks(){
-        CheckPlaceabilityOfTiles();
-    }
-
-    //Runs whenever the amount of money has been changed
-    private void MoneyAmountUpdated(){
-        CheckPlaceabilityOfTiles();
-    }
-
-    //Runs whenever a new person is added
-    private void PersonAdded(){
-        CheckPlaceabilityOfTiles();
-    }
-
-    //Runs whenever an area is switched
-    private void SwitchedArea(){
-        CheckPlaceabilityOfTiles();
     }
 
     public void CheckPlaceabilityOfTiles(){

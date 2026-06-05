@@ -29,10 +29,10 @@ public class ResourcePanelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(yearText != null)
-        {
-            yearText.text = "Year: " + dm.GetYear().ToString();
-        }
+        // if(yearText != null)
+        // {
+        //     yearText.text = "Year: " + dm.GetYear().ToString();
+        // }
 
 
         // if(dm.GetMoney() > previousMoney){

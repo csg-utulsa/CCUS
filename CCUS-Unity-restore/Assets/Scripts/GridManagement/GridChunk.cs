@@ -247,6 +247,8 @@ public class GridChunk
 
     #region Set Functions
 
+    //Next two functions are unused
+
     public void AddTileToChunk(Tile tile){
         allTilesOnChunk.Add(tile);
     }

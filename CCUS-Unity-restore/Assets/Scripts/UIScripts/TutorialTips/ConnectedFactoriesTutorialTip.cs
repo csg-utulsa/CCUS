@@ -8,8 +8,6 @@ public class ConnectedFactoriesTutorialTip : TutorialTip
     
     //Constructor passes values to base class
     public ConnectedFactoriesTutorialTip(int _tutorialTipTextID, TutorialTipManager _TTM, float _timeToWaitBeforeActivating, float _timeToWaitBeforeDeactivating) : base(_tutorialTipTextID, _TTM, _timeToWaitBeforeActivating, _timeToWaitBeforeDeactivating){
-        
-        
     }
 
     public override void InitializeThisTutorialTip(){

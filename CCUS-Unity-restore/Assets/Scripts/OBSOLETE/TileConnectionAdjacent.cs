@@ -24,7 +24,7 @@ public class TileConnectionAdjacent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ((tempNeighbor != null) && (tempNeighbor.GetComponent<PlaceableObject>().placed))
+        if ((tempNeighbor != null) && (tempNeighbor.GetComponent<ObjectDrag>().placed))
         {
 
             AddNeighbor(tempNeighbor);
@@ -44,7 +44,7 @@ public class TileConnectionAdjacent : MonoBehaviour
     public void AddNeighbor( GameObject neighbor)
     {
         
-        if (!neighbor.GetComponent<PlaceableObject>().placed)
+        if (!neighbor.GetComponent<ObjectDrag>().placed)
         {
             tempNeighbor = neighbor;
         }

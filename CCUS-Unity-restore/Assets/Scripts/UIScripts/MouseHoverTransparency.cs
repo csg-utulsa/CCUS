@@ -35,50 +35,11 @@ public class MouseHoverTransparency : MonoBehaviour
             MouseMovedWorldPosition(snappedCoordinates);
             previousMouseWorldCoordinates = snappedCoordinates;
         }
-
-
-
-
-        if(!useRaycastingToFadeTilesUnderMouse){
-
-
-
-            
-        } else {
-            // newlyDeactivatedModels.Clear();
-
-        
-
-            // Vector3 currentMousePosition = BuildingSystem.GetMouseWorldPosition();
-            // AddModelsAtPointToDeactivationList(currentMousePosition, newlyDeactivatedModels);
-
-            // //Checks around point with a radius of radiusToDeactivate
-            // foreach(Vector3 point in GetCircleOfPointsAroundPoint(currentMousePosition, radiusToDeactivate)){
-                
-            //     AddModelsAtPointToDeactivationList(point, newlyDeactivatedModels);
-            // }
-
-            // //Activates models not being hovered over 
-            // foreach(GameObject model in deactivatedModels){
-            //     if(!newlyDeactivatedModels.Contains(model) && model != null){
-            //         EnableObject(model);
-            //     }
-            // }
-
-            // //Deactivates models being hovered over
-            // foreach(GameObject model in newlyDeactivatedModels){
-            //     if(model != null)
-            //         DisableObject(model);
-            // }
-
-            // deactivatedModels.Clear();
-            // deactivatedModels.AddRange(newlyDeactivatedModels);
-        }
         
 
     }
 
-    public void MouseMovedWorldPosition(Vector3 snappedCoordinates){
+    private void MouseMovedWorldPosition(Vector3 snappedCoordinates){
         newlyDeactivatedModels.Clear();
         newlyDeactivatedUIPopUps.Clear();
 
@@ -137,7 +98,7 @@ public class MouseHoverTransparency : MonoBehaviour
     }
 
     //Returns an array of gameobjects that designates which tiles should be hidden
-    public GameObject[] GetNeighborsForTileTransparency(Vector3 coordinatesOfThisCell){
+    private GameObject[] GetNeighborsForTileTransparency(Vector3 coordinatesOfThisCell){
         List<GameObject> tileTransparencyNeighbors = new List<GameObject>();
 
         //Adds the model directly under the mouse
@@ -164,7 +125,7 @@ public class MouseHoverTransparency : MonoBehaviour
     }
 
     //Returns an array of gameobjects that designates which tiles' UI Pop Ups should be hidden
-    public GameObject[] GetNeighborsForUIPopUpTransparency(Vector3 coordinatesOfThisCell){
+    private GameObject[] GetNeighborsForUIPopUpTransparency(Vector3 coordinatesOfThisCell){
         List<GameObject> UIPopUpsTransparencyNeighbors = new List<GameObject>();
 
         //Gets coordinates of the cell directly below the cell that the mouse is on top of
@@ -199,7 +160,7 @@ public class MouseHoverTransparency : MonoBehaviour
         return UIPopUpsTransparencyNeighbors.ToArray();
     }
 
-    public void DisableObject(GameObject tile){
+    private void DisableObject(GameObject tile){
         //Debug.Log("disabling " + tile);
         //tile.SetActive(false);
         MouseHoverHideTile mouseHoverHideTile = tile.GetComponent<MouseHoverHideTile>();
@@ -207,7 +168,7 @@ public class MouseHoverTransparency : MonoBehaviour
             mouseHoverHideTile.HideTile(hoverTransparency);
         }
     }
-    public void EnableObject(GameObject tile){
+    private void EnableObject(GameObject tile){
         //tile.SetActive(true);
         MouseHoverHideTile mouseHoverHideTile = tile.GetComponent<MouseHoverHideTile>();
         if(mouseHoverHideTile != null){
@@ -215,20 +176,20 @@ public class MouseHoverTransparency : MonoBehaviour
         }
     }
 
-    public void DisableUIPopUp(GameObject tile){
+    private void DisableUIPopUp(GameObject tile){
         MouseHoverHideTile tileHider = tile.GetComponent<MouseHoverHideTile>();
         if(tileHider != null){
             tileHider.HideTileUIPopUps(hoverTransparencyOfUIPopUps);
         }
     }
-    public void EnableUIPopUp(GameObject tile){
+    private void EnableUIPopUp(GameObject tile){
         MouseHoverHideTile tileHider = tile.GetComponent<MouseHoverHideTile>();
         if(tileHider != null){
             tileHider.UnHideTileUIPopUps();
         }
     }
 
-    public void AddNewlyDeactivatedModel(GameObject tile){
+    private void AddNewlyDeactivatedModel(GameObject tile){
         if(ShouldDeactivateModel(tile)){
             newlyDeactivatedModels.Add(tile);
         } else{
@@ -267,13 +228,13 @@ public class MouseHoverTransparency : MonoBehaviour
     // }
 
     //Only disables models of tiles that are placed, aren't terrain, and don't have the delete box over them
-    public bool ShouldDeactivateModel(GameObject model){
+    private bool ShouldDeactivateModel(GameObject model){
 
         Tile modelTile = model.GetComponent<Tile>();
         
         if(modelTile == null) return false;
 
-        if(!model.GetComponent<PlaceableObject>().placed) return false;
+        if(!model.GetComponent<ObjectDrag>().placed) return false;
 
         //Only Deactivates terrain tiles if it's under the mouse and another terrain tile is selected by the Building System
         if(modelTile.tileScriptableObject.isTerrain){

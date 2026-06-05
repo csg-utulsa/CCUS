@@ -30,3 +30,6 @@ SoundID, Description, Sound File Name, Sound Effect Is Enabled (1 or 0), Event T
 00031,Switch to the right area chunk,SwitchAreaLtR,1,BeginSwitchingChunkRight,0,none
 00032,A sapling has been placed,SaplingPlacement,1,PlaceSapling,0,none
 00033,Clicked on the switch area arrows,MouseSelection,1,BeginSwitchingCurrentGroundChunk,0,none
+00034,A Developer just enabled cheats,NotificationDing,1,CheatsEnabled,0,none
+00035,A Developer just enabled cheats - extra sound for emphasis,PurchaseArea,1,CheatsEnabled,0,none
+00036,A Developer just enabled cheats - another extra sound for emphasis,LargeBuildingPlacement,1,CheatsEnabled,0,none

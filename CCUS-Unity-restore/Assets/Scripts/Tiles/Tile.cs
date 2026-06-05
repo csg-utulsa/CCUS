@@ -48,27 +48,6 @@ public class Tile : MonoBehaviour
     }
 
 
-
-    //private bool accountedForNetContribution = false;
-
-
-    // void Start(){
-    //     //Saves the tile coordinates of this tile
-    //     // Debug.Log("Script start tile called");
-    //     // if(state == TileState.Static){
-    //     //     tilePosition = BuildingSystem.current.SnapCoordinateToGrid(transform.position);
-    //     //     //Adds this object to the GridManager's database of all current tiles
-    //     //     Debug.Log("Added tile from Start of Tile Script");
-    //     //     GridManager.GM.AddObject(this.gameObject);// "Tile Script of this tile: " + this.gameObject);
-
-    //     //     //Adds annual income and annual carbon for tiles that are placed when the game starts
-    //     //     setInitialIncomeAndCarbon();
-            
-            
-    //     // }
-        
-    // }
-
     public void setInitialIncomeAndCarbon(){
         if(tileScriptableObject != null){
             currentTileNetMoney =  tileScriptableObject.AnnualIncome;
@@ -99,23 +78,6 @@ public class Tile : MonoBehaviour
         } else{
             return false;
         }
-        // Vector3 mouseWorldPosition = BuildingSystem.GetMouseWorldPosition();
-        // if(GridManager.GM.GetGridCellFromWorldPoint(mouseWorldPosition) == gridCell){
-        //     return true;
-            
-        // }else{
-        //     return false;
-        // }
-    }
-
-    //Visually disables workplaces when there's not enough employees
-    // public virtual void SetIsEnoughResourcesToFunction(bool _enoughResources){
-    //     enoughResourcesToFunction = _enoughResources;
-    //     SetTileVisuallyActive(_enoughResources);
-    // }
-
-    //Switches tile to visually inactive state
-    public virtual void UpdateIsTileVisuallyActive(){
 
     }
 
@@ -187,6 +149,8 @@ public class Tile : MonoBehaviour
         }
 
         GameEventManager.current.GetEvent(EventType.E.TileJustPlaced).Invoke();
+
+        CallSpecialPlacementEvent();
 
         
 
@@ -261,32 +225,25 @@ public class Tile : MonoBehaviour
     public void DeleteThisTile(){
         //Refunds cost of tile when tile deleted
         LevelManager.LM.AdjustMoney(tileScriptableObject.BuildCost);
-        
 
-        //Updates neighboring road connections and deletes the gameObject
-        GetComponent<ObjectDrag>().DestroyTile();
+        ThisTileAboutToBeDestroyed();
 
-        //moved these to DestroyTile() function of ObjectDrag
-        // //Updates road connections of neighbors
-        // if(GetComponent<RoadConnections>() != null){
-        //     GetComponent<RoadConnections>().UpdateNeighborConnections();
-        // }else{
-        //     UpdateTileNeighborConnections();
-        // }
+        GameEventManager.current.GetEvent(EventType.E.TileJustDestroyed).Invoke();
 
-        // Destroy(gameObject);
+        Destroy(gameObject);
+
     }
 
     //Updates the road connection graphics of any surrounding roads
-    public void UpdateTileNeighborConnections(){
-        GameObject[] neighborGameObjects = RoadAndResidenceConnectionManager.current.GetRoadNeighbors(gameObject);
-        for(int i = 0; i < neighborGameObjects.Length; i++){
-            GameObject _neighbor = neighborGameObjects[i];
-            if(_neighbor != null && _neighbor.GetComponent<RoadConnections>() != null){
-                _neighbor.GetComponent<RoadConnections>().UpdateModelConnections(false);
-            }    
-        }
-    }
+    // public void UpdateTileNeighborConnections(){
+    //     GameObject[] neighborGameObjects = RoadAndResidenceConnectionManager.current.GetRoadNeighbors(gameObject);
+    //     for(int i = 0; i < neighborGameObjects.Length; i++){
+    //         GameObject _neighbor = neighborGameObjects[i];
+    //         if(_neighbor != null && _neighbor.GetComponent<RoadConnections>() != null){
+    //             _neighbor.GetComponent<RoadConnections>().UpdateModelConnections(false);
+    //         }    
+    //     }
+    // }
 
     public bool EnoughEmployeesToPlace(){
         if(PeopleManager.current != null){
@@ -332,48 +289,11 @@ public class Tile : MonoBehaviour
         }
     }
 
-    // private void Update()
-    // {
-    //     if (menuOpen) CheckForInput();
-    // }
 
-    // I disabled moving objects after the fact ~Coleton
-    /*private void OnMouseDown()
-    {
-        if (!menuOpen)
-            OpenMenu();
-        else
-            CloseMenu();
-    }*/
 
     #endregion
 
 
-    #region Menu Methods
-
-    private void OpenMenu()
-    {
-        // We eventually want to hook this up to the a UI
-        menuOpen = true;
-    }
-
-    private void CloseMenu()
-    {
-        menuOpen = false;
-    }
-
-    private void BeginDrag()
-    {
-
-        po.Pickup();
-    }
-
-    private void EndDrag()
-    {
-        po.Place();
-    }
-
-    #endregion
 
 public TileType GetTileType()
     {

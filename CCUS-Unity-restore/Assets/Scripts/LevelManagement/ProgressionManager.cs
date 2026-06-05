@@ -32,12 +32,11 @@ public class ProgressionManager : MonoBehaviour
         The final input is the Delay Until Excecution, which tells the program how long to wait to excecute the
         action after the condition is met.
 
-        ALSO BE SURE TO UPDATE the enum ProgressEventType WHEN YOU ADD A NEW PROGRESS EVENT.
     */
     public ProgressEvent[] progressEvents => new ProgressEvent[]{
 
         //DO NOT DELETE A PROGRESS EVENT
-        // Several other bits of code are dependant on their exact position in the array.
+        // Unfortunately, several other bits of code are dependant on their exact position in the array. (My bad)
         // If you need to add a new one, add it to the end of the array.
         // If you need to disable one, replace the first parameter with "() => false"
         // If you need to rearrange them, just also rearrange the enum ProgressEventType
@@ -72,17 +71,6 @@ public class ProgressionManager : MonoBehaviour
         //Event 9: Unlocks the mega apartments after the 4th area is unlocked && Ups max carbon to 5000
         new ProgressEvent(() => ChunkPurchaseManager.current.NumberOfPurchasedChunks >= 3, () => {TileSelectPanel.TSP.AddButton(buttons[9]); LevelManager.LM.setMaxCarbon(5000);}, 10f),
 
-        //Event 10: Unlocks the Nuclear Power Plant after the third new area is unlocked
-        //new ProgressEvent(() => ChunkPurchaseManager.current.NumberOfPurchasedChunks >= 3, () => {TileSelectPanel.TSP.AddButton(buttons[10]);}, 10f),
-
-        
-        
-        //Event 8: Adds the house and road the first time you place a tile.
-        //new ProgressEvent(() => GridManager.GM.AtLeastOneTileIsOnChunk(), () => {TileSelectPanel.TSP.AddButton(buttons[2]); TileSelectPanel.TSP.AddButton(buttons[7]);}, 5.5f),
-
-        //Event 2: Adds Roads when you fix the maxed out carbon the first time
-        //new ProgressEvent(() => progressEventHasOccurred[1] && !LevelManager.overMaxCarbon(), () => {TileSelectPanel.TSP.AddButton(buttons[2]);}, 3f),
-    
         
     };
 
@@ -96,7 +84,6 @@ public class ProgressionManager : MonoBehaviour
         NewGroundUnlocked,
         UnlockWindTurbines,
         EnabledCarbonDial,
-        //HouseAndRoadUnlocked
         
     }
 
@@ -104,6 +91,7 @@ public class ProgressionManager : MonoBehaviour
     
     void Start(){
         
+        //Assigns the singleton
         if(PM == null){
             PM = this;
         } else{

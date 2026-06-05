@@ -308,12 +308,9 @@ GameObject:
   - component: {fileID: 8859714510574772770}
   - component: {fileID: -8977135763208068888}
   - component: {fileID: 8026660272149806273}
-  - component: {fileID: 7532892136959826067}
   - component: {fileID: 2169967218846739974}
   - component: {fileID: 8935935631449693007}
-  - component: {fileID: -5747758757886434098}
   - component: {fileID: 7082364293375485206}
-  - component: {fileID: 3159399386138731229}
   - component: {fileID: -5673078184589007693}
   - component: {fileID: 4611590156351438732}
   m_Layer: 0
@@ -357,7 +354,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WindTurbineTile
   tileType: 1
   tileScriptableObject: {fileID: 11400000, guid: 2e47352ac8fde7045b9df090ddf7f5d9, type: 2}
-  po: {fileID: 7532892136959826067}
+  po: {fileID: 0}
   state: 0
   tilePosition: {x: 0, y: 0, z: 0}
   buildingActivatedGraphic: {fileID: 0}
@@ -373,25 +370,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 480fc467e75e6a948834fb8a0bd1104b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  placed: 0
   overRide: 0
   overlapObject: {fileID: 0}
   overlapTerrain: {fileID: 0}
   tileMaterialHandler: {fileID: 0}
---- !u!114 &7532892136959826067
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9171035400571233729}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 445f4295ac6be4d4dabf7acaa5ef0524, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  placed: 0
-  Vertices: []
-  tile: {fileID: -8977135763208068888}
 --- !u!65 &2169967218846739974
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -440,24 +423,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-5747758757886434098
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9171035400571233729}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72d8cb75f4ebf5c47958539f888fac70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  modelObjectTransform: {fileID: 0}
-  rotationLocked: 0
-  scaleLocked: 0
-  squareRotation: 1
-  scaleMin: 0.75
-  scaleMax: 1.25
 --- !u!114 &7082364293375485206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -470,26 +435,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bce17a9110adcc439bb188c35b4ff50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3159399386138731229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9171035400571233729}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11ef500f045088c4dbac90fff211c63c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  neighborGO:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  connected: 0
-  checkedConnectivity: 0
-  canvas: {fileID: 3166937364804318959}
 --- !u!114 &-5673078184589007693
 MonoBehaviour:
   m_ObjectHideFlags: 0

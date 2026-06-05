@@ -8,9 +8,11 @@ public class RoadTile : ActivatableTile
         //visually updates road connections
         if(GetComponent<RoadConnections>() != null){
             GetComponent<RoadConnections>().UpdateModelConnections(true);
-        } else{
-            UpdateTileNeighborConnections();
-        }
+        } 
+        
+        // else{
+        //     //UpdateTileNeighborConnections();
+        // }
 
         base.ThisTileJustPlaced();
 
@@ -22,9 +24,10 @@ public class RoadTile : ActivatableTile
         //Updates visual road connections (not activations) of neighbors
         if(GetComponent<RoadConnections>() != null){
             GetComponent<RoadConnections>().UpdateNeighborConnections();
-        }else{
-            UpdateTileNeighborConnections();
         }
+        // else{
+        //     UpdateTileNeighborConnections();
+        // }
 
     }
 

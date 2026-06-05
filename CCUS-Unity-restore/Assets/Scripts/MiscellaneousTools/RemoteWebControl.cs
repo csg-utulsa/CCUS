@@ -82,7 +82,7 @@ public class RemoteWebControl : MonoBehaviour
 
     public void EnactWebCommands(){
         if(enableCheats){
-            creativeModeScript.current.allowCreativeMode = true;
+            creativeModeScript.current.allowCheats = true;
         }
     }
 

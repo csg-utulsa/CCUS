@@ -50,67 +50,29 @@ public class RoadAndResidenceConnectionManager : MonoBehaviour
                     connectedTile.SetRoadConnection(false);
                 }
             }
-            // List<int> TilesCheckedAlready = new List<int>();
-            // List<GameObject> ConnectedRoads = new List<GameObject>(); 
-            // List<GameObject> ConnectedResidences = new List<GameObject>(); 
-            // //Goes through each of roads connected to this road. Returns true if it's connected to an activatable building
-            // bool connectedTwoResidences = RecursivelyCheckTileConnections(objectToCheck, ConnectedRoads, ConnectedResidences, TilesCheckedAlready);
-
-            // //Activates/Deactivates the attached roads depending on if they connect two activatable buildings.
-            // if(connectedTwoResidences){
-            //     foreach(GameObject connectedRoad in ConnectedRoads){
-            //         //Activate Road
-            //         if(connectedRoad.GetComponent<RoadTile>() != null){
-            //             //Debug.Log("ACTIVATED A ROAD");
-            //             connectedRoad.GetComponent<RoadTile>().ActivateBuilding();
-            //         }
-            //     }
-            //     foreach(GameObject connectedResidence in ConnectedResidences){
-            //         //Activate activatable building
-            //         if(connectedResidence.GetComponent<ActivatableBuilding>() != null){
-            //             //Debug.Log("ACTIVATED A RESIDENCE");
-            //             connectedResidence.GetComponent<ActivatableBuilding>().ActivateBuilding();
-            //         }
-            //     }
-            // } else{
-            //     //Deactivates roads and activatable buildings
-            //     foreach(GameObject connectedRoad in ConnectedRoads){
-            //         //Deactivate Road
-            //         if(connectedRoad.GetComponent<RoadTile>() != null){
-            //             //Debug.Log("ACTIVATED A ROAD");
-            //             connectedRoad.GetComponent<RoadTile>().DeactivateBuilding();
-            //         }
-            //     }
-            //     foreach(GameObject connectedResidence in ConnectedResidences){
-            //         //Deactivate activatablel building
-            //         if(connectedResidence.GetComponent<ActivatableBuilding>() != null){
-            //             //Debug.Log("DEACTIVATED A RESIDENCE");
-            //             connectedResidence.GetComponent<ActivatableBuilding>().DeactivateBuilding();
-            //         }
-            //     }
-            // }
-
+            
         }
     }
 
+    //OBSOLETE
     //Used when loading chunks to activate building connections
-    public void LoadResidenceConnections(GameObject objectToCheck){
+    // public void LoadResidenceConnections(GameObject objectToCheck){
 
-        if(objectToCheck != null && (objectToCheck.GetComponent<RoadConnections>() != null || objectToCheck.GetComponent<ActivatableBuilding>() != null)){
-            List<ActivatableTile> connectedTiles = new List<ActivatableTile>();
-            bool connectedTwoTiles = GetTilesToActivateOrDeactivate(objectToCheck, connectedTiles);
-            if(connectedTwoTiles){
-                foreach(ActivatableTile connectedTile in connectedTiles){
-                    connectedTile.LoadActivatedBuilding();
-                }
-            }else{
-                foreach(ActivatableTile connectedTile in connectedTiles){
-                    connectedTile.LoadDeactivatedBuilding();
-                }
-            }
+    //     if(objectToCheck != null && (objectToCheck.GetComponent<RoadConnections>() != null || objectToCheck.GetComponent<ActivatableBuilding>() != null)){
+    //         List<ActivatableTile> connectedTiles = new List<ActivatableTile>();
+    //         bool connectedTwoTiles = GetTilesToActivateOrDeactivate(objectToCheck, connectedTiles);
+    //         if(connectedTwoTiles){
+    //             foreach(ActivatableTile connectedTile in connectedTiles){
+    //                 connectedTile.LoadActivatedBuilding();
+    //             }
+    //         }else{
+    //             foreach(ActivatableTile connectedTile in connectedTiles){
+    //                 connectedTile.LoadDeactivatedBuilding();
+    //             }
+    //         }
 
-        }
-    }
+    //     }
+    // }
 
     public bool GetTilesToActivateOrDeactivate(GameObject tile, List<ActivatableTile> ConnectedTiles){
         if(tile != null && (tile.GetComponent<ActivatableTile>())){

@@ -33,8 +33,13 @@ public class tileFactoryEditor : EditorWindow
 
     public string newTileName = "Untitled Tile";
     public bool isResidence = false;
+    public bool isActivatable = false;
+    public bool mustConnectByRoads = false;
     public int moneyPerYear = 0;
     public int pollutionPerYear = 0;
+    public int housingCapacity = 0;
+    public int requiredEmployees = 0;
+    public int buildCost = 0;
     public bool isPolluter = false;
     public string newTileMeshFilePath;
     bool closeThisWindow = false;
@@ -106,7 +111,6 @@ public class tileFactoryEditor : EditorWindow
                 
             }
             
-            //GUILayout.Label("A Project I'm Unreasonably Happy About", subtextStyle, GUILayout.Width(300));
             GUILayout.EndArea(); //1
 
             //Print out the instructions
@@ -140,7 +144,17 @@ public class tileFactoryEditor : EditorWindow
 
             pollutionPerYear = EditorGUILayout.IntField("Pollution Per Year", pollutionPerYear);
 
+            housingCapacity = EditorGUILayout.IntField("Housing Capacity", housingCapacity);
+
+            requiredEmployees = EditorGUILayout.IntField("Required Number of Employees", requiredEmployees);
+            
+            buildCost = EditorGUILayout.IntField("Build Cost", buildCost);
+
             isResidence = EditorGUILayout.Toggle("Tile is a Residence", isResidence);
+
+            isActivatable = EditorGUILayout.Toggle("Tile can be Activated/Deactivated", isActivatable);
+
+            mustConnectByRoads = EditorGUILayout.Toggle("Must Connect With Roads", mustConnectByRoads);
 
             GUILayout.Label("");
             
@@ -195,6 +209,8 @@ public class tileFactoryEditor : EditorWindow
            //GUILayout.EndArea(); //2
         }
 
+
+        // Used when editing a tile's settings
         public void UpdatePrefabSettings(){
             
             if(editingTilePrefab == null){
@@ -220,35 +236,30 @@ public class tileFactoryEditor : EditorWindow
             Debug.Log("Updating Prefab Settings");
             if(newTileName != null) editingTilePrefab.name = newTileName;
             
-            if(isResidence && editingTilePrefab.GetComponent<ResidentialBuilding>() == null){
-                editingTilePrefab.AddComponent<ResidentialBuilding>();
-            }else if(!isResidence && editingTilePrefab.GetComponent<ResidentialBuilding>() != null){
-                ResidentialBuilding residentialBuildingScript = editingTilePrefab.GetComponent<ResidentialBuilding>();
-                Destroy(residentialBuildingScript);
-            }
+            // if(isResidence && editingTilePrefab.GetComponent<ResidentialBuilding>() == null){
+            //     editingTilePrefab.AddComponent<ResidentialBuilding>();
+            // }else if(!isResidence && editingTilePrefab.GetComponent<ResidentialBuilding>() != null){
+            //     ResidentialBuilding residentialBuildingScript = editingTilePrefab.GetComponent<ResidentialBuilding>();
+            //     Destroy(residentialBuildingScript);
+            // }
             
             if(editingTilePrefab.GetComponent<Tile>().tileScriptableObject != null){
                 TileScriptableObject tileScriptableObject = editingTilePrefab.GetComponent<Tile>().tileScriptableObject;
                 if(newTileName != null){
                     tileScriptableObject.Name = newTileName;
-                    Debug.Log("Updated tile scriptable object.name");
+                    Debug.Log("Updated " + newTileName);
                 }
                 
-                if(pollutionPerYear != null) tileScriptableObject.AnnualCarbonAdded = pollutionPerYear;
-                if(moneyPerYear != null) tileScriptableObject.AnnualIncome = moneyPerYear;
+                tileScriptableObject.AnnualCarbonAdded = pollutionPerYear;
+                tileScriptableObject.AnnualIncome = moneyPerYear;
+                tileScriptableObject.MaxPeople = housingCapacity;
                 tileScriptableObject.isResidence = isResidence;
+                tileScriptableObject.RequiredEmployees = requiredEmployees;
+                tileScriptableObject.BuildCost = buildCost;
+                tileScriptableObject.MustBeConnectedByRoads = mustConnectByRoads;
                 
-                //Here I find the Button Manager in Scene and loop through each button to assign a new image to the one with a matching scriptable object
-                // TileSelectPanel[] tileButtonManagerArray = FindObjectsOfType(typeof(TileSelectPanel)) as TileSelectPanel[];
-                // if(tileButtonManagerArray[0] != null){
-                //     buttonScript[] allButtonScripts = tileButtonManagerArray[0].GetComponentsInChildren<buttonScript>();
-                //     foreach(buttonScript _buttonScript in allButtonScripts){
-                //         if(_buttonScript.tileToPlace.GetComponent<Tile>().tileScriptableObject == tileScriptableObject){
-                //             _buttonScript.gameObject.GetComponent<UnityEngine.UI.Image>().sprite = buttonImage;
-                //         }
-                //     }
-                // }
-                if(getButtonWithScriptableObject(tileScriptableObject).GetComponent<UnityEngine.UI.Image>() != null){
+
+                if(getButtonWithScriptableObject(tileScriptableObject) != null && getButtonWithScriptableObject(tileScriptableObject).GetComponent<UnityEngine.UI.Image>() != null && buttonImage != null){
                     getButtonWithScriptableObject(tileScriptableObject).GetComponent<UnityEngine.UI.Image>().sprite = buttonImage;
                 }
                 
@@ -259,26 +270,7 @@ public class tileFactoryEditor : EditorWindow
 
         }
 
-        public static GameObject getButtonWithScriptableObject(TileScriptableObject tileScriptableObjectToFind){
-            //Here I find the Button Manager in Scene and loop through each button to find the one with a matching scriptable object
-            //TileSelectPanel[] tileButtonManagerArray = FindObjectsOfType(typeof(TileSelectPanel)) as TileSelectPanel[];
-            TileSelectPanel _tileButtonManager = getTileButtonManager();
-            if(_tileButtonManager != null){
-                buttonScript[] allButtonScripts = _tileButtonManager.GetComponentsInChildren<buttonScript>();
-                foreach(buttonScript _buttonScript in allButtonScripts){
-                    if(_buttonScript.tileToPlace.GetComponent<Tile>().tileScriptableObject == tileScriptableObjectToFind){
-                        return _buttonScript.gameObject;
-                    }
-                }
-            }
-            return null;
-        }
-
-        public static TileSelectPanel getTileButtonManager(){
-            TileSelectPanel[] tileButtonManagerArray = FindObjectsOfType(typeof(TileSelectPanel)) as TileSelectPanel[];
-            return tileButtonManagerArray[0];
-        }
-
+        // Used when creating a tile
         public bool CreateNewPrefab() {
             bool creationSuccess = true;
             if(isCreatingNewTile){
@@ -307,10 +299,7 @@ public class tileFactoryEditor : EditorWindow
                 Material[] materials = AssetDatabase.LoadAllAssetsAtPath(newTileMeshFilePath).Where(x => x.GetType() == typeof(Material)).Cast<Material>().ToArray();
                 newTilePrefab.GetComponentInChildren<MeshRenderer>().sharedMaterials = materials;
 
-                //Adds Residential Building script to residences
-                if(isResidence && editingTilePrefab.GetComponent<ResidentialBuilding>() == null){
-                    editingTilePrefab.AddComponent<ResidentialBuilding>();
-                }
+                
                 
 
 
@@ -365,7 +354,27 @@ public class tileFactoryEditor : EditorWindow
                 newScriptableObject.AnnualCarbonAdded = pollutionPerYear;
                 newScriptableObject.AnnualIncome = moneyPerYear;
                 newScriptableObject.isResidence = isResidence;
-                //newScriptableObject.MyButton = newButtonPrefab;
+                newScriptableObject.MaxPeople = housingCapacity;
+                newScriptableObject.RequiredEmployees = requiredEmployees;
+                newScriptableObject.BuildCost = buildCost;
+                newScriptableObject.MustBeConnectedByRoads = mustConnectByRoads;
+
+
+                //Determines what kind of Tile Script to put on Tile
+                if(isResidence || isActivatable){
+                    
+                    //Removes old tile script from tile
+                    Tile oldTileScript = newTilePrefab.GetComponentInChildren<Tile>();
+                    DestroyImmediate(oldTileScript, true);
+
+                    if(isResidence){
+                        newTilePrefab.AddComponent<ResidentialBuilding>();
+                    }else if(isActivatable){
+                        newTilePrefab.AddComponent<ActivatableBuilding>();
+                    } else{
+                        newTilePrefab.AddComponent<Tile>();
+                    }
+                }
                 
                 //Sets Scriptable Object Of New Object
                 newTilePrefab.GetComponentInChildren<Tile>().tileScriptableObject = newScriptableObject;
@@ -386,23 +395,27 @@ public class tileFactoryEditor : EditorWindow
 
         }
 
-    // public void CreateNewTile() {
-
-    //     EditorGUILayout.LabelField("Create a new tile:", EditorStyles.boldLabel);
-    //     GUILayout.Label("Fill out the fields below for the new tile");
-    //     GUILayout.Label("");
-    //     if(GUILayout.Button("Create a New Tile")) {
-    //         tileFactory.CreateTile();
-    //         //Editor.Repaint();
-    //     }
-    //     GUILayout.Label("");
-    //     GUILayout.Label("");
-
-    //     //DrawDefaultInspector();
         
-        
+        public static GameObject getButtonWithScriptableObject(TileScriptableObject tileScriptableObjectToFind){
+            //Here I find the Tile Select Panel in the scene and loop through each button to find the one with a matching scriptable object
+            TileSelectPanel _tileButtonManager = getTileButtonManager();
+            if(_tileButtonManager != null){
+                buttonScript[] allButtonScripts = _tileButtonManager.GetComponentsInChildren<buttonScript>();
+                foreach(buttonScript _buttonScript in allButtonScripts){
+                    if(_buttonScript.tileToPlace.GetComponent<Tile>().tileScriptableObject == tileScriptableObjectToFind){
+                        return _buttonScript.gameObject;
+                    }
+                }
+            }
+            return null;
+        }
 
-    // }
+        //Finds and returns the Tile Select Panel in the scene
+        public static TileSelectPanel getTileButtonManager(){
+            TileSelectPanel[] tileButtonManagerArray = FindObjectsOfType(typeof(TileSelectPanel)) as TileSelectPanel[];
+            return tileButtonManagerArray[0];
+        }
+
 
 
 }

@@ -44,8 +44,6 @@ public class unableToPlaceTileUI : MonoBehaviour
             }else{
                 inputTimeToShowGraphic = timesToShowGraphics[0];
             }
-            //Debug.Log("Calling Constructor");
-            //errorGraphicTimers[i] = new ErrorGraphicDisplayer(inputTimeToShowGraphic, inputErrorGraphic);
             errorGraphicTimers[i] = errorGraphics[i].AddComponent<ErrorGraphicDisplayer>();
             errorGraphicTimers[i].SetValues(inputTimeToShowGraphic, inputErrorGraphic);
         }
@@ -102,41 +100,6 @@ public class unableToPlaceTileUI : MonoBehaviour
     public void NewAreaUnlockedNotification(){
         errorGraphicTimers[9].DisplayErrorGraphic();
     }
-
-    void Update(){
-        
-        // //The next two if else structures time how long the graphics should be visible for
-        // if(carbonGraphicTimer > 0f){
-        //     _unableToPlaceTileUI.carbonGraphicTimer -= Time.deltaTime;
-        // } else {
-        //     _unableToPlaceTileUI.tooMuchCarbonGraphic.GetComponent<FadeGraphic>().beginFading();
-        //     //_unableToPlaceTileUI.tooMuchCarbonGraphic.SetActive(false);
-        // }
-
-        // if(moneyGraphicTimer > 0f){
-        //     _unableToPlaceTileUI.moneyGraphicTimer -= Time.deltaTime;
-        // } else {
-
-        //     _unableToPlaceTileUI.notEnoughMoneyGraphic.GetComponent<FadeGraphic>().beginFading();//.SetActive(false);
-        // }
-
-        // if(homesGraphicTimer > 0f){
-        //     _unableToPlaceTileUI.homesGraphicTimer -= Time.deltaTime;
-        // } else {
-
-        //     _unableToPlaceTileUI.notEnoughHomesGraphic.GetComponent<FadeGraphic>().beginFading();//.SetActive(false);
-        // }
-
-        // if(newTileGraphicTimer > 0f){
-        //     _unableToPlaceTileUI.newTileGraphicTimer -= Time.deltaTime;
-        // } else {
-
-        //     _unableToPlaceTileUI.newTileGraphic.GetComponent<FadeGraphic>().beginFading();//.SetActive(false);
-        // }
-
-
-    }
-
 
 }
 

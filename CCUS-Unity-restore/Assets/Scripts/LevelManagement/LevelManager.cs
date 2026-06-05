@@ -24,7 +24,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] int startingCarbon;
     [SerializeField] int startingYear;
     [Header("Current Stats")]
-    public GameState levelState = GameState.Inactive;
+    //public GameState levelState = GameState.Inactive;
     [SerializeField] private int money;
     [SerializeField] int yearlyMoney;
     [SerializeField] int yearlyCarbon;
@@ -84,6 +84,9 @@ public class LevelManager : MonoBehaviour
         maxCarbon = _maxCarbon;
     }
 
+
+    // The next six functions keep track of the tiles with largest and smallest incomes & carbon production
+    // levels. They have an obscure use in determining what size the over-object UI pop ups should be.
     public float getCurrentMaxTileIncome(){
         return currentMaxTileIncome;
     }
@@ -107,6 +110,8 @@ public class LevelManager : MonoBehaviour
     public void setCurrentMinTileCarbon(float _currentMinTileCarbon){
         currentMinTileCarbon = _currentMinTileCarbon;
     }
+
+
     
     public void AdjustNetMoney(int _adjustNetMoney){
         NetMoney += _adjustNetMoney;
@@ -114,63 +119,13 @@ public class LevelManager : MonoBehaviour
 
     public void AdjustNetCarbon(int _adjustNetCarbon){
 
-        //The next chunk of code gets the lists of money & carbon producing tiles from the GridManager.
-        //Then it adds the net Money/Carbon from each of those tiles and adds them to its own count.
-        // Tile[] moneyTiles = TileTypeCounter.current.MoneyTileTracker.GetAllTiles();
-        // Tile[] carbonTiles = TileTypeCounter.current.CarbonTileTracker.GetAllTiles();
-        
-
-        // int _netMoney = 0;
-        // int _netCarbon = 0;
-
-        // foreach(Tile moneyTile in moneyTiles){
-        //     if(moneyTile.tileScriptableObject != null){
-        //         if(moneyTile is ActivatableTile activatableMoneyTile){
-        //             if(activatableMoneyTile.IsActivated){
-        //                 _netMoney += moneyTile.tileScriptableObject.AnnualIncome;
-        //             }
-        //         }else{
-        //             _netMoney += moneyTile.tileScriptableObject.AnnualIncome;
-        //         }
-        //     }
-            
-            
-        // }
-        // foreach(Tile carbonTile in carbonTiles){
-        //     if(carbonTile.tileScriptableObject != null){
-        //         if(carbonTile is ActivatableTile activatableCarbonTile){
-        //             if(activatableCarbonTile.IsActivated){
-        //                 _netCarbon += carbonTile.tileScriptableObject.AnnualCarbonAdded;
-        //             }
-        //         } else{
-        //             _netCarbon += carbonTile.tileScriptableObject.AnnualCarbonAdded;
-        //         }  
-        //     }
-            
-        // }
-
-        //Adds money created by the people
-        // if(PeopleManager.current != null){
-        //     _netMoney += PeopleManager.current.NetPeopleIncome;
-        // }
-
-        //NetCarbon = _netCarbon;
-
         NetCarbon += _adjustNetCarbon;
 
-        //These update the Net Money and Net Carbon counter texts
-        //NetMoneyCounter.NMC.UpdateNetMoneyCounter();
-        //NetCarbonCounter.NCC.UpdateNetCarbonCounter();
     }
 
     private void Awake()
     {
         LoadManager();
-        
-        //Tick = new UnityEvent();
-
-        levelState = GameState.Active;
-
         TickManager.TM.PollutionTick.AddListener(OnPollutionTick);
         TickManager.TM.MoneyTick.AddListener(OnMoneyTick);
     }
@@ -181,58 +136,23 @@ public class LevelManager : MonoBehaviour
         tileConnectionReset = new UnityEvent();
     }
 
-    private void Update()
-    {
-        #region Tick Timer
-        // if (levelState == GameState.Active)//time should only pass when the game is in an Active State
-        // {
-        //     timer += Time.deltaTime;
-        //     if (timer > secBetweenYears)
-        //     {
-        //         timer = 0;
-        //         Tick.Invoke();
-        //         IncrementYear();
-        //     }
-        // }
-        #endregion
-    }
-
-    public void OnMoneyTick(){
+    private void OnMoneyTick(){
         GetComponent<UIPopUps>().displayMoneyPopUps();
         AdjustMoney(NetMoney);
-        //StartCoroutine(endOfMoneyTick());
     }
-    // //Runs at the end of each money tick
-    // IEnumerator endOfMoneyTick(){
-    //     yield return null;
-    //     TileSelectPanel.TSP.checkPricesOfTiles(money);
-    // }
 
-    public void OnPollutionTick(){
+
+    private void OnPollutionTick(){
         AdjustCarbon(NetCarbon);
         GetComponent<UIPopUps>().displayCarbonPopUps();
-        //StartCoroutine(endOfPollutionTick());
     }
-    // //Runs at the end of each money tick
-    // IEnumerator endOfPollutionTick(){
-    //     yield return null;
-    //     if(carbon >= maxCarbon){
-    //         TileSelectPanel.TSP.disablePolluters();
-    //     } else {
-    //         TileSelectPanel.TSP.enablePolluters();
-    //     }
-        
-    // }
+
 
     public static bool overMaxCarbon(){
         return (LM.carbon >= LM.maxCarbon);
     }
 
 
-
-
-
-    #region Stat Get/Set/Adjust
     /// <summary>
     /// Sets the data values to their default values.
     /// </summary>
@@ -258,10 +178,6 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public void AdjustYearlyIncome(int moneyChange)
-    {
-        yearlyMoney += moneyChange;
-    }
     /// <summary>
     /// Increase or decrease the current simulation carbon presence. 
     /// Positive value adds, negative value subtracts.
@@ -286,59 +202,9 @@ public class LevelManager : MonoBehaviour
 
     }
 
-    /// <summary>
-    /// Increase or decrease the current simulation yearly carbon change. 
-    /// Positive value adds, negative value subtracts.
-    /// </summary>
-    /// <param name="value"></param>
-    public void AdjustYearlyCarbon(int value)
-    {
-        print("Carbon Yearly Update Called");
-        yearlyCarbon += value;
-    }
 
-    /// <summary>
-    /// Increase or decrease the current simulation carbon storage size. If decreased, release all carbon over capacity.
-    /// Positive value adds, negative value subtracts.
-    /// </summary>
-    /// <param name="value"></param>
-    public void AdjustStorageSize(int value)
-    {
-        //Temporarily disabled
-        // storageCapacity += value;
 
-        // // If storage size decreased, release over capacity carbon into the atmosphere
-        // if (stored > storageCapacity)
-        // {
-        //     AdjustCarbon(stored - storageCapacity);
-        //     SetStored(storageCapacity);
-        // }
-
-    }
-
-    /// <summary>
-    /// Increase or decrease the current amonut of carbon stored. If the amount of carbon added goes over the storage capacity, the carbon is released rather than 
-    /// stored. 
-    /// Positive value adds, negative value subtracts.
-    /// </summary>
-    /// <param name="value"></param>
-    public void AdjustStored(int value)
-    {
-        //Temporarily Disabled
-        // if (stored + value > storageCapacity)
-        // {
-        //     value = storageCapacity - stored;
-        //     SetStored(storageCapacity);
-        //     AdjustCarbon(value);
-        // }
-        // stored += value;
-
-        // if(stored <0) stored = 0;
-    }
-
-    /// <summary>
-    /// Increments the year counter by one.
-    /// </summary>
+    //Obsolete -- TODO: Remove eventually
     public void IncrementYear()
     {
         year++;
@@ -360,7 +226,10 @@ public class LevelManager : MonoBehaviour
     public void SetMoney(int _money){
         money = _money;
         GameEventManager.current.GetEvent(EventType.E.MoneyAmountUpdated).Invoke();
-        //TileSelectPanel.TSP.checkPricesOfTiles(GetMoney());
+    }
+
+    public void SetCarbon(int _carbon){
+        carbon = _carbon;
     }
 
     /// <summary>
@@ -372,49 +241,6 @@ public class LevelManager : MonoBehaviour
         return carbon;
     }
 
-    /// <summary>
-    /// Returns the current year of the simulation.
-    /// </summary>
-    /// <returns></returns>
-    public int GetYear()
-    {
-        return year;
-    }
-
-    /// <summary>
-    /// Returns the current amount of stored carbon of the simulation.
-    /// </summary>
-    /// <returns></returns>
-    public int GetStored()
-    {
-        return stored;
-    }
-
-    /// <summary>
-    /// Sets the current amount of stored carbon of the simulation.
-    /// </summary>
-    /// <returns></returns>
-    public void SetStored(int val)
-    {
-        stored = val;
-    }
-
-    /// <summary>
-    /// Sets GameState of current scene
-    /// </summary>
-    public void SetLevelState(GameState newState)
-    {
-        levelState = newState;
-    }
-    #endregion
-
-    public enum GameState {Active, Inactive, Pause, Lose, Win}
-}
-
-
-// Plan is to eventually make a priority queue for different requests. I.E. Processing all money requests, then carbon storage, then carbon additions, etc
-// This will also allow us to track what type of source these requests are made from, highly benefiting the contract system
-class ModifyRequest
-{
 
 }
+

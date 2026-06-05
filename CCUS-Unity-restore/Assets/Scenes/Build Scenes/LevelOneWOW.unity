@@ -3936,7 +3936,6 @@ MonoBehaviour:
   startingMoney: 300
   startingCarbon: 0
   startingYear: 2023
-  levelState: 1
   money: 0
   yearlyMoney: 0
   yearlyCarbon: 0
@@ -5711,10 +5710,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 928028214}
     m_Modifications:
-    - target: {fileID: 6122866199507768389, guid: 4904ce2ca989f0d4bb3a66f134d93767, type: 3}
-      propertyPath: placed
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6203246308946112634, guid: 4904ce2ca989f0d4bb3a66f134d93767, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.532018
@@ -5869,10 +5864,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 928028214}
     m_Modifications:
-    - target: {fileID: 6122866199507768389, guid: 4904ce2ca989f0d4bb3a66f134d93767, type: 3}
-      propertyPath: placed
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6203246308946112634, guid: 4904ce2ca989f0d4bb3a66f134d93767, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.481556
@@ -8630,10 +8621,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 928028214}
     m_Modifications:
-    - target: {fileID: 6122866199507768389, guid: 4904ce2ca989f0d4bb3a66f134d93767, type: 3}
-      propertyPath: placed
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6203246308946112634, guid: 4904ce2ca989f0d4bb3a66f134d93767, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.5315559
@@ -8874,10 +8861,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 928028214}
     m_Modifications:
-    - target: {fileID: 6122866199507768389, guid: 4904ce2ca989f0d4bb3a66f134d93767, type: 3}
-      propertyPath: placed
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6203246308946112634, guid: 4904ce2ca989f0d4bb3a66f134d93767, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.5315559
@@ -10273,10 +10256,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 928028214}
     m_Modifications:
-    - target: {fileID: 6122866199507768389, guid: 4904ce2ca989f0d4bb3a66f134d93767, type: 3}
-      propertyPath: placed
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6203246308946112634, guid: 4904ce2ca989f0d4bb3a66f134d93767, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.532018
@@ -10807,10 +10786,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 928028214}
     m_Modifications:
-    - target: {fileID: 6122866199507768389, guid: 4904ce2ca989f0d4bb3a66f134d93767, type: 3}
-      propertyPath: placed
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6203246308946112634, guid: 4904ce2ca989f0d4bb3a66f134d93767, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.498444
@@ -12296,7 +12271,7 @@ GameObject:
   - component: {fileID: 931881259}
   - component: {fileID: 931881260}
   m_Layer: 5
-  m_Name: Unable to Perform Action Error Graphics
+  m_Name: NotificationSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12374,10 +12349,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 928028214}
     m_Modifications:
-    - target: {fileID: 6122866199507768389, guid: 4904ce2ca989f0d4bb3a66f134d93767, type: 3}
-      propertyPath: placed
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6203246308946112634, guid: 4904ce2ca989f0d4bb3a66f134d93767, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.5015559
@@ -15850,7 +15821,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
-  m_ActiveFontFeatures: 00000000
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -17034,14 +17005,14 @@ RectTransform:
   m_GameObject: {fileID: 1286274881}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.09, y: 0.10285716, z: 0.09}
+  m_LocalScale: {x: 0.08, y: 0.09142858, z: 0.08}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 931881259}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 35.14, y: -11.13}
+  m_AnchoredPosition: {x: 35.14, y: -14.23}
   m_SizeDelta: {x: 327.0338, y: 325.54}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1286274883
@@ -19219,7 +19190,7 @@ GameObject:
   - component: {fileID: 1522759606}
   - component: {fileID: 1522759608}
   m_Layer: 0
-  m_Name: CreativeMode (delete in build) (activate with Tab+G)
+  m_Name: CreativeMode (Activate by typing milton)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19237,8 +19208,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3fdb93b5d3f31b439e86ea59c72030e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  allowCreativeMode: 1
+  allowCheats: 1
+  disableCheatsInBuild: 0
   gridVisualizer: {fileID: 1522759608}
+  cheatPassword: milton
 --- !u!4 &1522759607
 Transform:
   m_ObjectHideFlags: 0
@@ -21682,10 +21655,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 928028214}
     m_Modifications:
-    - target: {fileID: 6122866199507768389, guid: 4904ce2ca989f0d4bb3a66f134d93767, type: 3}
-      propertyPath: placed
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6203246308946112634, guid: 4904ce2ca989f0d4bb3a66f134d93767, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.501556
@@ -24550,10 +24519,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 928028214}
     m_Modifications:
-    - target: {fileID: 6122866199507768389, guid: 4904ce2ca989f0d4bb3a66f134d93767, type: 3}
-      propertyPath: placed
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6203246308946112634, guid: 4904ce2ca989f0d4bb3a66f134d93767, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.478444
@@ -24616,10 +24581,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 928028214}
     m_Modifications:
-    - target: {fileID: 6122866199507768389, guid: 4904ce2ca989f0d4bb3a66f134d93767, type: 3}
-      propertyPath: placed
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6203246308946112634, guid: 4904ce2ca989f0d4bb3a66f134d93767, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.5115559
@@ -24828,10 +24789,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 928028214}
     m_Modifications:
-    - target: {fileID: 6122866199507768389, guid: 4904ce2ca989f0d4bb3a66f134d93767, type: 3}
-      propertyPath: placed
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6203246308946112634, guid: 4904ce2ca989f0d4bb3a66f134d93767, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.498444
@@ -27721,9 +27678,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49fe743722b854841b9bdf7caf683eed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goal: 5
-  type: Carbon
-  checkBox: {fileID: 1883222660153243217}
 --- !u!1001 &3090736864570291176
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27928,9 +27882,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49fe743722b854841b9bdf7caf683eed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goal: 2050
-  type: Year
-  checkBox: {fileID: 1883222660693125329}
 --- !u!223 &4615860843800718910
 Canvas:
   m_ObjectHideFlags: 0
@@ -27984,9 +27935,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49fe743722b854841b9bdf7caf683eed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goal: 500
-  type: Money
-  checkBox: {fileID: 1883222660410956285}
 --- !u!4 &5147646972829208469
 Transform:
   m_ObjectHideFlags: 0

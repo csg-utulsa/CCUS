@@ -41,7 +41,9 @@ public class tilePrefabEditor : EditorWindow
             //Print the title area
             GUILayout.BeginArea(new Rect(150, 50, 500, 500)); // 1
             GUILayout.Label("     TILE EDITOR   ", titleStyle, GUILayout.Width(150));
-            GUILayout.Label("DO NOT USE AT THE MOMENT -- BREAKS STUFF A LITTLE", subtextStyle, GUILayout.Width(300));
+            GUILayout.Label("BE CAUTIOUS WHEN USING", subtextStyle, GUILayout.Width(300));
+            GUILayout.Label("IT CAN BREAK THINGS", subtextStyle, GUILayout.Width(300));
+            GUILayout.Label("");
             GUILayout.Label("Click On A Tile To Edit Its Properties", subtextStyle, GUILayout.Width(300));
             GUILayout.EndArea(); //
 
@@ -71,6 +73,10 @@ public class tilePrefabEditor : EditorWindow
                     if(tileScriptableObjects[i].AnnualCarbonAdded != null) tileEditorWindow.pollutionPerYear = tileScriptableObjects[i].AnnualCarbonAdded;
                     if(tileScriptableObjects[i].AnnualIncome != null) tileEditorWindow.moneyPerYear = tileScriptableObjects[i].AnnualIncome;
                     if(tileScriptableObjects[i].isResidence != null) tileEditorWindow.isResidence = tileScriptableObjects[i].isResidence;
+                    tileEditorWindow.housingCapacity = tileScriptableObjects[i].MaxPeople;
+                    tileEditorWindow.requiredEmployees = tileScriptableObjects[i].RequiredEmployees;
+                    tileEditorWindow.buildCost = tileScriptableObjects[i].BuildCost;
+                    tileEditorWindow.mustConnectByRoads = tileScriptableObjects[i].MustBeConnectedByRoads;
 
                     //Here I find the Button Manager in Scene and loop through each button to assign a new image to the one with a matching scriptable object
                     // TileSelectPanel[] tileButtonManagerArray = FindObjectsOfType(typeof(TileSelectPanel)) as TileSelectPanel[];
