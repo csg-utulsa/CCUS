@@ -19,4 +19,14 @@ public class WindTurbineTile : ActivatableTile
             propellers.IsSpinning = false;
         }
     }
+
+    public override void LoadVisualActivationState(){
+        base.LoadVisualActivationState();
+
+        SpinObject propellers = GetComponentInChildren<SpinObject>(true);
+        if(propellers != null){
+            propellers.IsSpinning = IsActivated;
+        }
+
+    }
 }

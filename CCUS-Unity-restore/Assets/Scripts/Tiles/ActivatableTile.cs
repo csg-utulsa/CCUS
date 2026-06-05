@@ -86,13 +86,14 @@ public class ActivatableTile : Tile
 
     public virtual void SetRoadConnection(bool connectedByRoads){
         IsConnectedByRoads = connectedByRoads;
+        //Debug.Log("Setting road connection");
         CheckTileForActivation();
 
     }
 
     //Checks if the tile should be activated & updates its activation
     public virtual void CheckTileForActivation(){
-
+        //Debug.Log("Checking tile for activation");
 
         //Activates itself depending on if it needs employees/has employees and if it needs roads/has road connections
         if((!RequiresRoadConnections || IsConnectedByRoads) && (!RequiresEmployees || HasEnoughEmployees)){
@@ -154,6 +155,16 @@ public class ActivatableTile : Tile
 
         IsActivated = false;
         
+    }
+
+    public virtual void LoadVisualActivationState(){
+        if(buildingActivatedGraphic != null){
+            if(IsActivated){
+                buildingActivatedGraphic.SetActive(true);
+            } else {
+                buildingActivatedGraphic.SetActive(false);
+            }
+        }
     }
 
 

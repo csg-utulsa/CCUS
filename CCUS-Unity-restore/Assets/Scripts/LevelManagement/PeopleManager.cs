@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class PeopleManager : MonoBehaviour
 {
     public static PeopleManager current;
+    public DisplayDisableFactoryPopUps disabledFactoryPopUps;
 
     
     public int numberOfPeople = 0;
@@ -106,9 +107,11 @@ public class PeopleManager : MonoBehaviour
         int employeesRemaining = NumberOfPeople;
 
         List<ActivatableTile> workplacesWithoutRoads = new List<ActivatableTile>();
+        List<ActivatableTile> workplacesWithoutEnoughEmployees = new List<ActivatableTile>();
 
         //Loops through each workplace tile
         foreach(Tile workplace in workplaceTiles){
+
 
             if(workplace is ActivatableTile activatableWorkplace){
 
@@ -125,11 +128,18 @@ public class PeopleManager : MonoBehaviour
 
                 }else{ //If there's not enough employees for it, gives it 0
 
+                    Debug.Log("Failed to give enough people");
                     //If the reason the workplace didn't get employees was because it wasn't connected by roads,
                     //then it gets a second chance at getting employees after all workplaces connected by roads
                     //get their employees. The ones without roads just have lowest priority.
                     if(!isConnectedByRoads){
+                        Debug.Log("Not connected to roads");
                         workplacesWithoutRoads.Add(activatableWorkplace);
+                    }
+
+                    if(neededEmployees > employeesRemaining){
+                        Debug.Log("Not enough employees");
+                        workplacesWithoutEnoughEmployees.Add(activatableWorkplace);
                     }
 
                     activatableWorkplace.CurrentEmployees = 0;
@@ -142,6 +152,7 @@ public class PeopleManager : MonoBehaviour
 
         }
 
+
         //Loops through each workplace tile that isn't connected by roads.
         //This means they have lower priority & only get whatever employees are left over.
         foreach(ActivatableTile workplace in workplacesWithoutRoads){
@@ -150,8 +161,17 @@ public class PeopleManager : MonoBehaviour
             if(neededEmployees <= employeesRemaining){
                 workplace.CurrentEmployees = neededEmployees;
                 employeesRemaining -= neededEmployees;
+            }else{
+                if(!workplacesWithoutEnoughEmployees.Contains(workplace)){
+                    workplacesWithoutEnoughEmployees.Add(workplace);
+                }
             }
         }
+
+        if(disabledFactoryPopUps != null){
+            disabledFactoryPopUps.DisplayNotEnoughPeoplePopUps(workplacesWithoutEnoughEmployees.ToArray());
+        }
+        
 
         
     }

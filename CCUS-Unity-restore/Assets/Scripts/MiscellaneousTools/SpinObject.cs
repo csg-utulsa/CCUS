@@ -3,12 +3,17 @@ using UnityEngine;
 public class SpinObject : MonoBehaviour
 {
     public bool IsSpinning {get; set;} = true;
+    private bool previouslySpinning = false;
     public bool rotateOnXAxis = false;
     float originalRotation;
+    Quaternion defaultRotation;
     public float speedToSpin = 200f;
     float myRotation = 0f;
 
-    void Start(){
+    void Awake(){
+
+        defaultRotation = transform.rotation;
+
         if(rotateOnXAxis){
             originalRotation = transform.eulerAngles.x;
         }else{
@@ -19,7 +24,16 @@ public class SpinObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!IsSpinning) return;
+        if(!IsSpinning){
+
+            transform.rotation = defaultRotation;
+
+            
+
+            return;
+        } else {
+            previouslySpinning = true;
+        }
 
         // myRotation += speedToSpin * Time.deltaTime;
         // if(myRotation >= 360f){

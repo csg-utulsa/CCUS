@@ -15165,6 +15165,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1149121169}
   - component: {fileID: 1149121170}
+  - component: {fileID: 1149121171}
   m_Layer: 0
   m_Name: PeopleManager
   m_TagString: Untagged
@@ -15199,10 +15200,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95c62978b20c4314e89f4d018459397f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  disabledFactoryPopUps: {fileID: 1149121171}
   numberOfPeople: 0
   numberOfEmployees: 0
   incomeOfPerson: 2
   peoplePanel: {fileID: 1176177090}
+--- !u!114 &1149121171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1149121167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44eb344d2d95ac840b2423f63a1845f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  notEnoughPeoplePopUp: {fileID: 3540711569078553969, guid: 55c369c03aea6c94eb282a814cd12286, type: 3}
+  heightAboveObject: 5
 --- !u!1 &1149874069 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8539130412815848100, guid: 8243673c2e907cf42ae4555d67c42f07, type: 3}

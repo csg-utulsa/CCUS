@@ -1,19 +1,33 @@
 //This script goes on tiles that become partially transparent when the mouse hovers over them
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class MouseHoverHideTile : MonoBehaviour
 {
     public bool fadeThisTilesTransparency = true;
+
+    public List<GameObject> CurrentUIPopUps = new List<GameObject>();
+
     private GameObject currentUIPopUp;
     public GameObject CurrentUIPopUp {
         get{
             return currentUIPopUp;
         }
         set{
+            
             currentUIPopUp = value;
+            if(value != null){
+                CurrentUIPopUps.Add(value);
+            } else{
+                UpdateUIPopUpsList();
+            }
+            
             SetVisibilityOfTileUIPopUp();
         }
     }
+    
+    
 
     private GameObject tileModel;
     private GameObject activatedTileGraphic;
@@ -125,22 +139,56 @@ public class MouseHoverHideTile : MonoBehaviour
             UnHideTileUIPopUps();
         }
     }
+
     public void HideTileUIPopUps(float hoverTransparencyOfUIPopUps){
         UIPopUpsAreHidden = true;
         popUpHiddenTransparency = hoverTransparencyOfUIPopUps;
-        if(CurrentUIPopUp == null) return;
-        UIPopUpHideOnMouseOver popUpHider = CurrentUIPopUp.GetComponent<UIPopUpHideOnMouseOver>();
-        if(popUpHider != null){
-            popUpHider.HidePopUp(hoverTransparencyOfUIPopUps);
+        UpdateUIPopUpsList();
+        if(CurrentUIPopUps.Count <= 0) return;
+
+        //Gets pop up hiders from each ui pop up
+        UIPopUpHideOnMouseOver[] popUpHiders = new UIPopUpHideOnMouseOver[CurrentUIPopUps.Count];
+        for(int i = 0; i < CurrentUIPopUps.Count; i++){
+            UIPopUpHideOnMouseOver popUpHider = CurrentUIPopUps[i].GetComponent<UIPopUpHideOnMouseOver>();
+            if(popUpHider != null){
+                popUpHiders[i] = popUpHider;
+            }
         }
+
+        //Hides each pop up
+        if(popUpHiders != null){
+            foreach(UIPopUpHideOnMouseOver popUpHider in popUpHiders){
+                popUpHider.HidePopUp(hoverTransparencyOfUIPopUps);
+            }
+        }
+
     }
+
     public void UnHideTileUIPopUps(){
         UIPopUpsAreHidden = false;
-        if(CurrentUIPopUp == null) return;
-        UIPopUpHideOnMouseOver popUpHider = CurrentUIPopUp.GetComponent<UIPopUpHideOnMouseOver>();
-        if(popUpHider != null){
-            popUpHider.UnHidePopUp();
+        UpdateUIPopUpsList();
+        if(CurrentUIPopUps.Count == 0) return;
+
+        //Gets pop up hiders from each ui pop up
+        UIPopUpHideOnMouseOver[] popUpHiders = new UIPopUpHideOnMouseOver[CurrentUIPopUps.Count];
+        for(int i = 0; i < CurrentUIPopUps.Count; i++){
+            UIPopUpHideOnMouseOver popUpHider = CurrentUIPopUps[i].GetComponent<UIPopUpHideOnMouseOver>();
+            if(popUpHider != null){
+                popUpHiders[i] = popUpHider;
+            }
         }
+
+        //Unhides each pop up
+        if(popUpHiders != null){
+            foreach(UIPopUpHideOnMouseOver popUpHider in popUpHiders){
+               popUpHider.UnHidePopUp(); 
+            }
+        }
+    }
+
+    //Removes pop ups that have been destroyed from list
+    private void UpdateUIPopUpsList(){
+        CurrentUIPopUps.RemoveAll(item => item == null);
     }
 
     public GameObject GetFirstActiveMeshRenderer(){

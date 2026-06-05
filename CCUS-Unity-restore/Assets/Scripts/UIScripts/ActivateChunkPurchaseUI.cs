@@ -38,9 +38,9 @@ public class ActivateChunkPurchaseUI : MonoBehaviour
     }
 
     private void BeganSwitchingGroundChunk(){
-        if(ChunkPurchaseManager.current.ActiveChunkIsPurchased){
+        //if(ChunkPurchaseManager.current.ActiveChunkIsPurchased){
             Deactivate();
-        }
+        //}
     }
 
     private void GroundChunkJustPurchased(){

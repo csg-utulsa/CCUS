@@ -57,7 +57,7 @@ public class UIPopUps : MonoBehaviour
         }
     }
 
-    //This function displays pop ups over the carbon generating pop ups.
+    //This function displays pop ups over the carbon generating tiles.
     public void displayCarbonPopUps(){
         Tile[] allGridObjects = GridManager.GM.GetAllTilesOnActiveChunk();
 
@@ -103,6 +103,7 @@ public class UIPopUps : MonoBehaviour
             
         }
     }
+
 
     //Returns the first child of a GameObject that has a given tag
     private GameObject FirstChildWithTag(GameObject parentToCheck, string tagToCheck){

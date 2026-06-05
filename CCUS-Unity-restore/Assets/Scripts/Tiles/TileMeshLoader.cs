@@ -50,6 +50,13 @@ public class TileMeshLoader : MonoBehaviour
                 
         }
 
+        // Ensures that if the tile's activation state changed while the chunk wasn't loaded,
+        // then it will have the correct visual activation state on load.
+        ActivatableTile activatableTile = GetComponent<ActivatableTile>();
+        if(activatableTile != null){
+            activatableTile.LoadVisualActivationState();
+        }
+
         isLoaded = true;
         
     }

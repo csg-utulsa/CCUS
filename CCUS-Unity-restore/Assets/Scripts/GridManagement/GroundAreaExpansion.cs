@@ -27,6 +27,16 @@ public class GroundAreaExpansion : MonoBehaviour
         }
         set{
             maxNumberOfChunks = value;
+
+            bool[] newPurchasedChunkArray = new bool[maxNumberOfChunks];
+
+            bool[] oldPurchasedChunks = ChunkPurchaseManager.current.purchasedChunks;
+
+            for(int i = 0; i < oldPurchasedChunks.Length && i < newPurchasedChunkArray.Length; i++){
+                newPurchasedChunkArray[i] = oldPurchasedChunks[i];
+            }
+
+            ChunkPurchaseManager.current.purchasedChunks = newPurchasedChunkArray;
         }
     }
     [SerializeField] private int maxNumberOfChunks = 7;
