@@ -19,8 +19,8 @@ public class GridManager : MonoBehaviour
 
     private int ActiveGridChunkIndex{
         get{
-            if(GroundAreaExpansion.GAE != null){
-                return GroundAreaExpansion.GAE.ActiveGroundChunk;
+            if(GroundAreaExpansion.current != null){
+                return GroundAreaExpansion.current.ActiveGroundChunk;
             } else{
                 return 0;
             }

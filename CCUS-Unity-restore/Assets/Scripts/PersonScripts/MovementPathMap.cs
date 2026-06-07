@@ -28,7 +28,7 @@ public class MovementPathMap : MonoBehaviour
     void Start(){
 
         //Fills 2D array with map tiles of type empty
-        widthOfGrid = GroundAreaExpansion.GAE.widthOfGrid;
+        widthOfGrid = GroundAreaExpansion.current.widthOfGrid;
 
         movementPathMap = new MapTileType[widthOfGrid][];
         for(int i = 0; i < widthOfGrid; i++){

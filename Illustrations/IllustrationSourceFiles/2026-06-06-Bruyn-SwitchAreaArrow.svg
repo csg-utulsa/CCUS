@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   sodipodi:docname="SwitchTilesArrow.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.68862935"
+     inkscape:cx="323.1056"
+     inkscape:cy="620.7984"
+     inkscape:window-width="1920"
+     inkscape:window-height="991"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1">
+    <inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect1"
+       is_visible="true"
+       lpeversion="1"
+       nodesatellites_param="F,0,0,1,0,7.6729165,0,1 @ F,0,0,1,0,7.6729165,0,1 @ F,0,0,1,0,7.6729165,0,1 @ F,0,0,1,0,7.6729165,0,1"
+       radius="29"
+       unit="px"
+       method="auto"
+       mode="F"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:#00bceb;fill-opacity:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+       d="M 104.54711,93.187077 H 88.090747 c -4.237634,0 -7.672915,3.435279 -7.672917,7.672913 v 39.26272 c -2e-6,4.23764 3.435281,7.67292 7.672917,7.67292 h 16.456363 z"
+       id="path2" />
+    <path
+       style="fill:#bbe9fe;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke;stroke:#00bceb;stroke-opacity:1;fill-opacity:1"
+       d="m 88.089844,91.462891 c -5.169896,0 -9.396482,4.226589 -9.396485,9.396489 v 39.26367 c -2e-6,5.1699 4.226588,9.39843 9.396485,9.39843 h 16.457036 a 1.7251775,1.7251775 0 0 0 1.7246,-1.72656 V 93.1875 a 1.7251775,1.7251775 0 0 0 -1.7246,-1.724609 z m 0,3.449218 H 102.82227 V 146.07031 H 88.089844 c -3.305375,0 -5.947267,-2.64188 -5.947266,-5.94726 v -39.26367 c 2e-6,-3.305378 2.641893,-5.947271 5.947266,-5.947271 z"
+       id="path3" />
+    <path
+       style="fill:#00bceb;fill-opacity:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+       d="M 105.0334,176.58535 H 88.577026 c -4.23763,0 -7.67292,3.43528 -7.67292,7.67291 v 39.26272 c 0,4.23764 3.43528,7.67292 7.67292,7.67292 H 105.0334 Z"
+       id="path2-8"
+       inkscape:export-filename="SwitchTilesArrows.png"
+       inkscape:export-xdpi="250"
+       inkscape:export-ydpi="250" />
+    <path
+       id="path4"
+       style="fill:#bbe9fe;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+       d="M 104.99979,174.86064 H 89.80072 c -5.169896,0 -9.396322,4.22643 -9.396325,9.39633 v 39.26375 c -2e-6,5.1699 4.226428,9.3984 9.396325,9.3984 h 15.19907 v -3.45147 H 89.80072 c -3.305375,0 -5.947441,-2.64155 -5.94744,-5.94693 v -39.26375 c 2e-6,-3.30537 3.108707,-5.94744 6.41408,-5.94744 h 14.73243 z"
+       sodipodi:nodetypes="cssssccsssscc" />
+    <path
+       id="path5"
+       style="fill:#00bceb;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+       d="M 104.99979 178.22943 A 0.50005 0.50005 0 0 0 104.53315 177.81034 L 89.80072 177.81034 C 86.228922 177.81034 83.353571 180.68621 83.353569 184.258 L 83.353569 223.52124 C 83.353568 227.09305 86.228923 229.96891 89.80072 229.96891 L 104.53315 229.96891 A 0.50005 0.50005 0 0 0 104.99979 229.54981 L 104.99979 178.22943 z M 89.80072 178.81079 L 104.03344 178.81079 L 104.03344 228.96897 L 89.80072 228.96897 C 86.761768 228.96897 84.353506 226.5602 84.353507 223.52124 L 84.353507 184.258 C 84.353508 181.21906 86.761772 178.81079 89.80072 178.81079 z " />
+    <path
+       id="path7"
+       style="fill:#00bceb;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+       d="M 104.99979 174.36145 L 89.80072 174.36145 C 84.358311 174.36145 79.90417 178.81559 79.904167 184.258 L 79.904167 223.52124 C 79.904165 228.96366 84.358185 233.41986 89.80072 233.41986 L 104.99979 233.41986 L 104.99979 232.41992 L 89.80072 232.41992 C 84.903461 232.41992 80.904104 228.41863 80.904106 223.52124 L 80.904106 184.258 C 80.904109 179.36061 84.903337 175.36139 89.80072 175.36139 L 104.99979 175.36139 L 104.99979 174.36145 z " />
+    <path
+       id="path6"
+       style="fill:#00bceb;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+       d="m 35.92493,188.2239 v 0.99994 h 1.25781 c 0.68224,2.3e-4 1.22451,0.54249 1.22473,1.22473 v 54.607 c 5.5e-4,0.6828 -0.54193,1.22657 -1.22473,1.2268 h -1.25781 v 0.99994 h 1.25781 c 1.22341,-4.1e-4 2.22565,-1.00489 2.22467,-2.22829 v -54.60545 a 0.50005,0.50005 0 0 0 0,-5.2e-4 0.50005,0.50005 0 0 0 0,-5.1e-4 0.50005,0.50005 0 0 0 0,-5.2e-4 0.50005,0.50005 0 0 0 0,-5.2e-4 c -4e-4,-1.22244 -1.00222,-2.22219 -2.22467,-2.2226 z" />
+    <path
+       id="path8"
+       style="fill:#ddf5ff;fill-opacity:1;stroke:none;stroke-width:0.720836;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;paint-order:markers fill stroke"
+       d="m 87.555055,190.04512 8.5308,13.84451 -8.5308,13.84425 h 5.818694 l 8.546501,-13.84425 -8.546501,-13.84451 z" />
+  </g>
+</svg>

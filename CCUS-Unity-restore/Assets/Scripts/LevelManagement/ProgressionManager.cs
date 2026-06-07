@@ -57,7 +57,7 @@ public class ProgressionManager : MonoBehaviour
         new ProgressEvent(() => ChunkPurchaseManager.current.NumberOfPurchasedChunks >= 2, () => {TileSelectPanel.TSP.AddButton(buttons[5]); LevelManager.LM.setMaxCarbon(1500);}, 10f),
 
         //Event 5: Unlocks The Ability To Buy New Area
-        new ProgressEvent(() => LevelManager.LM.NetMoney > 800 || LevelManager.LM.GetMoney() > 6000, () => {GroundAreaExpansion.GAE.AddGroundChunk();}, 0f),
+        new ProgressEvent(() => LevelManager.LM.NetMoney > 800 || LevelManager.LM.GetMoney() > 6000, () => {GroundAreaExpansion.current.AddGroundChunk();}, 0f),
 
         //Event 6: Unlock Wind Turbines when there's 4 purchased ground areas
         new ProgressEvent(() => ChunkPurchaseManager.current.NumberOfPurchasedChunks >= 4, () => {TileSelectPanel.TSP.AddButton(buttons[6]);}, 10f),

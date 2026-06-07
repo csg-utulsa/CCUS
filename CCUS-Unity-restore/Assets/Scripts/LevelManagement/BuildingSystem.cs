@@ -369,6 +369,11 @@ public class BuildingSystem : MonoBehaviour
         if (isObjectOverVoid()){
             return false;
         }
+
+        //Checks if it's currently in the process of switching areas
+        if(GroundAreaExpansion.current.IsSwitchingGroundChunks){
+            return false;
+        }
             
         //Checks if the active chunk is purchased
         if(!ChunkPurchaseManager.current.ActiveChunkIsPurchased){

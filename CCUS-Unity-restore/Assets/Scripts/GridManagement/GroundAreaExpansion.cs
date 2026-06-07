@@ -9,7 +9,7 @@ public class GroundAreaExpansion : MonoBehaviour
 
     
     
-    public static GroundAreaExpansion GAE;
+    public static GroundAreaExpansion current;
     public GameObject camera;
     public GameObject groundChunkPrefab;
     private Vector3 cameraStartPosition;
@@ -46,12 +46,16 @@ public class GroundAreaExpansion : MonoBehaviour
     public int ActiveGroundChunk {get; set;} = 0;
     public int NumberOfGroundChunks { get; set; } = 1;
 
-
+    public bool IsSwitchingGroundChunks{
+        get{
+            return isSwitchingGroundChunks;
+        }
+    }
     private bool isSwitchingGroundChunks = false;
 
     void Awake(){
-        if(GAE == null){
-            GAE = this;
+        if(current == null){
+            current = this;
         } else{
             Destroy(this);
         }

@@ -68,7 +68,7 @@ public class ChunkPurchaseManager : MonoBehaviour
     }
 
     public void EnableBuyingGroundChunks(){
-        GroundAreaExpansion.GAE.AddGroundChunk();
+        GroundAreaExpansion.current.AddGroundChunk();
     }
 
     public void PurchaseAvailableChunk(){

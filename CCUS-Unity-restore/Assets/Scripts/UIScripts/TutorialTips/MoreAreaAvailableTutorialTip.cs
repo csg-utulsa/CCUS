@@ -35,7 +35,7 @@ public class MoreAreaAvailableTutorialTip : TutorialTip
 
     //Checks if the chunk of the given index is viewable
     private bool ChunkOfIndexIsViewable(int indexNum){
-        GroundAreaExpansion chunkManager = GroundAreaExpansion.GAE;
+        GroundAreaExpansion chunkManager = GroundAreaExpansion.current;
         if(indexNum <= chunkManager.NumberOfGroundChunks - 1){
             return true;
         }
@@ -45,7 +45,7 @@ public class MoreAreaAvailableTutorialTip : TutorialTip
     //Checks if the chunk at a given index has been looked at
     private bool ChunkTwoHasBeenLookedAt(){
         if(chunkTwoHasBeenLookedAt) return true;
-        if(GroundAreaExpansion.GAE.ActiveGroundChunk == 2){
+        if(GroundAreaExpansion.current.ActiveGroundChunk == 2){
             chunkTwoHasBeenLookedAt = true;
             return true;
         }

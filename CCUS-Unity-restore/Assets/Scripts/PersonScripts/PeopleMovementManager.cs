@@ -163,7 +163,7 @@ public class PeopleMovementManager : MonoBehaviour
         }else{
             //If there's no activated buildings, sends the person to the point on the far left of the active chunk of the grid
             //Gets bottom left point on grid
-            int halfOfGridChunkSize = GroundAreaExpansion.GAE.widthOfGrid / 2;
+            int halfOfGridChunkSize = GroundAreaExpansion.current.widthOfGrid / 2;
             Vector2Int bottomLeftGridPoint = new Vector2Int(-halfOfGridChunkSize + 1, -halfOfGridChunkSize + 1);
             Vector3 bottomLeftWorldPoint = GridManager.GM.SwitchFromGridToWorldCoordinates(bottomLeftGridPoint);
             //Vector3 bottomLeftWorldPointShifted = new Vector3(bottomLeftWorldPoint.x + .5f, bottomLeftWorldPoint.y, bottomLeftWorldPoint.z + .5f);

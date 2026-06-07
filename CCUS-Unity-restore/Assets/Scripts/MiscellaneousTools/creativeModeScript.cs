@@ -119,11 +119,11 @@ public class creativeModeScript : MonoBehaviour
 
         //Increases the max number of ground areas by 1
         if(Input.GetKey(KeyCode.Tab) && Input.GetKeyDown(KeyCode.A)){
-            if(GroundAreaExpansion.GAE.NumberOfGroundChunks == GroundAreaExpansion.GAE.MaxNumberOfChunks){
-                GroundAreaExpansion.GAE.MaxNumberOfChunks++;
-                GroundAreaExpansion.GAE.AddGroundChunk();
+            if(GroundAreaExpansion.current.NumberOfGroundChunks == GroundAreaExpansion.current.MaxNumberOfChunks){
+                GroundAreaExpansion.current.MaxNumberOfChunks++;
+                GroundAreaExpansion.current.AddGroundChunk();
             }else{
-                GroundAreaExpansion.GAE.MaxNumberOfChunks++;
+                GroundAreaExpansion.current.MaxNumberOfChunks++;
             }
             
         }
